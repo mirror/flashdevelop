@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 AS3_ex.g3 2011-07-03 23:25:57
+// $ANTLR 3.1.1 AS3_ex.g3 2011-12-19 16:18:11
 
   using CodeFormatter.Handlers;
   using PluginCore.Managers;
@@ -2687,52 +2687,6 @@ public class AS3_exLexer : Lexer {
     }
     // $ANTLR end "ASSIGN"
 
-    // $ANTLR start "UNDERSCORE"
-    public void mUNDERSCORE() // throws RecognitionException [2]
-    {
-    		try
-    		{
-            int _type = UNDERSCORE;
-    	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:518:12: ( '_' )
-            // AS3_ex.g3:518:14: '_'
-            {
-            	Match('_'); if (state.failed) return ;
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally 
-    	{
-        }
-    }
-    // $ANTLR end "UNDERSCORE"
-
-    // $ANTLR start "DOLLAR"
-    public void mDOLLAR() // throws RecognitionException [2]
-    {
-    		try
-    		{
-            int _type = DOLLAR;
-    	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:519:8: ( '$' )
-            // AS3_ex.g3:519:10: '$'
-            {
-            	Match('$'); if (state.failed) return ;
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally 
-    	{
-        }
-    }
-    // $ANTLR end "DOLLAR"
-
     // $ANTLR start "DIV_ASSIGN"
     public void mDIV_ASSIGN() // throws RecognitionException [2]
     {
@@ -2740,8 +2694,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = DIV_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:520:12: ( '/=' )
-            // AS3_ex.g3:520:14: '/='
+            // AS3_ex.g3:518:12: ( '/=' )
+            // AS3_ex.g3:518:14: '/='
             {
             	Match("/="); if (state.failed) return ;
 
@@ -2764,8 +2718,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = MOD_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:521:12: ( '%=' )
-            // AS3_ex.g3:521:14: '%='
+            // AS3_ex.g3:519:12: ( '%=' )
+            // AS3_ex.g3:519:14: '%='
             {
             	Match("%="); if (state.failed) return ;
 
@@ -2788,8 +2742,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = ADD_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:522:12: ( '+=' )
-            // AS3_ex.g3:522:14: '+='
+            // AS3_ex.g3:520:12: ( '+=' )
+            // AS3_ex.g3:520:14: '+='
             {
             	Match("+="); if (state.failed) return ;
 
@@ -2812,8 +2766,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = SUB_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:523:12: ( '-=' )
-            // AS3_ex.g3:523:14: '-='
+            // AS3_ex.g3:521:12: ( '-=' )
+            // AS3_ex.g3:521:14: '-='
             {
             	Match("-="); if (state.failed) return ;
 
@@ -2836,8 +2790,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = SHL_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:524:12: ( '<<=' )
-            // AS3_ex.g3:524:14: '<<='
+            // AS3_ex.g3:522:12: ( '<<=' )
+            // AS3_ex.g3:522:14: '<<='
             {
             	Match("<<="); if (state.failed) return ;
 
@@ -2860,8 +2814,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = LAND_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:525:13: ( '&&=' )
-            // AS3_ex.g3:525:15: '&&='
+            // AS3_ex.g3:523:13: ( '&&=' )
+            // AS3_ex.g3:523:15: '&&='
             {
             	Match("&&="); if (state.failed) return ;
 
@@ -2884,8 +2838,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = LOR_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:526:12: ( '||=' )
-            // AS3_ex.g3:526:14: '||='
+            // AS3_ex.g3:524:12: ( '||=' )
+            // AS3_ex.g3:524:14: '||='
             {
             	Match("||="); if (state.failed) return ;
 
@@ -2908,8 +2862,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = AND_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:527:12: ( '&=' )
-            // AS3_ex.g3:527:14: '&='
+            // AS3_ex.g3:525:12: ( '&=' )
+            // AS3_ex.g3:525:14: '&='
             {
             	Match("&="); if (state.failed) return ;
 
@@ -2932,8 +2886,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XOR_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:528:12: ( '^=' )
-            // AS3_ex.g3:528:14: '^='
+            // AS3_ex.g3:526:12: ( '^=' )
+            // AS3_ex.g3:526:14: '^='
             {
             	Match("^="); if (state.failed) return ;
 
@@ -2956,8 +2910,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = OR_ASSIGN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:529:11: ( '|=' )
-            // AS3_ex.g3:529:13: '|='
+            // AS3_ex.g3:527:11: ( '|=' )
+            // AS3_ex.g3:527:13: '|='
             {
             	Match("|="); if (state.failed) return ;
 
@@ -2980,8 +2934,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = ELLIPSIS;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:530:10: ( '...' )
-            // AS3_ex.g3:530:12: '...'
+            // AS3_ex.g3:528:10: ( '...' )
+            // AS3_ex.g3:528:12: '...'
             {
             	Match("..."); if (state.failed) return ;
 
@@ -3004,8 +2958,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_ELLIPSIS;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:531:14: ( '..' )
-            // AS3_ex.g3:531:16: '..'
+            // AS3_ex.g3:529:14: ( '..' )
+            // AS3_ex.g3:529:16: '..'
             {
             	Match(".."); if (state.failed) return ;
 
@@ -3028,8 +2982,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_TEND;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:532:10: ( '/>' )
-            // AS3_ex.g3:532:12: '/>'
+            // AS3_ex.g3:530:10: ( '/>' )
+            // AS3_ex.g3:530:12: '/>'
             {
             	Match("/>"); if (state.failed) return ;
 
@@ -3052,8 +3006,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_E_TEND;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:533:12: ( '</' )
-            // AS3_ex.g3:533:14: '</'
+            // AS3_ex.g3:531:12: ( '</' )
+            // AS3_ex.g3:531:14: '</'
             {
             	Match("</"); if (state.failed) return ;
 
@@ -3076,8 +3030,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_NS_OP;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:534:11: ( '::' )
-            // AS3_ex.g3:534:13: '::'
+            // AS3_ex.g3:532:11: ( '::' )
+            // AS3_ex.g3:532:13: '::'
             {
             	Match("::"); if (state.failed) return ;
 
@@ -3100,8 +3054,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_AT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:535:8: ( '@' )
-            // AS3_ex.g3:535:10: '@'
+            // AS3_ex.g3:533:8: ( '@' )
+            // AS3_ex.g3:533:10: '@'
             {
             	Match('@'); if (state.failed) return ;
 
@@ -3123,8 +3077,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_LS_STD;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:536:12: ( '<>' )
-            // AS3_ex.g3:536:14: '<>'
+            // AS3_ex.g3:534:12: ( '<>' )
+            // AS3_ex.g3:534:14: '<>'
             {
             	Match("<>"); if (state.failed) return ;
 
@@ -3147,8 +3101,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_LS_END;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:537:12: ( '</>' )
-            // AS3_ex.g3:537:14: '</>'
+            // AS3_ex.g3:535:12: ( '</>' )
+            // AS3_ex.g3:535:14: '</>'
             {
             	Match("</>"); if (state.failed) return ;
 
@@ -3164,12 +3118,50 @@ public class AS3_exLexer : Lexer {
     }
     // $ANTLR end "XML_LS_END"
 
+    // $ANTLR start "UNDERSCORE"
+    public void mUNDERSCORE() // throws RecognitionException [2]
+    {
+    		try
+    		{
+            // AS3_ex.g3:1077:22: ( '_' )
+            // AS3_ex.g3:1077:24: '_'
+            {
+            	Match('_'); if (state.failed) return ;
+
+            }
+
+        }
+        finally 
+    	{
+        }
+    }
+    // $ANTLR end "UNDERSCORE"
+
+    // $ANTLR start "DOLLAR"
+    public void mDOLLAR() // throws RecognitionException [2]
+    {
+    		try
+    		{
+            // AS3_ex.g3:1079:22: ( '$' )
+            // AS3_ex.g3:1079:24: '$'
+            {
+            	Match('$'); if (state.failed) return ;
+
+            }
+
+        }
+        finally 
+    	{
+        }
+    }
+    // $ANTLR end "DOLLAR"
+
     // $ANTLR start "ALPHABET"
     public void mALPHABET() // throws RecognitionException [2]
     {
     		try
     		{
-            // AS3_ex.g3:1076:30: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // AS3_ex.g3:1081:30: ( 'a' .. 'z' | 'A' .. 'Z' )
             // AS3_ex.g3:
             {
             	if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || (input.LA(1) >= 'a' && input.LA(1) <= 'z') ) 
@@ -3199,8 +3191,8 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1078:30: ( '0' .. '9' )
-            // AS3_ex.g3:1078:35: '0' .. '9'
+            // AS3_ex.g3:1083:30: ( '0' .. '9' )
+            // AS3_ex.g3:1083:35: '0' .. '9'
             {
             	MatchRange('0','9'); if (state.failed) return ;
 
@@ -3218,8 +3210,8 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1080:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // AS3_ex.g3:1080:35: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // AS3_ex.g3:1085:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // AS3_ex.g3:1085:35: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             	if ( (input.LA(1) >= '0' && input.LA(1) <= '9') || (input.LA(1) >= 'A' && input.LA(1) <= 'F') || (input.LA(1) >= 'a' && input.LA(1) <= 'f') ) 
             	{
@@ -3248,8 +3240,8 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1082:30: ( '\\r' )
-            // AS3_ex.g3:1082:35: '\\r'
+            // AS3_ex.g3:1087:30: ( '\\r' )
+            // AS3_ex.g3:1087:35: '\\r'
             {
             	Match('\r'); if (state.failed) return ;
 
@@ -3267,8 +3259,8 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1084:30: ( '\\n' )
-            // AS3_ex.g3:1084:35: '\\n'
+            // AS3_ex.g3:1089:30: ( '\\n' )
+            // AS3_ex.g3:1089:35: '\\n'
             {
             	Match('\n'); if (state.failed) return ;
 
@@ -3286,8 +3278,8 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1086:30: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // AS3_ex.g3:1086:35: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // AS3_ex.g3:1091:30: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // AS3_ex.g3:1091:35: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             	Match('\\'); if (state.failed) return ;
             	Match('u'); if (state.failed) return ;
@@ -3310,7 +3302,7 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1088:30: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESCAPE )
+            // AS3_ex.g3:1093:30: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESCAPE )
             int alt1 = 2;
             int LA1_0 = input.LA(1);
 
@@ -3346,7 +3338,7 @@ public class AS3_exLexer : Lexer {
             switch (alt1) 
             {
                 case 1 :
-                    // AS3_ex.g3:1088:34: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // AS3_ex.g3:1093:34: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     	Match('\\'); if (state.failed) return ;
                     	if ( input.LA(1) == '\"' || input.LA(1) == '\'' || input.LA(1) == '\\' || input.LA(1) == 'b' || input.LA(1) == 'f' || input.LA(1) == 'n' || input.LA(1) == 'r' || input.LA(1) == 't' ) 
@@ -3365,7 +3357,7 @@ public class AS3_exLexer : Lexer {
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1089:38: UNICODE_ESCAPE
+                    // AS3_ex.g3:1094:38: UNICODE_ESCAPE
                     {
                     	mUNICODE_ESCAPE(); if (state.failed) return ;
 
@@ -3387,10 +3379,10 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = EOL;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1096:5: ( ( CR LF | CR | LF ) )
-            // AS3_ex.g3:1096:10: ( CR LF | CR | LF )
+            // AS3_ex.g3:1101:5: ( ( CR LF | CR | LF ) )
+            // AS3_ex.g3:1101:10: ( CR LF | CR | LF )
             {
-            	// AS3_ex.g3:1096:10: ( CR LF | CR | LF )
+            	// AS3_ex.g3:1101:10: ( CR LF | CR | LF )
             	int alt2 = 3;
             	int LA2_0 = input.LA(1);
 
@@ -3421,7 +3413,7 @@ public class AS3_exLexer : Lexer {
             	switch (alt2) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1096:11: CR LF
+            	        // AS3_ex.g3:1101:11: CR LF
             	        {
             	        	mCR(); if (state.failed) return ;
             	        	mLF(); if (state.failed) return ;
@@ -3429,14 +3421,14 @@ public class AS3_exLexer : Lexer {
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1096:19: CR
+            	        // AS3_ex.g3:1101:19: CR
             	        {
             	        	mCR(); if (state.failed) return ;
 
             	        }
             	        break;
             	    case 3 :
-            	        // AS3_ex.g3:1096:24: LF
+            	        // AS3_ex.g3:1101:24: LF
             	        {
             	        	mLF(); if (state.failed) return ;
 
@@ -3473,10 +3465,10 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = WHITESPACE;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1103:5: ( ( ( '\\u0020' | '\\u0009' | '\\u000B' | '\\u000C' ) | ( '\\u001C' .. '\\u001F' ) )+ )
-            // AS3_ex.g3:1103:9: ( ( '\\u0020' | '\\u0009' | '\\u000B' | '\\u000C' ) | ( '\\u001C' .. '\\u001F' ) )+
+            // AS3_ex.g3:1108:5: ( ( ( '\\u0020' | '\\u0009' | '\\u000B' | '\\u000C' ) | ( '\\u001C' .. '\\u001F' ) )+ )
+            // AS3_ex.g3:1108:9: ( ( '\\u0020' | '\\u0009' | '\\u000B' | '\\u000C' ) | ( '\\u001C' .. '\\u001F' ) )+
             {
-            	// AS3_ex.g3:1103:9: ( ( '\\u0020' | '\\u0009' | '\\u000B' | '\\u000C' ) | ( '\\u001C' .. '\\u001F' ) )+
+            	// AS3_ex.g3:1108:9: ( ( '\\u0020' | '\\u0009' | '\\u000B' | '\\u000C' ) | ( '\\u001C' .. '\\u001F' ) )+
             	int cnt3 = 0;
             	do 
             	{
@@ -3496,7 +3488,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt3) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1103:10: ( '\\u0020' | '\\u0009' | '\\u000B' | '\\u000C' )
+            			    // AS3_ex.g3:1108:10: ( '\\u0020' | '\\u0009' | '\\u000B' | '\\u000C' )
             			    {
             			    	if ( input.LA(1) == '\t' || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || input.LA(1) == ' ' ) 
             			    	{
@@ -3514,10 +3506,10 @@ public class AS3_exLexer : Lexer {
             			    }
             			    break;
             			case 2 :
-            			    // AS3_ex.g3:1103:48: ( '\\u001C' .. '\\u001F' )
+            			    // AS3_ex.g3:1108:48: ( '\\u001C' .. '\\u001F' )
             			    {
-            			    	// AS3_ex.g3:1103:48: ( '\\u001C' .. '\\u001F' )
-            			    	// AS3_ex.g3:1103:49: '\\u001C' .. '\\u001F'
+            			    	// AS3_ex.g3:1108:48: ( '\\u001C' .. '\\u001F' )
+            			    	// AS3_ex.g3:1108:49: '\\u001C' .. '\\u001F'
             			    	{
             			    		MatchRange('\u001C','\u001F'); if (state.failed) return ;
 
@@ -3568,12 +3560,12 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = COMMENT_MULTILINE;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1110:5: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // AS3_ex.g3:1110:9: '/*' ( options {greedy=false; } : . )* '*/'
+            // AS3_ex.g3:1115:5: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // AS3_ex.g3:1115:9: '/*' ( options {greedy=false; } : . )* '*/'
             {
             	Match("/*"); if (state.failed) return ;
 
-            	// AS3_ex.g3:1110:14: ( options {greedy=false; } : . )*
+            	// AS3_ex.g3:1115:14: ( options {greedy=false; } : . )*
             	do 
             	{
             	    int alt4 = 2;
@@ -3603,7 +3595,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt4) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1110:42: .
+            			    // AS3_ex.g3:1115:42: .
             			    {
             			    	MatchAny(); if (state.failed) return ;
 
@@ -3648,12 +3640,12 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = COMMENT_SINGLELINE;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1116:5: ( '//' (~ ( CR | LF ) )* ( CR LF | CR | LF ) )
-            // AS3_ex.g3:1116:9: '//' (~ ( CR | LF ) )* ( CR LF | CR | LF )
+            // AS3_ex.g3:1121:5: ( '//' (~ ( CR | LF ) )* ( CR LF | CR | LF ) )
+            // AS3_ex.g3:1121:9: '//' (~ ( CR | LF ) )* ( CR LF | CR | LF )
             {
             	Match("//"); if (state.failed) return ;
 
-            	// AS3_ex.g3:1116:14: (~ ( CR | LF ) )*
+            	// AS3_ex.g3:1121:14: (~ ( CR | LF ) )*
             	do 
             	{
             	    int alt5 = 2;
@@ -3668,7 +3660,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt5) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1116:14: ~ ( CR | LF )
+            			    // AS3_ex.g3:1121:14: ~ ( CR | LF )
             			    {
             			    	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t') || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || (input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) 
             			    	{
@@ -3694,7 +3686,7 @@ public class AS3_exLexer : Lexer {
             	loop5:
             		;	// Stops C# compiler whining that label 'loop5' has no statements
 
-            	// AS3_ex.g3:1116:28: ( CR LF | CR | LF )
+            	// AS3_ex.g3:1121:28: ( CR LF | CR | LF )
             	int alt6 = 3;
             	int LA6_0 = input.LA(1);
 
@@ -3725,7 +3717,7 @@ public class AS3_exLexer : Lexer {
             	switch (alt6) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1116:29: CR LF
+            	        // AS3_ex.g3:1121:29: CR LF
             	        {
             	        	mCR(); if (state.failed) return ;
             	        	mLF(); if (state.failed) return ;
@@ -3733,14 +3725,14 @@ public class AS3_exLexer : Lexer {
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1116:37: CR
+            	        // AS3_ex.g3:1121:37: CR
             	        {
             	        	mCR(); if (state.failed) return ;
 
             	        }
             	        break;
             	    case 3 :
-            	        // AS3_ex.g3:1116:42: LF
+            	        // AS3_ex.g3:1121:42: LF
             	        {
             	        	mLF(); if (state.failed) return ;
 
@@ -3777,11 +3769,11 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = SINGLE_QUOTE_LITERAL;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1124:5: ( '\\'' ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\\'' ) )* '\\'' )
-            // AS3_ex.g3:1124:9: '\\'' ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\\'' ) )* '\\''
+            // AS3_ex.g3:1129:5: ( '\\'' ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\\'' ) )* '\\'' )
+            // AS3_ex.g3:1129:9: '\\'' ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\\'' ) )* '\\''
             {
             	Match('\''); if (state.failed) return ;
-            	// AS3_ex.g3:1124:14: ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\\'' ) )*
+            	// AS3_ex.g3:1129:14: ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\\'' ) )*
             	do 
             	{
             	    int alt7 = 3;
@@ -3800,14 +3792,14 @@ public class AS3_exLexer : Lexer {
             	    switch (alt7) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1124:16: ESCAPE_SEQUENCE
+            			    // AS3_ex.g3:1129:16: ESCAPE_SEQUENCE
             			    {
             			    	mESCAPE_SEQUENCE(); if (state.failed) return ;
 
             			    }
             			    break;
             			case 2 :
-            			    // AS3_ex.g3:1124:34: ~ ( '\\\\' | '\\'' )
+            			    // AS3_ex.g3:1129:34: ~ ( '\\\\' | '\\'' )
             			    {
             			    	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '&') || (input.LA(1) >= '(' && input.LA(1) <= '[') || (input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) 
             			    	{
@@ -3858,11 +3850,11 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = DOUBLE_QUOTE_LITERAL;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1129:5: ( '\"' ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\"' ) )* '\"' )
-            // AS3_ex.g3:1129:9: '\"' ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\"' ) )* '\"'
+            // AS3_ex.g3:1134:5: ( '\"' ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\"' ) )* '\"' )
+            // AS3_ex.g3:1134:9: '\"' ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\"' ) )* '\"'
             {
             	Match('\"'); if (state.failed) return ;
-            	// AS3_ex.g3:1129:14: ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\"' ) )*
+            	// AS3_ex.g3:1134:14: ( ESCAPE_SEQUENCE | ~ ( '\\\\' | '\"' ) )*
             	do 
             	{
             	    int alt8 = 3;
@@ -3881,14 +3873,14 @@ public class AS3_exLexer : Lexer {
             	    switch (alt8) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1129:16: ESCAPE_SEQUENCE
+            			    // AS3_ex.g3:1134:16: ESCAPE_SEQUENCE
             			    {
             			    	mESCAPE_SEQUENCE(); if (state.failed) return ;
 
             			    }
             			    break;
             			case 2 :
-            			    // AS3_ex.g3:1129:34: ~ ( '\\\\' | '\"' )
+            			    // AS3_ex.g3:1134:34: ~ ( '\\\\' | '\"' )
             			    {
             			    	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!') || (input.LA(1) >= '#' && input.LA(1) <= '[') || (input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) 
             			    	{
@@ -3939,8 +3931,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = REGULAR_EXPR_LITERAL;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1139:5: ({...}? => DIV REGULAR_EXPR_BODY DIV ( REGULAR_EXPR_FLAG )* )
-            // AS3_ex.g3:1139:9: {...}? => DIV REGULAR_EXPR_BODY DIV ( REGULAR_EXPR_FLAG )*
+            // AS3_ex.g3:1144:5: ({...}? => DIV REGULAR_EXPR_BODY DIV ( REGULAR_EXPR_FLAG )* )
+            // AS3_ex.g3:1144:9: {...}? => DIV REGULAR_EXPR_BODY DIV ( REGULAR_EXPR_FLAG )*
             {
             	if ( !((IsRegularExpression())) ) 
             	{
@@ -3950,7 +3942,7 @@ public class AS3_exLexer : Lexer {
             	mDIV(); if (state.failed) return ;
             	mREGULAR_EXPR_BODY(); if (state.failed) return ;
             	mDIV(); if (state.failed) return ;
-            	// AS3_ex.g3:1139:63: ( REGULAR_EXPR_FLAG )*
+            	// AS3_ex.g3:1144:63: ( REGULAR_EXPR_FLAG )*
             	do 
             	{
             	    int alt9 = 2;
@@ -3969,7 +3961,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt9) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1139:63: REGULAR_EXPR_FLAG
+            			    // AS3_ex.g3:1144:63: REGULAR_EXPR_FLAG
             			    {
             			    	mREGULAR_EXPR_FLAG(); if (state.failed) return ;
 
@@ -4006,11 +3998,11 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1143:5: ( REGULAR_EXPR_FIRST_CHAR ( REGULAR_EXPR_CHAR )* )
-            // AS3_ex.g3:1143:9: REGULAR_EXPR_FIRST_CHAR ( REGULAR_EXPR_CHAR )*
+            // AS3_ex.g3:1148:5: ( REGULAR_EXPR_FIRST_CHAR ( REGULAR_EXPR_CHAR )* )
+            // AS3_ex.g3:1148:9: REGULAR_EXPR_FIRST_CHAR ( REGULAR_EXPR_CHAR )*
             {
             	mREGULAR_EXPR_FIRST_CHAR(); if (state.failed) return ;
-            	// AS3_ex.g3:1143:33: ( REGULAR_EXPR_CHAR )*
+            	// AS3_ex.g3:1148:33: ( REGULAR_EXPR_CHAR )*
             	do 
             	{
             	    int alt10 = 2;
@@ -4025,7 +4017,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt10) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1143:33: REGULAR_EXPR_CHAR
+            			    // AS3_ex.g3:1148:33: REGULAR_EXPR_CHAR
             			    {
             			    	mREGULAR_EXPR_CHAR(); if (state.failed) return ;
 
@@ -4055,7 +4047,7 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1148:5: (~ ( CR | LF | '*' | '\\\\' | '/' | '>' ) | BACKSLASH_SEQUENCE )
+            // AS3_ex.g3:1153:5: (~ ( CR | LF | '*' | '\\\\' | '/' | '>' ) | BACKSLASH_SEQUENCE )
             int alt11 = 2;
             int LA11_0 = input.LA(1);
 
@@ -4078,70 +4070,9 @@ public class AS3_exLexer : Lexer {
             switch (alt11) 
             {
                 case 1 :
-                    // AS3_ex.g3:1148:9: ~ ( CR | LF | '*' | '\\\\' | '/' | '>' )
+                    // AS3_ex.g3:1153:9: ~ ( CR | LF | '*' | '\\\\' | '/' | '>' )
                     {
                     	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t') || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || (input.LA(1) >= '\u000E' && input.LA(1) <= ')') || (input.LA(1) >= '+' && input.LA(1) <= '.') || (input.LA(1) >= '0' && input.LA(1) <= '=') || (input.LA(1) >= '?' && input.LA(1) <= '[') || (input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) 
-                    	{
-                    	    input.Consume();
-                    	state.failed = false;
-                    	}
-                    	else 
-                    	{
-                    	    if ( state.backtracking > 0 ) {state.failed = true; return ;}
-                    	    MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	    Recover(mse);
-                    	    throw mse;}
-
-
-                    }
-                    break;
-                case 2 :
-                    // AS3_ex.g3:1149:9: BACKSLASH_SEQUENCE
-                    {
-                    	mBACKSLASH_SEQUENCE(); if (state.failed) return ;
-
-                    }
-                    break;
-
-            }
-        }
-        finally 
-    	{
-        }
-    }
-    // $ANTLR end "REGULAR_EXPR_FIRST_CHAR"
-
-    // $ANTLR start "REGULAR_EXPR_CHAR"
-    public void mREGULAR_EXPR_CHAR() // throws RecognitionException [2]
-    {
-    		try
-    		{
-            // AS3_ex.g3:1153:5: (~ ( CR | LF | '\\\\' | '/' ) | BACKSLASH_SEQUENCE )
-            int alt12 = 2;
-            int LA12_0 = input.LA(1);
-
-            if ( ((LA12_0 >= '\u0000' && LA12_0 <= '\t') || (LA12_0 >= '\u000B' && LA12_0 <= '\f') || (LA12_0 >= '\u000E' && LA12_0 <= '.') || (LA12_0 >= '0' && LA12_0 <= '[') || (LA12_0 >= ']' && LA12_0 <= '\uFFFF')) )
-            {
-                alt12 = 1;
-            }
-            else if ( (LA12_0 == '\\') )
-            {
-                alt12 = 2;
-            }
-            else 
-            {
-                if ( state.backtracking > 0 ) {state.failed = true; return ;}
-                NoViableAltException nvae_d12s0 =
-                    new NoViableAltException("", 12, 0, input);
-
-                throw nvae_d12s0;
-            }
-            switch (alt12) 
-            {
-                case 1 :
-                    // AS3_ex.g3:1153:9: ~ ( CR | LF | '\\\\' | '/' )
-                    {
-                    	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t') || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || (input.LA(1) >= '\u000E' && input.LA(1) <= '.') || (input.LA(1) >= '0' && input.LA(1) <= '[') || (input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) 
                     	{
                     	    input.Consume();
                     	state.failed = false;
@@ -4170,6 +4101,67 @@ public class AS3_exLexer : Lexer {
     	{
         }
     }
+    // $ANTLR end "REGULAR_EXPR_FIRST_CHAR"
+
+    // $ANTLR start "REGULAR_EXPR_CHAR"
+    public void mREGULAR_EXPR_CHAR() // throws RecognitionException [2]
+    {
+    		try
+    		{
+            // AS3_ex.g3:1158:5: (~ ( CR | LF | '\\\\' | '/' ) | BACKSLASH_SEQUENCE )
+            int alt12 = 2;
+            int LA12_0 = input.LA(1);
+
+            if ( ((LA12_0 >= '\u0000' && LA12_0 <= '\t') || (LA12_0 >= '\u000B' && LA12_0 <= '\f') || (LA12_0 >= '\u000E' && LA12_0 <= '.') || (LA12_0 >= '0' && LA12_0 <= '[') || (LA12_0 >= ']' && LA12_0 <= '\uFFFF')) )
+            {
+                alt12 = 1;
+            }
+            else if ( (LA12_0 == '\\') )
+            {
+                alt12 = 2;
+            }
+            else 
+            {
+                if ( state.backtracking > 0 ) {state.failed = true; return ;}
+                NoViableAltException nvae_d12s0 =
+                    new NoViableAltException("", 12, 0, input);
+
+                throw nvae_d12s0;
+            }
+            switch (alt12) 
+            {
+                case 1 :
+                    // AS3_ex.g3:1158:9: ~ ( CR | LF | '\\\\' | '/' )
+                    {
+                    	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t') || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || (input.LA(1) >= '\u000E' && input.LA(1) <= '.') || (input.LA(1) >= '0' && input.LA(1) <= '[') || (input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) 
+                    	{
+                    	    input.Consume();
+                    	state.failed = false;
+                    	}
+                    	else 
+                    	{
+                    	    if ( state.backtracking > 0 ) {state.failed = true; return ;}
+                    	    MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	    Recover(mse);
+                    	    throw mse;}
+
+
+                    }
+                    break;
+                case 2 :
+                    // AS3_ex.g3:1159:9: BACKSLASH_SEQUENCE
+                    {
+                    	mBACKSLASH_SEQUENCE(); if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+        }
+        finally 
+    	{
+        }
+    }
     // $ANTLR end "REGULAR_EXPR_CHAR"
 
     // $ANTLR start "BACKSLASH_SEQUENCE"
@@ -4177,8 +4169,8 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1157:28: ( '\\\\' ~ ( CR | LF ) )
-            // AS3_ex.g3:1157:33: '\\\\' ~ ( CR | LF )
+            // AS3_ex.g3:1162:28: ( '\\\\' ~ ( CR | LF ) )
+            // AS3_ex.g3:1162:33: '\\\\' ~ ( CR | LF )
             {
             	Match('\\'); if (state.failed) return ;
             	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t') || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || (input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) 
@@ -4208,8 +4200,8 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1159:28: ( IDENT_PART )
-            // AS3_ex.g3:1159:33: IDENT_PART
+            // AS3_ex.g3:1164:28: ( IDENT_PART )
+            // AS3_ex.g3:1164:33: IDENT_PART
             {
             	mIDENT_PART(); if (state.failed) return ;
 
@@ -4229,8 +4221,8 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = HEX_NUMBER_LITERAL;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1169:5: ( '0' ( 'X' | 'x' ) ( HEX_DIGIT )+ )
-            // AS3_ex.g3:1169:7: '0' ( 'X' | 'x' ) ( HEX_DIGIT )+
+            // AS3_ex.g3:1174:5: ( '0' ( 'X' | 'x' ) ( HEX_DIGIT )+ )
+            // AS3_ex.g3:1174:7: '0' ( 'X' | 'x' ) ( HEX_DIGIT )+
             {
             	Match('0'); if (state.failed) return ;
             	if ( input.LA(1) == 'X' || input.LA(1) == 'x' ) 
@@ -4245,7 +4237,7 @@ public class AS3_exLexer : Lexer {
             	    Recover(mse);
             	    throw mse;}
 
-            	// AS3_ex.g3:1169:21: ( HEX_DIGIT )+
+            	// AS3_ex.g3:1174:21: ( HEX_DIGIT )+
             	int cnt13 = 0;
             	do 
             	{
@@ -4261,7 +4253,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt13) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1169:21: HEX_DIGIT
+            			    // AS3_ex.g3:1174:21: HEX_DIGIT
             			    {
             			    	mHEX_DIGIT(); if (state.failed) return ;
 
@@ -4303,15 +4295,15 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1171:30: ( ( NUMBER )+ '.' ( NUMBER )* | '.' ( NUMBER )+ | ( NUMBER )+ )
+            // AS3_ex.g3:1176:30: ( ( NUMBER )+ '.' ( NUMBER )* | '.' ( NUMBER )+ | ( NUMBER )+ )
             int alt18 = 3;
             alt18 = dfa18.Predict(input);
             switch (alt18) 
             {
                 case 1 :
-                    // AS3_ex.g3:1171:33: ( NUMBER )+ '.' ( NUMBER )*
+                    // AS3_ex.g3:1176:33: ( NUMBER )+ '.' ( NUMBER )*
                     {
-                    	// AS3_ex.g3:1171:33: ( NUMBER )+
+                    	// AS3_ex.g3:1176:33: ( NUMBER )+
                     	int cnt14 = 0;
                     	do 
                     	{
@@ -4327,7 +4319,7 @@ public class AS3_exLexer : Lexer {
                     	    switch (alt14) 
                     		{
                     			case 1 :
-                    			    // AS3_ex.g3:1171:33: NUMBER
+                    			    // AS3_ex.g3:1176:33: NUMBER
                     			    {
                     			    	mNUMBER(); if (state.failed) return ;
 
@@ -4348,7 +4340,7 @@ public class AS3_exLexer : Lexer {
                     		;	// Stops C# compiler whinging that label 'loop14' has no statements
 
                     	Match('.'); if (state.failed) return ;
-                    	// AS3_ex.g3:1171:45: ( NUMBER )*
+                    	// AS3_ex.g3:1176:45: ( NUMBER )*
                     	do 
                     	{
                     	    int alt15 = 2;
@@ -4363,7 +4355,7 @@ public class AS3_exLexer : Lexer {
                     	    switch (alt15) 
                     		{
                     			case 1 :
-                    			    // AS3_ex.g3:1171:45: NUMBER
+                    			    // AS3_ex.g3:1176:45: NUMBER
                     			    {
                     			    	mNUMBER(); if (state.failed) return ;
 
@@ -4382,10 +4374,10 @@ public class AS3_exLexer : Lexer {
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1171:55: '.' ( NUMBER )+
+                    // AS3_ex.g3:1176:55: '.' ( NUMBER )+
                     {
                     	Match('.'); if (state.failed) return ;
-                    	// AS3_ex.g3:1171:59: ( NUMBER )+
+                    	// AS3_ex.g3:1176:59: ( NUMBER )+
                     	int cnt16 = 0;
                     	do 
                     	{
@@ -4401,7 +4393,7 @@ public class AS3_exLexer : Lexer {
                     	    switch (alt16) 
                     		{
                     			case 1 :
-                    			    // AS3_ex.g3:1171:59: NUMBER
+                    			    // AS3_ex.g3:1176:59: NUMBER
                     			    {
                     			    	mNUMBER(); if (state.failed) return ;
 
@@ -4425,9 +4417,9 @@ public class AS3_exLexer : Lexer {
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1171:69: ( NUMBER )+
+                    // AS3_ex.g3:1176:69: ( NUMBER )+
                     {
-                    	// AS3_ex.g3:1171:69: ( NUMBER )+
+                    	// AS3_ex.g3:1176:69: ( NUMBER )+
                     	int cnt17 = 0;
                     	do 
                     	{
@@ -4443,7 +4435,7 @@ public class AS3_exLexer : Lexer {
                     	    switch (alt17) 
                     		{
                     			case 1 :
-                    			    // AS3_ex.g3:1171:69: NUMBER
+                    			    // AS3_ex.g3:1176:69: NUMBER
                     			    {
                     			    	mNUMBER(); if (state.failed) return ;
 
@@ -4482,11 +4474,11 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = DEC_NUMBER_LITERAL;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1177:5: ( DEC_NUMBER ( EXPONENT )? )
-            // AS3_ex.g3:1177:8: DEC_NUMBER ( EXPONENT )?
+            // AS3_ex.g3:1182:5: ( DEC_NUMBER ( EXPONENT )? )
+            // AS3_ex.g3:1182:8: DEC_NUMBER ( EXPONENT )?
             {
             	mDEC_NUMBER(); if (state.failed) return ;
-            	// AS3_ex.g3:1177:19: ( EXPONENT )?
+            	// AS3_ex.g3:1182:19: ( EXPONENT )?
             	int alt19 = 2;
             	int LA19_0 = input.LA(1);
 
@@ -4497,7 +4489,7 @@ public class AS3_exLexer : Lexer {
             	switch (alt19) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1177:19: EXPONENT
+            	        // AS3_ex.g3:1182:19: EXPONENT
             	        {
             	        	mEXPONENT(); if (state.failed) return ;
 
@@ -4528,8 +4520,8 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1179:30: ( ( 'e' | 'E' ) ( '+' | '-' )? ( NUMBER )+ )
-            // AS3_ex.g3:1179:32: ( 'e' | 'E' ) ( '+' | '-' )? ( NUMBER )+
+            // AS3_ex.g3:1184:30: ( ( 'e' | 'E' ) ( '+' | '-' )? ( NUMBER )+ )
+            // AS3_ex.g3:1184:32: ( 'e' | 'E' ) ( '+' | '-' )? ( NUMBER )+
             {
             	if ( input.LA(1) == 'E' || input.LA(1) == 'e' ) 
             	{
@@ -4543,7 +4535,7 @@ public class AS3_exLexer : Lexer {
             	    Recover(mse);
             	    throw mse;}
 
-            	// AS3_ex.g3:1179:42: ( '+' | '-' )?
+            	// AS3_ex.g3:1184:42: ( '+' | '-' )?
             	int alt20 = 2;
             	int LA20_0 = input.LA(1);
 
@@ -4574,7 +4566,7 @@ public class AS3_exLexer : Lexer {
 
             	}
 
-            	// AS3_ex.g3:1179:53: ( NUMBER )+
+            	// AS3_ex.g3:1184:53: ( NUMBER )+
             	int cnt21 = 0;
             	do 
             	{
@@ -4590,7 +4582,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt21) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1179:53: NUMBER
+            			    // AS3_ex.g3:1184:53: NUMBER
             			    {
             			    	mNUMBER(); if (state.failed) return ;
 
@@ -4627,7 +4619,7 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = IDENTIFIER;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1187:5: ( IDENT_NAME_ASCII_START | ( UNICODE_ESCAPE )+ | )
+            // AS3_ex.g3:1192:5: ( IDENT_NAME_ASCII_START | ( UNICODE_ESCAPE )+ | )
             int alt23 = 3;
             switch ( input.LA(1) ) 
             {
@@ -4701,16 +4693,16 @@ public class AS3_exLexer : Lexer {
             switch (alt23) 
             {
                 case 1 :
-                    // AS3_ex.g3:1187:9: IDENT_NAME_ASCII_START
+                    // AS3_ex.g3:1192:9: IDENT_NAME_ASCII_START
                     {
                     	mIDENT_NAME_ASCII_START(); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1188:9: ( UNICODE_ESCAPE )+
+                    // AS3_ex.g3:1193:9: ( UNICODE_ESCAPE )+
                     {
-                    	// AS3_ex.g3:1188:9: ( UNICODE_ESCAPE )+
+                    	// AS3_ex.g3:1193:9: ( UNICODE_ESCAPE )+
                     	int cnt22 = 0;
                     	do 
                     	{
@@ -4726,7 +4718,7 @@ public class AS3_exLexer : Lexer {
                     	    switch (alt22) 
                     		{
                     			case 1 :
-                    			    // AS3_ex.g3:1188:9: UNICODE_ESCAPE
+                    			    // AS3_ex.g3:1193:9: UNICODE_ESCAPE
                     			    {
                     			    	mUNICODE_ESCAPE(); if (state.failed) return ;
 
@@ -4750,7 +4742,7 @@ public class AS3_exLexer : Lexer {
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1189:9: 
+                    // AS3_ex.g3:1194:9: 
                     {
                     	if ( state.backtracking == 0 ) 
                     	{
@@ -4780,11 +4772,11 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1192:35: ( IDENT_ASCII_START ( IDENT_PART )* )
-            // AS3_ex.g3:1192:37: IDENT_ASCII_START ( IDENT_PART )*
+            // AS3_ex.g3:1197:35: ( IDENT_ASCII_START ( IDENT_PART )* )
+            // AS3_ex.g3:1197:37: IDENT_ASCII_START ( IDENT_PART )*
             {
             	mIDENT_ASCII_START(); if (state.failed) return ;
-            	// AS3_ex.g3:1192:55: ( IDENT_PART )*
+            	// AS3_ex.g3:1197:55: ( IDENT_PART )*
             	do 
             	{
             	    int alt24 = 2;
@@ -4803,7 +4795,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt24) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1192:55: IDENT_PART
+            			    // AS3_ex.g3:1197:55: IDENT_PART
             			    {
             			    	mIDENT_PART(); if (state.failed) return ;
 
@@ -4833,7 +4825,7 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1194:35: ( ALPHABET | DOLLAR | UNDERSCORE )
+            // AS3_ex.g3:1199:35: ( ALPHABET | DOLLAR | UNDERSCORE )
             // AS3_ex.g3:
             {
             	if ( input.LA(1) == '$' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') ) 
@@ -4863,7 +4855,7 @@ public class AS3_exLexer : Lexer {
     {
     		try
     		{
-            // AS3_ex.g3:1200:5: ( ( IDENT_ASCII_START )=> IDENT_ASCII_START | NUMBER | {...}?)
+            // AS3_ex.g3:1205:5: ( ( IDENT_ASCII_START )=> IDENT_ASCII_START | NUMBER | {...}?)
             int alt25 = 3;
             int LA25_0 = input.LA(1);
 
@@ -4881,21 +4873,21 @@ public class AS3_exLexer : Lexer {
             switch (alt25) 
             {
                 case 1 :
-                    // AS3_ex.g3:1200:9: ( IDENT_ASCII_START )=> IDENT_ASCII_START
+                    // AS3_ex.g3:1205:9: ( IDENT_ASCII_START )=> IDENT_ASCII_START
                     {
                     	mIDENT_ASCII_START(); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1201:9: NUMBER
+                    // AS3_ex.g3:1206:9: NUMBER
                     {
                     	mNUMBER(); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1202:9: {...}?
+                    // AS3_ex.g3:1207:9: {...}?
                     {
                     	if ( !((IsUnicodeIdentifierPart(input.LA(1)))) ) 
                     	{
@@ -4925,12 +4917,12 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_COMMENT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1209:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
-            // AS3_ex.g3:1209:9: '<!--' ( options {greedy=false; } : . )* '-->'
+            // AS3_ex.g3:1214:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
+            // AS3_ex.g3:1214:9: '<!--' ( options {greedy=false; } : . )* '-->'
             {
             	Match("<!--"); if (state.failed) return ;
 
-            	// AS3_ex.g3:1209:16: ( options {greedy=false; } : . )*
+            	// AS3_ex.g3:1214:16: ( options {greedy=false; } : . )*
             	do 
             	{
             	    int alt26 = 2;
@@ -4971,7 +4963,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt26) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1209:44: .
+            			    // AS3_ex.g3:1214:44: .
             			    {
             			    	MatchAny(); if (state.failed) return ;
 
@@ -5012,12 +5004,12 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_CDATA;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1215:5: ( '<![CDATA' ( options {greedy=false; } : . )* ']]>' )
-            // AS3_ex.g3:1215:9: '<![CDATA' ( options {greedy=false; } : . )* ']]>'
+            // AS3_ex.g3:1220:5: ( '<![CDATA' ( options {greedy=false; } : . )* ']]>' )
+            // AS3_ex.g3:1220:9: '<![CDATA' ( options {greedy=false; } : . )* ']]>'
             {
             	Match("<![CDATA"); if (state.failed) return ;
 
-            	// AS3_ex.g3:1215:20: ( options {greedy=false; } : . )*
+            	// AS3_ex.g3:1220:20: ( options {greedy=false; } : . )*
             	do 
             	{
             	    int alt27 = 2;
@@ -5058,7 +5050,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt27) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1215:48: .
+            			    // AS3_ex.g3:1220:48: .
             			    {
             			    	MatchAny(); if (state.failed) return ;
 
@@ -5099,12 +5091,12 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_PI;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1221:5: ( '<?' ( options {greedy=false; } : . )* '?>' )
-            // AS3_ex.g3:1221:9: '<?' ( options {greedy=false; } : . )* '?>'
+            // AS3_ex.g3:1226:5: ( '<?' ( options {greedy=false; } : . )* '?>' )
+            // AS3_ex.g3:1226:9: '<?' ( options {greedy=false; } : . )* '?>'
             {
             	Match("<?"); if (state.failed) return ;
 
-            	// AS3_ex.g3:1221:14: ( options {greedy=false; } : . )*
+            	// AS3_ex.g3:1226:14: ( options {greedy=false; } : . )*
             	do 
             	{
             	    int alt28 = 2;
@@ -5134,7 +5126,7 @@ public class AS3_exLexer : Lexer {
             	    switch (alt28) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1221:42: .
+            			    // AS3_ex.g3:1226:42: .
             			    {
             			    	MatchAny(); if (state.failed) return ;
 
@@ -5175,7 +5167,7 @@ public class AS3_exLexer : Lexer {
     		{
             int _type = XML_TEXT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AS3_ex.g3:1228:5: ( '\\u0020' .. '\\u003b' | '\\u003d' .. '\\u007a' | '\\u007c' .. '\\u007e' | {...}?)
+            // AS3_ex.g3:1233:5: ( '\\u0020' .. '\\u003b' | '\\u003d' .. '\\u007a' | '\\u007c' .. '\\u007e' | {...}?)
             int alt29 = 4;
             switch ( input.LA(1) ) 
             {
@@ -5291,28 +5283,28 @@ public class AS3_exLexer : Lexer {
             switch (alt29) 
             {
                 case 1 :
-                    // AS3_ex.g3:1228:7: '\\u0020' .. '\\u003b'
+                    // AS3_ex.g3:1233:7: '\\u0020' .. '\\u003b'
                     {
                     	MatchRange(' ',';'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1229:7: '\\u003d' .. '\\u007a'
+                    // AS3_ex.g3:1234:7: '\\u003d' .. '\\u007a'
                     {
                     	MatchRange('=','z'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1230:7: '\\u007c' .. '\\u007e'
+                    // AS3_ex.g3:1235:7: '\\u007c' .. '\\u007e'
                     {
                     	MatchRange('|','~'); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:1231:7: {...}?
+                    // AS3_ex.g3:1236:7: {...}?
                     {
                     	if ( !((IsXMLText(input.LA(1)))) ) 
                     	{
@@ -5344,8 +5336,8 @@ public class AS3_exLexer : Lexer {
 
     override public void mTokens() // throws RecognitionException 
     {
-        // AS3_ex.g3:1:8: ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NATIVE | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TO | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | EACH | GET | SET | NAMESPACE | INCLUDE | DYNAMIC | FINAL | OVERRIDE | STATIC | SEMI | LCURLY | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | LT | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | DIV | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | UNDERSCORE | DOLLAR | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | LAND_ASSIGN | LOR_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_TEND | XML_E_TEND | XML_NS_OP | XML_AT | XML_LS_STD | XML_LS_END | EOL | WHITESPACE | COMMENT_MULTILINE | COMMENT_SINGLELINE | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | REGULAR_EXPR_LITERAL | HEX_NUMBER_LITERAL | DEC_NUMBER_LITERAL | IDENTIFIER | XML_COMMENT | XML_CDATA | XML_PI | XML_TEXT )
-        int alt30 = 122;
+        // AS3_ex.g3:1:8: ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NATIVE | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TO | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | EACH | GET | SET | NAMESPACE | INCLUDE | DYNAMIC | FINAL | OVERRIDE | STATIC | SEMI | LCURLY | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | LT | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | DIV | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | LAND_ASSIGN | LOR_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_TEND | XML_E_TEND | XML_NS_OP | XML_AT | XML_LS_STD | XML_LS_END | EOL | WHITESPACE | COMMENT_MULTILINE | COMMENT_SINGLELINE | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | REGULAR_EXPR_LITERAL | HEX_NUMBER_LITERAL | DEC_NUMBER_LITERAL | IDENTIFIER | XML_COMMENT | XML_CDATA | XML_PI | XML_TEXT )
+        int alt30 = 120;
         alt30 = dfa30.Predict(input);
         switch (alt30) 
         {
@@ -5966,238 +5958,224 @@ public class AS3_exLexer : Lexer {
                 }
                 break;
             case 89 :
-                // AS3_ex.g3:1:514: UNDERSCORE
-                {
-                	mUNDERSCORE(); if (state.failed) return ;
-
-                }
-                break;
-            case 90 :
-                // AS3_ex.g3:1:525: DOLLAR
-                {
-                	mDOLLAR(); if (state.failed) return ;
-
-                }
-                break;
-            case 91 :
-                // AS3_ex.g3:1:532: DIV_ASSIGN
+                // AS3_ex.g3:1:514: DIV_ASSIGN
                 {
                 	mDIV_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 92 :
-                // AS3_ex.g3:1:543: MOD_ASSIGN
+            case 90 :
+                // AS3_ex.g3:1:525: MOD_ASSIGN
                 {
                 	mMOD_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 93 :
-                // AS3_ex.g3:1:554: ADD_ASSIGN
+            case 91 :
+                // AS3_ex.g3:1:536: ADD_ASSIGN
                 {
                 	mADD_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 94 :
-                // AS3_ex.g3:1:565: SUB_ASSIGN
+            case 92 :
+                // AS3_ex.g3:1:547: SUB_ASSIGN
                 {
                 	mSUB_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 95 :
-                // AS3_ex.g3:1:576: SHL_ASSIGN
+            case 93 :
+                // AS3_ex.g3:1:558: SHL_ASSIGN
                 {
                 	mSHL_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 96 :
-                // AS3_ex.g3:1:587: LAND_ASSIGN
+            case 94 :
+                // AS3_ex.g3:1:569: LAND_ASSIGN
                 {
                 	mLAND_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 97 :
-                // AS3_ex.g3:1:599: LOR_ASSIGN
+            case 95 :
+                // AS3_ex.g3:1:581: LOR_ASSIGN
                 {
                 	mLOR_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 98 :
-                // AS3_ex.g3:1:610: AND_ASSIGN
+            case 96 :
+                // AS3_ex.g3:1:592: AND_ASSIGN
                 {
                 	mAND_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 99 :
-                // AS3_ex.g3:1:621: XOR_ASSIGN
+            case 97 :
+                // AS3_ex.g3:1:603: XOR_ASSIGN
                 {
                 	mXOR_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 100 :
-                // AS3_ex.g3:1:632: OR_ASSIGN
+            case 98 :
+                // AS3_ex.g3:1:614: OR_ASSIGN
                 {
                 	mOR_ASSIGN(); if (state.failed) return ;
 
                 }
                 break;
-            case 101 :
-                // AS3_ex.g3:1:642: ELLIPSIS
+            case 99 :
+                // AS3_ex.g3:1:624: ELLIPSIS
                 {
                 	mELLIPSIS(); if (state.failed) return ;
 
                 }
                 break;
-            case 102 :
-                // AS3_ex.g3:1:651: XML_ELLIPSIS
+            case 100 :
+                // AS3_ex.g3:1:633: XML_ELLIPSIS
                 {
                 	mXML_ELLIPSIS(); if (state.failed) return ;
 
                 }
                 break;
-            case 103 :
-                // AS3_ex.g3:1:664: XML_TEND
+            case 101 :
+                // AS3_ex.g3:1:646: XML_TEND
                 {
                 	mXML_TEND(); if (state.failed) return ;
 
                 }
                 break;
-            case 104 :
-                // AS3_ex.g3:1:673: XML_E_TEND
+            case 102 :
+                // AS3_ex.g3:1:655: XML_E_TEND
                 {
                 	mXML_E_TEND(); if (state.failed) return ;
 
                 }
                 break;
-            case 105 :
-                // AS3_ex.g3:1:684: XML_NS_OP
+            case 103 :
+                // AS3_ex.g3:1:666: XML_NS_OP
                 {
                 	mXML_NS_OP(); if (state.failed) return ;
 
                 }
                 break;
-            case 106 :
-                // AS3_ex.g3:1:694: XML_AT
+            case 104 :
+                // AS3_ex.g3:1:676: XML_AT
                 {
                 	mXML_AT(); if (state.failed) return ;
 
                 }
                 break;
-            case 107 :
-                // AS3_ex.g3:1:701: XML_LS_STD
+            case 105 :
+                // AS3_ex.g3:1:683: XML_LS_STD
                 {
                 	mXML_LS_STD(); if (state.failed) return ;
 
                 }
                 break;
-            case 108 :
-                // AS3_ex.g3:1:712: XML_LS_END
+            case 106 :
+                // AS3_ex.g3:1:694: XML_LS_END
                 {
                 	mXML_LS_END(); if (state.failed) return ;
 
                 }
                 break;
-            case 109 :
-                // AS3_ex.g3:1:723: EOL
+            case 107 :
+                // AS3_ex.g3:1:705: EOL
                 {
                 	mEOL(); if (state.failed) return ;
 
                 }
                 break;
-            case 110 :
-                // AS3_ex.g3:1:727: WHITESPACE
+            case 108 :
+                // AS3_ex.g3:1:709: WHITESPACE
                 {
                 	mWHITESPACE(); if (state.failed) return ;
 
                 }
                 break;
-            case 111 :
-                // AS3_ex.g3:1:738: COMMENT_MULTILINE
+            case 109 :
+                // AS3_ex.g3:1:720: COMMENT_MULTILINE
                 {
                 	mCOMMENT_MULTILINE(); if (state.failed) return ;
 
                 }
                 break;
-            case 112 :
-                // AS3_ex.g3:1:756: COMMENT_SINGLELINE
+            case 110 :
+                // AS3_ex.g3:1:738: COMMENT_SINGLELINE
                 {
                 	mCOMMENT_SINGLELINE(); if (state.failed) return ;
 
                 }
                 break;
-            case 113 :
-                // AS3_ex.g3:1:775: SINGLE_QUOTE_LITERAL
+            case 111 :
+                // AS3_ex.g3:1:757: SINGLE_QUOTE_LITERAL
                 {
                 	mSINGLE_QUOTE_LITERAL(); if (state.failed) return ;
 
                 }
                 break;
-            case 114 :
-                // AS3_ex.g3:1:796: DOUBLE_QUOTE_LITERAL
+            case 112 :
+                // AS3_ex.g3:1:778: DOUBLE_QUOTE_LITERAL
                 {
                 	mDOUBLE_QUOTE_LITERAL(); if (state.failed) return ;
 
                 }
                 break;
-            case 115 :
-                // AS3_ex.g3:1:817: REGULAR_EXPR_LITERAL
+            case 113 :
+                // AS3_ex.g3:1:799: REGULAR_EXPR_LITERAL
                 {
                 	mREGULAR_EXPR_LITERAL(); if (state.failed) return ;
 
                 }
                 break;
-            case 116 :
-                // AS3_ex.g3:1:838: HEX_NUMBER_LITERAL
+            case 114 :
+                // AS3_ex.g3:1:820: HEX_NUMBER_LITERAL
                 {
                 	mHEX_NUMBER_LITERAL(); if (state.failed) return ;
 
                 }
                 break;
-            case 117 :
-                // AS3_ex.g3:1:857: DEC_NUMBER_LITERAL
+            case 115 :
+                // AS3_ex.g3:1:839: DEC_NUMBER_LITERAL
                 {
                 	mDEC_NUMBER_LITERAL(); if (state.failed) return ;
 
                 }
                 break;
-            case 118 :
-                // AS3_ex.g3:1:876: IDENTIFIER
+            case 116 :
+                // AS3_ex.g3:1:858: IDENTIFIER
                 {
                 	mIDENTIFIER(); if (state.failed) return ;
 
                 }
                 break;
-            case 119 :
-                // AS3_ex.g3:1:887: XML_COMMENT
+            case 117 :
+                // AS3_ex.g3:1:869: XML_COMMENT
                 {
                 	mXML_COMMENT(); if (state.failed) return ;
 
                 }
                 break;
-            case 120 :
-                // AS3_ex.g3:1:899: XML_CDATA
+            case 118 :
+                // AS3_ex.g3:1:881: XML_CDATA
                 {
                 	mXML_CDATA(); if (state.failed) return ;
 
                 }
                 break;
-            case 121 :
-                // AS3_ex.g3:1:909: XML_PI
+            case 119 :
+                // AS3_ex.g3:1:891: XML_PI
                 {
                 	mXML_PI(); if (state.failed) return ;
 
                 }
                 break;
-            case 122 :
-                // AS3_ex.g3:1:916: XML_TEXT
+            case 120 :
+                // AS3_ex.g3:1:898: XML_TEXT
                 {
                 	mXML_TEXT(); if (state.failed) return ;
 
@@ -6210,8 +6188,8 @@ public class AS3_exLexer : Lexer {
 
     // $ANTLR start "synpred1_AS3_ex"
     public void synpred1_AS3_ex_fragment() {
-        // AS3_ex.g3:1200:9: ( IDENT_ASCII_START )
-        // AS3_ex.g3:1200:10: IDENT_ASCII_START
+        // AS3_ex.g3:1205:9: ( IDENT_ASCII_START )
+        // AS3_ex.g3:1205:10: IDENT_ASCII_START
         {
         	mIDENT_ASCII_START(); if (state.failed) return ;
 
@@ -6295,109 +6273,109 @@ public class AS3_exLexer : Lexer {
 
         override public string Description
         {
-            get { return "1171:10: fragment DEC_NUMBER : ( ( NUMBER )+ '.' ( NUMBER )* | '.' ( NUMBER )+ | ( NUMBER )+ );"; }
+            get { return "1176:10: fragment DEC_NUMBER : ( ( NUMBER )+ '.' ( NUMBER )* | '.' ( NUMBER )+ | ( NUMBER )+ );"; }
         }
 
     }
 
     const string DFA30_eotS =
-        "\x01\x36\x11\x39\x07\uffff\x01\x6a\x01\uffff\x01\x72\x01\uffff"+
-        "\x01\x75\x01\x77\x01\x7a\x01\x7d\x01\uffff\x01\u0083\x01\u0086\x01"+
-        "\u0089\x01\u008c\x01\u008e\x02\uffff\x01\u0092\x01\u0093\x01\u0094"+
-        "\x04\uffff\x02\x37\x01\x69\x02\uffff\x01\x37\x02\uffff\x01\u0099"+
-        "\x01\uffff\x05\x39\x01\u00a1\x08\x39\x01\u00aa\x01\x39\x01\u00af"+
-        "\x01\u00b0\x0c\x39\x01\u00c0\x09\x39\x06\uffff\x01\u00cc\x04\uffff"+
-        "\x01\u00ce\x01\u00d0\x05\uffff\x01\u00d4\x01\uffff\x01\u00d6\x08"+
-        "\uffff\x01\u00d7\x07\uffff\x01\u00d9\x02\uffff\x01\u00db\x0f\uffff"+
-        "\x07\x39\x01\uffff\x06\x39\x01\u00ea\x01\x39\x01\uffff\x04\x39\x02"+
-        "\uffff\x02\x39\x01\u00f3\x08\x39\x01\u00fc\x03\x39\x01\uffff\x01"+
-        "\x39\x01\u0101\x01\x39\x01\u0103\x01\u0104\x03\x39\x01\u0108\x01"+
-        "\x39\x11\uffff\x01\x39\x01\u010b\x07\x39\x01\u0113\x01\x39\x01\u0115"+
-        "\x02\x39\x01\uffff\x08\x39\x01\uffff\x01\u0120\x07\x39\x01\uffff"+
-        "\x01\x39\x01\u0129\x01\x39\x01\u012b\x01\uffff\x01\x39\x02\uffff"+
-        "\x01\u012d\x01\x39\x01\u012f\x01\uffff\x01\x39\x01\u0131\x01\uffff"+
-        "\x01\u0132\x01\u0133\x01\u0134\x04\x39\x01\uffff\x01\x39\x01\uffff"+
-        "\x01\u013a\x01\u013c\x08\x39\x01\uffff\x05\x39\x01\u014b\x02\x39"+
-        "\x01\uffff\x01\u014e\x01\uffff\x01\x39\x01\uffff\x01\u0150\x01\uffff"+
-        "\x01\x39\x04\uffff\x02\x39\x01\u0154\x02\x39\x01\uffff\x01\x39\x01"+
-        "\uffff\x02\x39\x01\u015a\x04\x39\x01\u015f\x04\x39\x01\u0164\x01"+
-        "\u0165\x01\uffff\x01\u0166\x01\u0167\x01\uffff\x01\u0168\x01\uffff"+
-        "\x02\x39\x01\u016b\x01\uffff\x01\u016c\x01\u016d\x01\u016e\x02\x39"+
-        "\x01\uffff\x03\x39\x01\u0174\x01\uffff\x01\x39\x01\u0176\x01\u0177"+
-        "\x01\x39\x05\uffff\x01\x39\x01\u017a\x04\uffff\x01\u017b\x03\x39"+
-        "\x01\u017f\x01\uffff\x01\x39\x02\uffff\x01\x39\x01\u0182\x02\uffff"+
-        "\x02\x39\x01\u0185\x01\uffff\x01\u0186\x01\u0187\x01\uffff\x01\u0188"+
-        "\x01\u0189\x05\uffff";
+        "\x01\x34\x11\x38\x07\uffff\x01\x68\x01\uffff\x01\x71\x01\uffff"+
+        "\x01\x74\x01\x76\x01\x79\x01\x7c\x01\uffff\x01\u0082\x01\u0085\x01"+
+        "\u0088\x01\u008b\x01\u008d\x02\uffff\x01\u0091\x04\uffff\x02\x36"+
+        "\x01\x69\x02\uffff\x01\x36\x03\uffff\x01\u0096\x01\uffff\x05\x38"+
+        "\x01\u009e\x08\x38\x01\u00a7\x01\x38\x01\u00ac\x01\u00ad\x0c\x38"+
+        "\x01\u00bd\x09\x38\x06\uffff\x01\u00c9\x04\uffff\x01\u00cb\x01\u00cd"+
+        "\x05\uffff\x01\u00d1\x01\uffff\x01\u00d3\x08\uffff\x01\u00d4\x07"+
+        "\uffff\x01\u00d6\x02\uffff\x01\u00d8\x0d\uffff\x07\x38\x01\uffff"+
+        "\x06\x38\x01\u00e7\x01\x38\x01\uffff\x04\x38\x02\uffff\x02\x38\x01"+
+        "\u00f0\x08\x38\x01\u00f9\x03\x38\x01\uffff\x01\x38\x01\u00fe\x01"+
+        "\x38\x01\u0100\x01\u0101\x03\x38\x01\u0105\x01\x38\x11\uffff\x01"+
+        "\x38\x01\u0108\x07\x38\x01\u0110\x01\x38\x01\u0112\x02\x38\x01\uffff"+
+        "\x08\x38\x01\uffff\x01\u011d\x07\x38\x01\uffff\x01\x38\x01\u0126"+
+        "\x01\x38\x01\u0128\x01\uffff\x01\x38\x02\uffff\x01\u012a\x01\x38"+
+        "\x01\u012c\x01\uffff\x01\x38\x01\u012e\x01\uffff\x01\u012f\x01\u0130"+
+        "\x01\u0131\x04\x38\x01\uffff\x01\x38\x01\uffff\x01\u0137\x01\u0139"+
+        "\x08\x38\x01\uffff\x05\x38\x01\u0148\x02\x38\x01\uffff\x01\u014b"+
+        "\x01\uffff\x01\x38\x01\uffff\x01\u014d\x01\uffff\x01\x38\x04\uffff"+
+        "\x02\x38\x01\u0151\x02\x38\x01\uffff\x01\x38\x01\uffff\x02\x38\x01"+
+        "\u0157\x04\x38\x01\u015c\x04\x38\x01\u0161\x01\u0162\x01\uffff\x01"+
+        "\u0163\x01\u0164\x01\uffff\x01\u0165\x01\uffff\x02\x38\x01\u0168"+
+        "\x01\uffff\x01\u0169\x01\u016a\x01\u016b\x02\x38\x01\uffff\x03\x38"+
+        "\x01\u0171\x01\uffff\x01\x38\x01\u0173\x01\u0174\x01\x38\x05\uffff"+
+        "\x01\x38\x01\u0177\x04\uffff\x01\u0178\x03\x38\x01\u017c\x01\uffff"+
+        "\x01\x38\x02\uffff\x01\x38\x01\u017f\x02\uffff\x02\x38\x01\u0182"+
+        "\x01\uffff\x01\u0183\x01\u0184\x01\uffff\x01\u0185\x01\u0186\x05"+
+        "\uffff";
     const string DFA30_eofS =
-        "\u018a\uffff";
+        "\u0187\uffff";
     const string DFA30_minS =
         "\x01\x09\x01\x73\x01\x72\x01\x61\x01\x65\x02\x61\x01\x66\x02\x61"+
         "\x02\x65\x01\x68\x01\x73\x01\x61\x01\x68\x01\x65\x01\x76\x07\uffff"+
         "\x01\x2e\x01\uffff\x01\x21\x01\uffff\x02\x3d\x01\x2b\x01\x2d\x01"+
-        "\uffff\x01\x00\x01\x3d\x01\x26\x02\x3d\x02\uffff\x01\x3a\x02\x24"+
-        "\x04\uffff\x02\x00\x01\x58\x02\uffff\x01\x75\x01\x00\x01\uffff\x01"+
-        "\x24\x01\uffff\x01\x65\x01\x73\x01\x61\x01\x6e\x01\x66\x01\x24\x01"+
-        "\x6e\x01\x73\x01\x74\x01\x63\x01\x6c\x01\x6e\x01\x72\x01\x6e\x01"+
-        "\x24\x01\x70\x02\x24\x01\x6d\x01\x77\x01\x6c\x01\x63\x01\x69\x01"+
-        "\x62\x01\x74\x01\x70\x01\x69\x01\x74\x01\x61\x01\x69\x01\x24\x01"+
-        "\x75\x01\x70\x01\x65\x01\x72\x02\x69\x02\x74\x01\x65\x06\uffff\x01"+
-        "\x2e\x04\uffff\x01\x3d\x01\x3e\x01\uffff\x01\x2d\x03\uffff\x01\x3d"+
-        "\x01\uffff\x01\x3d\x08\uffff\x01\x00\x07\uffff\x01\x3d\x02\uffff"+
-        "\x01\x3d\x0f\uffff\x01\x61\x01\x65\x01\x63\x02\x73\x01\x61\x01\x65"+
-        "\x01\uffff\x01\x61\x02\x65\x01\x68\x01\x73\x01\x61\x01\x24\x01\x63"+
-        "\x01\uffff\x01\x6c\x01\x74\x01\x65\x01\x6c\x02\uffff\x01\x69\x01"+
-        "\x65\x01\x24\x01\x6c\x01\x6b\x01\x76\x01\x74\x01\x6c\x01\x75\x01"+
-        "\x65\x01\x74\x01\x24\x01\x74\x01\x73\x01\x6f\x01\uffff\x01\x65\x01"+
-        "\x24\x01\x65\x02\x24\x01\x64\x01\x6c\x01\x68\x01\x24\x01\x72\x11"+
-        "\uffff\x01\x6b\x01\x24\x01\x68\x01\x73\x01\x74\x01\x69\x01\x75\x01"+
-        "\x74\x01\x6d\x01\x24\x01\x6e\x01\x24\x01\x65\x01\x6c\x01\uffff\x01"+
-        "\x74\x01\x65\x01\x72\x01\x61\x01\x72\x01\x75\x01\x76\x01\x73\x01"+
-        "\uffff\x01\x24\x02\x61\x01\x65\x01\x69\x02\x72\x01\x63\x01\uffff"+
-        "\x01\x69\x01\x24\x01\x77\x01\x24\x01\uffff\x01\x6f\x02\uffff\x01"+
-        "\x24\x01\x65\x01\x24\x01\uffff\x01\x72\x01\x24\x01\uffff\x03\x24"+
-        "\x01\x6e\x01\x6c\x01\x65\x01\x69\x01\uffff\x01\x64\x01\uffff\x02"+
-        "\x24\x01\x69\x01\x6d\x01\x74\x01\x6e\x01\x66\x01\x64\x01\x65\x01"+
-        "\x70\x01\uffff\x01\x67\x01\x74\x02\x63\x01\x6e\x01\x24\x01\x68\x01"+
-        "\x63\x01\uffff\x01\x24\x01\uffff\x01\x66\x01\uffff\x01\x24\x01\uffff"+
-        "\x01\x69\x04\uffff\x01\x75\x01\x74\x01\x24\x01\x63\x01\x73\x01\uffff"+
-        "\x01\x79\x01\uffff\x01\x6f\x01\x65\x01\x24\x01\x63\x02\x61\x01\x65"+
-        "\x01\x24\x01\x61\x02\x65\x01\x74\x02\x24\x01\uffff\x02\x24\x01\uffff"+
-        "\x01\x24\x01\uffff\x01\x64\x01\x65\x01\x24\x01\uffff\x03\x24\x02"+
-        "\x6e\x01\uffff\x01\x65\x01\x63\x01\x6c\x01\x24\x01\uffff\x01\x63"+
-        "\x02\x24\x01\x65\x05\uffff\x01\x65\x01\x24\x04\uffff\x01\x24\x01"+
-        "\x74\x01\x6f\x01\x65\x01\x24\x01\uffff\x01\x65\x02\uffff\x01\x64"+
-        "\x01\x24\x02\uffff\x01\x73\x01\x66\x01\x24\x01\uffff\x02\x24\x01"+
-        "\uffff\x02\x24\x05\uffff";
+        "\uffff\x01\x00\x01\x3d\x01\x26\x02\x3d\x02\uffff\x01\x3a\x04\uffff"+
+        "\x02\x00\x01\x58\x02\uffff\x01\x75\x01\x00\x02\uffff\x01\x24\x01"+
+        "\uffff\x01\x65\x01\x73\x01\x61\x01\x6e\x01\x66\x01\x24\x01\x6e\x01"+
+        "\x73\x01\x74\x01\x63\x01\x6c\x01\x6e\x01\x72\x01\x6e\x01\x24\x01"+
+        "\x70\x02\x24\x01\x6d\x01\x77\x01\x6c\x01\x63\x01\x69\x01\x62\x01"+
+        "\x74\x01\x70\x01\x69\x01\x74\x01\x61\x01\x69\x01\x24\x01\x75\x01"+
+        "\x70\x01\x65\x01\x72\x02\x69\x02\x74\x01\x65\x06\uffff\x01\x2e\x04"+
+        "\uffff\x01\x3d\x01\x3e\x01\uffff\x01\x2d\x03\uffff\x01\x3d\x01\uffff"+
+        "\x01\x3d\x08\uffff\x01\x00\x07\uffff\x01\x3d\x02\uffff\x01\x3d\x0d"+
+        "\uffff\x01\x61\x01\x65\x01\x63\x02\x73\x01\x61\x01\x65\x01\uffff"+
+        "\x01\x61\x02\x65\x01\x68\x01\x73\x01\x61\x01\x24\x01\x63\x01\uffff"+
+        "\x01\x6c\x01\x74\x01\x65\x01\x6c\x02\uffff\x01\x69\x01\x65\x01\x24"+
+        "\x01\x6c\x01\x6b\x01\x76\x01\x74\x01\x6c\x01\x75\x01\x65\x01\x74"+
+        "\x01\x24\x01\x74\x01\x73\x01\x6f\x01\uffff\x01\x65\x01\x24\x01\x65"+
+        "\x02\x24\x01\x64\x01\x6c\x01\x68\x01\x24\x01\x72\x11\uffff\x01\x6b"+
+        "\x01\x24\x01\x68\x01\x73\x01\x74\x01\x69\x01\x75\x01\x74\x01\x6d"+
+        "\x01\x24\x01\x6e\x01\x24\x01\x65\x01\x6c\x01\uffff\x01\x74\x01\x65"+
+        "\x01\x72\x01\x61\x01\x72\x01\x75\x01\x76\x01\x73\x01\uffff\x01\x24"+
+        "\x02\x61\x01\x65\x01\x69\x02\x72\x01\x63\x01\uffff\x01\x69\x01\x24"+
+        "\x01\x77\x01\x24\x01\uffff\x01\x6f\x02\uffff\x01\x24\x01\x65\x01"+
+        "\x24\x01\uffff\x01\x72\x01\x24\x01\uffff\x03\x24\x01\x6e\x01\x6c"+
+        "\x01\x65\x01\x69\x01\uffff\x01\x64\x01\uffff\x02\x24\x01\x69\x01"+
+        "\x6d\x01\x74\x01\x6e\x01\x66\x01\x64\x01\x65\x01\x70\x01\uffff\x01"+
+        "\x67\x01\x74\x02\x63\x01\x6e\x01\x24\x01\x68\x01\x63\x01\uffff\x01"+
+        "\x24\x01\uffff\x01\x66\x01\uffff\x01\x24\x01\uffff\x01\x69\x04\uffff"+
+        "\x01\x75\x01\x74\x01\x24\x01\x63\x01\x73\x01\uffff\x01\x79\x01\uffff"+
+        "\x01\x6f\x01\x65\x01\x24\x01\x63\x02\x61\x01\x65\x01\x24\x01\x61"+
+        "\x02\x65\x01\x74\x02\x24\x01\uffff\x02\x24\x01\uffff\x01\x24\x01"+
+        "\uffff\x01\x64\x01\x65\x01\x24\x01\uffff\x03\x24\x02\x6e\x01\uffff"+
+        "\x01\x65\x01\x63\x01\x6c\x01\x24\x01\uffff\x01\x63\x02\x24\x01\x65"+
+        "\x05\uffff\x01\x65\x01\x24\x04\uffff\x01\x24\x01\x74\x01\x6f\x01"+
+        "\x65\x01\x24\x01\uffff\x01\x65\x02\uffff\x01\x64\x01\x24\x02\uffff"+
+        "\x01\x73\x01\x66\x01\x24\x01\uffff\x02\x24\x01\uffff\x02\x24\x05"+
+        "\uffff";
     const string DFA30_maxS =
         "\x01\x7e\x01\x73\x01\x72\x01\x6f\x01\x79\x01\x78\x01\x75\x01\x73"+
         "\x02\x75\x01\x65\x01\x77\x01\x79\x01\x73\x01\x6f\x01\x69\x01\x65"+
         "\x01\x76\x07\uffff\x01\x39\x01\uffff\x01\x3f\x01\uffff\x04\x3d\x01"+
-        "\uffff\x01\uffff\x02\x3d\x01\x7c\x01\x3d\x02\uffff\x01\x3a\x02\x7a"+
-        "\x04\uffff\x02\uffff\x01\x78\x02\uffff\x01\x75\x01\x00\x01\uffff"+
-        "\x01\x7a\x01\uffff\x01\x65\x01\x74\x01\x61\x01\x6e\x01\x6c\x01\x7a"+
-        "\x01\x6e\x01\x73\x01\x74\x01\x63\x01\x6c\x01\x6e\x01\x72\x01\x6e"+
-        "\x01\x7a\x01\x70\x02\x7a\x01\x74\x01\x77\x01\x6c\x01\x63\x01\x6f"+
-        "\x01\x62\x01\x74\x01\x70\x01\x69\x01\x74\x01\x61\x01\x72\x01\x7a"+
-        "\x01\x79\x01\x70\x01\x65\x01\x72\x02\x69\x02\x74\x01\x65\x06\uffff"+
-        "\x01\x2e\x04\uffff\x01\x3d\x01\x3e\x01\uffff\x01\x5b\x03\uffff\x01"+
-        "\x3d\x01\uffff\x01\x3d\x08\uffff\x01\uffff\x07\uffff\x01\x3d\x02"+
-        "\uffff\x01\x3d\x0f\uffff\x01\x61\x01\x65\x01\x63\x01\x73\x01\x74"+
-        "\x01\x61\x01\x65\x01\uffff\x01\x61\x02\x65\x01\x68\x01\x73\x01\x61"+
-        "\x01\x7a\x01\x63\x01\uffff\x01\x6f\x01\x74\x01\x65\x01\x6c\x02\uffff"+
-        "\x01\x69\x01\x65\x01\x7a\x01\x6c\x01\x6b\x01\x76\x01\x74\x01\x6c"+
-        "\x01\x75\x01\x65\x01\x74\x01\x7a\x01\x74\x01\x73\x01\x6f\x01\uffff"+
-        "\x01\x65\x01\x7a\x01\x65\x02\x7a\x01\x64\x01\x6c\x01\x68\x01\x7a"+
-        "\x01\x72\x11\uffff\x01\x6b\x01\x7a\x01\x68\x01\x73\x01\x74\x01\x69"+
-        "\x01\x75\x01\x74\x01\x6d\x01\x7a\x01\x6e\x01\x7a\x01\x65\x01\x6c"+
-        "\x01\uffff\x01\x74\x01\x65\x01\x72\x01\x61\x01\x72\x01\x75\x01\x76"+
-        "\x01\x73\x01\uffff\x01\x7a\x02\x61\x01\x65\x01\x69\x02\x72\x01\x63"+
-        "\x01\uffff\x01\x69\x01\x7a\x01\x77\x01\x7a\x01\uffff\x01\x6f\x02"+
-        "\uffff\x01\x7a\x01\x65\x01\x7a\x01\uffff\x01\x72\x01\x7a\x01\uffff"+
-        "\x03\x7a\x01\x6e\x01\x6c\x01\x65\x01\x69\x01\uffff\x01\x64\x01\uffff"+
-        "\x02\x7a\x01\x69\x01\x6d\x01\x74\x02\x6e\x01\x64\x01\x65\x01\x70"+
-        "\x01\uffff\x01\x67\x01\x74\x02\x63\x01\x6e\x01\x7a\x01\x68\x01\x63"+
-        "\x01\uffff\x01\x7a\x01\uffff\x01\x66\x01\uffff\x01\x7a\x01\uffff"+
-        "\x01\x69\x04\uffff\x01\x75\x01\x74\x01\x7a\x01\x63\x01\x73\x01\uffff"+
+        "\uffff\x01\uffff\x02\x3d\x01\x7c\x01\x3d\x02\uffff\x01\x3a\x04\uffff"+
+        "\x02\uffff\x01\x78\x02\uffff\x01\x75\x01\x00\x02\uffff\x01\x7a\x01"+
+        "\uffff\x01\x65\x01\x74\x01\x61\x01\x6e\x01\x6c\x01\x7a\x01\x6e\x01"+
+        "\x73\x01\x74\x01\x63\x01\x6c\x01\x6e\x01\x72\x01\x6e\x01\x7a\x01"+
+        "\x70\x02\x7a\x01\x74\x01\x77\x01\x6c\x01\x63\x01\x6f\x01\x62\x01"+
+        "\x74\x01\x70\x01\x69\x01\x74\x01\x61\x01\x72\x01\x7a\x01\x79\x01"+
+        "\x70\x01\x65\x01\x72\x02\x69\x02\x74\x01\x65\x06\uffff\x01\x2e\x04"+
+        "\uffff\x01\x3d\x01\x3e\x01\uffff\x01\x5b\x03\uffff\x01\x3d\x01\uffff"+
+        "\x01\x3d\x08\uffff\x01\uffff\x07\uffff\x01\x3d\x02\uffff\x01\x3d"+
+        "\x0d\uffff\x01\x61\x01\x65\x01\x63\x01\x73\x01\x74\x01\x61\x01\x65"+
+        "\x01\uffff\x01\x61\x02\x65\x01\x68\x01\x73\x01\x61\x01\x7a\x01\x63"+
+        "\x01\uffff\x01\x6f\x01\x74\x01\x65\x01\x6c\x02\uffff\x01\x69\x01"+
+        "\x65\x01\x7a\x01\x6c\x01\x6b\x01\x76\x01\x74\x01\x6c\x01\x75\x01"+
+        "\x65\x01\x74\x01\x7a\x01\x74\x01\x73\x01\x6f\x01\uffff\x01\x65\x01"+
+        "\x7a\x01\x65\x02\x7a\x01\x64\x01\x6c\x01\x68\x01\x7a\x01\x72\x11"+
+        "\uffff\x01\x6b\x01\x7a\x01\x68\x01\x73\x01\x74\x01\x69\x01\x75\x01"+
+        "\x74\x01\x6d\x01\x7a\x01\x6e\x01\x7a\x01\x65\x01\x6c\x01\uffff\x01"+
+        "\x74\x01\x65\x01\x72\x01\x61\x01\x72\x01\x75\x01\x76\x01\x73\x01"+
+        "\uffff\x01\x7a\x02\x61\x01\x65\x01\x69\x02\x72\x01\x63\x01\uffff"+
+        "\x01\x69\x01\x7a\x01\x77\x01\x7a\x01\uffff\x01\x6f\x02\uffff\x01"+
+        "\x7a\x01\x65\x01\x7a\x01\uffff\x01\x72\x01\x7a\x01\uffff\x03\x7a"+
+        "\x01\x6e\x01\x6c\x01\x65\x01\x69\x01\uffff\x01\x64\x01\uffff\x02"+
+        "\x7a\x01\x69\x01\x6d\x01\x74\x02\x6e\x01\x64\x01\x65\x01\x70\x01"+
+        "\uffff\x01\x67\x01\x74\x02\x63\x01\x6e\x01\x7a\x01\x68\x01\x63\x01"+
+        "\uffff\x01\x7a\x01\uffff\x01\x66\x01\uffff\x01\x7a\x01\uffff\x01"+
+        "\x69\x04\uffff\x01\x75\x01\x74\x01\x7a\x01\x63\x01\x73\x01\uffff"+
         "\x01\x79\x01\uffff\x01\x6f\x01\x65\x01\x7a\x01\x63\x02\x61\x01\x65"+
         "\x01\x7a\x01\x61\x02\x65\x01\x74\x02\x7a\x01\uffff\x02\x7a\x01\uffff"+
         "\x01\x7a\x01\uffff\x01\x64\x01\x65\x01\x7a\x01\uffff\x03\x7a\x02"+
@@ -6409,182 +6387,196 @@ public class AS3_exLexer : Lexer {
     const string DFA30_acceptS =
         "\x12\uffff\x01\x37\x01\x38\x01\x39\x01\x3a\x01\x3b\x01\x3c\x01"+
         "\x3d\x01\uffff\x01\x3f\x01\uffff\x01\x41\x04\uffff\x01\x49\x05\uffff"+
-        "\x01\x53\x01\x56\x03\uffff\x01\x6a\x01\x6d\x02\x6e\x03\uffff\x01"+
-        "\x75\x01\x76\x02\uffff\x01\x7a\x01\uffff\x01\x76\x28\uffff\x01\x37"+
-        "\x01\x39\x01\x3a\x01\x3b\x01\x3c\x01\x3d\x01\uffff\x01\x75\x01\x3e"+
-        "\x01\x3f\x01\x42\x02\uffff\x01\x6b\x01\uffff\x01\x79\x01\x40\x01"+
-        "\x41\x01\uffff\x01\x58\x01\uffff\x01\x52\x01\x4c\x01\x5d\x01\x47"+
-        "\x01\x4d\x01\x5e\x01\x48\x01\x49\x01\uffff\x01\x67\x01\x6f\x01\x70"+
-        "\x01\x4a\x01\x73\x01\x5c\x01\x4b\x01\uffff\x01\x62\x01\x4f\x01\uffff"+
-        "\x01\x64\x01\x50\x01\x63\x01\x51\x01\x53\x01\x56\x01\x69\x01\x57"+
-        "\x01\x59\x01\x5a\x01\x6a\x01\x71\x01\x72\x01\x74\x01\x01\x07\uffff"+
-        "\x01\x0a\x08\uffff\x01\x11\x04\uffff\x01\x14\x01\x18\x0f\uffff\x01"+
-        "\x25\x0a\uffff\x01\x65\x01\x66\x01\x5f\x01\x4e\x01\x6c\x01\x68\x01"+
-        "\x77\x01\x78\x01\x45\x01\x43\x01\x46\x01\x44\x01\x5b\x01\x60\x01"+
-        "\x54\x01\x61\x01\x55\x0e\uffff\x01\x0f\x08\uffff\x01\x1a\x08\uffff"+
-        "\x01\x30\x04\uffff\x01\x27\x01\uffff\x01\x29\x01\x2a\x03\uffff\x01"+
-        "\x2f\x02\uffff\x01\x03\x07\uffff\x01\x0b\x01\uffff\x01\x2e\x0a\uffff"+
-        "\x01\x1b\x08\uffff\x01\x23\x01\uffff\x01\x26\x01\uffff\x01\x2b\x01"+
-        "\uffff\x01\x2d\x01\uffff\x01\x02\x01\x04\x01\x05\x01\x06\x05\uffff"+
-        "\x01\x0d\x01\uffff\x01\x34\x0e\uffff\x01\x21\x02\uffff\x01\x24\x01"+
-        "\uffff\x01\x2c\x03\uffff\x01\x09\x05\uffff\x01\x13\x04\uffff\x01"+
-        "\x19\x04\uffff\x01\x1f\x01\x20\x01\x22\x01\x36\x01\x28\x02\uffff"+
-        "\x01\x08\x01\x33\x01\x0c\x01\x0e\x05\uffff\x01\x32\x01\uffff\x01"+
-        "\x1c\x01\x1d\x02\uffff\x01\x07\x01\x10\x03\uffff\x01\x17\x02\uffff"+
-        "\x01\x35\x02\uffff\x01\x16\x01\x31\x01\x1e\x01\x12\x01\x15";
+        "\x01\x53\x01\x56\x01\uffff\x01\x68\x01\x6b\x02\x6c\x03\uffff\x01"+
+        "\x73\x01\x74\x02\uffff\x01\x74\x01\x78\x01\uffff\x01\x74\x28\uffff"+
+        "\x01\x37\x01\x39\x01\x3a\x01\x3b\x01\x3c\x01\x3d\x01\uffff\x01\x3e"+
+        "\x01\x73\x01\x3f\x01\x42\x02\uffff\x01\x69\x01\uffff\x01\x77\x01"+
+        "\x40\x01\x41\x01\uffff\x01\x58\x01\uffff\x01\x52\x01\x4c\x01\x5b"+
+        "\x01\x47\x01\x4d\x01\x5c\x01\x48\x01\x49\x01\uffff\x01\x65\x01\x6d"+
+        "\x01\x6e\x01\x4a\x01\x71\x01\x5a\x01\x4b\x01\uffff\x01\x60\x01\x4f"+
+        "\x01\uffff\x01\x62\x01\x50\x01\x61\x01\x51\x01\x53\x01\x56\x01\x67"+
+        "\x01\x57\x01\x68\x01\x6f\x01\x70\x01\x72\x01\x01\x07\uffff\x01\x0a"+
+        "\x08\uffff\x01\x11\x04\uffff\x01\x14\x01\x18\x0f\uffff\x01\x25\x0a"+
+        "\uffff\x01\x63\x01\x64\x01\x5d\x01\x4e\x01\x6a\x01\x66\x01\x75\x01"+
+        "\x76\x01\x45\x01\x43\x01\x46\x01\x44\x01\x59\x01\x5e\x01\x54\x01"+
+        "\x5f\x01\x55\x0e\uffff\x01\x0f\x08\uffff\x01\x1a\x08\uffff\x01\x30"+
+        "\x04\uffff\x01\x27\x01\uffff\x01\x29\x01\x2a\x03\uffff\x01\x2f\x02"+
+        "\uffff\x01\x03\x07\uffff\x01\x0b\x01\uffff\x01\x2e\x0a\uffff\x01"+
+        "\x1b\x08\uffff\x01\x23\x01\uffff\x01\x26\x01\uffff\x01\x2b\x01\uffff"+
+        "\x01\x2d\x01\uffff\x01\x02\x01\x04\x01\x05\x01\x06\x05\uffff\x01"+
+        "\x0d\x01\uffff\x01\x34\x0e\uffff\x01\x21\x02\uffff\x01\x24\x01\uffff"+
+        "\x01\x2c\x03\uffff\x01\x09\x05\uffff\x01\x13\x04\uffff\x01\x19\x04"+
+        "\uffff\x01\x1f\x01\x20\x01\x22\x01\x36\x01\x28\x02\uffff\x01\x08"+
+        "\x01\x33\x01\x0c\x01\x0e\x05\uffff\x01\x32\x01\uffff\x01\x1c\x01"+
+        "\x1d\x02\uffff\x01\x07\x01\x10\x03\uffff\x01\x17\x02\uffff\x01\x35"+
+        "\x02\uffff\x01\x16\x01\x31\x01\x1e\x01\x12\x01\x15";
     const string DFA30_specialS =
-        "\x22\uffff\x01\x01\x0d\uffff\x01\x04\x01\x03\x04\uffff\x01\x02"+
-        "\x48\uffff\x01\x00\u010a\uffff}>";
+        "\x22\uffff\x01\x01\x0b\uffff\x01\x04\x01\x03\x04\uffff\x01\x02"+
+        "\x49\uffff\x01\x00\u0108\uffff}>";
     static readonly string[] DFA30_transitionS = {
-            "\x01\x2f\x01\x2d\x02\x2f\x01\x2d\x0e\uffff\x04\x2f\x01\x2e"+
-            "\x01\x1e\x01\x31\x01\x37\x01\x2b\x01\x23\x01\x24\x01\x30\x01"+
+            "\x01\x2d\x01\x2b\x02\x2d\x01\x2b\x0e\uffff\x04\x2d\x01\x2c"+
+            "\x01\x1e\x01\x2f\x01\x36\x01\x32\x01\x23\x01\x24\x01\x2e\x01"+
             "\x15\x01\x16\x01\x21\x01\x1f\x01\x1a\x01\x20\x01\x19\x01\x22"+
-            "\x01\x32\x09\x33\x01\x29\x01\x12\x01\x1b\x01\x1d\x01\x1c\x01"+
-            "\x28\x01\x2c\x1a\x34\x01\x17\x01\x35\x01\x18\x01\x26\x01\x2a"+
-            "\x01\x37\x01\x01\x01\x02\x01\x03\x01\x04\x01\x05\x01\x06\x01"+
-            "\x10\x01\x34\x01\x07\x04\x34\x01\x08\x01\x11\x01\x09\x01\x34"+
-            "\x01\x0a\x01\x0b\x01\x0c\x01\x0d\x01\x0e\x01\x0f\x03\x34\x01"+
+            "\x01\x30\x09\x31\x01\x29\x01\x12\x01\x1b\x01\x1d\x01\x1c\x01"+
+            "\x28\x01\x2a\x1a\x35\x01\x17\x01\x33\x01\x18\x01\x26\x01\x35"+
+            "\x01\x36\x01\x01\x01\x02\x01\x03\x01\x04\x01\x05\x01\x06\x01"+
+            "\x10\x01\x35\x01\x07\x04\x35\x01\x08\x01\x11\x01\x09\x01\x35"+
+            "\x01\x0a\x01\x0b\x01\x0c\x01\x0d\x01\x0e\x01\x0f\x03\x35\x01"+
             "\x13\x01\x25\x01\x14\x01\x27",
-            "\x01\x38",
-            "\x01\x3a",
-            "\x01\x3b\x0a\uffff\x01\x3c\x02\uffff\x01\x3d",
-            "\x01\x3e\x09\uffff\x01\x3f\x09\uffff\x01\x40",
-            "\x01\x43\x0a\uffff\x01\x41\x0b\uffff\x01\x42",
-            "\x01\x44\x07\uffff\x01\x45\x05\uffff\x01\x46\x05\uffff\x01"+
-            "\x47",
-            "\x01\x48\x06\uffff\x01\x49\x01\x4a\x04\uffff\x01\x4b",
-            "\x01\x4c\x03\uffff\x01\x4d\x0f\uffff\x01\x4e",
-            "\x01\x4f\x10\uffff\x01\x50\x02\uffff\x01\x51",
-            "\x01\x52",
-            "\x01\x55\x0e\uffff\x01\x56\x01\x53\x01\uffff\x01\x54",
-            "\x01\x57\x06\uffff\x01\x58\x02\uffff\x01\x59\x06\uffff\x01"+
-            "\x5a",
-            "\x01\x5b",
-            "\x01\x5c\x0d\uffff\x01\x5d",
-            "\x01\x5e\x01\x5f",
-            "\x01\x60",
-            "\x01\x61",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\x01\x68\x01\uffff\x0a\x69",
-            "",
-            "\x01\x70\x0d\uffff\x01\x6e\x0c\uffff\x01\x6d\x01\x6c\x01\x6f"+
-            "\x01\x71",
-            "",
-            "\x01\x74",
-            "\x01\x76",
-            "\x01\x78\x11\uffff\x01\x79",
-            "\x01\x7b\x0f\uffff\x01\x7c",
-            "",
-            "\x0a\u0084\x01\uffff\x02\u0084\x01\uffff\x1c\u0084\x01\u0081"+
-            "\x04\u0084\x01\u0082\x0d\u0084\x01\x7f\x01\u0080\uffc1\u0084",
-            "\x01\u0085",
-            "\x01\u0087\x16\uffff\x01\u0088",
-            "\x01\u008b\x3e\uffff\x01\u008a",
-            "\x01\u008d",
-            "",
-            "",
-            "\x01\u0091",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "",
-            "",
-            "",
-            "",
-            "\x00\u0096",
-            "\x00\u0097",
-            "\x01\u0098\x1f\uffff\x01\u0098",
-            "",
-            "",
+            "\x01\x37",
             "\x01\x39",
+            "\x01\x3a\x0a\uffff\x01\x3b\x02\uffff\x01\x3c",
+            "\x01\x3d\x09\uffff\x01\x3e\x09\uffff\x01\x3f",
+            "\x01\x42\x0a\uffff\x01\x40\x0b\uffff\x01\x41",
+            "\x01\x43\x07\uffff\x01\x44\x05\uffff\x01\x45\x05\uffff\x01"+
+            "\x46",
+            "\x01\x47\x06\uffff\x01\x48\x01\x49\x04\uffff\x01\x4a",
+            "\x01\x4b\x03\uffff\x01\x4c\x0f\uffff\x01\x4d",
+            "\x01\x4e\x10\uffff\x01\x4f\x02\uffff\x01\x50",
+            "\x01\x51",
+            "\x01\x54\x0e\uffff\x01\x55\x01\x52\x01\uffff\x01\x53",
+            "\x01\x56\x06\uffff\x01\x57\x02\uffff\x01\x58\x06\uffff\x01"+
+            "\x59",
+            "\x01\x5a",
+            "\x01\x5b\x0d\uffff\x01\x5c",
+            "\x01\x5d\x01\x5e",
+            "\x01\x5f",
+            "\x01\x60",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\x01\x67\x01\uffff\x0a\x69",
+            "",
+            "\x01\x6f\x0d\uffff\x01\x6d\x0c\uffff\x01\x6c\x01\x6b\x01\x6e"+
+            "\x01\x70",
+            "",
+            "\x01\x73",
+            "\x01\x75",
+            "\x01\x77\x11\uffff\x01\x78",
+            "\x01\x7a\x0f\uffff\x01\x7b",
+            "",
+            "\x0a\u0083\x01\uffff\x02\u0083\x01\uffff\x1c\u0083\x01\u0080"+
+            "\x04\u0083\x01\u0081\x0d\u0083\x01\x7e\x01\x7f\uffc1\u0083",
+            "\x01\u0084",
+            "\x01\u0086\x16\uffff\x01\u0087",
+            "\x01\u008a\x3e\uffff\x01\u0089",
+            "\x01\u008c",
+            "",
+            "",
+            "\x01\u0090",
+            "",
+            "",
+            "",
+            "",
+            "\x00\u0093",
+            "\x00\u0094",
+            "\x01\u0095\x1f\uffff\x01\u0095",
+            "",
+            "",
+            "\x01\x38",
             "\x01\uffff",
             "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
             "",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "",
+            "\x01\u0097",
+            "\x01\u0098\x01\u0099",
             "\x01\u009a",
-            "\x01\u009b\x01\u009c",
-            "\x01\u009d",
-            "\x01\u009e",
-            "\x01\u009f\x05\uffff\x01\u00a0",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u009b",
+            "\x01\u009c\x05\uffff\x01\u009d",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\u009f",
+            "\x01\u00a0",
+            "\x01\u00a1",
             "\x01\u00a2",
             "\x01\u00a3",
             "\x01\u00a4",
             "\x01\u00a5",
             "\x01\u00a6",
-            "\x01\u00a7",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u00a8",
-            "\x01\u00a9",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u00ab",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x02\x39\x01\u00ae\x0f\x39\x01\u00ac\x01\u00ad"+
-            "\x06\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u00b2\x06\uffff\x01\u00b1",
-            "\x01\u00b3",
-            "\x01\u00b4",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x02\x38\x01\u00ab\x0f\x38\x01\u00a9\x01\u00aa"+
+            "\x06\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\u00af\x06\uffff\x01\u00ae",
+            "\x01\u00b0",
+            "\x01\u00b1",
+            "\x01\u00b2",
+            "\x01\u00b3\x05\uffff\x01\u00b4",
             "\x01\u00b5",
-            "\x01\u00b6\x05\uffff\x01\u00b7",
+            "\x01\u00b6",
+            "\x01\u00b7",
             "\x01\u00b8",
             "\x01\u00b9",
             "\x01\u00ba",
-            "\x01\u00bb",
-            "\x01\u00bc",
-            "\x01\u00bd",
-            "\x01\u00be\x08\uffff\x01\u00bf",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u00c1\x03\uffff\x01\u00c2",
+            "\x01\u00bb\x08\uffff\x01\u00bc",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\u00be\x03\uffff\x01\u00bf",
+            "\x01\u00c0",
+            "\x01\u00c1",
+            "\x01\u00c2",
             "\x01\u00c3",
             "\x01\u00c4",
             "\x01\u00c5",
             "\x01\u00c6",
             "\x01\u00c7",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\x01\u00c8",
-            "\x01\u00c9",
+            "",
+            "",
+            "",
+            "",
             "\x01\u00ca",
+            "\x01\u00cc",
+            "",
+            "\x01\u00ce\x2d\uffff\x01\u00cf",
+            "",
+            "",
+            "",
+            "\x01\u00d0",
+            "",
+            "\x01\u00d2",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\x01\u00cb",
+            "",
+            "",
+            "\x0a\u0083\x01\uffff\x02\u0083\x01\uffff\ufff2\u0083",
             "",
             "",
             "",
             "",
-            "\x01\u00cd",
-            "\x01\u00cf",
-            "",
-            "\x01\u00d1\x2d\uffff\x01\u00d2",
             "",
             "",
-            "",
-            "\x01\u00d3",
             "",
             "\x01\u00d5",
             "",
             "",
+            "\x01\u00d7",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\x0a\u0084\x01\uffff\x02\u0084\x01\uffff\ufff2\u0084",
             "",
             "",
             "",
@@ -6592,308 +6584,289 @@ public class AS3_exLexer : Lexer {
             "",
             "",
             "",
-            "\x01\u00d8",
-            "",
-            "",
+            "\x01\u00d9",
             "\x01\u00da",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\x01\u00db",
             "\x01\u00dc",
-            "\x01\u00dd",
-            "\x01\u00de",
+            "\x01\u00dd\x01\u00de",
             "\x01\u00df",
-            "\x01\u00e0\x01\u00e1",
+            "\x01\u00e0",
+            "",
+            "\x01\u00e1",
             "\x01\u00e2",
             "\x01\u00e3",
-            "",
             "\x01\u00e4",
             "\x01\u00e5",
             "\x01\u00e6",
-            "\x01\u00e7",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u00e8",
-            "\x01\u00e9",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u00eb",
             "",
-            "\x01\u00ec\x02\uffff\x01\u00ed",
+            "\x01\u00e9\x02\uffff\x01\u00ea",
+            "\x01\u00eb",
+            "\x01\u00ec",
+            "\x01\u00ed",
+            "",
+            "",
             "\x01\u00ee",
             "\x01\u00ef",
-            "\x01\u00f0",
-            "",
-            "",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u00f1",
             "\x01\u00f2",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u00f3",
             "\x01\u00f4",
             "\x01\u00f5",
             "\x01\u00f6",
             "\x01\u00f7",
             "\x01\u00f8",
-            "\x01\u00f9",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u00fa",
             "\x01\u00fb",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u00fc",
+            "",
             "\x01\u00fd",
-            "\x01\u00fe",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u00ff",
-            "",
-            "\x01\u0100",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0102",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u0105",
+            "\x01\u0103",
+            "\x01\u0104",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0106",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\x01\u0107",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0109",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\x01\u010a",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u010b",
             "\x01\u010c",
             "\x01\u010d",
             "\x01\u010e",
             "\x01\u010f",
-            "\x01\u0110",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0111",
-            "\x01\u0112",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\u0113",
             "\x01\u0114",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "",
+            "\x01\u0115",
             "\x01\u0116",
             "\x01\u0117",
-            "",
             "\x01\u0118",
             "\x01\u0119",
             "\x01\u011a",
             "\x01\u011b",
             "\x01\u011c",
-            "\x01\u011d",
+            "",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u011e",
             "\x01\u011f",
-            "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u0120",
             "\x01\u0121",
             "\x01\u0122",
             "\x01\u0123",
             "\x01\u0124",
+            "",
             "\x01\u0125",
-            "\x01\u0126",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0127",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "\x01\u0128",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u012a",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "",
-            "\x01\u012c",
+            "\x01\u0129",
             "",
             "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u012e",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\u012b",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "\x01\u0130",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u012d",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\u0132",
+            "\x01\u0133",
+            "\x01\u0134",
             "\x01\u0135",
+            "",
             "\x01\u0136",
-            "\x01\u0137",
-            "\x01\u0138",
             "",
-            "\x01\u0139",
-            "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x0b\x39\x01\u013b\x0e\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x0b\x38\x01\u0138\x0e\x38",
+            "\x01\u013a",
+            "\x01\u013b",
+            "\x01\u013c",
             "\x01\u013d",
-            "\x01\u013e",
-            "\x01\u013f",
+            "\x01\u013e\x07\uffff\x01\u013f",
             "\x01\u0140",
-            "\x01\u0141\x07\uffff\x01\u0142",
+            "\x01\u0141",
+            "\x01\u0142",
+            "",
             "\x01\u0143",
             "\x01\u0144",
             "\x01\u0145",
-            "",
             "\x01\u0146",
             "\x01\u0147",
-            "\x01\u0148",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0149",
             "\x01\u014a",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u014c",
-            "\x01\u014d",
             "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "",
+            "\x01\u014c",
+            "",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "",
+            "\x01\u014e",
+            "",
+            "",
+            "",
             "",
             "\x01\u014f",
-            "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "",
-            "\x01\u0151",
-            "",
-            "",
-            "",
-            "",
+            "\x01\u0150",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0152",
             "\x01\u0153",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "",
+            "\x01\u0154",
+            "",
             "\x01\u0155",
             "\x01\u0156",
-            "",
-            "\x01\u0157",
-            "",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0158",
             "\x01\u0159",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u015a",
             "\x01\u015b",
-            "\x01\u015c",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u015d",
             "\x01\u015e",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u015f",
             "\x01\u0160",
-            "\x01\u0161",
-            "\x01\u0162",
-            "\x01\u0163",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "\x01\u0169",
-            "\x01\u016a",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u0166",
+            "\x01\u0167",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\u016c",
+            "\x01\u016d",
+            "",
+            "\x01\u016e",
             "\x01\u016f",
             "\x01\u0170",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "\x01\u0171",
             "\x01\u0172",
-            "\x01\u0173",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0175",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u0178",
             "",
             "",
             "",
             "",
             "",
+            "\x01\u0176",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "",
+            "",
+            "",
+            "",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "\x01\u0179",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\u017a",
+            "\x01\u017b",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "",
-            "",
-            "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\u017c",
             "\x01\u017d",
+            "",
+            "",
             "\x01\u017e",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "",
             "",
             "\x01\u0180",
-            "",
-            "",
             "\x01\u0181",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
-            "\x01\u0183",
-            "\x01\u0184",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
-            "\x01\x39\x0b\uffff\x0a\x39\x07\uffff\x1a\x39\x04\uffff\x01"+
-            "\x39\x01\uffff\x1a\x39",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
+            "\x01\x38\x0b\uffff\x0a\x38\x07\uffff\x1a\x38\x04\uffff\x01"+
+            "\x38\x01\uffff\x1a\x38",
             "",
             "",
             "",
@@ -6927,7 +6900,7 @@ public class AS3_exLexer : Lexer {
 
         override public string Description
         {
-            get { return "1:1: Tokens : ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NATIVE | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TO | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | EACH | GET | SET | NAMESPACE | INCLUDE | DYNAMIC | FINAL | OVERRIDE | STATIC | SEMI | LCURLY | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | LT | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | DIV | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | UNDERSCORE | DOLLAR | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | LAND_ASSIGN | LOR_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_TEND | XML_E_TEND | XML_NS_OP | XML_AT | XML_LS_STD | XML_LS_END | EOL | WHITESPACE | COMMENT_MULTILINE | COMMENT_SINGLELINE | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | REGULAR_EXPR_LITERAL | HEX_NUMBER_LITERAL | DEC_NUMBER_LITERAL | IDENTIFIER | XML_COMMENT | XML_CDATA | XML_PI | XML_TEXT );"; }
+            get { return "1:1: Tokens : ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NATIVE | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TO | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | EACH | GET | SET | NAMESPACE | INCLUDE | DYNAMIC | FINAL | OVERRIDE | STATIC | SEMI | LCURLY | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | LT | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | DIV | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | LAND_ASSIGN | LOR_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_TEND | XML_E_TEND | XML_NS_OP | XML_AT | XML_LS_STD | XML_LS_END | EOL | WHITESPACE | COMMENT_MULTILINE | COMMENT_SINGLELINE | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | REGULAR_EXPR_LITERAL | HEX_NUMBER_LITERAL | DEC_NUMBER_LITERAL | IDENTIFIER | XML_COMMENT | XML_CDATA | XML_PI | XML_TEXT );"; }
         }
 
     }
@@ -6940,18 +6913,18 @@ public class AS3_exLexer : Lexer {
         switch ( s )
         {
                	case 0 : 
-                   	int LA30_127 = input.LA(1);
+                   	int LA30_126 = input.LA(1);
 
                    	 
-                   	int index30_127 = input.Index();
+                   	int index30_126 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( ((LA30_127 >= '\u0000' && LA30_127 <= '\t') || (LA30_127 >= '\u000B' && LA30_127 <= '\f') || (LA30_127 >= '\u000E' && LA30_127 <= '\uFFFF')) && ((IsRegularExpression())) ) { s = 132; }
+                   	if ( ((LA30_126 >= '\u0000' && LA30_126 <= '\t') || (LA30_126 >= '\u000B' && LA30_126 <= '\f') || (LA30_126 >= '\u000E' && LA30_126 <= '\uFFFF')) && ((IsRegularExpression())) ) { s = 131; }
 
-                   	else s = 215;
+                   	else s = 212;
 
                    	 
-                   	input.Seek(index30_127);
+                   	input.Seek(index30_126);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 1 : 
@@ -6961,54 +6934,54 @@ public class AS3_exLexer : Lexer {
                    	int index30_34 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (LA30_34 == '=') ) { s = 127; }
+                   	if ( (LA30_34 == '=') ) { s = 126; }
 
-                   	else if ( (LA30_34 == '>') ) { s = 128; }
+                   	else if ( (LA30_34 == '>') ) { s = 127; }
 
-                   	else if ( (LA30_34 == '*') ) { s = 129; }
+                   	else if ( (LA30_34 == '*') ) { s = 128; }
 
-                   	else if ( (LA30_34 == '/') ) { s = 130; }
+                   	else if ( (LA30_34 == '/') ) { s = 129; }
 
-                   	else if ( ((LA30_34 >= '\u0000' && LA30_34 <= '\t') || (LA30_34 >= '\u000B' && LA30_34 <= '\f') || (LA30_34 >= '\u000E' && LA30_34 <= ')') || (LA30_34 >= '+' && LA30_34 <= '.') || (LA30_34 >= '0' && LA30_34 <= '<') || (LA30_34 >= '?' && LA30_34 <= '\uFFFF')) && ((IsRegularExpression())) ) { s = 132; }
+                   	else if ( ((LA30_34 >= '\u0000' && LA30_34 <= '\t') || (LA30_34 >= '\u000B' && LA30_34 <= '\f') || (LA30_34 >= '\u000E' && LA30_34 <= ')') || (LA30_34 >= '+' && LA30_34 <= '.') || (LA30_34 >= '0' && LA30_34 <= '<') || (LA30_34 >= '?' && LA30_34 <= '\uFFFF')) && ((IsRegularExpression())) ) { s = 131; }
 
-                   	else s = 131;
+                   	else s = 130;
 
                    	 
                    	input.Seek(index30_34);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 2 : 
-                   	int LA30_54 = input.LA(1);
+                   	int LA30_52 = input.LA(1);
 
                    	 
-                   	int index30_54 = input.Index();
+                   	int index30_52 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (!(((IsXMLText(input.LA(1)))))) ) { s = 57; }
+                   	if ( (!(((IsXMLText(input.LA(1)))))) ) { s = 56; }
 
-                   	else if ( ((IsXMLText(input.LA(1)))) ) { s = 55; }
+                   	else if ( ((IsXMLText(input.LA(1)))) ) { s = 54; }
 
                    	 
-                   	input.Seek(index30_54);
+                   	input.Seek(index30_52);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 3 : 
-                   	int LA30_49 = input.LA(1);
+                   	int LA30_47 = input.LA(1);
 
                    	s = -1;
-                   	if ( ((LA30_49 >= '\u0000' && LA30_49 <= '\uFFFF')) ) { s = 151; }
+                   	if ( ((LA30_47 >= '\u0000' && LA30_47 <= '\uFFFF')) ) { s = 148; }
 
-                   	else s = 55;
+                   	else s = 54;
 
                    	if ( s >= 0 ) return s;
                    	break;
                	case 4 : 
-                   	int LA30_48 = input.LA(1);
+                   	int LA30_46 = input.LA(1);
 
                    	s = -1;
-                   	if ( ((LA30_48 >= '\u0000' && LA30_48 <= '\uFFFF')) ) { s = 150; }
+                   	if ( ((LA30_46 >= '\u0000' && LA30_46 <= '\uFFFF')) ) { s = 147; }
 
-                   	else s = 55;
+                   	else s = 54;
 
                    	if ( s >= 0 ) return s;
                    	break;

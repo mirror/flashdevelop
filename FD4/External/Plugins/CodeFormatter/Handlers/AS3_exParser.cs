@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 AS3_ex.g3 2011-07-03 23:25:56
+// $ANTLR 3.1.1 AS3_ex.g3 2011-12-19 16:18:10
 
   using System.Collections.Generic;
   using System.Text.RegularExpressions;
@@ -330,7 +330,7 @@ public class AS3_exParser : Parser
         public AS3_exParser(ITokenStream input, RecognizerSharedState state)
     		: base(input, state) {
             InitializeCyclicDFAs();
-            this.state.ruleMemo = new Hashtable[542+1];
+            this.state.ruleMemo = new Hashtable[540+1];
              
              
        }
@@ -807,7 +807,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "booleanLiteral"
-    // AS3_ex.g3:1237:1: booleanLiteral : (T= TRUE | F= FALSE );
+    // AS3_ex.g3:1242:1: booleanLiteral : (T= TRUE | F= FALSE );
     public AS3_exParser.booleanLiteral_return booleanLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.booleanLiteral_return retval = new AS3_exParser.booleanLiteral_return();
@@ -827,7 +827,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1237:36: (T= TRUE | F= FALSE )
+            // AS3_ex.g3:1242:36: (T= TRUE | F= FALSE )
             int alt1 = 2;
             int LA1_0 = input.LA(1);
 
@@ -850,11 +850,11 @@ public class AS3_exParser : Parser
             switch (alt1) 
             {
                 case 1 :
-                    // AS3_ex.g3:1237:40: T= TRUE
+                    // AS3_ex.g3:1242:40: T= TRUE
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	T=(IToken)Match(input,TRUE,FOLLOW_TRUE_in_booleanLiteral3587); if (state.failed) return retval;
+                    	T=(IToken)Match(input,TRUE,FOLLOW_TRUE_in_booleanLiteral3614); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{T_tree = (object)adaptor.Create(T);
                     		adaptor.AddChild(root_0, T_tree);
@@ -867,11 +867,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1237:74: F= FALSE
+                    // AS3_ex.g3:1242:74: F= FALSE
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	F=(IToken)Match(input,FALSE,FOLLOW_FALSE_in_booleanLiteral3595); if (state.failed) return retval;
+                    	F=(IToken)Match(input,FALSE,FOLLOW_FALSE_in_booleanLiteral3622); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{F_tree = (object)adaptor.Create(F);
                     		adaptor.AddChild(root_0, F_tree);
@@ -921,7 +921,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "numericLiteral"
-    // AS3_ex.g3:1239:1: numericLiteral : (D= DEC_NUMBER_LITERAL | H= HEX_NUMBER_LITERAL );
+    // AS3_ex.g3:1244:1: numericLiteral : (D= DEC_NUMBER_LITERAL | H= HEX_NUMBER_LITERAL );
     public AS3_exParser.numericLiteral_return numericLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.numericLiteral_return retval = new AS3_exParser.numericLiteral_return();
@@ -941,7 +941,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1239:36: (D= DEC_NUMBER_LITERAL | H= HEX_NUMBER_LITERAL )
+            // AS3_ex.g3:1244:36: (D= DEC_NUMBER_LITERAL | H= HEX_NUMBER_LITERAL )
             int alt2 = 2;
             int LA2_0 = input.LA(1);
 
@@ -964,11 +964,11 @@ public class AS3_exParser : Parser
             switch (alt2) 
             {
                 case 1 :
-                    // AS3_ex.g3:1239:40: D= DEC_NUMBER_LITERAL
+                    // AS3_ex.g3:1244:40: D= DEC_NUMBER_LITERAL
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	D=(IToken)Match(input,DEC_NUMBER_LITERAL,FOLLOW_DEC_NUMBER_LITERAL_in_numericLiteral3629); if (state.failed) return retval;
+                    	D=(IToken)Match(input,DEC_NUMBER_LITERAL,FOLLOW_DEC_NUMBER_LITERAL_in_numericLiteral3656); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{D_tree = (object)adaptor.Create(D);
                     		adaptor.AddChild(root_0, D_tree);
@@ -981,11 +981,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1239:88: H= HEX_NUMBER_LITERAL
+                    // AS3_ex.g3:1244:88: H= HEX_NUMBER_LITERAL
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	H=(IToken)Match(input,HEX_NUMBER_LITERAL,FOLLOW_HEX_NUMBER_LITERAL_in_numericLiteral3637); if (state.failed) return retval;
+                    	H=(IToken)Match(input,HEX_NUMBER_LITERAL,FOLLOW_HEX_NUMBER_LITERAL_in_numericLiteral3664); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{H_tree = (object)adaptor.Create(H);
                     		adaptor.AddChild(root_0, H_tree);
@@ -1035,7 +1035,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "stringLiteral"
-    // AS3_ex.g3:1241:1: stringLiteral : (S= SINGLE_QUOTE_LITERAL | D= DOUBLE_QUOTE_LITERAL );
+    // AS3_ex.g3:1246:1: stringLiteral : (S= SINGLE_QUOTE_LITERAL | D= DOUBLE_QUOTE_LITERAL );
     public AS3_exParser.stringLiteral_return stringLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.stringLiteral_return retval = new AS3_exParser.stringLiteral_return();
@@ -1055,7 +1055,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1241:36: (S= SINGLE_QUOTE_LITERAL | D= DOUBLE_QUOTE_LITERAL )
+            // AS3_ex.g3:1246:36: (S= SINGLE_QUOTE_LITERAL | D= DOUBLE_QUOTE_LITERAL )
             int alt3 = 2;
             int LA3_0 = input.LA(1);
 
@@ -1078,11 +1078,11 @@ public class AS3_exParser : Parser
             switch (alt3) 
             {
                 case 1 :
-                    // AS3_ex.g3:1241:40: S= SINGLE_QUOTE_LITERAL
+                    // AS3_ex.g3:1246:40: S= SINGLE_QUOTE_LITERAL
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	S=(IToken)Match(input,SINGLE_QUOTE_LITERAL,FOLLOW_SINGLE_QUOTE_LITERAL_in_stringLiteral3672); if (state.failed) return retval;
+                    	S=(IToken)Match(input,SINGLE_QUOTE_LITERAL,FOLLOW_SINGLE_QUOTE_LITERAL_in_stringLiteral3699); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{S_tree = (object)adaptor.Create(S);
                     		adaptor.AddChild(root_0, S_tree);
@@ -1095,11 +1095,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1241:89: D= DOUBLE_QUOTE_LITERAL
+                    // AS3_ex.g3:1246:89: D= DOUBLE_QUOTE_LITERAL
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	D=(IToken)Match(input,DOUBLE_QUOTE_LITERAL,FOLLOW_DOUBLE_QUOTE_LITERAL_in_stringLiteral3679); if (state.failed) return retval;
+                    	D=(IToken)Match(input,DOUBLE_QUOTE_LITERAL,FOLLOW_DOUBLE_QUOTE_LITERAL_in_stringLiteral3706); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{D_tree = (object)adaptor.Create(D);
                     		adaptor.AddChild(root_0, D_tree);
@@ -1149,7 +1149,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "regularExpresionLiteral"
-    // AS3_ex.g3:1243:1: regularExpresionLiteral : R= REGULAR_EXPR_LITERAL ;
+    // AS3_ex.g3:1248:1: regularExpresionLiteral : R= REGULAR_EXPR_LITERAL ;
     public AS3_exParser.regularExpresionLiteral_return regularExpresionLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.regularExpresionLiteral_return retval = new AS3_exParser.regularExpresionLiteral_return();
@@ -1167,12 +1167,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1243:36: (R= REGULAR_EXPR_LITERAL )
-            // AS3_ex.g3:1243:40: R= REGULAR_EXPR_LITERAL
+            // AS3_ex.g3:1248:36: (R= REGULAR_EXPR_LITERAL )
+            // AS3_ex.g3:1248:40: R= REGULAR_EXPR_LITERAL
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	R=(IToken)Match(input,REGULAR_EXPR_LITERAL,FOLLOW_REGULAR_EXPR_LITERAL_in_regularExpresionLiteral3704); if (state.failed) return retval;
+            	R=(IToken)Match(input,REGULAR_EXPR_LITERAL,FOLLOW_REGULAR_EXPR_LITERAL_in_regularExpresionLiteral3731); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -1220,7 +1220,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "identifierLiteral"
-    // AS3_ex.g3:1245:1: identifierLiteral : (I= IDENTIFIER | notQuiteReservedWord );
+    // AS3_ex.g3:1250:1: identifierLiteral : (I= IDENTIFIER | notQuiteReservedWord );
     public AS3_exParser.identifierLiteral_return identifierLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.identifierLiteral_return retval = new AS3_exParser.identifierLiteral_return();
@@ -1240,7 +1240,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1245:36: (I= IDENTIFIER | notQuiteReservedWord )
+            // AS3_ex.g3:1250:36: (I= IDENTIFIER | notQuiteReservedWord )
             int alt4 = 2;
             int LA4_0 = input.LA(1);
 
@@ -1263,11 +1263,11 @@ public class AS3_exParser : Parser
             switch (alt4) 
             {
                 case 1 :
-                    // AS3_ex.g3:1245:83: I= IDENTIFIER
+                    // AS3_ex.g3:1250:83: I= IDENTIFIER
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifierLiteral3737); if (state.failed) return retval;
+                    	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifierLiteral3764); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{I_tree = (object)adaptor.Create(I);
                     		adaptor.AddChild(root_0, I_tree);
@@ -1280,11 +1280,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1245:122: notQuiteReservedWord
+                    // AS3_ex.g3:1250:122: notQuiteReservedWord
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_notQuiteReservedWord_in_identifierLiteral3742);
+                    	PushFollow(FOLLOW_notQuiteReservedWord_in_identifierLiteral3769);
                     	notQuiteReservedWord1 = notQuiteReservedWord();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1330,7 +1330,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlNameLiteral"
-    // AS3_ex.g3:1247:1: xmlNameLiteral : (I= IDENTIFIER | allKeywords ) ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )* ;
+    // AS3_ex.g3:1252:1: xmlNameLiteral : (I= IDENTIFIER | allKeywords ) ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )* ;
     public AS3_exParser.xmlNameLiteral_return xmlNameLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlNameLiteral_return retval = new AS3_exParser.xmlNameLiteral_return();
@@ -1360,12 +1360,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1247:36: ( (I= IDENTIFIER | allKeywords ) ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )* )
-            // AS3_ex.g3:1247:40: (I= IDENTIFIER | allKeywords ) ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )*
+            // AS3_ex.g3:1252:36: ( (I= IDENTIFIER | allKeywords ) ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )* )
+            // AS3_ex.g3:1252:40: (I= IDENTIFIER | allKeywords ) ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1247:40: (I= IDENTIFIER | allKeywords )
+            	// AS3_ex.g3:1252:40: (I= IDENTIFIER | allKeywords )
             	int alt5 = 2;
             	int LA5_0 = input.LA(1);
 
@@ -1388,9 +1388,9 @@ public class AS3_exParser : Parser
             	switch (alt5) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1247:41: I= IDENTIFIER
+            	        // AS3_ex.g3:1252:41: I= IDENTIFIER
             	        {
-            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_xmlNameLiteral3777); if (state.failed) return retval;
+            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_xmlNameLiteral3804); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{I_tree = (object)adaptor.Create(I);
             	        		adaptor.AddChild(root_0, I_tree);
@@ -1403,9 +1403,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1247:80: allKeywords
+            	        // AS3_ex.g3:1252:80: allKeywords
             	        {
-            	        	PushFollow(FOLLOW_allKeywords_in_xmlNameLiteral3782);
+            	        	PushFollow(FOLLOW_allKeywords_in_xmlNameLiteral3809);
             	        	allKeywords2 = allKeywords();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -1416,7 +1416,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	// AS3_ex.g3:1247:93: ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )*
+            	// AS3_ex.g3:1252:93: ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )*
             	do 
             	{
             	    int alt8 = 2;
@@ -1424,14 +1424,14 @@ public class AS3_exParser : Parser
             	    switch (alt8) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1247:95: {...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords )
+            			    // AS3_ex.g3:1252:95: {...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords )
             			    {
             			    	if ( !((!PromoteWhitespace())) ) 
             			    	{
             			    	    if ( state.backtracking > 0 ) {state.failed = true; return retval;}
             			    	    throw new FailedPredicateException(input, "xmlNameLiteral", "!PromoteWhitespace()");
             			    	}
-            			    	// AS3_ex.g3:1247:121: (s= SUB | d= DOT | c= COLON )
+            			    	// AS3_ex.g3:1252:121: (s= SUB | d= DOT | c= COLON )
             			    	int alt6 = 3;
             			    	switch ( input.LA(1) ) 
             			    	{
@@ -1461,9 +1461,9 @@ public class AS3_exParser : Parser
             			    	switch (alt6) 
             			    	{
             			    	    case 1 :
-            			    	        // AS3_ex.g3:1247:122: s= SUB
+            			    	        // AS3_ex.g3:1252:122: s= SUB
             			    	        {
-            			    	        	s=(IToken)Match(input,SUB,FOLLOW_SUB_in_xmlNameLiteral3793); if (state.failed) return retval;
+            			    	        	s=(IToken)Match(input,SUB,FOLLOW_SUB_in_xmlNameLiteral3820); if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 )
             			    	        	{s_tree = (object)adaptor.Create(s);
             			    	        		adaptor.AddChild(root_0, s_tree);
@@ -1476,9 +1476,9 @@ public class AS3_exParser : Parser
             			    	        }
             			    	        break;
             			    	    case 2 :
-            			    	        // AS3_ex.g3:1247:155: d= DOT
+            			    	        // AS3_ex.g3:1252:155: d= DOT
             			    	        {
-            			    	        	d=(IToken)Match(input,DOT,FOLLOW_DOT_in_xmlNameLiteral3801); if (state.failed) return retval;
+            			    	        	d=(IToken)Match(input,DOT,FOLLOW_DOT_in_xmlNameLiteral3828); if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 )
             			    	        	{d_tree = (object)adaptor.Create(d);
             			    	        		adaptor.AddChild(root_0, d_tree);
@@ -1491,9 +1491,9 @@ public class AS3_exParser : Parser
             			    	        }
             			    	        break;
             			    	    case 3 :
-            			    	        // AS3_ex.g3:1247:188: c= COLON
+            			    	        // AS3_ex.g3:1252:188: c= COLON
             			    	        {
-            			    	        	c=(IToken)Match(input,COLON,FOLLOW_COLON_in_xmlNameLiteral3809); if (state.failed) return retval;
+            			    	        	c=(IToken)Match(input,COLON,FOLLOW_COLON_in_xmlNameLiteral3836); if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 )
             			    	        	{c_tree = (object)adaptor.Create(c);
             			    	        		adaptor.AddChild(root_0, c_tree);
@@ -1513,7 +1513,7 @@ public class AS3_exParser : Parser
             			    	    if ( state.backtracking > 0 ) {state.failed = true; return retval;}
             			    	    throw new FailedPredicateException(input, "xmlNameLiteral", "!PromoteWhitespace()");
             			    	}
-            			    	// AS3_ex.g3:1247:248: (I2= IDENTIFIER | allKeywords )
+            			    	// AS3_ex.g3:1252:248: (I2= IDENTIFIER | allKeywords )
             			    	int alt7 = 2;
             			    	int LA7_0 = input.LA(1);
 
@@ -1536,9 +1536,9 @@ public class AS3_exParser : Parser
             			    	switch (alt7) 
             			    	{
             			    	    case 1 :
-            			    	        // AS3_ex.g3:1247:249: I2= IDENTIFIER
+            			    	        // AS3_ex.g3:1252:249: I2= IDENTIFIER
             			    	        {
-            			    	        	I2=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_xmlNameLiteral3820); if (state.failed) return retval;
+            			    	        	I2=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_xmlNameLiteral3847); if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 )
             			    	        	{I2_tree = (object)adaptor.Create(I2);
             			    	        		adaptor.AddChild(root_0, I2_tree);
@@ -1551,9 +1551,9 @@ public class AS3_exParser : Parser
             			    	        }
             			    	        break;
             			    	    case 2 :
-            			    	        // AS3_ex.g3:1247:291: allKeywords
+            			    	        // AS3_ex.g3:1252:291: allKeywords
             			    	        {
-            			    	        	PushFollow(FOLLOW_allKeywords_in_xmlNameLiteral3826);
+            			    	        	PushFollow(FOLLOW_allKeywords_in_xmlNameLiteral3853);
             			    	        	allKeywords3 = allKeywords();
             			    	        	state.followingStackPointer--;
             			    	        	if (state.failed) return retval;
@@ -1615,7 +1615,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "literal"
-    // AS3_ex.g3:1250:1: literal : (N= NULL | booleanLiteral | numericLiteral | stringLiteral | regularExpresionLiteral );
+    // AS3_ex.g3:1255:1: literal : (N= NULL | booleanLiteral | numericLiteral | stringLiteral | regularExpresionLiteral );
     public AS3_exParser.literal_return literal() // throws RecognitionException [1]
     {   
         AS3_exParser.literal_return retval = new AS3_exParser.literal_return();
@@ -1641,7 +1641,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1250:36: (N= NULL | booleanLiteral | numericLiteral | stringLiteral | regularExpresionLiteral )
+            // AS3_ex.g3:1255:36: (N= NULL | booleanLiteral | numericLiteral | stringLiteral | regularExpresionLiteral )
             int alt9 = 5;
             switch ( input.LA(1) ) 
             {
@@ -1684,11 +1684,11 @@ public class AS3_exParser : Parser
             switch (alt9) 
             {
                 case 1 :
-                    // AS3_ex.g3:1250:40: N= NULL
+                    // AS3_ex.g3:1255:40: N= NULL
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	N=(IToken)Match(input,NULL,FOLLOW_NULL_in_literal3879); if (state.failed) return retval;
+                    	N=(IToken)Match(input,NULL,FOLLOW_NULL_in_literal3906); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{N_tree = (object)adaptor.Create(N);
                     		adaptor.AddChild(root_0, N_tree);
@@ -1701,11 +1701,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1250:74: booleanLiteral
+                    // AS3_ex.g3:1255:74: booleanLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_booleanLiteral_in_literal3885);
+                    	PushFollow(FOLLOW_booleanLiteral_in_literal3912);
                     	booleanLiteral4 = booleanLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1714,11 +1714,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1250:91: numericLiteral
+                    // AS3_ex.g3:1255:91: numericLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_numericLiteral_in_literal3889);
+                    	PushFollow(FOLLOW_numericLiteral_in_literal3916);
                     	numericLiteral5 = numericLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1727,11 +1727,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:1250:108: stringLiteral
+                    // AS3_ex.g3:1255:108: stringLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_stringLiteral_in_literal3893);
+                    	PushFollow(FOLLOW_stringLiteral_in_literal3920);
                     	stringLiteral6 = stringLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1740,11 +1740,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 5 :
-                    // AS3_ex.g3:1250:124: regularExpresionLiteral
+                    // AS3_ex.g3:1255:124: regularExpresionLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_regularExpresionLiteral_in_literal3897);
+                    	PushFollow(FOLLOW_regularExpresionLiteral_in_literal3924);
                     	regularExpresionLiteral7 = regularExpresionLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1790,7 +1790,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlMarkup"
-    // AS3_ex.g3:1253:1: xmlMarkup : ( xmlComment | xmlCDATA | xmlPI );
+    // AS3_ex.g3:1258:1: xmlMarkup : ( xmlComment | xmlCDATA | xmlPI );
     public AS3_exParser.xmlMarkup_return xmlMarkup() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlMarkup_return retval = new AS3_exParser.xmlMarkup_return();
@@ -1812,7 +1812,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1253:36: ( xmlComment | xmlCDATA | xmlPI )
+            // AS3_ex.g3:1258:36: ( xmlComment | xmlCDATA | xmlPI )
             int alt10 = 3;
             switch ( input.LA(1) ) 
             {
@@ -1842,11 +1842,11 @@ public class AS3_exParser : Parser
             switch (alt10) 
             {
                 case 1 :
-                    // AS3_ex.g3:1253:40: xmlComment
+                    // AS3_ex.g3:1258:40: xmlComment
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlComment_in_xmlMarkup3933);
+                    	PushFollow(FOLLOW_xmlComment_in_xmlMarkup3960);
                     	xmlComment8 = xmlComment();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1855,11 +1855,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1253:53: xmlCDATA
+                    // AS3_ex.g3:1258:53: xmlCDATA
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlCDATA_in_xmlMarkup3937);
+                    	PushFollow(FOLLOW_xmlCDATA_in_xmlMarkup3964);
                     	xmlCDATA9 = xmlCDATA();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1868,11 +1868,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1253:64: xmlPI
+                    // AS3_ex.g3:1258:64: xmlPI
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlPI_in_xmlMarkup3941);
+                    	PushFollow(FOLLOW_xmlPI_in_xmlMarkup3968);
                     	xmlPI10 = xmlPI();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1918,7 +1918,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlComment"
-    // AS3_ex.g3:1254:1: xmlComment : x= XML_COMMENT ;
+    // AS3_ex.g3:1259:1: xmlComment : x= XML_COMMENT ;
     public AS3_exParser.xmlComment_return xmlComment() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlComment_return retval = new AS3_exParser.xmlComment_return();
@@ -1936,12 +1936,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1254:36: (x= XML_COMMENT )
-            // AS3_ex.g3:1254:40: x= XML_COMMENT
+            // AS3_ex.g3:1259:36: (x= XML_COMMENT )
+            // AS3_ex.g3:1259:40: x= XML_COMMENT
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	x=(IToken)Match(input,XML_COMMENT,FOLLOW_XML_COMMENT_in_xmlComment3976); if (state.failed) return retval;
+            	x=(IToken)Match(input,XML_COMMENT,FOLLOW_XML_COMMENT_in_xmlComment4003); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{x_tree = (object)adaptor.Create(x);
             		adaptor.AddChild(root_0, x_tree);
@@ -1989,7 +1989,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlCDATA"
-    // AS3_ex.g3:1255:1: xmlCDATA : x= XML_CDATA ;
+    // AS3_ex.g3:1260:1: xmlCDATA : x= XML_CDATA ;
     public AS3_exParser.xmlCDATA_return xmlCDATA() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlCDATA_return retval = new AS3_exParser.xmlCDATA_return();
@@ -2007,12 +2007,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1255:36: (x= XML_CDATA )
-            // AS3_ex.g3:1255:40: x= XML_CDATA
+            // AS3_ex.g3:1260:36: (x= XML_CDATA )
+            // AS3_ex.g3:1260:40: x= XML_CDATA
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	x=(IToken)Match(input,XML_CDATA,FOLLOW_XML_CDATA_in_xmlCDATA4018); if (state.failed) return retval;
+            	x=(IToken)Match(input,XML_CDATA,FOLLOW_XML_CDATA_in_xmlCDATA4045); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{x_tree = (object)adaptor.Create(x);
             		adaptor.AddChild(root_0, x_tree);
@@ -2060,7 +2060,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlPI"
-    // AS3_ex.g3:1256:1: xmlPI : x= XML_PI ;
+    // AS3_ex.g3:1261:1: xmlPI : x= XML_PI ;
     public AS3_exParser.xmlPI_return xmlPI() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlPI_return retval = new AS3_exParser.xmlPI_return();
@@ -2078,12 +2078,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1256:36: (x= XML_PI )
-            // AS3_ex.g3:1256:40: x= XML_PI
+            // AS3_ex.g3:1261:36: (x= XML_PI )
+            // AS3_ex.g3:1261:40: x= XML_PI
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	x=(IToken)Match(input,XML_PI,FOLLOW_XML_PI_in_xmlPI4061); if (state.failed) return retval;
+            	x=(IToken)Match(input,XML_PI,FOLLOW_XML_PI_in_xmlPI4088); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{x_tree = (object)adaptor.Create(x);
             		adaptor.AddChild(root_0, x_tree);
@@ -2131,7 +2131,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlExprEval"
-    // AS3_ex.g3:1257:1: xmlExprEval : L= LCURLY expression R= RCURLY ;
+    // AS3_ex.g3:1262:1: xmlExprEval : L= LCURLY expression R= RCURLY ;
     public AS3_exParser.xmlExprEval_return xmlExprEval() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlExprEval_return retval = new AS3_exParser.xmlExprEval_return();
@@ -2153,12 +2153,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1257:36: (L= LCURLY expression R= RCURLY )
-            // AS3_ex.g3:1257:40: L= LCURLY expression R= RCURLY
+            // AS3_ex.g3:1262:36: (L= LCURLY expression R= RCURLY )
+            // AS3_ex.g3:1262:40: L= LCURLY expression R= RCURLY
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_xmlExprEval4099); if (state.failed) return retval;
+            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_xmlExprEval4126); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -2167,12 +2167,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);PushIndent(true);
             	}
-            	PushFollow(FOLLOW_expression_in_xmlExprEval4103);
+            	PushFollow(FOLLOW_expression_in_xmlExprEval4130);
             	expression11 = expression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, expression11.Tree);
-            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_xmlExprEval4107); if (state.failed) return retval;
+            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_xmlExprEval4134); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -2220,7 +2220,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlTextElement"
-    // AS3_ex.g3:1260:1: xmlTextElement : ( allKeywords | lexToken= ( DEC_NUMBER_LITERAL | HEX_NUMBER_LITERAL | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | IDENTIFIER | XML_TEXT | DIV | SEMI | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | UNDERSCORE | DOLLAR | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_NS_OP | XML_AT ) );
+    // AS3_ex.g3:1265:1: xmlTextElement : ( allKeywords | lexToken= ( DEC_NUMBER_LITERAL | HEX_NUMBER_LITERAL | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | IDENTIFIER | XML_TEXT | DIV | SEMI | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_NS_OP | XML_AT ) );
     public AS3_exParser.xmlTextElement_return xmlTextElement() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlTextElement_return retval = new AS3_exParser.xmlTextElement_return();
@@ -2240,7 +2240,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1261:5: ( allKeywords | lexToken= ( DEC_NUMBER_LITERAL | HEX_NUMBER_LITERAL | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | IDENTIFIER | XML_TEXT | DIV | SEMI | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | UNDERSCORE | DOLLAR | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_NS_OP | XML_AT ) )
+            // AS3_ex.g3:1266:5: ( allKeywords | lexToken= ( DEC_NUMBER_LITERAL | HEX_NUMBER_LITERAL | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | IDENTIFIER | XML_TEXT | DIV | SEMI | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_NS_OP | XML_AT ) )
             int alt11 = 2;
             int LA11_0 = input.LA(1);
 
@@ -2248,7 +2248,7 @@ public class AS3_exParser : Parser
             {
                 alt11 = 1;
             }
-            else if ( (LA11_0 == SEMI || (LA11_0 >= RCURLY && LA11_0 <= COMMA) || (LA11_0 >= GT && LA11_0 <= LTE) || (LA11_0 >= EQ && LA11_0 <= SHL) || (LA11_0 >= AND && LA11_0 <= SHL_ASSIGN) || (LA11_0 >= LAND_ASSIGN && LA11_0 <= XML_ELLIPSIS) || (LA11_0 >= XML_NS_OP && LA11_0 <= XML_AT) || (LA11_0 >= SINGLE_QUOTE_LITERAL && LA11_0 <= DOUBLE_QUOTE_LITERAL) || LA11_0 == HEX_NUMBER_LITERAL || LA11_0 == DEC_NUMBER_LITERAL || LA11_0 == IDENTIFIER || LA11_0 == XML_TEXT) )
+            else if ( (LA11_0 == SEMI || (LA11_0 >= RCURLY && LA11_0 <= COMMA) || (LA11_0 >= GT && LA11_0 <= LTE) || (LA11_0 >= EQ && LA11_0 <= SHL) || (LA11_0 >= AND && LA11_0 <= ASSIGN) || (LA11_0 >= DIV_ASSIGN && LA11_0 <= SHL_ASSIGN) || (LA11_0 >= LAND_ASSIGN && LA11_0 <= XML_ELLIPSIS) || (LA11_0 >= XML_NS_OP && LA11_0 <= XML_AT) || (LA11_0 >= SINGLE_QUOTE_LITERAL && LA11_0 <= DOUBLE_QUOTE_LITERAL) || LA11_0 == HEX_NUMBER_LITERAL || LA11_0 == DEC_NUMBER_LITERAL || LA11_0 == IDENTIFIER || LA11_0 == XML_TEXT) )
             {
                 alt11 = 2;
             }
@@ -2263,11 +2263,11 @@ public class AS3_exParser : Parser
             switch (alt11) 
             {
                 case 1 :
-                    // AS3_ex.g3:1262:3: allKeywords
+                    // AS3_ex.g3:1267:3: allKeywords
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_allKeywords_in_xmlTextElement4125);
+                    	PushFollow(FOLLOW_allKeywords_in_xmlTextElement4152);
                     	allKeywords12 = allKeywords();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2280,12 +2280,12 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1263:7: lexToken= ( DEC_NUMBER_LITERAL | HEX_NUMBER_LITERAL | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | IDENTIFIER | XML_TEXT | DIV | SEMI | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | UNDERSCORE | DOLLAR | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_NS_OP | XML_AT )
+                    // AS3_ex.g3:1268:7: lexToken= ( DEC_NUMBER_LITERAL | HEX_NUMBER_LITERAL | SINGLE_QUOTE_LITERAL | DOUBLE_QUOTE_LITERAL | IDENTIFIER | XML_TEXT | DIV | SEMI | RCURLY | LPAREN | RPAREN | LBRACK | RBRACK | DOT | COMMA | GT | LTE | EQ | NEQ | SAME | NSAME | PLUS | SUB | STAR | MOD | INC | DEC | SHL | AND | OR | XOR | NOT | INV | LAND | LOR | QUE | COLON | ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN | ELLIPSIS | XML_ELLIPSIS | XML_NS_OP | XML_AT )
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
                     	lexToken = (IToken)input.LT(1);
-                    	if ( input.LA(1) == SEMI || (input.LA(1) >= RCURLY && input.LA(1) <= COMMA) || (input.LA(1) >= GT && input.LA(1) <= LTE) || (input.LA(1) >= EQ && input.LA(1) <= SHL) || (input.LA(1) >= AND && input.LA(1) <= SHL_ASSIGN) || (input.LA(1) >= LAND_ASSIGN && input.LA(1) <= XML_ELLIPSIS) || (input.LA(1) >= XML_NS_OP && input.LA(1) <= XML_AT) || (input.LA(1) >= SINGLE_QUOTE_LITERAL && input.LA(1) <= DOUBLE_QUOTE_LITERAL) || input.LA(1) == HEX_NUMBER_LITERAL || input.LA(1) == DEC_NUMBER_LITERAL || input.LA(1) == IDENTIFIER || input.LA(1) == XML_TEXT ) 
+                    	if ( input.LA(1) == SEMI || (input.LA(1) >= RCURLY && input.LA(1) <= COMMA) || (input.LA(1) >= GT && input.LA(1) <= LTE) || (input.LA(1) >= EQ && input.LA(1) <= SHL) || (input.LA(1) >= AND && input.LA(1) <= ASSIGN) || (input.LA(1) >= DIV_ASSIGN && input.LA(1) <= SHL_ASSIGN) || (input.LA(1) >= LAND_ASSIGN && input.LA(1) <= XML_ELLIPSIS) || (input.LA(1) >= XML_NS_OP && input.LA(1) <= XML_AT) || (input.LA(1) >= SINGLE_QUOTE_LITERAL && input.LA(1) <= DOUBLE_QUOTE_LITERAL) || input.LA(1) == HEX_NUMBER_LITERAL || input.LA(1) == DEC_NUMBER_LITERAL || input.LA(1) == IDENTIFIER || input.LA(1) == XML_TEXT ) 
                     	{
                     	    input.Consume();
                     	    if ( state.backtracking == 0 ) adaptor.AddChild(root_0, (object)adaptor.Create(lexToken));
@@ -2346,7 +2346,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlText"
-    // AS3_ex.g3:1334:1: xmlText : (x= XML_TEXT | xmlTextElement )+ ;
+    // AS3_ex.g3:1339:1: xmlText : (x= XML_TEXT | xmlTextElement )+ ;
     public AS3_exParser.xmlText_return xmlText() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlText_return retval = new AS3_exParser.xmlText_return();
@@ -2369,8 +2369,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1342:5: ( (x= XML_TEXT | xmlTextElement )+ )
-            // AS3_ex.g3:1344:2: (x= XML_TEXT | xmlTextElement )+
+            // AS3_ex.g3:1347:5: ( (x= XML_TEXT | xmlTextElement )+ )
+            // AS3_ex.g3:1349:2: (x= XML_TEXT | xmlTextElement )+
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -2378,7 +2378,7 @@ public class AS3_exParser : Parser
             	{
             	  mPrinter.SetE4XTextContent(true);
             	}
-            	// AS3_ex.g3:1345:5: (x= XML_TEXT | xmlTextElement )+
+            	// AS3_ex.g3:1350:5: (x= XML_TEXT | xmlTextElement )+
             	int cnt12 = 0;
             	do 
             	{
@@ -2389,11 +2389,11 @@ public class AS3_exParser : Parser
             	    	{
             	        int LA12_2 = input.LA(2);
 
-            	        if ( (synpred70_AS3_ex()) )
+            	        if ( (synpred68_AS3_ex()) )
             	        {
             	            alt12 = 1;
             	        }
-            	        else if ( (synpred71_AS3_ex()) )
+            	        else if ( (synpred69_AS3_ex()) )
             	        {
             	            alt12 = 2;
             	        }
@@ -2448,7 +2448,7 @@ public class AS3_exParser : Parser
             	    	{
             	        int LA12_3 = input.LA(2);
 
-            	        if ( (synpred71_AS3_ex()) )
+            	        if ( (synpred69_AS3_ex()) )
             	        {
             	            alt12 = 2;
             	        }
@@ -2469,7 +2469,7 @@ public class AS3_exParser : Parser
             	    	{
             	        int LA12_4 = input.LA(2);
 
-            	        if ( (synpred71_AS3_ex()) )
+            	        if ( (synpred69_AS3_ex()) )
             	        {
             	            alt12 = 2;
             	        }
@@ -2509,8 +2509,6 @@ public class AS3_exParser : Parser
             	    case QUE:
             	    case COLON:
             	    case ASSIGN:
-            	    case UNDERSCORE:
-            	    case DOLLAR:
             	    case DIV_ASSIGN:
             	    case MOD_ASSIGN:
             	    case ADD_ASSIGN:
@@ -2533,7 +2531,7 @@ public class AS3_exParser : Parser
             	    	{
             	        int LA12_5 = input.LA(2);
 
-            	        if ( (synpred71_AS3_ex()) )
+            	        if ( (synpred69_AS3_ex()) )
             	        {
             	            alt12 = 2;
             	        }
@@ -2547,9 +2545,9 @@ public class AS3_exParser : Parser
             	    switch (alt12) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1345:6: x= XML_TEXT
+            			    // AS3_ex.g3:1350:6: x= XML_TEXT
             			    {
-            			    	x=(IToken)Match(input,XML_TEXT,FOLLOW_XML_TEXT_in_xmlText4890); if (state.failed) return retval;
+            			    	x=(IToken)Match(input,XML_TEXT,FOLLOW_XML_TEXT_in_xmlText4895); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{x_tree = (object)adaptor.Create(x);
             			    		adaptor.AddChild(root_0, x_tree);
@@ -2562,9 +2560,9 @@ public class AS3_exParser : Parser
             			    }
             			    break;
             			case 2 :
-            			    // AS3_ex.g3:1345:44: xmlTextElement
+            			    // AS3_ex.g3:1350:44: xmlTextElement
             			    {
-            			    	PushFollow(FOLLOW_xmlTextElement_in_xmlText4896);
+            			    	PushFollow(FOLLOW_xmlTextElement_in_xmlText4901);
             			    	xmlTextElement13 = xmlTextElement();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -2636,7 +2634,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlPrimaryExpression"
-    // AS3_ex.g3:1350:1: xmlPrimaryExpression : ( xmlPropertyIdentifier | xmlInitialiser | xmlListInitialiser );
+    // AS3_ex.g3:1355:1: xmlPrimaryExpression : ( xmlPropertyIdentifier | xmlInitialiser | xmlListInitialiser );
     public AS3_exParser.xmlPrimaryExpression_return xmlPrimaryExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlPrimaryExpression_return retval = new AS3_exParser.xmlPrimaryExpression_return();
@@ -2658,7 +2656,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1351:5: ( xmlPropertyIdentifier | xmlInitialiser | xmlListInitialiser )
+            // AS3_ex.g3:1356:5: ( xmlPropertyIdentifier | xmlInitialiser | xmlListInitialiser )
             int alt13 = 3;
             switch ( input.LA(1) ) 
             {
@@ -2747,11 +2745,11 @@ public class AS3_exParser : Parser
             switch (alt13) 
             {
                 case 1 :
-                    // AS3_ex.g3:1351:9: xmlPropertyIdentifier
+                    // AS3_ex.g3:1356:9: xmlPropertyIdentifier
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlPropertyIdentifier_in_xmlPrimaryExpression4998);
+                    	PushFollow(FOLLOW_xmlPropertyIdentifier_in_xmlPrimaryExpression5003);
                     	xmlPropertyIdentifier14 = xmlPropertyIdentifier();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2760,11 +2758,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1352:9: xmlInitialiser
+                    // AS3_ex.g3:1357:9: xmlInitialiser
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlInitialiser_in_xmlPrimaryExpression5008);
+                    	PushFollow(FOLLOW_xmlInitialiser_in_xmlPrimaryExpression5013);
                     	xmlInitialiser15 = xmlInitialiser();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2773,11 +2771,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1353:9: xmlListInitialiser
+                    // AS3_ex.g3:1358:9: xmlListInitialiser
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlListInitialiser_in_xmlPrimaryExpression5018);
+                    	PushFollow(FOLLOW_xmlListInitialiser_in_xmlPrimaryExpression5023);
                     	xmlListInitialiser16 = xmlListInitialiser();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2823,7 +2821,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlPropertyIdentifier"
-    // AS3_ex.g3:1366:1: xmlPropertyIdentifier : ( xmlAttributeIdentifier | xmlQualifiedIdentifier | s= STAR );
+    // AS3_ex.g3:1371:1: xmlPropertyIdentifier : ( xmlAttributeIdentifier | xmlQualifiedIdentifier | s= STAR );
     public AS3_exParser.xmlPropertyIdentifier_return xmlPropertyIdentifier() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlPropertyIdentifier_return retval = new AS3_exParser.xmlPropertyIdentifier_return();
@@ -2845,17 +2843,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1367:7: ( xmlAttributeIdentifier | xmlQualifiedIdentifier | s= STAR )
+            // AS3_ex.g3:1372:7: ( xmlAttributeIdentifier | xmlQualifiedIdentifier | s= STAR )
             int alt14 = 3;
             alt14 = dfa14.Predict(input);
             switch (alt14) 
             {
                 case 1 :
-                    // AS3_ex.g3:1367:11: xmlAttributeIdentifier
+                    // AS3_ex.g3:1372:11: xmlAttributeIdentifier
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlAttributeIdentifier_in_xmlPropertyIdentifier5111);
+                    	PushFollow(FOLLOW_xmlAttributeIdentifier_in_xmlPropertyIdentifier5116);
                     	xmlAttributeIdentifier17 = xmlAttributeIdentifier();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2864,11 +2862,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1368:11: xmlQualifiedIdentifier
+                    // AS3_ex.g3:1373:11: xmlQualifiedIdentifier
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlQualifiedIdentifier_in_xmlPropertyIdentifier5123);
+                    	PushFollow(FOLLOW_xmlQualifiedIdentifier_in_xmlPropertyIdentifier5128);
                     	xmlQualifiedIdentifier18 = xmlQualifiedIdentifier();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2877,11 +2875,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1369:11: s= STAR
+                    // AS3_ex.g3:1374:11: s= STAR
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	s=(IToken)Match(input,STAR,FOLLOW_STAR_in_xmlPropertyIdentifier5137); if (state.failed) return retval;
+                    	s=(IToken)Match(input,STAR,FOLLOW_STAR_in_xmlPropertyIdentifier5142); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{s_tree = (object)adaptor.Create(s);
                     		adaptor.AddChild(root_0, s_tree);
@@ -2931,7 +2929,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlAttributeIdentifier"
-    // AS3_ex.g3:1372:1: xmlAttributeIdentifier : at= XML_AT ( xmlQualifiedIdentifier | xmlPropertySelector | indexSuffix ) ;
+    // AS3_ex.g3:1377:1: xmlAttributeIdentifier : at= XML_AT ( xmlQualifiedIdentifier | xmlPropertySelector | indexSuffix ) ;
     public AS3_exParser.xmlAttributeIdentifier_return xmlAttributeIdentifier() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlAttributeIdentifier_return retval = new AS3_exParser.xmlAttributeIdentifier_return();
@@ -2955,12 +2953,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1373:5: (at= XML_AT ( xmlQualifiedIdentifier | xmlPropertySelector | indexSuffix ) )
-            // AS3_ex.g3:1373:9: at= XML_AT ( xmlQualifiedIdentifier | xmlPropertySelector | indexSuffix )
+            // AS3_ex.g3:1378:5: (at= XML_AT ( xmlQualifiedIdentifier | xmlPropertySelector | indexSuffix ) )
+            // AS3_ex.g3:1378:9: at= XML_AT ( xmlQualifiedIdentifier | xmlPropertySelector | indexSuffix )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	at=(IToken)Match(input,XML_AT,FOLLOW_XML_AT_in_xmlAttributeIdentifier5202); if (state.failed) return retval;
+            	at=(IToken)Match(input,XML_AT,FOLLOW_XML_AT_in_xmlAttributeIdentifier5207); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{at_tree = (object)adaptor.Create(at);
             		adaptor.AddChild(root_0, at_tree);
@@ -2969,7 +2967,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)at);
             	}
-            	// AS3_ex.g3:1374:9: ( xmlQualifiedIdentifier | xmlPropertySelector | indexSuffix )
+            	// AS3_ex.g3:1379:9: ( xmlQualifiedIdentifier | xmlPropertySelector | indexSuffix )
             	int alt15 = 3;
             	switch ( input.LA(1) ) 
             	{
@@ -2977,11 +2975,11 @@ public class AS3_exParser : Parser
             		{
             	    int LA15_1 = input.LA(2);
 
-            	    if ( (synpred76_AS3_ex()) )
+            	    if ( (synpred74_AS3_ex()) )
             	    {
             	        alt15 = 1;
             	    }
-            	    else if ( (synpred77_AS3_ex()) )
+            	    else if ( (synpred75_AS3_ex()) )
             	    {
             	        alt15 = 2;
             	    }
@@ -3042,11 +3040,11 @@ public class AS3_exParser : Parser
             		{
             	    int LA15_2 = input.LA(2);
 
-            	    if ( (synpred76_AS3_ex()) )
+            	    if ( (synpred74_AS3_ex()) )
             	    {
             	        alt15 = 1;
             	    }
-            	    else if ( (synpred77_AS3_ex()) )
+            	    else if ( (synpred75_AS3_ex()) )
             	    {
             	        alt15 = 2;
             	    }
@@ -3073,11 +3071,11 @@ public class AS3_exParser : Parser
             		{
             	    int LA15_3 = input.LA(2);
 
-            	    if ( (synpred76_AS3_ex()) )
+            	    if ( (synpred74_AS3_ex()) )
             	    {
             	        alt15 = 1;
             	    }
-            	    else if ( (synpred77_AS3_ex()) )
+            	    else if ( (synpred75_AS3_ex()) )
             	    {
             	        alt15 = 2;
             	    }
@@ -3095,11 +3093,11 @@ public class AS3_exParser : Parser
             		{
             	    int LA15_4 = input.LA(2);
 
-            	    if ( (synpred76_AS3_ex()) )
+            	    if ( (synpred74_AS3_ex()) )
             	    {
             	        alt15 = 1;
             	    }
-            	    else if ( (synpred77_AS3_ex()) )
+            	    else if ( (synpred75_AS3_ex()) )
             	    {
             	        alt15 = 2;
             	    }
@@ -3129,9 +3127,9 @@ public class AS3_exParser : Parser
             	switch (alt15) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1375:12: xmlQualifiedIdentifier
+            	        // AS3_ex.g3:1380:12: xmlQualifiedIdentifier
             	        {
-            	        	PushFollow(FOLLOW_xmlQualifiedIdentifier_in_xmlAttributeIdentifier5228);
+            	        	PushFollow(FOLLOW_xmlQualifiedIdentifier_in_xmlAttributeIdentifier5233);
             	        	xmlQualifiedIdentifier19 = xmlQualifiedIdentifier();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -3140,9 +3138,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1376:14: xmlPropertySelector
+            	        // AS3_ex.g3:1381:14: xmlPropertySelector
             	        {
-            	        	PushFollow(FOLLOW_xmlPropertySelector_in_xmlAttributeIdentifier5243);
+            	        	PushFollow(FOLLOW_xmlPropertySelector_in_xmlAttributeIdentifier5248);
             	        	xmlPropertySelector20 = xmlPropertySelector();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -3151,9 +3149,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 3 :
-            	        // AS3_ex.g3:1377:14: indexSuffix
+            	        // AS3_ex.g3:1382:14: indexSuffix
             	        {
-            	        	PushFollow(FOLLOW_indexSuffix_in_xmlAttributeIdentifier5258);
+            	        	PushFollow(FOLLOW_indexSuffix_in_xmlAttributeIdentifier5263);
             	        	indexSuffix21 = indexSuffix();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -3203,7 +3201,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlPropertySelector"
-    // AS3_ex.g3:1381:1: xmlPropertySelector : ( xmlNameLiteral | s= STAR );
+    // AS3_ex.g3:1386:1: xmlPropertySelector : ( xmlNameLiteral | s= STAR );
     public AS3_exParser.xmlPropertySelector_return xmlPropertySelector() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlPropertySelector_return retval = new AS3_exParser.xmlPropertySelector_return();
@@ -3223,7 +3221,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1382:5: ( xmlNameLiteral | s= STAR )
+            // AS3_ex.g3:1387:5: ( xmlNameLiteral | s= STAR )
             int alt16 = 2;
             int LA16_0 = input.LA(1);
 
@@ -3246,11 +3244,11 @@ public class AS3_exParser : Parser
             switch (alt16) 
             {
                 case 1 :
-                    // AS3_ex.g3:1382:9: xmlNameLiteral
+                    // AS3_ex.g3:1387:9: xmlNameLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlNameLiteral_in_xmlPropertySelector5348);
+                    	PushFollow(FOLLOW_xmlNameLiteral_in_xmlPropertySelector5353);
                     	xmlNameLiteral22 = xmlNameLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -3259,11 +3257,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1383:9: s= STAR
+                    // AS3_ex.g3:1388:9: s= STAR
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	s=(IToken)Match(input,STAR,FOLLOW_STAR_in_xmlPropertySelector5361); if (state.failed) return retval;
+                    	s=(IToken)Match(input,STAR,FOLLOW_STAR_in_xmlPropertySelector5366); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{s_tree = (object)adaptor.Create(s);
                     		adaptor.AddChild(root_0, s_tree);
@@ -3313,7 +3311,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlQualifiedIdentifier"
-    // AS3_ex.g3:1386:1: xmlQualifiedIdentifier : xmlPropertySelector x= XML_NS_OP ( xmlPropertySelector | indexSuffix ) ;
+    // AS3_ex.g3:1391:1: xmlQualifiedIdentifier : xmlPropertySelector x= XML_NS_OP ( xmlPropertySelector | indexSuffix ) ;
     public AS3_exParser.xmlQualifiedIdentifier_return xmlQualifiedIdentifier() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlQualifiedIdentifier_return retval = new AS3_exParser.xmlQualifiedIdentifier_return();
@@ -3337,17 +3335,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1387:5: ( xmlPropertySelector x= XML_NS_OP ( xmlPropertySelector | indexSuffix ) )
-            // AS3_ex.g3:1387:9: xmlPropertySelector x= XML_NS_OP ( xmlPropertySelector | indexSuffix )
+            // AS3_ex.g3:1392:5: ( xmlPropertySelector x= XML_NS_OP ( xmlPropertySelector | indexSuffix ) )
+            // AS3_ex.g3:1392:9: xmlPropertySelector x= XML_NS_OP ( xmlPropertySelector | indexSuffix )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_xmlPropertySelector_in_xmlQualifiedIdentifier5382);
+            	PushFollow(FOLLOW_xmlPropertySelector_in_xmlQualifiedIdentifier5387);
             	xmlPropertySelector23 = xmlPropertySelector();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, xmlPropertySelector23.Tree);
-            	x=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_xmlQualifiedIdentifier5387); if (state.failed) return retval;
+            	x=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_xmlQualifiedIdentifier5392); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{x_tree = (object)adaptor.Create(x);
             		adaptor.AddChild(root_0, x_tree);
@@ -3356,7 +3354,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)x);
             	}
-            	// AS3_ex.g3:1388:5: ( xmlPropertySelector | indexSuffix )
+            	// AS3_ex.g3:1393:5: ( xmlPropertySelector | indexSuffix )
             	int alt17 = 2;
             	int LA17_0 = input.LA(1);
 
@@ -3379,9 +3377,9 @@ public class AS3_exParser : Parser
             	switch (alt17) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1389:9: xmlPropertySelector
+            	        // AS3_ex.g3:1394:9: xmlPropertySelector
             	        {
-            	        	PushFollow(FOLLOW_xmlPropertySelector_in_xmlQualifiedIdentifier5422);
+            	        	PushFollow(FOLLOW_xmlPropertySelector_in_xmlQualifiedIdentifier5427);
             	        	xmlPropertySelector24 = xmlPropertySelector();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -3390,9 +3388,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1390:11: indexSuffix
+            	        // AS3_ex.g3:1395:11: indexSuffix
             	        {
-            	        	PushFollow(FOLLOW_indexSuffix_in_xmlQualifiedIdentifier5434);
+            	        	PushFollow(FOLLOW_indexSuffix_in_xmlQualifiedIdentifier5439);
             	        	indexSuffix25 = indexSuffix();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -3442,7 +3440,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlInitialiser"
-    // AS3_ex.g3:1394:1: xmlInitialiser : ( xmlMarkup | xmlElement );
+    // AS3_ex.g3:1399:1: xmlInitialiser : ( xmlMarkup | xmlElement );
     public AS3_exParser.xmlInitialiser_return xmlInitialiser() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlInitialiser_return retval = new AS3_exParser.xmlInitialiser_return();
@@ -3462,7 +3460,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1395:5: ( xmlMarkup | xmlElement )
+            // AS3_ex.g3:1400:5: ( xmlMarkup | xmlElement )
             int alt18 = 2;
             int LA18_0 = input.LA(1);
 
@@ -3485,11 +3483,11 @@ public class AS3_exParser : Parser
             switch (alt18) 
             {
                 case 1 :
-                    // AS3_ex.g3:1395:9: xmlMarkup
+                    // AS3_ex.g3:1400:9: xmlMarkup
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlMarkup_in_xmlInitialiser5459);
+                    	PushFollow(FOLLOW_xmlMarkup_in_xmlInitialiser5464);
                     	xmlMarkup26 = xmlMarkup();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -3498,11 +3496,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1396:9: xmlElement
+                    // AS3_ex.g3:1401:9: xmlElement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlElement_in_xmlInitialiser5469);
+                    	PushFollow(FOLLOW_xmlElement_in_xmlInitialiser5474);
                     	xmlElement27 = xmlElement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -3548,7 +3546,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlElement"
-    // AS3_ex.g3:1399:1: xmlElement : L= LT xmlTagName ( xmlAttributes )? (x= XML_TEND | G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT ) ;
+    // AS3_ex.g3:1404:1: xmlElement : L= LT xmlTagName ( xmlAttributes )? (x= XML_TEND | G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT ) ;
     public AS3_exParser.xmlElement_return xmlElement() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlElement_return retval = new AS3_exParser.xmlElement_return();
@@ -3582,8 +3580,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1405:5: (L= LT xmlTagName ( xmlAttributes )? (x= XML_TEND | G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT ) )
-            // AS3_ex.g3:1406:5: L= LT xmlTagName ( xmlAttributes )? (x= XML_TEND | G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT )
+            // AS3_ex.g3:1410:5: (L= LT xmlTagName ( xmlAttributes )? (x= XML_TEND | G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT ) )
+            // AS3_ex.g3:1411:5: L= LT xmlTagName ( xmlAttributes )? (x= XML_TEND | G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -3595,7 +3593,7 @@ public class AS3_exParser : Parser
             	{
             	  EmitCRForTag(options);
             	}
-            	L=(IToken)Match(input,LT,FOLLOW_LT_in_xmlElement5513); if (state.failed) return retval;
+            	L=(IToken)Match(input,LT,FOLLOW_LT_in_xmlElement5518); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -3608,12 +3606,12 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(true);
             	}
-            	PushFollow(FOLLOW_xmlTagName_in_xmlElement5518);
+            	PushFollow(FOLLOW_xmlTagName_in_xmlElement5523);
             	xmlTagName28 = xmlTagName();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, xmlTagName28.Tree);
-            	// AS3_ex.g3:1408:65: ( xmlAttributes )?
+            	// AS3_ex.g3:1413:65: ( xmlAttributes )?
             	int alt19 = 2;
             	int LA19_0 = input.LA(1);
 
@@ -3626,7 +3624,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: xmlAttributes
             	        {
-            	        	PushFollow(FOLLOW_xmlAttributes_in_xmlElement5520);
+            	        	PushFollow(FOLLOW_xmlAttributes_in_xmlElement5525);
             	        	xmlAttributes29 = xmlAttributes();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -3637,7 +3635,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	// AS3_ex.g3:1409:5: (x= XML_TEND | G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT )
+            	// AS3_ex.g3:1414:5: (x= XML_TEND | G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT )
             	int alt21 = 2;
             	int LA21_0 = input.LA(1);
 
@@ -3660,9 +3658,9 @@ public class AS3_exParser : Parser
             	switch (alt21) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1410:9: x= XML_TEND
+            	        // AS3_ex.g3:1415:9: x= XML_TEND
             	        {
-            	        	x=(IToken)Match(input,XML_TEND,FOLLOW_XML_TEND_in_xmlElement5540); if (state.failed) return retval;
+            	        	x=(IToken)Match(input,XML_TEND,FOLLOW_XML_TEND_in_xmlElement5545); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{x_tree = (object)adaptor.Create(x);
             	        		adaptor.AddChild(root_0, x_tree);
@@ -3683,9 +3681,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1414:9: G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT
+            	        // AS3_ex.g3:1419:9: G= GT ( xmlElementContent )? x= XML_E_TEND xmlTagName G= GT
             	        {
-            	        	G=(IToken)Match(input,GT,FOLLOW_GT_in_xmlElement5585); if (state.failed) return retval;
+            	        	G=(IToken)Match(input,GT,FOLLOW_GT_in_xmlElement5590); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{G_tree = (object)adaptor.Create(G);
             	        		adaptor.AddChild(root_0, G_tree);
@@ -3698,11 +3696,11 @@ public class AS3_exParser : Parser
             	        	{
             	        	  EmitCRForTag(options);
             	        	}
-            	        	// AS3_ex.g3:1414:62: ( xmlElementContent )?
+            	        	// AS3_ex.g3:1419:62: ( xmlElementContent )?
             	        	int alt20 = 2;
             	        	int LA20_0 = input.LA(1);
 
-            	        	if ( ((LA20_0 >= AS && LA20_0 <= LTE) || (LA20_0 >= EQ && LA20_0 <= SHL) || (LA20_0 >= AND && LA20_0 <= SHL_ASSIGN) || (LA20_0 >= LAND_ASSIGN && LA20_0 <= XML_ELLIPSIS) || (LA20_0 >= XML_NS_OP && LA20_0 <= XML_AT) || (LA20_0 >= SINGLE_QUOTE_LITERAL && LA20_0 <= DOUBLE_QUOTE_LITERAL) || LA20_0 == HEX_NUMBER_LITERAL || LA20_0 == DEC_NUMBER_LITERAL || LA20_0 == IDENTIFIER || (LA20_0 >= XML_COMMENT && LA20_0 <= XML_TEXT)) )
+            	        	if ( ((LA20_0 >= AS && LA20_0 <= LTE) || (LA20_0 >= EQ && LA20_0 <= SHL) || (LA20_0 >= AND && LA20_0 <= ASSIGN) || (LA20_0 >= DIV_ASSIGN && LA20_0 <= SHL_ASSIGN) || (LA20_0 >= LAND_ASSIGN && LA20_0 <= XML_ELLIPSIS) || (LA20_0 >= XML_NS_OP && LA20_0 <= XML_AT) || (LA20_0 >= SINGLE_QUOTE_LITERAL && LA20_0 <= DOUBLE_QUOTE_LITERAL) || LA20_0 == HEX_NUMBER_LITERAL || LA20_0 == DEC_NUMBER_LITERAL || LA20_0 == IDENTIFIER || (LA20_0 >= XML_COMMENT && LA20_0 <= XML_TEXT)) )
             	        	{
             	        	    alt20 = 1;
             	        	}
@@ -3711,7 +3709,7 @@ public class AS3_exParser : Parser
             	        	    case 1 :
             	        	        // AS3_ex.g3:0:0: xmlElementContent
             	        	        {
-            	        	        	PushFollow(FOLLOW_xmlElementContent_in_xmlElement5589);
+            	        	        	PushFollow(FOLLOW_xmlElementContent_in_xmlElement5594);
             	        	        	xmlElementContent30 = xmlElementContent();
             	        	        	state.followingStackPointer--;
             	        	        	if (state.failed) return retval;
@@ -3722,7 +3720,7 @@ public class AS3_exParser : Parser
 
             	        	}
 
-            	        	x=(IToken)Match(input,XML_E_TEND,FOLLOW_XML_E_TEND_in_xmlElement5603); if (state.failed) return retval;
+            	        	x=(IToken)Match(input,XML_E_TEND,FOLLOW_XML_E_TEND_in_xmlElement5608); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{x_tree = (object)adaptor.Create(x);
             	        		adaptor.AddChild(root_0, x_tree);
@@ -3735,12 +3733,12 @@ public class AS3_exParser : Parser
             	        	{
             	        	  Emit((CommonToken)x);
             	        	}
-            	        	PushFollow(FOLLOW_xmlTagName_in_xmlElement5617);
+            	        	PushFollow(FOLLOW_xmlTagName_in_xmlElement5622);
             	        	xmlTagName31 = xmlTagName();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
             	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, xmlTagName31.Tree);
-            	        	G=(IToken)Match(input,GT,FOLLOW_GT_in_xmlElement5621); if (state.failed) return retval;
+            	        	G=(IToken)Match(input,GT,FOLLOW_GT_in_xmlElement5626); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{G_tree = (object)adaptor.Create(G);
             	        		adaptor.AddChild(root_0, G_tree);
@@ -3805,7 +3803,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlAttributes"
-    // AS3_ex.g3:1424:1: xmlAttributes : ( xmlAttribute )+ ;
+    // AS3_ex.g3:1429:1: xmlAttributes : ( xmlAttribute )+ ;
     public AS3_exParser.xmlAttributes_return xmlAttributes() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlAttributes_return retval = new AS3_exParser.xmlAttributes_return();
@@ -3823,12 +3821,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1425:5: ( ( xmlAttribute )+ )
-            // AS3_ex.g3:1425:9: ( xmlAttribute )+
+            // AS3_ex.g3:1430:5: ( ( xmlAttribute )+ )
+            // AS3_ex.g3:1430:9: ( xmlAttribute )+
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1425:9: ( xmlAttribute )+
+            	// AS3_ex.g3:1430:9: ( xmlAttribute )+
             	int cnt22 = 0;
             	do 
             	{
@@ -3846,7 +3844,7 @@ public class AS3_exParser : Parser
             			case 1 :
             			    // AS3_ex.g3:0:0: xmlAttribute
             			    {
-            			    	PushFollow(FOLLOW_xmlAttribute_in_xmlAttributes5660);
+            			    	PushFollow(FOLLOW_xmlAttribute_in_xmlAttributes5665);
             			    	xmlAttribute32 = xmlAttribute();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -3907,7 +3905,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlTagName"
-    // AS3_ex.g3:1428:1: xmlTagName : ( xmlExprEval | xmlNameLiteral );
+    // AS3_ex.g3:1433:1: xmlTagName : ( xmlExprEval | xmlNameLiteral );
     public AS3_exParser.xmlTagName_return xmlTagName() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlTagName_return retval = new AS3_exParser.xmlTagName_return();
@@ -3927,7 +3925,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1429:5: ( xmlExprEval | xmlNameLiteral )
+            // AS3_ex.g3:1434:5: ( xmlExprEval | xmlNameLiteral )
             int alt23 = 2;
             int LA23_0 = input.LA(1);
 
@@ -3950,11 +3948,11 @@ public class AS3_exParser : Parser
             switch (alt23) 
             {
                 case 1 :
-                    // AS3_ex.g3:1429:9: xmlExprEval
+                    // AS3_ex.g3:1434:9: xmlExprEval
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlExprEval_in_xmlTagName5690);
+                    	PushFollow(FOLLOW_xmlExprEval_in_xmlTagName5695);
                     	xmlExprEval33 = xmlExprEval();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -3963,11 +3961,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1430:4: xmlNameLiteral
+                    // AS3_ex.g3:1435:4: xmlNameLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlNameLiteral_in_xmlTagName5695);
+                    	PushFollow(FOLLOW_xmlNameLiteral_in_xmlTagName5700);
                     	xmlNameLiteral34 = xmlNameLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4013,7 +4011,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlAttribute"
-    // AS3_ex.g3:1433:1: xmlAttribute : {...}? xmlNameLiteral A= ASSIGN ( xmlExprEval | stringLiteral ) ;
+    // AS3_ex.g3:1438:1: xmlAttribute : {...}? xmlNameLiteral A= ASSIGN ( xmlExprEval | stringLiteral ) ;
     public AS3_exParser.xmlAttribute_return xmlAttribute() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlAttribute_return retval = new AS3_exParser.xmlAttribute_return();
@@ -4037,8 +4035,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1434:5: ({...}? xmlNameLiteral A= ASSIGN ( xmlExprEval | stringLiteral ) )
-            // AS3_ex.g3:1434:8: {...}? xmlNameLiteral A= ASSIGN ( xmlExprEval | stringLiteral )
+            // AS3_ex.g3:1439:5: ({...}? xmlNameLiteral A= ASSIGN ( xmlExprEval | stringLiteral ) )
+            // AS3_ex.g3:1439:8: {...}? xmlNameLiteral A= ASSIGN ( xmlExprEval | stringLiteral )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -4051,12 +4049,12 @@ public class AS3_exParser : Parser
             	{
             	  InsertWS(1);
             	}
-            	PushFollow(FOLLOW_xmlNameLiteral_in_xmlAttribute5718);
+            	PushFollow(FOLLOW_xmlNameLiteral_in_xmlAttribute5723);
             	xmlNameLiteral35 = xmlNameLiteral();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, xmlNameLiteral35.Tree);
-            	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_xmlAttribute5722); if (state.failed) return retval;
+            	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_xmlAttribute5727); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{A_tree = (object)adaptor.Create(A);
             		adaptor.AddChild(root_0, A_tree);
@@ -4065,7 +4063,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)A);
             	}
-            	// AS3_ex.g3:1435:5: ( xmlExprEval | stringLiteral )
+            	// AS3_ex.g3:1440:5: ( xmlExprEval | stringLiteral )
             	int alt24 = 2;
             	int LA24_0 = input.LA(1);
 
@@ -4088,9 +4086,9 @@ public class AS3_exParser : Parser
             	switch (alt24) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1436:9: xmlExprEval
+            	        // AS3_ex.g3:1441:9: xmlExprEval
             	        {
-            	        	PushFollow(FOLLOW_xmlExprEval_in_xmlAttribute5741);
+            	        	PushFollow(FOLLOW_xmlExprEval_in_xmlAttribute5746);
             	        	xmlExprEval36 = xmlExprEval();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -4099,9 +4097,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1437:11: stringLiteral
+            	        // AS3_ex.g3:1442:11: stringLiteral
             	        {
-            	        	PushFollow(FOLLOW_stringLiteral_in_xmlAttribute5753);
+            	        	PushFollow(FOLLOW_stringLiteral_in_xmlAttribute5758);
             	        	stringLiteral37 = stringLiteral();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -4151,7 +4149,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlElementContent"
-    // AS3_ex.g3:1441:1: xmlElementContent : ( xmlElementContentHelper )+ ;
+    // AS3_ex.g3:1446:1: xmlElementContent : ( xmlElementContentHelper )+ ;
     public AS3_exParser.xmlElementContent_return xmlElementContent() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlElementContent_return retval = new AS3_exParser.xmlElementContent_return();
@@ -4169,19 +4167,19 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1442:5: ( ( xmlElementContentHelper )+ )
-            // AS3_ex.g3:1442:8: ( xmlElementContentHelper )+
+            // AS3_ex.g3:1447:5: ( ( xmlElementContentHelper )+ )
+            // AS3_ex.g3:1447:8: ( xmlElementContentHelper )+
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1442:8: ( xmlElementContentHelper )+
+            	// AS3_ex.g3:1447:8: ( xmlElementContentHelper )+
             	int cnt25 = 0;
             	do 
             	{
             	    int alt25 = 2;
             	    int LA25_0 = input.LA(1);
 
-            	    if ( ((LA25_0 >= AS && LA25_0 <= LTE) || (LA25_0 >= EQ && LA25_0 <= SHL) || (LA25_0 >= AND && LA25_0 <= SHL_ASSIGN) || (LA25_0 >= LAND_ASSIGN && LA25_0 <= XML_ELLIPSIS) || (LA25_0 >= XML_NS_OP && LA25_0 <= XML_AT) || (LA25_0 >= SINGLE_QUOTE_LITERAL && LA25_0 <= DOUBLE_QUOTE_LITERAL) || LA25_0 == HEX_NUMBER_LITERAL || LA25_0 == DEC_NUMBER_LITERAL || LA25_0 == IDENTIFIER || (LA25_0 >= XML_COMMENT && LA25_0 <= XML_TEXT)) )
+            	    if ( ((LA25_0 >= AS && LA25_0 <= LTE) || (LA25_0 >= EQ && LA25_0 <= SHL) || (LA25_0 >= AND && LA25_0 <= ASSIGN) || (LA25_0 >= DIV_ASSIGN && LA25_0 <= SHL_ASSIGN) || (LA25_0 >= LAND_ASSIGN && LA25_0 <= XML_ELLIPSIS) || (LA25_0 >= XML_NS_OP && LA25_0 <= XML_AT) || (LA25_0 >= SINGLE_QUOTE_LITERAL && LA25_0 <= DOUBLE_QUOTE_LITERAL) || LA25_0 == HEX_NUMBER_LITERAL || LA25_0 == DEC_NUMBER_LITERAL || LA25_0 == IDENTIFIER || (LA25_0 >= XML_COMMENT && LA25_0 <= XML_TEXT)) )
             	    {
             	        alt25 = 1;
             	    }
@@ -4192,7 +4190,7 @@ public class AS3_exParser : Parser
             			case 1 :
             			    // AS3_ex.g3:0:0: xmlElementContentHelper
             			    {
-            			    	PushFollow(FOLLOW_xmlElementContentHelper_in_xmlElementContent5784);
+            			    	PushFollow(FOLLOW_xmlElementContentHelper_in_xmlElementContent5789);
             			    	xmlElementContentHelper38 = xmlElementContentHelper();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -4253,7 +4251,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlElementContentHelper"
-    // AS3_ex.g3:1445:1: xmlElementContentHelper : ( xmlExprEval | xmlMarkup | xmlElement | xmlText );
+    // AS3_ex.g3:1450:1: xmlElementContentHelper : ( xmlExprEval | xmlMarkup | xmlElement | xmlText );
     public AS3_exParser.xmlElementContentHelper_return xmlElementContentHelper() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlElementContentHelper_return retval = new AS3_exParser.xmlElementContentHelper_return();
@@ -4277,7 +4275,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1446:5: ( xmlExprEval | xmlMarkup | xmlElement | xmlText )
+            // AS3_ex.g3:1451:5: ( xmlExprEval | xmlMarkup | xmlElement | xmlText )
             int alt26 = 4;
             switch ( input.LA(1) ) 
             {
@@ -4384,8 +4382,6 @@ public class AS3_exParser : Parser
             case QUE:
             case COLON:
             case ASSIGN:
-            case UNDERSCORE:
-            case DOLLAR:
             case DIV_ASSIGN:
             case MOD_ASSIGN:
             case ADD_ASSIGN:
@@ -4421,11 +4417,11 @@ public class AS3_exParser : Parser
             switch (alt26) 
             {
                 case 1 :
-                    // AS3_ex.g3:1446:7: xmlExprEval
+                    // AS3_ex.g3:1451:7: xmlExprEval
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlExprEval_in_xmlElementContentHelper5802);
+                    	PushFollow(FOLLOW_xmlExprEval_in_xmlElementContentHelper5807);
                     	xmlExprEval39 = xmlExprEval();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4434,11 +4430,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1447:7: xmlMarkup
+                    // AS3_ex.g3:1452:7: xmlMarkup
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlMarkup_in_xmlElementContentHelper5811);
+                    	PushFollow(FOLLOW_xmlMarkup_in_xmlElementContentHelper5816);
                     	xmlMarkup40 = xmlMarkup();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4447,11 +4443,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1448:7: xmlElement
+                    // AS3_ex.g3:1453:7: xmlElement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlElement_in_xmlElementContentHelper5820);
+                    	PushFollow(FOLLOW_xmlElement_in_xmlElementContentHelper5825);
                     	xmlElement41 = xmlElement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4460,7 +4456,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:1449:7: xmlText
+                    // AS3_ex.g3:1454:7: xmlText
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -4468,7 +4464,7 @@ public class AS3_exParser : Parser
                     	{
                     	  mPrinter.PushFormatMode(ASPrettyPrinter.FORMAT_INDENT);
                     	}
-                    	PushFollow(FOLLOW_xmlText_in_xmlElementContentHelper5830);
+                    	PushFollow(FOLLOW_xmlText_in_xmlElementContentHelper5835);
                     	xmlText42 = xmlText();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4518,7 +4514,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlListInitialiser"
-    // AS3_ex.g3:1452:1: xmlListInitialiser : x= XML_LS_STD ( xmlElementContent )? x= XML_LS_END ;
+    // AS3_ex.g3:1457:1: xmlListInitialiser : x= XML_LS_STD ( xmlElementContent )? x= XML_LS_END ;
     public AS3_exParser.xmlListInitialiser_return xmlListInitialiser() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlListInitialiser_return retval = new AS3_exParser.xmlListInitialiser_return();
@@ -4538,8 +4534,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1453:5: (x= XML_LS_STD ( xmlElementContent )? x= XML_LS_END )
-            // AS3_ex.g3:1453:9: x= XML_LS_STD ( xmlElementContent )? x= XML_LS_END
+            // AS3_ex.g3:1458:5: (x= XML_LS_STD ( xmlElementContent )? x= XML_LS_END )
+            // AS3_ex.g3:1458:9: x= XML_LS_STD ( xmlElementContent )? x= XML_LS_END
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -4547,7 +4543,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertCR(false);
             	}
-            	x=(IToken)Match(input,XML_LS_STD,FOLLOW_XML_LS_STD_in_xmlListInitialiser5851); if (state.failed) return retval;
+            	x=(IToken)Match(input,XML_LS_STD,FOLLOW_XML_LS_STD_in_xmlListInitialiser5856); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{x_tree = (object)adaptor.Create(x);
             		adaptor.AddChild(root_0, x_tree);
@@ -4564,11 +4560,11 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(true);
             	}
-            	// AS3_ex.g3:1455:5: ( xmlElementContent )?
+            	// AS3_ex.g3:1460:5: ( xmlElementContent )?
             	int alt27 = 2;
             	int LA27_0 = input.LA(1);
 
-            	if ( ((LA27_0 >= AS && LA27_0 <= LTE) || (LA27_0 >= EQ && LA27_0 <= SHL) || (LA27_0 >= AND && LA27_0 <= SHL_ASSIGN) || (LA27_0 >= LAND_ASSIGN && LA27_0 <= XML_ELLIPSIS) || (LA27_0 >= XML_NS_OP && LA27_0 <= XML_AT) || (LA27_0 >= SINGLE_QUOTE_LITERAL && LA27_0 <= DOUBLE_QUOTE_LITERAL) || LA27_0 == HEX_NUMBER_LITERAL || LA27_0 == DEC_NUMBER_LITERAL || LA27_0 == IDENTIFIER || (LA27_0 >= XML_COMMENT && LA27_0 <= XML_TEXT)) )
+            	if ( ((LA27_0 >= AS && LA27_0 <= LTE) || (LA27_0 >= EQ && LA27_0 <= SHL) || (LA27_0 >= AND && LA27_0 <= ASSIGN) || (LA27_0 >= DIV_ASSIGN && LA27_0 <= SHL_ASSIGN) || (LA27_0 >= LAND_ASSIGN && LA27_0 <= XML_ELLIPSIS) || (LA27_0 >= XML_NS_OP && LA27_0 <= XML_AT) || (LA27_0 >= SINGLE_QUOTE_LITERAL && LA27_0 <= DOUBLE_QUOTE_LITERAL) || LA27_0 == HEX_NUMBER_LITERAL || LA27_0 == DEC_NUMBER_LITERAL || LA27_0 == IDENTIFIER || (LA27_0 >= XML_COMMENT && LA27_0 <= XML_TEXT)) )
             	{
             	    alt27 = 1;
             	}
@@ -4577,7 +4573,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: xmlElementContent
             	        {
-            	        	PushFollow(FOLLOW_xmlElementContent_in_xmlListInitialiser5866);
+            	        	PushFollow(FOLLOW_xmlElementContent_in_xmlListInitialiser5871);
             	        	xmlElementContent43 = xmlElementContent();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -4592,7 +4588,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertCR(false);
             	}
-            	x=(IToken)Match(input,XML_LS_END,FOLLOW_XML_LS_END_in_xmlListInitialiser5878); if (state.failed) return retval;
+            	x=(IToken)Match(input,XML_LS_END,FOLLOW_XML_LS_END_in_xmlListInitialiser5883); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{x_tree = (object)adaptor.Create(x);
             		adaptor.AddChild(root_0, x_tree);
@@ -4648,7 +4644,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "semic"
-    // AS3_ex.g3:1460:1: semic : (S= SEMI | E= EOF | R= RCURLY );
+    // AS3_ex.g3:1465:1: semic : (S= SEMI | E= EOF | R= RCURLY );
     public AS3_exParser.semic_return semic() // throws RecognitionException [1]
     {   
         AS3_exParser.semic_return retval = new AS3_exParser.semic_return();
@@ -4693,7 +4689,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1485:5: (S= SEMI | E= EOF | R= RCURLY )
+            // AS3_ex.g3:1490:5: (S= SEMI | E= EOF | R= RCURLY )
             int alt28 = 3;
             switch ( input.LA(1) ) 
             {
@@ -4723,11 +4719,11 @@ public class AS3_exParser : Parser
             switch (alt28) 
             {
                 case 1 :
-                    // AS3_ex.g3:1485:9: S= SEMI
+                    // AS3_ex.g3:1490:9: S= SEMI
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_semic5909); if (state.failed) return retval;
+                    	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_semic5914); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{S_tree = (object)adaptor.Create(S);
                     		adaptor.AddChild(root_0, S_tree);
@@ -4740,11 +4736,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1486:9: E= EOF
+                    // AS3_ex.g3:1491:9: E= EOF
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	E=(IToken)Match(input,EOF,FOLLOW_EOF_in_semic5923); if (state.failed) return retval;
+                    	E=(IToken)Match(input,EOF,FOLLOW_EOF_in_semic5928); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{E_tree = (object)adaptor.Create(E);
                     		adaptor.AddChild(root_0, E_tree);
@@ -4757,11 +4753,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1487:9: R= RCURLY
+                    // AS3_ex.g3:1492:9: R= RCURLY
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_semic5937); if (state.failed) return retval;
+                    	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_semic5942); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{R_tree = (object)adaptor.Create(R);
                     		adaptor.AddChild(root_0, R_tree);
@@ -4814,7 +4810,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "fileContents"
-    // AS3_ex.g3:1496:1: fileContents : ( ( ( packageDeclaration )? ( packageElement )* ) | EOF );
+    // AS3_ex.g3:1501:1: fileContents : ( ( ( packageDeclaration )? ( packageElement )* ) | EOF );
     public AS3_exParser.fileContents_return fileContents() // throws RecognitionException [1]
     {   
         AS3_exParser.fileContents_return retval = new AS3_exParser.fileContents_return();
@@ -4836,7 +4832,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1497:2: ( ( ( packageDeclaration )? ( packageElement )* ) | EOF )
+            // AS3_ex.g3:1502:2: ( ( ( packageDeclaration )? ( packageElement )* ) | EOF )
             int alt31 = 2;
             int LA31_0 = input.LA(1);
 
@@ -4872,14 +4868,14 @@ public class AS3_exParser : Parser
             switch (alt31) 
             {
                 case 1 :
-                    // AS3_ex.g3:1497:4: ( ( packageDeclaration )? ( packageElement )* )
+                    // AS3_ex.g3:1502:4: ( ( packageDeclaration )? ( packageElement )* )
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	// AS3_ex.g3:1497:4: ( ( packageDeclaration )? ( packageElement )* )
-                    	// AS3_ex.g3:1497:5: ( packageDeclaration )? ( packageElement )*
+                    	// AS3_ex.g3:1502:4: ( ( packageDeclaration )? ( packageElement )* )
+                    	// AS3_ex.g3:1502:5: ( packageDeclaration )? ( packageElement )*
                     	{
-                    		// AS3_ex.g3:1497:5: ( packageDeclaration )?
+                    		// AS3_ex.g3:1502:5: ( packageDeclaration )?
                     		int alt29 = 2;
                     		int LA29_0 = input.LA(1);
 
@@ -4897,7 +4893,7 @@ public class AS3_exParser : Parser
                     		    case 1 :
                     		        // AS3_ex.g3:0:0: packageDeclaration
                     		        {
-                    		        	PushFollow(FOLLOW_packageDeclaration_in_fileContents5957);
+                    		        	PushFollow(FOLLOW_packageDeclaration_in_fileContents5962);
                     		        	packageDeclaration44 = packageDeclaration();
                     		        	state.followingStackPointer--;
                     		        	if (state.failed) return retval;
@@ -4908,7 +4904,7 @@ public class AS3_exParser : Parser
 
                     		}
 
-                    		// AS3_ex.g3:1497:25: ( packageElement )*
+                    		// AS3_ex.g3:1502:25: ( packageElement )*
                     		do 
                     		{
                     		    int alt30 = 2;
@@ -4925,7 +4921,7 @@ public class AS3_exParser : Parser
                     				case 1 :
                     				    // AS3_ex.g3:0:0: packageElement
                     				    {
-                    				    	PushFollow(FOLLOW_packageElement_in_fileContents5960);
+                    				    	PushFollow(FOLLOW_packageElement_in_fileContents5965);
                     				    	packageElement45 = packageElement();
                     				    	state.followingStackPointer--;
                     				    	if (state.failed) return retval;
@@ -4949,11 +4945,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1497:44: EOF
+                    // AS3_ex.g3:1502:44: EOF
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	EOF46=(IToken)Match(input,EOF,FOLLOW_EOF_in_fileContents5966); if (state.failed) return retval;
+                    	EOF46=(IToken)Match(input,EOF,FOLLOW_EOF_in_fileContents5971); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{EOF46_tree = (object)adaptor.Create(EOF46);
                     		adaptor.AddChild(root_0, EOF46_tree);
@@ -4999,7 +4995,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "packageDeclaration"
-    // AS3_ex.g3:1502:1: packageDeclaration : p= PACKAGE ( type )? l= LCURLY ( packageElement )* r= RCURLY ;
+    // AS3_ex.g3:1507:1: packageDeclaration : p= PACKAGE ( type )? l= LCURLY ( packageElement )* r= RCURLY ;
     public AS3_exParser.packageDeclaration_return packageDeclaration() // throws RecognitionException [1]
     {   
         AS3_exParser.packageDeclaration_return retval = new AS3_exParser.packageDeclaration_return();
@@ -5025,12 +5021,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1503:2: (p= PACKAGE ( type )? l= LCURLY ( packageElement )* r= RCURLY )
-            // AS3_ex.g3:1503:6: p= PACKAGE ( type )? l= LCURLY ( packageElement )* r= RCURLY
+            // AS3_ex.g3:1508:2: (p= PACKAGE ( type )? l= LCURLY ( packageElement )* r= RCURLY )
+            // AS3_ex.g3:1508:6: p= PACKAGE ( type )? l= LCURLY ( packageElement )* r= RCURLY
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	p=(IToken)Match(input,PACKAGE,FOLLOW_PACKAGE_in_packageDeclaration5983); if (state.failed) return retval;
+            	p=(IToken)Match(input,PACKAGE,FOLLOW_PACKAGE_in_packageDeclaration5988); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{p_tree = (object)adaptor.Create(p);
             		adaptor.AddChild(root_0, p_tree);
@@ -5039,7 +5035,7 @@ public class AS3_exParser : Parser
             	{
             	  {InsertCR(false);}Emit((CommonToken)p);PushExpressionIndent();
             	}
-            	// AS3_ex.g3:1503:82: ( type )?
+            	// AS3_ex.g3:1508:82: ( type )?
             	int alt32 = 2;
             	int LA32_0 = input.LA(1);
 
@@ -5050,9 +5046,9 @@ public class AS3_exParser : Parser
             	switch (alt32) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1503:83: type
+            	        // AS3_ex.g3:1508:83: type
             	        {
-            	        	PushFollow(FOLLOW_type_in_packageDeclaration5988);
+            	        	PushFollow(FOLLOW_type_in_packageDeclaration5993);
             	        	type47 = type();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5067,7 +5063,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	l=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_packageDeclaration6002); if (state.failed) return retval;
+            	l=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_packageDeclaration6007); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{l_tree = (object)adaptor.Create(l);
             		adaptor.AddChild(root_0, l_tree);
@@ -5081,7 +5077,7 @@ public class AS3_exParser : Parser
             	  	          PushIndent(true);
             	  	    
             	}
-            	// AS3_ex.g3:1511:6: ( packageElement )*
+            	// AS3_ex.g3:1516:6: ( packageElement )*
             	do 
             	{
             	    int alt33 = 2;
@@ -5098,7 +5094,7 @@ public class AS3_exParser : Parser
             			case 1 :
             			    // AS3_ex.g3:0:0: packageElement
             			    {
-            			    	PushFollow(FOLLOW_packageElement_in_packageDeclaration6018);
+            			    	PushFollow(FOLLOW_packageElement_in_packageDeclaration6023);
             			    	packageElement48 = packageElement();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -5122,7 +5118,7 @@ public class AS3_exParser : Parser
             	  	            PopIndent();
             	  	    
             	}
-            	r=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_packageDeclaration6037); if (state.failed) return retval;
+            	r=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_packageDeclaration6042); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{r_tree = (object)adaptor.Create(r);
             		adaptor.AddChild(root_0, r_tree);
@@ -5170,7 +5166,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "mxmlEmbedded"
-    // AS3_ex.g3:1522:1: mxmlEmbedded : ( ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )* | EOF );
+    // AS3_ex.g3:1527:1: mxmlEmbedded : ( ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )* | EOF );
     public AS3_exParser.mxmlEmbedded_return mxmlEmbedded() // throws RecognitionException [1]
     {   
         AS3_exParser.mxmlEmbedded_return retval = new AS3_exParser.mxmlEmbedded_return();
@@ -5198,7 +5194,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1523:2: ( ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )* | EOF )
+            // AS3_ex.g3:1528:2: ( ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )* | EOF )
             int alt35 = 2;
             int LA35_0 = input.LA(1);
 
@@ -5234,11 +5230,11 @@ public class AS3_exParser : Parser
             switch (alt35) 
             {
                 case 1 :
-                    // AS3_ex.g3:1524:6: ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )*
+                    // AS3_ex.g3:1529:6: ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )*
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	// AS3_ex.g3:1524:6: ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )*
+                    	// AS3_ex.g3:1529:6: ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )*
                     	do 
                     	{
                     	    int alt34 = 6;
@@ -5246,9 +5242,9 @@ public class AS3_exParser : Parser
                     	    switch (alt34) 
                     		{
                     			case 1 :
-                    			    // AS3_ex.g3:1524:7: propertyDeclaration
+                    			    // AS3_ex.g3:1529:7: propertyDeclaration
                     			    {
-                    			    	PushFollow(FOLLOW_propertyDeclaration_in_mxmlEmbedded6062);
+                    			    	PushFollow(FOLLOW_propertyDeclaration_in_mxmlEmbedded6067);
                     			    	propertyDeclaration49 = propertyDeclaration();
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -5257,9 +5253,9 @@ public class AS3_exParser : Parser
                     			    }
                     			    break;
                     			case 2 :
-                    			    // AS3_ex.g3:1524:29: functionDeclaration
+                    			    // AS3_ex.g3:1529:29: functionDeclaration
                     			    {
-                    			    	PushFollow(FOLLOW_functionDeclaration_in_mxmlEmbedded6066);
+                    			    	PushFollow(FOLLOW_functionDeclaration_in_mxmlEmbedded6071);
                     			    	functionDeclaration50 = functionDeclaration();
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -5268,9 +5264,9 @@ public class AS3_exParser : Parser
                     			    }
                     			    break;
                     			case 3 :
-                    			    // AS3_ex.g3:1524:51: statement
+                    			    // AS3_ex.g3:1529:51: statement
                     			    {
-                    			    	PushFollow(FOLLOW_statement_in_mxmlEmbedded6070);
+                    			    	PushFollow(FOLLOW_statement_in_mxmlEmbedded6075);
                     			    	statement51 = statement();
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -5279,9 +5275,9 @@ public class AS3_exParser : Parser
                     			    }
                     			    break;
                     			case 4 :
-                    			    // AS3_ex.g3:1524:63: directive
+                    			    // AS3_ex.g3:1529:63: directive
                     			    {
-                    			    	PushFollow(FOLLOW_directive_in_mxmlEmbedded6074);
+                    			    	PushFollow(FOLLOW_directive_in_mxmlEmbedded6079);
                     			    	directive52 = directive();
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -5290,9 +5286,9 @@ public class AS3_exParser : Parser
                     			    }
                     			    break;
                     			case 5 :
-                    			    // AS3_ex.g3:1524:75: interfaceFunctionDeclaration
+                    			    // AS3_ex.g3:1529:75: interfaceFunctionDeclaration
                     			    {
-                    			    	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_mxmlEmbedded6078);
+                    			    	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_mxmlEmbedded6083);
                     			    	interfaceFunctionDeclaration53 = interfaceFunctionDeclaration();
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -5313,11 +5309,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1524:108: EOF
+                    // AS3_ex.g3:1529:108: EOF
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	EOF54=(IToken)Match(input,EOF,FOLLOW_EOF_in_mxmlEmbedded6084); if (state.failed) return retval;
+                    	EOF54=(IToken)Match(input,EOF,FOLLOW_EOF_in_mxmlEmbedded6089); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{EOF54_tree = (object)adaptor.Create(EOF54);
                     		adaptor.AddChild(root_0, EOF54_tree);
@@ -5363,7 +5359,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "packageElement"
-    // AS3_ex.g3:1527:1: packageElement : ( classOrInterfaceDecl | propertyDeclaration | functionDeclaration | interfaceFunctionDeclaration | statement | directive );
+    // AS3_ex.g3:1532:1: packageElement : ( classOrInterfaceDecl | propertyDeclaration | functionDeclaration | interfaceFunctionDeclaration | statement | directive );
     public AS3_exParser.packageElement_return packageElement() // throws RecognitionException [1]
     {   
         AS3_exParser.packageElement_return retval = new AS3_exParser.packageElement_return();
@@ -5391,17 +5387,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1528:5: ( classOrInterfaceDecl | propertyDeclaration | functionDeclaration | interfaceFunctionDeclaration | statement | directive )
+            // AS3_ex.g3:1533:5: ( classOrInterfaceDecl | propertyDeclaration | functionDeclaration | interfaceFunctionDeclaration | statement | directive )
             int alt36 = 6;
             alt36 = dfa36.Predict(input);
             switch (alt36) 
             {
                 case 1 :
-                    // AS3_ex.g3:1528:9: classOrInterfaceDecl
+                    // AS3_ex.g3:1533:9: classOrInterfaceDecl
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_classOrInterfaceDecl_in_packageElement6104);
+                    	PushFollow(FOLLOW_classOrInterfaceDecl_in_packageElement6109);
                     	classOrInterfaceDecl55 = classOrInterfaceDecl();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5410,11 +5406,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1528:32: propertyDeclaration
+                    // AS3_ex.g3:1533:32: propertyDeclaration
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_propertyDeclaration_in_packageElement6108);
+                    	PushFollow(FOLLOW_propertyDeclaration_in_packageElement6113);
                     	propertyDeclaration56 = propertyDeclaration();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5423,11 +5419,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1528:54: functionDeclaration
+                    // AS3_ex.g3:1533:54: functionDeclaration
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_functionDeclaration_in_packageElement6112);
+                    	PushFollow(FOLLOW_functionDeclaration_in_packageElement6117);
                     	functionDeclaration57 = functionDeclaration();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5436,11 +5432,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:1528:76: interfaceFunctionDeclaration
+                    // AS3_ex.g3:1533:76: interfaceFunctionDeclaration
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_packageElement6116);
+                    	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_packageElement6121);
                     	interfaceFunctionDeclaration58 = interfaceFunctionDeclaration();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5449,11 +5445,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 5 :
-                    // AS3_ex.g3:1528:107: statement
+                    // AS3_ex.g3:1533:107: statement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_statement_in_packageElement6120);
+                    	PushFollow(FOLLOW_statement_in_packageElement6125);
                     	statement59 = statement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5462,11 +5458,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 6 :
-                    // AS3_ex.g3:1528:119: directive
+                    // AS3_ex.g3:1533:119: directive
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_directive_in_packageElement6124);
+                    	PushFollow(FOLLOW_directive_in_packageElement6129);
                     	directive60 = directive();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5512,7 +5508,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "importDeclaration"
-    // AS3_ex.g3:1531:1: importDeclaration : i= IMPORT type (D= DOT S= STAR )? semic ;
+    // AS3_ex.g3:1536:1: importDeclaration : i= IMPORT type (D= DOT S= STAR )? semic ;
     public AS3_exParser.importDeclaration_return importDeclaration() // throws RecognitionException [1]
     {   
         AS3_exParser.importDeclaration_return retval = new AS3_exParser.importDeclaration_return();
@@ -5538,8 +5534,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1532:2: (i= IMPORT type (D= DOT S= STAR )? semic )
-            // AS3_ex.g3:1532:6: i= IMPORT type (D= DOT S= STAR )? semic
+            // AS3_ex.g3:1537:2: (i= IMPORT type (D= DOT S= STAR )? semic )
+            // AS3_ex.g3:1537:6: i= IMPORT type (D= DOT S= STAR )? semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -5547,7 +5543,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertCR(false);
             	}
-            	i=(IToken)Match(input,IMPORT,FOLLOW_IMPORT_in_importDeclaration6144); if (state.failed) return retval;
+            	i=(IToken)Match(input,IMPORT,FOLLOW_IMPORT_in_importDeclaration6149); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{i_tree = (object)adaptor.Create(i);
             		adaptor.AddChild(root_0, i_tree);
@@ -5556,12 +5552,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)i);
             	}
-            	PushFollow(FOLLOW_type_in_importDeclaration6148);
+            	PushFollow(FOLLOW_type_in_importDeclaration6153);
             	type61 = type();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, type61.Tree);
-            	// AS3_ex.g3:1532:64: (D= DOT S= STAR )?
+            	// AS3_ex.g3:1537:64: (D= DOT S= STAR )?
             	int alt37 = 2;
             	int LA37_0 = input.LA(1);
 
@@ -5572,9 +5568,9 @@ public class AS3_exParser : Parser
             	switch (alt37) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1532:65: D= DOT S= STAR
+            	        // AS3_ex.g3:1537:65: D= DOT S= STAR
             	        {
-            	        	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_importDeclaration6153); if (state.failed) return retval;
+            	        	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_importDeclaration6158); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{D_tree = (object)adaptor.Create(D);
             	        		adaptor.AddChild(root_0, D_tree);
@@ -5583,7 +5579,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  Emit((CommonToken)D);
             	        	}
-            	        	S=(IToken)Match(input,STAR,FOLLOW_STAR_in_importDeclaration6159); if (state.failed) return retval;
+            	        	S=(IToken)Match(input,STAR,FOLLOW_STAR_in_importDeclaration6164); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{S_tree = (object)adaptor.Create(S);
             	        		adaptor.AddChild(root_0, S_tree);
@@ -5598,7 +5594,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_semic_in_importDeclaration6165);
+            	PushFollow(FOLLOW_semic_in_importDeclaration6170);
             	semic62 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -5642,7 +5638,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "classOrInterfaceDecl"
-    // AS3_ex.g3:1535:1: classOrInterfaceDecl : ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( interfaceDeclaration | classDeclaration ) ;
+    // AS3_ex.g3:1540:1: classOrInterfaceDecl : ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( interfaceDeclaration | classDeclaration ) ;
     public AS3_exParser.classOrInterfaceDecl_return classOrInterfaceDecl() // throws RecognitionException [1]
     {   
         AS3_exParser.classOrInterfaceDecl_return retval = new AS3_exParser.classOrInterfaceDecl_return();
@@ -5666,12 +5662,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1536:2: ( ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( interfaceDeclaration | classDeclaration ) )
-            // AS3_ex.g3:1536:6: ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( interfaceDeclaration | classDeclaration )
+            // AS3_ex.g3:1541:2: ( ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( interfaceDeclaration | classDeclaration ) )
+            // AS3_ex.g3:1541:6: ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( interfaceDeclaration | classDeclaration )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1536:6: ( conditionalDirAndBindingDecls )?
+            	// AS3_ex.g3:1541:6: ( conditionalDirAndBindingDecls )?
             	int alt38 = 2;
             	switch ( input.LA(1) ) 
             	{
@@ -5713,9 +5709,9 @@ public class AS3_exParser : Parser
             	switch (alt38) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1536:7: conditionalDirAndBindingDecls
+            	        // AS3_ex.g3:1541:7: conditionalDirAndBindingDecls
             	        {
-            	        	PushFollow(FOLLOW_conditionalDirAndBindingDecls_in_classOrInterfaceDecl6180);
+            	        	PushFollow(FOLLOW_conditionalDirAndBindingDecls_in_classOrInterfaceDecl6185);
             	        	conditionalDirAndBindingDecls63 = conditionalDirAndBindingDecls();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5738,7 +5734,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertLines(mPrinter.GetBlankLinesBeforeClass(), false);
             	}
-            	// AS3_ex.g3:1536:135: ( memberModifiers )?
+            	// AS3_ex.g3:1541:135: ( memberModifiers )?
             	int alt39 = 2;
             	int LA39_0 = input.LA(1);
 
@@ -5751,7 +5747,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: memberModifiers
             	        {
-            	        	PushFollow(FOLLOW_memberModifiers_in_classOrInterfaceDecl6188);
+            	        	PushFollow(FOLLOW_memberModifiers_in_classOrInterfaceDecl6193);
             	        	memberModifiers64 = memberModifiers();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5762,7 +5758,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	// AS3_ex.g3:1536:152: ( interfaceDeclaration | classDeclaration )
+            	// AS3_ex.g3:1541:152: ( interfaceDeclaration | classDeclaration )
             	int alt40 = 2;
             	int LA40_0 = input.LA(1);
 
@@ -5785,9 +5781,9 @@ public class AS3_exParser : Parser
             	switch (alt40) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1536:153: interfaceDeclaration
+            	        // AS3_ex.g3:1541:153: interfaceDeclaration
             	        {
-            	        	PushFollow(FOLLOW_interfaceDeclaration_in_classOrInterfaceDecl6192);
+            	        	PushFollow(FOLLOW_interfaceDeclaration_in_classOrInterfaceDecl6197);
             	        	interfaceDeclaration65 = interfaceDeclaration();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5796,9 +5792,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1536:176: classDeclaration
+            	        // AS3_ex.g3:1541:176: classDeclaration
             	        {
-            	        	PushFollow(FOLLOW_classDeclaration_in_classOrInterfaceDecl6196);
+            	        	PushFollow(FOLLOW_classDeclaration_in_classOrInterfaceDecl6201);
             	        	classDeclaration66 = classDeclaration();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5848,7 +5844,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "directive"
-    // AS3_ex.g3:1539:1: directive : ( bindingDecl | includeDirective | useNamespaceDirective | importDeclaration | defaultXMLNamespaceDirective ) ;
+    // AS3_ex.g3:1544:1: directive : ( bindingDecl | includeDirective | useNamespaceDirective | importDeclaration | defaultXMLNamespaceDirective ) ;
     public AS3_exParser.directive_return directive() // throws RecognitionException [1]
     {   
         AS3_exParser.directive_return retval = new AS3_exParser.directive_return();
@@ -5874,8 +5870,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1540:2: ( ( bindingDecl | includeDirective | useNamespaceDirective | importDeclaration | defaultXMLNamespaceDirective ) )
-            // AS3_ex.g3:1540:4: ( bindingDecl | includeDirective | useNamespaceDirective | importDeclaration | defaultXMLNamespaceDirective )
+            // AS3_ex.g3:1545:2: ( ( bindingDecl | includeDirective | useNamespaceDirective | importDeclaration | defaultXMLNamespaceDirective ) )
+            // AS3_ex.g3:1545:4: ( bindingDecl | includeDirective | useNamespaceDirective | importDeclaration | defaultXMLNamespaceDirective )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -5887,7 +5883,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertCR(false);
             	}
-            	// AS3_ex.g3:1540:41: ( bindingDecl | includeDirective | useNamespaceDirective | importDeclaration | defaultXMLNamespaceDirective )
+            	// AS3_ex.g3:1545:41: ( bindingDecl | includeDirective | useNamespaceDirective | importDeclaration | defaultXMLNamespaceDirective )
             	int alt41 = 5;
             	switch ( input.LA(1) ) 
             	{
@@ -5927,9 +5923,9 @@ public class AS3_exParser : Parser
             	switch (alt41) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1540:42: bindingDecl
+            	        // AS3_ex.g3:1545:42: bindingDecl
             	        {
-            	        	PushFollow(FOLLOW_bindingDecl_in_directive6212);
+            	        	PushFollow(FOLLOW_bindingDecl_in_directive6217);
             	        	bindingDecl67 = bindingDecl();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5938,9 +5934,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1540:56: includeDirective
+            	        // AS3_ex.g3:1545:56: includeDirective
             	        {
-            	        	PushFollow(FOLLOW_includeDirective_in_directive6216);
+            	        	PushFollow(FOLLOW_includeDirective_in_directive6221);
             	        	includeDirective68 = includeDirective();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5949,9 +5945,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 3 :
-            	        // AS3_ex.g3:1540:75: useNamespaceDirective
+            	        // AS3_ex.g3:1545:75: useNamespaceDirective
             	        {
-            	        	PushFollow(FOLLOW_useNamespaceDirective_in_directive6220);
+            	        	PushFollow(FOLLOW_useNamespaceDirective_in_directive6225);
             	        	useNamespaceDirective69 = useNamespaceDirective();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5960,9 +5956,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 4 :
-            	        // AS3_ex.g3:1540:99: importDeclaration
+            	        // AS3_ex.g3:1545:99: importDeclaration
             	        {
-            	        	PushFollow(FOLLOW_importDeclaration_in_directive6224);
+            	        	PushFollow(FOLLOW_importDeclaration_in_directive6229);
             	        	importDeclaration70 = importDeclaration();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5971,9 +5967,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 5 :
-            	        // AS3_ex.g3:1540:144: defaultXMLNamespaceDirective
+            	        // AS3_ex.g3:1545:144: defaultXMLNamespaceDirective
             	        {
-            	        	PushFollow(FOLLOW_defaultXMLNamespaceDirective_in_directive6230);
+            	        	PushFollow(FOLLOW_defaultXMLNamespaceDirective_in_directive6235);
             	        	defaultXMLNamespaceDirective71 = defaultXMLNamespaceDirective();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -6027,7 +6023,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "conditionalDirAndBindingDecls"
-    // AS3_ex.g3:1543:1: conditionalDirAndBindingDecls : conditionalCompilerOption ( bindingDecl )* ;
+    // AS3_ex.g3:1548:1: conditionalDirAndBindingDecls : conditionalCompilerOption ( bindingDecl )* ;
     public AS3_exParser.conditionalDirAndBindingDecls_return conditionalDirAndBindingDecls() // throws RecognitionException [1]
     {   
         AS3_exParser.conditionalDirAndBindingDecls_return retval = new AS3_exParser.conditionalDirAndBindingDecls_return();
@@ -6047,8 +6043,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1544:2: ( conditionalCompilerOption ( bindingDecl )* )
-            // AS3_ex.g3:1544:4: conditionalCompilerOption ( bindingDecl )*
+            // AS3_ex.g3:1549:2: ( conditionalCompilerOption ( bindingDecl )* )
+            // AS3_ex.g3:1549:4: conditionalCompilerOption ( bindingDecl )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -6060,7 +6056,7 @@ public class AS3_exParser : Parser
             	{
             	  mPrinter.MarkBindablePos(true);
             	}
-            	PushFollow(FOLLOW_conditionalCompilerOption_in_conditionalDirAndBindingDecls6256);
+            	PushFollow(FOLLOW_conditionalCompilerOption_in_conditionalDirAndBindingDecls6261);
             	conditionalCompilerOption72 = conditionalCompilerOption();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -6069,7 +6065,7 @@ public class AS3_exParser : Parser
             	{
             	  mPrinter.SetBindableMode();
             	}
-            	// AS3_ex.g3:1548:4: ( bindingDecl )*
+            	// AS3_ex.g3:1553:4: ( bindingDecl )*
             	do 
             	{
             	    int alt42 = 2;
@@ -6084,13 +6080,13 @@ public class AS3_exParser : Parser
             	    switch (alt42) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1548:5: bindingDecl
+            			    // AS3_ex.g3:1553:5: bindingDecl
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	  InsertCR(false);
             			    	}
-            			    	PushFollow(FOLLOW_bindingDecl_in_conditionalDirAndBindingDecls6273);
+            			    	PushFollow(FOLLOW_bindingDecl_in_conditionalDirAndBindingDecls6278);
             			    	bindingDecl73 = bindingDecl();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -6146,7 +6142,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "xmlKeyword"
-    // AS3_ex.g3:1551:1: xmlKeyword : {...}?I= IDENTIFIER ;
+    // AS3_ex.g3:1556:1: xmlKeyword : {...}?I= IDENTIFIER ;
     public AS3_exParser.xmlKeyword_return xmlKeyword() // throws RecognitionException [1]
     {   
         AS3_exParser.xmlKeyword_return retval = new AS3_exParser.xmlKeyword_return();
@@ -6164,8 +6160,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1552:2: ({...}?I= IDENTIFIER )
-            // AS3_ex.g3:1552:4: {...}?I= IDENTIFIER
+            // AS3_ex.g3:1557:2: ({...}?I= IDENTIFIER )
+            // AS3_ex.g3:1557:4: {...}?I= IDENTIFIER
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -6174,7 +6170,7 @@ public class AS3_exParser : Parser
             	    if ( state.backtracking > 0 ) {state.failed = true; return retval;}
             	    throw new FailedPredicateException(input, "xmlKeyword", "input.LT(1).Text.ToLower().Equals(\"xml\")");
             	}
-            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_xmlKeyword6291); if (state.failed) return retval;
+            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_xmlKeyword6296); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{I_tree = (object)adaptor.Create(I);
             		adaptor.AddChild(root_0, I_tree);
@@ -6222,7 +6218,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "conditionalCompilerOption"
-    // AS3_ex.g3:1555:1: conditionalCompilerOption : identifierLiteral x= XML_NS_OP identifierLiteral ;
+    // AS3_ex.g3:1560:1: conditionalCompilerOption : identifierLiteral x= XML_NS_OP identifierLiteral ;
     public AS3_exParser.conditionalCompilerOption_return conditionalCompilerOption() // throws RecognitionException [1]
     {   
         AS3_exParser.conditionalCompilerOption_return retval = new AS3_exParser.conditionalCompilerOption_return();
@@ -6244,17 +6240,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1556:2: ( identifierLiteral x= XML_NS_OP identifierLiteral )
-            // AS3_ex.g3:1557:2: identifierLiteral x= XML_NS_OP identifierLiteral
+            // AS3_ex.g3:1561:2: ( identifierLiteral x= XML_NS_OP identifierLiteral )
+            // AS3_ex.g3:1562:2: identifierLiteral x= XML_NS_OP identifierLiteral
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_identifierLiteral_in_conditionalCompilerOption6307);
+            	PushFollow(FOLLOW_identifierLiteral_in_conditionalCompilerOption6312);
             	identifierLiteral74 = identifierLiteral();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, identifierLiteral74.Tree);
-            	x=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_conditionalCompilerOption6311); if (state.failed) return retval;
+            	x=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_conditionalCompilerOption6316); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{x_tree = (object)adaptor.Create(x);
             		adaptor.AddChild(root_0, x_tree);
@@ -6263,7 +6259,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)x);
             	}
-            	PushFollow(FOLLOW_identifierLiteral_in_conditionalCompilerOption6315);
+            	PushFollow(FOLLOW_identifierLiteral_in_conditionalCompilerOption6320);
             	identifierLiteral75 = identifierLiteral();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -6307,7 +6303,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "defaultXMLNamespaceDirective"
-    // AS3_ex.g3:1560:1: defaultXMLNamespaceDirective : D= DEFAULT xmlKeyword N= NAMESPACE A= ASSIGN I= IDENTIFIER semic ;
+    // AS3_ex.g3:1565:1: defaultXMLNamespaceDirective : D= DEFAULT xmlKeyword N= NAMESPACE A= ASSIGN I= IDENTIFIER semic ;
     public AS3_exParser.defaultXMLNamespaceDirective_return defaultXMLNamespaceDirective() // throws RecognitionException [1]
     {   
         AS3_exParser.defaultXMLNamespaceDirective_return retval = new AS3_exParser.defaultXMLNamespaceDirective_return();
@@ -6335,12 +6331,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1561:2: (D= DEFAULT xmlKeyword N= NAMESPACE A= ASSIGN I= IDENTIFIER semic )
-            // AS3_ex.g3:1561:4: D= DEFAULT xmlKeyword N= NAMESPACE A= ASSIGN I= IDENTIFIER semic
+            // AS3_ex.g3:1566:2: (D= DEFAULT xmlKeyword N= NAMESPACE A= ASSIGN I= IDENTIFIER semic )
+            // AS3_ex.g3:1566:4: D= DEFAULT xmlKeyword N= NAMESPACE A= ASSIGN I= IDENTIFIER semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	D=(IToken)Match(input,DEFAULT,FOLLOW_DEFAULT_in_defaultXMLNamespaceDirective6329); if (state.failed) return retval;
+            	D=(IToken)Match(input,DEFAULT,FOLLOW_DEFAULT_in_defaultXMLNamespaceDirective6334); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{D_tree = (object)adaptor.Create(D);
             		adaptor.AddChild(root_0, D_tree);
@@ -6349,12 +6345,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)D);
             	}
-            	PushFollow(FOLLOW_xmlKeyword_in_defaultXMLNamespaceDirective6333);
+            	PushFollow(FOLLOW_xmlKeyword_in_defaultXMLNamespaceDirective6338);
             	xmlKeyword76 = xmlKeyword();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, xmlKeyword76.Tree);
-            	N=(IToken)Match(input,NAMESPACE,FOLLOW_NAMESPACE_in_defaultXMLNamespaceDirective6341); if (state.failed) return retval;
+            	N=(IToken)Match(input,NAMESPACE,FOLLOW_NAMESPACE_in_defaultXMLNamespaceDirective6346); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{N_tree = (object)adaptor.Create(N);
             		adaptor.AddChild(root_0, N_tree);
@@ -6363,7 +6359,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)N);
             	}
-            	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_defaultXMLNamespaceDirective6349); if (state.failed) return retval;
+            	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_defaultXMLNamespaceDirective6354); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{A_tree = (object)adaptor.Create(A);
             		adaptor.AddChild(root_0, A_tree);
@@ -6372,7 +6368,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)A);
             	}
-            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_defaultXMLNamespaceDirective6355); if (state.failed) return retval;
+            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_defaultXMLNamespaceDirective6360); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{I_tree = (object)adaptor.Create(I);
             		adaptor.AddChild(root_0, I_tree);
@@ -6381,7 +6377,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)I);
             	}
-            	PushFollow(FOLLOW_semic_in_defaultXMLNamespaceDirective6359);
+            	PushFollow(FOLLOW_semic_in_defaultXMLNamespaceDirective6364);
             	semic77 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -6425,7 +6421,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "bindingDecl"
-    // AS3_ex.g3:1567:1: bindingDecl : L= LBRACK I= IDENTIFIER (L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN )? R= RBRACK (s= SEMI )? ;
+    // AS3_ex.g3:1572:1: bindingDecl : L= LBRACK I= IDENTIFIER (L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN )? R= RBRACK (s= SEMI )? ;
     public AS3_exParser.bindingDecl_return bindingDecl() // throws RecognitionException [1]
     {   
         AS3_exParser.bindingDecl_return retval = new AS3_exParser.bindingDecl_return();
@@ -6456,17 +6452,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1569:2: (L= LBRACK I= IDENTIFIER (L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN )? R= RBRACK (s= SEMI )? )
-            // AS3_ex.g3:1569:4: L= LBRACK I= IDENTIFIER (L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN )? R= RBRACK (s= SEMI )?
+            // AS3_ex.g3:1574:2: (L= LBRACK I= IDENTIFIER (L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN )? R= RBRACK (s= SEMI )? )
+            // AS3_ex.g3:1574:4: L= LBRACK I= IDENTIFIER (L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN )? R= RBRACK (s= SEMI )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_bindingDecl6379); if (state.failed) return retval;
+            	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_bindingDecl6384); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
             	}
-            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_bindingDecl6389); if (state.failed) return retval;
+            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_bindingDecl6394); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{I_tree = (object)adaptor.Create(I);
             		adaptor.AddChild(root_0, I_tree);
@@ -6484,7 +6480,7 @@ public class AS3_exParser : Parser
             	  Emit((CommonToken)I);
             	  		  	
             	}
-            	// AS3_ex.g3:1578:5: (L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN )?
+            	// AS3_ex.g3:1583:5: (L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN )?
             	int alt45 = 2;
             	int LA45_0 = input.LA(1);
 
@@ -6495,9 +6491,9 @@ public class AS3_exParser : Parser
             	switch (alt45) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1578:6: L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN
+            	        // AS3_ex.g3:1583:6: L= LPAREN ( bindingDeclArg (C= COMMA bindingDeclArg )* )? R= RPAREN
             	        {
-            	        	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_bindingDecl6415); if (state.failed) return retval;
+            	        	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_bindingDecl6420); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{L_tree = (object)adaptor.Create(L);
             	        		adaptor.AddChild(root_0, L_tree);
@@ -6506,7 +6502,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideParens());
             	        	}
-            	        	// AS3_ex.g3:1579:8: ( bindingDeclArg (C= COMMA bindingDeclArg )* )?
+            	        	// AS3_ex.g3:1584:8: ( bindingDeclArg (C= COMMA bindingDeclArg )* )?
             	        	int alt44 = 2;
             	        	int LA44_0 = input.LA(1);
 
@@ -6517,14 +6513,14 @@ public class AS3_exParser : Parser
             	        	switch (alt44) 
             	        	{
             	        	    case 1 :
-            	        	        // AS3_ex.g3:1579:9: bindingDeclArg (C= COMMA bindingDeclArg )*
+            	        	        // AS3_ex.g3:1584:9: bindingDeclArg (C= COMMA bindingDeclArg )*
             	        	        {
-            	        	        	PushFollow(FOLLOW_bindingDeclArg_in_bindingDecl6428);
+            	        	        	PushFollow(FOLLOW_bindingDeclArg_in_bindingDecl6433);
             	        	        	bindingDeclArg78 = bindingDeclArg();
             	        	        	state.followingStackPointer--;
             	        	        	if (state.failed) return retval;
             	        	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, bindingDeclArg78.Tree);
-            	        	        	// AS3_ex.g3:1579:24: (C= COMMA bindingDeclArg )*
+            	        	        	// AS3_ex.g3:1584:24: (C= COMMA bindingDeclArg )*
             	        	        	do 
             	        	        	{
             	        	        	    int alt43 = 2;
@@ -6539,9 +6535,9 @@ public class AS3_exParser : Parser
             	        	        	    switch (alt43) 
             	        	        		{
             	        	        			case 1 :
-            	        	        			    // AS3_ex.g3:1579:25: C= COMMA bindingDeclArg
+            	        	        			    // AS3_ex.g3:1584:25: C= COMMA bindingDeclArg
             	        	        			    {
-            	        	        			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_bindingDecl6433); if (state.failed) return retval;
+            	        	        			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_bindingDecl6438); if (state.failed) return retval;
             	        	        			    	if ( state.backtracking == 0 )
             	        	        			    	{C_tree = (object)adaptor.Create(C);
             	        	        			    		adaptor.AddChild(root_0, C_tree);
@@ -6550,7 +6546,7 @@ public class AS3_exParser : Parser
             	        	        			    	{
             	        	        			    	  Emit((CommonToken)C);
             	        	        			    	}
-            	        	        			    	PushFollow(FOLLOW_bindingDeclArg_in_bindingDecl6437);
+            	        	        			    	PushFollow(FOLLOW_bindingDeclArg_in_bindingDecl6442);
             	        	        			    	bindingDeclArg79 = bindingDeclArg();
             	        	        			    	state.followingStackPointer--;
             	        	        			    	if (state.failed) return retval;
@@ -6573,7 +6569,7 @@ public class AS3_exParser : Parser
 
             	        	}
 
-            	        	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_bindingDecl6451); if (state.failed) return retval;
+            	        	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_bindingDecl6456); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{R_tree = (object)adaptor.Create(R);
             	        		adaptor.AddChild(root_0, R_tree);
@@ -6588,7 +6584,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_bindingDecl6473); if (state.failed) return retval;
+            	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_bindingDecl6478); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -6597,7 +6593,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)R);
             	}
-            	// AS3_ex.g3:1582:38: (s= SEMI )?
+            	// AS3_ex.g3:1587:38: (s= SEMI )?
             	int alt46 = 2;
             	int LA46_0 = input.LA(1);
 
@@ -6605,7 +6601,7 @@ public class AS3_exParser : Parser
             	{
             	    int LA46_1 = input.LA(2);
 
-            	    if ( (synpred122_AS3_ex()) )
+            	    if ( (synpred120_AS3_ex()) )
             	    {
             	        alt46 = 1;
             	    }
@@ -6613,9 +6609,9 @@ public class AS3_exParser : Parser
             	switch (alt46) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1582:39: s= SEMI
+            	        // AS3_ex.g3:1587:39: s= SEMI
             	        {
-            	        	s=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_bindingDecl6479); if (state.failed) return retval;
+            	        	s=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_bindingDecl6484); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{s_tree = (object)adaptor.Create(s);
             	        		adaptor.AddChild(root_0, s_tree);
@@ -6678,7 +6674,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "includeDirective"
-    // AS3_ex.g3:1591:1: includeDirective : I= INCLUDE stringLiteral semic ;
+    // AS3_ex.g3:1596:1: includeDirective : I= INCLUDE stringLiteral semic ;
     public AS3_exParser.includeDirective_return includeDirective() // throws RecognitionException [1]
     {   
         AS3_exParser.includeDirective_return retval = new AS3_exParser.includeDirective_return();
@@ -6700,12 +6696,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1592:2: (I= INCLUDE stringLiteral semic )
-            // AS3_ex.g3:1592:4: I= INCLUDE stringLiteral semic
+            // AS3_ex.g3:1597:2: (I= INCLUDE stringLiteral semic )
+            // AS3_ex.g3:1597:4: I= INCLUDE stringLiteral semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	I=(IToken)Match(input,INCLUDE,FOLLOW_INCLUDE_in_includeDirective6504); if (state.failed) return retval;
+            	I=(IToken)Match(input,INCLUDE,FOLLOW_INCLUDE_in_includeDirective6509); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{I_tree = (object)adaptor.Create(I);
             		adaptor.AddChild(root_0, I_tree);
@@ -6714,12 +6710,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)I);
             	}
-            	PushFollow(FOLLOW_stringLiteral_in_includeDirective6507);
+            	PushFollow(FOLLOW_stringLiteral_in_includeDirective6512);
             	stringLiteral80 = stringLiteral();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, stringLiteral80.Tree);
-            	PushFollow(FOLLOW_semic_in_includeDirective6509);
+            	PushFollow(FOLLOW_semic_in_includeDirective6514);
             	semic81 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -6763,7 +6759,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "bindingDeclArg"
-    // AS3_ex.g3:1595:1: bindingDeclArg : (I= IDENTIFIER E= ASSIGN )? ( stringLiteral | numericLiteral | eitherIdentifier ) ;
+    // AS3_ex.g3:1600:1: bindingDeclArg : (I= IDENTIFIER E= ASSIGN )? ( stringLiteral | numericLiteral | eitherIdentifier ) ;
     public AS3_exParser.bindingDeclArg_return bindingDeclArg() // throws RecognitionException [1]
     {   
         AS3_exParser.bindingDeclArg_return retval = new AS3_exParser.bindingDeclArg_return();
@@ -6789,12 +6785,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1596:2: ( (I= IDENTIFIER E= ASSIGN )? ( stringLiteral | numericLiteral | eitherIdentifier ) )
-            // AS3_ex.g3:1603:5: (I= IDENTIFIER E= ASSIGN )? ( stringLiteral | numericLiteral | eitherIdentifier )
+            // AS3_ex.g3:1601:2: ( (I= IDENTIFIER E= ASSIGN )? ( stringLiteral | numericLiteral | eitherIdentifier ) )
+            // AS3_ex.g3:1608:5: (I= IDENTIFIER E= ASSIGN )? ( stringLiteral | numericLiteral | eitherIdentifier )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1603:5: (I= IDENTIFIER E= ASSIGN )?
+            	// AS3_ex.g3:1608:5: (I= IDENTIFIER E= ASSIGN )?
             	int alt47 = 2;
             	int LA47_0 = input.LA(1);
 
@@ -6810,9 +6806,9 @@ public class AS3_exParser : Parser
             	switch (alt47) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1603:6: I= IDENTIFIER E= ASSIGN
+            	        // AS3_ex.g3:1608:6: I= IDENTIFIER E= ASSIGN
             	        {
-            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_bindingDeclArg6540); if (state.failed) return retval;
+            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_bindingDeclArg6545); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{I_tree = (object)adaptor.Create(I);
             	        		adaptor.AddChild(root_0, I_tree);
@@ -6821,7 +6817,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  Emit((CommonToken)I);
             	        	}
-            	        	E=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_bindingDeclArg6546); if (state.failed) return retval;
+            	        	E=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_bindingDeclArg6551); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{E_tree = (object)adaptor.Create(E);
             	        		adaptor.AddChild(root_0, E_tree);
@@ -6836,7 +6832,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	// AS3_ex.g3:1604:2: ( stringLiteral | numericLiteral | eitherIdentifier )
+            	// AS3_ex.g3:1609:2: ( stringLiteral | numericLiteral | eitherIdentifier )
             	int alt48 = 3;
             	switch ( input.LA(1) ) 
             	{
@@ -6924,9 +6920,9 @@ public class AS3_exParser : Parser
             	switch (alt48) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1605:3: stringLiteral
+            	        // AS3_ex.g3:1610:3: stringLiteral
             	        {
-            	        	PushFollow(FOLLOW_stringLiteral_in_bindingDeclArg6559);
+            	        	PushFollow(FOLLOW_stringLiteral_in_bindingDeclArg6564);
             	        	stringLiteral82 = stringLiteral();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -6935,9 +6931,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1605:19: numericLiteral
+            	        // AS3_ex.g3:1610:19: numericLiteral
             	        {
-            	        	PushFollow(FOLLOW_numericLiteral_in_bindingDeclArg6563);
+            	        	PushFollow(FOLLOW_numericLiteral_in_bindingDeclArg6568);
             	        	numericLiteral83 = numericLiteral();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -6946,9 +6942,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 3 :
-            	        // AS3_ex.g3:1605:36: eitherIdentifier
+            	        // AS3_ex.g3:1610:36: eitherIdentifier
             	        {
-            	        	PushFollow(FOLLOW_eitherIdentifier_in_bindingDeclArg6567);
+            	        	PushFollow(FOLLOW_eitherIdentifier_in_bindingDeclArg6572);
             	        	eitherIdentifier84 = eitherIdentifier();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -6998,7 +6994,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "interfaceDeclaration"
-    // AS3_ex.g3:1612:1: interfaceDeclaration : i= INTERFACE type (e= EXTENDS typeList )? interfaceBody ;
+    // AS3_ex.g3:1617:1: interfaceDeclaration : i= INTERFACE type (e= EXTENDS typeList )? interfaceBody ;
     public AS3_exParser.interfaceDeclaration_return interfaceDeclaration() // throws RecognitionException [1]
     {   
         AS3_exParser.interfaceDeclaration_return retval = new AS3_exParser.interfaceDeclaration_return();
@@ -7024,12 +7020,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1613:2: (i= INTERFACE type (e= EXTENDS typeList )? interfaceBody )
-            // AS3_ex.g3:1613:6: i= INTERFACE type (e= EXTENDS typeList )? interfaceBody
+            // AS3_ex.g3:1618:2: (i= INTERFACE type (e= EXTENDS typeList )? interfaceBody )
+            // AS3_ex.g3:1618:6: i= INTERFACE type (e= EXTENDS typeList )? interfaceBody
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	i=(IToken)Match(input,INTERFACE,FOLLOW_INTERFACE_in_interfaceDeclaration6589); if (state.failed) return retval;
+            	i=(IToken)Match(input,INTERFACE,FOLLOW_INTERFACE_in_interfaceDeclaration6594); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{i_tree = (object)adaptor.Create(i);
             		adaptor.AddChild(root_0, i_tree);
@@ -7038,12 +7034,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)i);
             	}
-            	PushFollow(FOLLOW_type_in_interfaceDeclaration6593);
+            	PushFollow(FOLLOW_type_in_interfaceDeclaration6598);
             	type85 = type();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, type85.Tree);
-            	// AS3_ex.g3:1613:48: (e= EXTENDS typeList )?
+            	// AS3_ex.g3:1618:48: (e= EXTENDS typeList )?
             	int alt49 = 2;
             	int LA49_0 = input.LA(1);
 
@@ -7054,9 +7050,9 @@ public class AS3_exParser : Parser
             	switch (alt49) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1613:49: e= EXTENDS typeList
+            	        // AS3_ex.g3:1618:49: e= EXTENDS typeList
             	        {
-            	        	e=(IToken)Match(input,EXTENDS,FOLLOW_EXTENDS_in_interfaceDeclaration6598); if (state.failed) return retval;
+            	        	e=(IToken)Match(input,EXTENDS,FOLLOW_EXTENDS_in_interfaceDeclaration6603); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{e_tree = (object)adaptor.Create(e);
             	        		adaptor.AddChild(root_0, e_tree);
@@ -7065,7 +7061,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  Emit((CommonToken)e);
             	        	}
-            	        	PushFollow(FOLLOW_typeList_in_interfaceDeclaration6602);
+            	        	PushFollow(FOLLOW_typeList_in_interfaceDeclaration6607);
             	        	typeList86 = typeList();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -7080,7 +7076,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	PushFollow(FOLLOW_interfaceBody_in_interfaceDeclaration6616);
+            	PushFollow(FOLLOW_interfaceBody_in_interfaceDeclaration6621);
             	interfaceBody87 = interfaceBody();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -7124,7 +7120,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "interfaceBody"
-    // AS3_ex.g3:1617:1: interfaceBody : l= LCURLY ( interfaceElement )* r= RCURLY ;
+    // AS3_ex.g3:1622:1: interfaceBody : l= LCURLY ( interfaceElement )* r= RCURLY ;
     public AS3_exParser.interfaceBody_return interfaceBody() // throws RecognitionException [1]
     {   
         AS3_exParser.interfaceBody_return retval = new AS3_exParser.interfaceBody_return();
@@ -7146,12 +7142,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1618:2: (l= LCURLY ( interfaceElement )* r= RCURLY )
-            // AS3_ex.g3:1618:6: l= LCURLY ( interfaceElement )* r= RCURLY
+            // AS3_ex.g3:1623:2: (l= LCURLY ( interfaceElement )* r= RCURLY )
+            // AS3_ex.g3:1623:6: l= LCURLY ( interfaceElement )* r= RCURLY
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	l=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_interfaceBody6632); if (state.failed) return retval;
+            	l=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_interfaceBody6637); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{l_tree = (object)adaptor.Create(l);
             		adaptor.AddChild(root_0, l_tree);
@@ -7163,7 +7159,7 @@ public class AS3_exParser : Parser
             	  	    	Emit((CommonToken)l);PushIndent(true);
             	  	    
             	}
-            	// AS3_ex.g3:1623:6: ( interfaceElement )*
+            	// AS3_ex.g3:1628:6: ( interfaceElement )*
             	do 
             	{
             	    int alt50 = 2;
@@ -7180,7 +7176,7 @@ public class AS3_exParser : Parser
             			case 1 :
             			    // AS3_ex.g3:0:0: interfaceElement
             			    {
-            			    	PushFollow(FOLLOW_interfaceElement_in_interfaceBody6648);
+            			    	PushFollow(FOLLOW_interfaceElement_in_interfaceBody6653);
             			    	interfaceElement88 = interfaceElement();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -7201,7 +7197,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	r=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_interfaceBody6667); if (state.failed) return retval;
+            	r=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_interfaceBody6672); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{r_tree = (object)adaptor.Create(r);
             		adaptor.AddChild(root_0, r_tree);
@@ -7249,7 +7245,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "classDeclaration"
-    // AS3_ex.g3:1628:1: classDeclaration : c= CLASS type (E= EXTENDS type )? (I= IMPLEMENTS typeList )? classBody ;
+    // AS3_ex.g3:1633:1: classDeclaration : c= CLASS type (E= EXTENDS type )? (I= IMPLEMENTS typeList )? classBody ;
     public AS3_exParser.classDeclaration_return classDeclaration() // throws RecognitionException [1]
     {   
         AS3_exParser.classDeclaration_return retval = new AS3_exParser.classDeclaration_return();
@@ -7279,12 +7275,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1629:2: (c= CLASS type (E= EXTENDS type )? (I= IMPLEMENTS typeList )? classBody )
-            // AS3_ex.g3:1629:6: c= CLASS type (E= EXTENDS type )? (I= IMPLEMENTS typeList )? classBody
+            // AS3_ex.g3:1634:2: (c= CLASS type (E= EXTENDS type )? (I= IMPLEMENTS typeList )? classBody )
+            // AS3_ex.g3:1634:6: c= CLASS type (E= EXTENDS type )? (I= IMPLEMENTS typeList )? classBody
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	c=(IToken)Match(input,CLASS,FOLLOW_CLASS_in_classDeclaration6685); if (state.failed) return retval;
+            	c=(IToken)Match(input,CLASS,FOLLOW_CLASS_in_classDeclaration6690); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{c_tree = (object)adaptor.Create(c);
             		adaptor.AddChild(root_0, c_tree);
@@ -7293,12 +7289,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)c);
             	}
-            	PushFollow(FOLLOW_type_in_classDeclaration6689);
+            	PushFollow(FOLLOW_type_in_classDeclaration6694);
             	type89 = type();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, type89.Tree);
-            	// AS3_ex.g3:1629:44: (E= EXTENDS type )?
+            	// AS3_ex.g3:1634:44: (E= EXTENDS type )?
             	int alt51 = 2;
             	int LA51_0 = input.LA(1);
 
@@ -7309,9 +7305,9 @@ public class AS3_exParser : Parser
             	switch (alt51) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1629:46: E= EXTENDS type
+            	        // AS3_ex.g3:1634:46: E= EXTENDS type
             	        {
-            	        	E=(IToken)Match(input,EXTENDS,FOLLOW_EXTENDS_in_classDeclaration6695); if (state.failed) return retval;
+            	        	E=(IToken)Match(input,EXTENDS,FOLLOW_EXTENDS_in_classDeclaration6700); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{E_tree = (object)adaptor.Create(E);
             	        		adaptor.AddChild(root_0, E_tree);
@@ -7320,7 +7316,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  Emit((CommonToken)E);
             	        	}
-            	        	PushFollow(FOLLOW_type_in_classDeclaration6699);
+            	        	PushFollow(FOLLOW_type_in_classDeclaration6704);
             	        	type90 = type();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -7331,7 +7327,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	// AS3_ex.g3:1629:88: (I= IMPLEMENTS typeList )?
+            	// AS3_ex.g3:1634:88: (I= IMPLEMENTS typeList )?
             	int alt52 = 2;
             	int LA52_0 = input.LA(1);
 
@@ -7342,9 +7338,9 @@ public class AS3_exParser : Parser
             	switch (alt52) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1629:90: I= IMPLEMENTS typeList
+            	        // AS3_ex.g3:1634:90: I= IMPLEMENTS typeList
             	        {
-            	        	I=(IToken)Match(input,IMPLEMENTS,FOLLOW_IMPLEMENTS_in_classDeclaration6707); if (state.failed) return retval;
+            	        	I=(IToken)Match(input,IMPLEMENTS,FOLLOW_IMPLEMENTS_in_classDeclaration6712); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{I_tree = (object)adaptor.Create(I);
             	        		adaptor.AddChild(root_0, I_tree);
@@ -7353,7 +7349,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  Emit((CommonToken)I);
             	        	}
-            	        	PushFollow(FOLLOW_typeList_in_classDeclaration6711);
+            	        	PushFollow(FOLLOW_typeList_in_classDeclaration6716);
             	        	typeList91 = typeList();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -7368,7 +7364,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	PushFollow(FOLLOW_classBody_in_classDeclaration6725);
+            	PushFollow(FOLLOW_classBody_in_classDeclaration6730);
             	classBody92 = classBody();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -7412,7 +7408,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "classBody"
-    // AS3_ex.g3:1635:1: classBody : L= LCURLY ( classBodyElement )* R= RCURLY ;
+    // AS3_ex.g3:1640:1: classBody : L= LCURLY ( classBodyElement )* R= RCURLY ;
     public AS3_exParser.classBody_return classBody() // throws RecognitionException [1]
     {   
         AS3_exParser.classBody_return retval = new AS3_exParser.classBody_return();
@@ -7434,12 +7430,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1636:2: (L= LCURLY ( classBodyElement )* R= RCURLY )
-            // AS3_ex.g3:1636:6: L= LCURLY ( classBodyElement )* R= RCURLY
+            // AS3_ex.g3:1641:2: (L= LCURLY ( classBodyElement )* R= RCURLY )
+            // AS3_ex.g3:1641:6: L= LCURLY ( classBodyElement )* R= RCURLY
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_classBody6754); if (state.failed) return retval;
+            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_classBody6759); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -7451,7 +7447,7 @@ public class AS3_exParser : Parser
             	  			Emit((CommonToken)L);PushIndent(true);
             	  		
             	}
-            	// AS3_ex.g3:1641:3: ( classBodyElement )*
+            	// AS3_ex.g3:1646:3: ( classBodyElement )*
             	do 
             	{
             	    int alt53 = 2;
@@ -7468,7 +7464,7 @@ public class AS3_exParser : Parser
             			case 1 :
             			    // AS3_ex.g3:0:0: classBodyElement
             			    {
-            			    	PushFollow(FOLLOW_classBodyElement_in_classBody6764);
+            			    	PushFollow(FOLLOW_classBodyElement_in_classBody6769);
             			    	classBodyElement93 = classBodyElement();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -7489,7 +7485,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_classBody6777); if (state.failed) return retval;
+            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_classBody6782); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -7537,7 +7533,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "classBodyElement"
-    // AS3_ex.g3:1650:1: classBodyElement : ( propertyDeclaration | functionDeclaration | statement | directive );
+    // AS3_ex.g3:1655:1: classBodyElement : ( propertyDeclaration | functionDeclaration | statement | directive );
     public AS3_exParser.classBodyElement_return classBodyElement() // throws RecognitionException [1]
     {   
         AS3_exParser.classBodyElement_return retval = new AS3_exParser.classBodyElement_return();
@@ -7561,17 +7557,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1651:5: ( propertyDeclaration | functionDeclaration | statement | directive )
+            // AS3_ex.g3:1656:5: ( propertyDeclaration | functionDeclaration | statement | directive )
             int alt54 = 4;
             alt54 = dfa54.Predict(input);
             switch (alt54) 
             {
                 case 1 :
-                    // AS3_ex.g3:1651:9: propertyDeclaration
+                    // AS3_ex.g3:1656:9: propertyDeclaration
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_propertyDeclaration_in_classBodyElement6801);
+                    	PushFollow(FOLLOW_propertyDeclaration_in_classBodyElement6806);
                     	propertyDeclaration94 = propertyDeclaration();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7580,11 +7576,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1651:31: functionDeclaration
+                    // AS3_ex.g3:1656:31: functionDeclaration
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_functionDeclaration_in_classBodyElement6805);
+                    	PushFollow(FOLLOW_functionDeclaration_in_classBodyElement6810);
                     	functionDeclaration95 = functionDeclaration();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7593,11 +7589,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1651:53: statement
+                    // AS3_ex.g3:1656:53: statement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_statement_in_classBodyElement6809);
+                    	PushFollow(FOLLOW_statement_in_classBodyElement6814);
                     	statement96 = statement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7606,11 +7602,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:1651:65: directive
+                    // AS3_ex.g3:1656:65: directive
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_directive_in_classBodyElement6813);
+                    	PushFollow(FOLLOW_directive_in_classBodyElement6818);
                     	directive97 = directive();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7656,7 +7652,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "interfaceElement"
-    // AS3_ex.g3:1654:1: interfaceElement : ( propertyDeclaration | interfaceFunctionDeclaration | statement | directive );
+    // AS3_ex.g3:1659:1: interfaceElement : ( propertyDeclaration | interfaceFunctionDeclaration | statement | directive );
     public AS3_exParser.interfaceElement_return interfaceElement() // throws RecognitionException [1]
     {   
         AS3_exParser.interfaceElement_return retval = new AS3_exParser.interfaceElement_return();
@@ -7680,17 +7676,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1655:5: ( propertyDeclaration | interfaceFunctionDeclaration | statement | directive )
+            // AS3_ex.g3:1660:5: ( propertyDeclaration | interfaceFunctionDeclaration | statement | directive )
             int alt55 = 4;
             alt55 = dfa55.Predict(input);
             switch (alt55) 
             {
                 case 1 :
-                    // AS3_ex.g3:1655:9: propertyDeclaration
+                    // AS3_ex.g3:1660:9: propertyDeclaration
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_propertyDeclaration_in_interfaceElement6830);
+                    	PushFollow(FOLLOW_propertyDeclaration_in_interfaceElement6835);
                     	propertyDeclaration98 = propertyDeclaration();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7699,11 +7695,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1655:31: interfaceFunctionDeclaration
+                    // AS3_ex.g3:1660:31: interfaceFunctionDeclaration
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_interfaceElement6834);
+                    	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_interfaceElement6839);
                     	interfaceFunctionDeclaration99 = interfaceFunctionDeclaration();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7712,11 +7708,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1655:62: statement
+                    // AS3_ex.g3:1660:62: statement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_statement_in_interfaceElement6838);
+                    	PushFollow(FOLLOW_statement_in_interfaceElement6843);
                     	statement100 = statement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7725,11 +7721,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:1655:73: directive
+                    // AS3_ex.g3:1660:73: directive
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_directive_in_interfaceElement6841);
+                    	PushFollow(FOLLOW_directive_in_interfaceElement6846);
                     	directive101 = directive();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7775,7 +7771,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "interfaceFunctionDeclaration"
-    // AS3_ex.g3:1664:1: interfaceFunctionDeclaration : ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (S= SET | G= GET )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? semic ;
+    // AS3_ex.g3:1669:1: interfaceFunctionDeclaration : ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (S= SET | G= GET )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? semic ;
     public AS3_exParser.interfaceFunctionDeclaration_return interfaceFunctionDeclaration() // throws RecognitionException [1]
     {   
         AS3_exParser.interfaceFunctionDeclaration_return retval = new AS3_exParser.interfaceFunctionDeclaration_return();
@@ -7813,12 +7809,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1665:5: ( ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (S= SET | G= GET )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? semic )
-            // AS3_ex.g3:1665:10: ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (S= SET | G= GET )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? semic
+            // AS3_ex.g3:1670:5: ( ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (S= SET | G= GET )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? semic )
+            // AS3_ex.g3:1670:10: ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (S= SET | G= GET )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1665:10: ( conditionalDirAndBindingDecls )?
+            	// AS3_ex.g3:1670:10: ( conditionalDirAndBindingDecls )?
             	int alt56 = 2;
             	switch ( input.LA(1) ) 
             	{
@@ -7860,9 +7856,9 @@ public class AS3_exParser : Parser
             	switch (alt56) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1665:11: conditionalDirAndBindingDecls
+            	        // AS3_ex.g3:1670:11: conditionalDirAndBindingDecls
             	        {
-            	        	PushFollow(FOLLOW_conditionalDirAndBindingDecls_in_interfaceFunctionDeclaration6871);
+            	        	PushFollow(FOLLOW_conditionalDirAndBindingDecls_in_interfaceFunctionDeclaration6876);
             	        	conditionalDirAndBindingDecls102 = conditionalDirAndBindingDecls();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -7877,7 +7873,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertCR(false);
             	}
-            	// AS3_ex.g3:1665:62: ( memberModifiers )?
+            	// AS3_ex.g3:1670:62: ( memberModifiers )?
             	int alt57 = 2;
             	int LA57_0 = input.LA(1);
 
@@ -7890,7 +7886,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: memberModifiers
             	        {
-            	        	PushFollow(FOLLOW_memberModifiers_in_interfaceFunctionDeclaration6877);
+            	        	PushFollow(FOLLOW_memberModifiers_in_interfaceFunctionDeclaration6882);
             	        	memberModifiers103 = memberModifiers();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -7901,7 +7897,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	F=(IToken)Match(input,FUNCTION,FOLLOW_FUNCTION_in_interfaceFunctionDeclaration6882); if (state.failed) return retval;
+            	F=(IToken)Match(input,FUNCTION,FOLLOW_FUNCTION_in_interfaceFunctionDeclaration6887); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{F_tree = (object)adaptor.Create(F);
             		adaptor.AddChild(root_0, F_tree);
@@ -7910,7 +7906,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)F);
             	}
-            	// AS3_ex.g3:1667:5: (S= SET | G= GET )?
+            	// AS3_ex.g3:1672:5: (S= SET | G= GET )?
             	int alt58 = 3;
             	int LA58_0 = input.LA(1);
 
@@ -7935,9 +7931,9 @@ public class AS3_exParser : Parser
             	switch (alt58) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1667:6: S= SET
+            	        // AS3_ex.g3:1672:6: S= SET
             	        {
-            	        	S=(IToken)Match(input,SET,FOLLOW_SET_in_interfaceFunctionDeclaration6901); if (state.failed) return retval;
+            	        	S=(IToken)Match(input,SET,FOLLOW_SET_in_interfaceFunctionDeclaration6906); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{S_tree = (object)adaptor.Create(S);
             	        		adaptor.AddChild(root_0, S_tree);
@@ -7950,9 +7946,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1667:38: G= GET
+            	        // AS3_ex.g3:1672:38: G= GET
             	        {
-            	        	G=(IToken)Match(input,GET,FOLLOW_GET_in_interfaceFunctionDeclaration6908); if (state.failed) return retval;
+            	        	G=(IToken)Match(input,GET,FOLLOW_GET_in_interfaceFunctionDeclaration6913); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{G_tree = (object)adaptor.Create(G);
             	        		adaptor.AddChild(root_0, G_tree);
@@ -7967,7 +7963,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	// AS3_ex.g3:1668:5: (I= IDENTIFIER | notQuiteReservedWord )
+            	// AS3_ex.g3:1673:5: (I= IDENTIFIER | notQuiteReservedWord )
             	int alt59 = 2;
             	int LA59_0 = input.LA(1);
 
@@ -7990,9 +7986,9 @@ public class AS3_exParser : Parser
             	switch (alt59) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1668:6: I= IDENTIFIER
+            	        // AS3_ex.g3:1673:6: I= IDENTIFIER
             	        {
-            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_interfaceFunctionDeclaration6922); if (state.failed) return retval;
+            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_interfaceFunctionDeclaration6927); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{I_tree = (object)adaptor.Create(I);
             	        		adaptor.AddChild(root_0, I_tree);
@@ -8005,9 +8001,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1668:46: notQuiteReservedWord
+            	        // AS3_ex.g3:1673:46: notQuiteReservedWord
             	        {
-            	        	PushFollow(FOLLOW_notQuiteReservedWord_in_interfaceFunctionDeclaration6928);
+            	        	PushFollow(FOLLOW_notQuiteReservedWord_in_interfaceFunctionDeclaration6933);
             	        	notQuiteReservedWord104 = notQuiteReservedWord();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8018,12 +8014,12 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_formalParameterList_in_interfaceFunctionDeclaration6931);
+            	PushFollow(FOLLOW_formalParameterList_in_interfaceFunctionDeclaration6936);
             	formalParameterList105 = formalParameterList();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, formalParameterList105.Tree);
-            	// AS3_ex.g3:1668:88: (C= COLON type )?
+            	// AS3_ex.g3:1673:88: (C= COLON type )?
             	int alt60 = 2;
             	int LA60_0 = input.LA(1);
 
@@ -8034,9 +8030,9 @@ public class AS3_exParser : Parser
             	switch (alt60) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1668:89: C= COLON type
+            	        // AS3_ex.g3:1673:89: C= COLON type
             	        {
-            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_interfaceFunctionDeclaration6936); if (state.failed) return retval;
+            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_interfaceFunctionDeclaration6941); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{C_tree = (object)adaptor.Create(C);
             	        		adaptor.AddChild(root_0, C_tree);
@@ -8045,7 +8041,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  InsertWS(mPrinter.GetAdvancedSpacesBeforeColons()); Emit((CommonToken)C);InsertWS(mPrinter.GetAdvancedSpacesAfterColons());
             	        	}
-            	        	PushFollow(FOLLOW_type_in_interfaceFunctionDeclaration6940);
+            	        	PushFollow(FOLLOW_type_in_interfaceFunctionDeclaration6945);
             	        	type106 = type();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8056,7 +8052,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_semic_in_interfaceFunctionDeclaration6944);
+            	PushFollow(FOLLOW_semic_in_interfaceFunctionDeclaration6949);
             	semic107 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -8100,7 +8096,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "propertyDeclaration"
-    // AS3_ex.g3:1675:1: propertyDeclaration : ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( variableStatement | constantVarStatement | namespaceDirective ) ;
+    // AS3_ex.g3:1680:1: propertyDeclaration : ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( variableStatement | constantVarStatement | namespaceDirective ) ;
     public AS3_exParser.propertyDeclaration_return propertyDeclaration() // throws RecognitionException [1]
     {   
         AS3_exParser.propertyDeclaration_return retval = new AS3_exParser.propertyDeclaration_return();
@@ -8126,8 +8122,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1676:2: ( ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( variableStatement | constantVarStatement | namespaceDirective ) )
-            // AS3_ex.g3:1676:7: ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( variableStatement | constantVarStatement | namespaceDirective )
+            // AS3_ex.g3:1681:2: ( ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( variableStatement | constantVarStatement | namespaceDirective ) )
+            // AS3_ex.g3:1681:7: ( conditionalDirAndBindingDecls )? ( memberModifiers )? ( variableStatement | constantVarStatement | namespaceDirective )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -8135,7 +8131,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertLines(mPrinter.GetBlankLinesBeforeProperties());
             	}
-            	// AS3_ex.g3:1676:64: ( conditionalDirAndBindingDecls )?
+            	// AS3_ex.g3:1681:64: ( conditionalDirAndBindingDecls )?
             	int alt61 = 2;
             	switch ( input.LA(1) ) 
             	{
@@ -8186,9 +8182,9 @@ public class AS3_exParser : Parser
             	switch (alt61) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1676:65: conditionalDirAndBindingDecls
+            	        // AS3_ex.g3:1681:65: conditionalDirAndBindingDecls
             	        {
-            	        	PushFollow(FOLLOW_conditionalDirAndBindingDecls_in_propertyDeclaration6968);
+            	        	PushFollow(FOLLOW_conditionalDirAndBindingDecls_in_propertyDeclaration6973);
             	        	conditionalDirAndBindingDecls108 = conditionalDirAndBindingDecls();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8207,7 +8203,7 @@ public class AS3_exParser : Parser
             	{
             	  PushLazyIndent();
             	}
-            	// AS3_ex.g3:1676:135: ( memberModifiers )?
+            	// AS3_ex.g3:1681:135: ( memberModifiers )?
             	int alt62 = 2;
             	int LA62_0 = input.LA(1);
 
@@ -8215,7 +8211,7 @@ public class AS3_exParser : Parser
             	{
             	    int LA62_1 = input.LA(2);
 
-            	    if ( (synpred144_AS3_ex()) )
+            	    if ( (synpred142_AS3_ex()) )
             	    {
             	        alt62 = 1;
             	    }
@@ -8229,7 +8225,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: memberModifiers
             	        {
-            	        	PushFollow(FOLLOW_memberModifiers_in_propertyDeclaration6975);
+            	        	PushFollow(FOLLOW_memberModifiers_in_propertyDeclaration6980);
             	        	memberModifiers109 = memberModifiers();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8240,7 +8236,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	// AS3_ex.g3:1676:152: ( variableStatement | constantVarStatement | namespaceDirective )
+            	// AS3_ex.g3:1681:152: ( variableStatement | constantVarStatement | namespaceDirective )
             	int alt63 = 3;
             	switch ( input.LA(1) ) 
             	{
@@ -8271,9 +8267,9 @@ public class AS3_exParser : Parser
             	switch (alt63) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1676:153: variableStatement
+            	        // AS3_ex.g3:1681:153: variableStatement
             	        {
-            	        	PushFollow(FOLLOW_variableStatement_in_propertyDeclaration6979);
+            	        	PushFollow(FOLLOW_variableStatement_in_propertyDeclaration6984);
             	        	variableStatement110 = variableStatement();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8282,9 +8278,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1676:173: constantVarStatement
+            	        // AS3_ex.g3:1681:173: constantVarStatement
             	        {
-            	        	PushFollow(FOLLOW_constantVarStatement_in_propertyDeclaration6983);
+            	        	PushFollow(FOLLOW_constantVarStatement_in_propertyDeclaration6988);
             	        	constantVarStatement111 = constantVarStatement();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8293,9 +8289,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 3 :
-            	        // AS3_ex.g3:1676:196: namespaceDirective
+            	        // AS3_ex.g3:1681:196: namespaceDirective
             	        {
-            	        	PushFollow(FOLLOW_namespaceDirective_in_propertyDeclaration6987);
+            	        	PushFollow(FOLLOW_namespaceDirective_in_propertyDeclaration6992);
             	        	namespaceDirective112 = namespaceDirective();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8349,7 +8345,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "functionDeclaration"
-    // AS3_ex.g3:1683:1: functionDeclaration : ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (funcType= ( SET | GET ) )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? functionBody ;
+    // AS3_ex.g3:1688:1: functionDeclaration : ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (funcType= ( SET | GET ) )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? functionBody ;
     public AS3_exParser.functionDeclaration_return functionDeclaration() // throws RecognitionException [1]
     {   
         AS3_exParser.functionDeclaration_return retval = new AS3_exParser.functionDeclaration_return();
@@ -8385,12 +8381,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1684:5: ( ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (funcType= ( SET | GET ) )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? functionBody )
-            // AS3_ex.g3:1684:10: ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (funcType= ( SET | GET ) )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? functionBody
+            // AS3_ex.g3:1689:5: ( ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (funcType= ( SET | GET ) )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? functionBody )
+            // AS3_ex.g3:1689:10: ( conditionalDirAndBindingDecls )? ( memberModifiers )? F= FUNCTION (funcType= ( SET | GET ) )? (I= IDENTIFIER | notQuiteReservedWord ) formalParameterList (C= COLON type )? functionBody
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1684:10: ( conditionalDirAndBindingDecls )?
+            	// AS3_ex.g3:1689:10: ( conditionalDirAndBindingDecls )?
             	int alt64 = 2;
             	switch ( input.LA(1) ) 
             	{
@@ -8432,9 +8428,9 @@ public class AS3_exParser : Parser
             	switch (alt64) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1684:11: conditionalDirAndBindingDecls
+            	        // AS3_ex.g3:1689:11: conditionalDirAndBindingDecls
             	        {
-            	        	PushFollow(FOLLOW_conditionalDirAndBindingDecls_in_functionDeclaration7012);
+            	        	PushFollow(FOLLOW_conditionalDirAndBindingDecls_in_functionDeclaration7017);
             	        	conditionalDirAndBindingDecls113 = conditionalDirAndBindingDecls();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8453,7 +8449,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertCR(false);InsertLines(mPrinter.GetBlankLinesBeforeFunction());
             	}
-            	// AS3_ex.g3:1684:133: ( memberModifiers )?
+            	// AS3_ex.g3:1689:133: ( memberModifiers )?
             	int alt65 = 2;
             	int LA65_0 = input.LA(1);
 
@@ -8466,7 +8462,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: memberModifiers
             	        {
-            	        	PushFollow(FOLLOW_memberModifiers_in_functionDeclaration7019);
+            	        	PushFollow(FOLLOW_memberModifiers_in_functionDeclaration7024);
             	        	memberModifiers114 = memberModifiers();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8477,7 +8473,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	F=(IToken)Match(input,FUNCTION,FOLLOW_FUNCTION_in_functionDeclaration7024); if (state.failed) return retval;
+            	F=(IToken)Match(input,FUNCTION,FOLLOW_FUNCTION_in_functionDeclaration7029); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{F_tree = (object)adaptor.Create(F);
             		adaptor.AddChild(root_0, F_tree);
@@ -8486,7 +8482,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)F);
             	}
-            	// AS3_ex.g3:1685:5: (funcType= ( SET | GET ) )?
+            	// AS3_ex.g3:1690:5: (funcType= ( SET | GET ) )?
             	int alt66 = 2;
             	int LA66_0 = input.LA(1);
 
@@ -8502,7 +8498,7 @@ public class AS3_exParser : Parser
             	switch (alt66) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1685:6: funcType= ( SET | GET )
+            	        // AS3_ex.g3:1690:6: funcType= ( SET | GET )
             	        {
             	        	funcType = (IToken)input.LT(1);
             	        	if ( (input.LA(1) >= GET && input.LA(1) <= SET) ) 
@@ -8528,7 +8524,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	// AS3_ex.g3:1686:5: (I= IDENTIFIER | notQuiteReservedWord )
+            	// AS3_ex.g3:1691:5: (I= IDENTIFIER | notQuiteReservedWord )
             	int alt67 = 2;
             	int LA67_0 = input.LA(1);
 
@@ -8551,9 +8547,9 @@ public class AS3_exParser : Parser
             	switch (alt67) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1686:6: I= IDENTIFIER
+            	        // AS3_ex.g3:1691:6: I= IDENTIFIER
             	        {
-            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_functionDeclaration7053); if (state.failed) return retval;
+            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_functionDeclaration7058); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{I_tree = (object)adaptor.Create(I);
             	        		adaptor.AddChild(root_0, I_tree);
@@ -8566,9 +8562,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1686:46: notQuiteReservedWord
+            	        // AS3_ex.g3:1691:46: notQuiteReservedWord
             	        {
-            	        	PushFollow(FOLLOW_notQuiteReservedWord_in_functionDeclaration7059);
+            	        	PushFollow(FOLLOW_notQuiteReservedWord_in_functionDeclaration7064);
             	        	notQuiteReservedWord115 = notQuiteReservedWord();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8579,12 +8575,12 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_formalParameterList_in_functionDeclaration7062);
+            	PushFollow(FOLLOW_formalParameterList_in_functionDeclaration7067);
             	formalParameterList116 = formalParameterList();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, formalParameterList116.Tree);
-            	// AS3_ex.g3:1686:88: (C= COLON type )?
+            	// AS3_ex.g3:1691:88: (C= COLON type )?
             	int alt68 = 2;
             	int LA68_0 = input.LA(1);
 
@@ -8595,9 +8591,9 @@ public class AS3_exParser : Parser
             	switch (alt68) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1686:89: C= COLON type
+            	        // AS3_ex.g3:1691:89: C= COLON type
             	        {
-            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_functionDeclaration7067); if (state.failed) return retval;
+            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_functionDeclaration7072); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{C_tree = (object)adaptor.Create(C);
             	        		adaptor.AddChild(root_0, C_tree);
@@ -8606,7 +8602,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  InsertWS(mPrinter.GetAdvancedSpacesBeforeColons());Emit((CommonToken)C);InsertWS(mPrinter.GetAdvancedSpacesAfterColons());
             	        	}
-            	        	PushFollow(FOLLOW_type_in_functionDeclaration7071);
+            	        	PushFollow(FOLLOW_type_in_functionDeclaration7076);
             	        	type117 = type();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8621,7 +8617,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	PushFollow(FOLLOW_functionBody_in_functionDeclaration7077);
+            	PushFollow(FOLLOW_functionBody_in_functionDeclaration7082);
             	functionBody118 = functionBody();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -8665,7 +8661,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "functionExpression"
-    // AS3_ex.g3:1689:1: functionExpression : F= FUNCTION (I= IDENTIFIER )? formalParameterList (C= COLON type )? functionBody ;
+    // AS3_ex.g3:1694:1: functionExpression : F= FUNCTION (I= IDENTIFIER )? formalParameterList (C= COLON type )? functionBody ;
     public AS3_exParser.functionExpression_return functionExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.functionExpression_return retval = new AS3_exParser.functionExpression_return();
@@ -8693,12 +8689,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1692:5: (F= FUNCTION (I= IDENTIFIER )? formalParameterList (C= COLON type )? functionBody )
-            // AS3_ex.g3:1692:9: F= FUNCTION (I= IDENTIFIER )? formalParameterList (C= COLON type )? functionBody
+            // AS3_ex.g3:1697:5: (F= FUNCTION (I= IDENTIFIER )? formalParameterList (C= COLON type )? functionBody )
+            // AS3_ex.g3:1697:9: F= FUNCTION (I= IDENTIFIER )? formalParameterList (C= COLON type )? functionBody
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	F=(IToken)Match(input,FUNCTION,FOLLOW_FUNCTION_in_functionExpression7105); if (state.failed) return retval;
+            	F=(IToken)Match(input,FUNCTION,FOLLOW_FUNCTION_in_functionExpression7110); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{F_tree = (object)adaptor.Create(F);
             		adaptor.AddChild(root_0, F_tree);
@@ -8707,7 +8703,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)F);
             	}
-            	// AS3_ex.g3:1692:45: (I= IDENTIFIER )?
+            	// AS3_ex.g3:1697:45: (I= IDENTIFIER )?
             	int alt69 = 2;
             	int LA69_0 = input.LA(1);
 
@@ -8718,9 +8714,9 @@ public class AS3_exParser : Parser
             	switch (alt69) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1692:46: I= IDENTIFIER
+            	        // AS3_ex.g3:1697:46: I= IDENTIFIER
             	        {
-            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_functionExpression7112); if (state.failed) return retval;
+            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_functionExpression7117); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{I_tree = (object)adaptor.Create(I);
             	        		adaptor.AddChild(root_0, I_tree);
@@ -8735,12 +8731,12 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_formalParameterList_in_functionExpression7117);
+            	PushFollow(FOLLOW_formalParameterList_in_functionExpression7122);
             	formalParameterList119 = formalParameterList();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, formalParameterList119.Tree);
-            	// AS3_ex.g3:1692:105: (C= COLON type )?
+            	// AS3_ex.g3:1697:105: (C= COLON type )?
             	int alt70 = 2;
             	int LA70_0 = input.LA(1);
 
@@ -8751,9 +8747,9 @@ public class AS3_exParser : Parser
             	switch (alt70) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1692:106: C= COLON type
+            	        // AS3_ex.g3:1697:106: C= COLON type
             	        {
-            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_functionExpression7122); if (state.failed) return retval;
+            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_functionExpression7127); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{C_tree = (object)adaptor.Create(C);
             	        		adaptor.AddChild(root_0, C_tree);
@@ -8762,7 +8758,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  InsertWS(mPrinter.GetAdvancedSpacesBeforeColons());Emit((CommonToken)C);InsertWS(mPrinter.GetAdvancedSpacesAfterColons());
             	        	}
-            	        	PushFollow(FOLLOW_type_in_functionExpression7126);
+            	        	PushFollow(FOLLOW_type_in_functionExpression7131);
             	        	type120 = type();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -8777,7 +8773,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	PushFollow(FOLLOW_functionBody_in_functionExpression7132);
+            	PushFollow(FOLLOW_functionBody_in_functionExpression7137);
             	functionBody121 = functionBody();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -8825,7 +8821,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "formalParameterList"
-    // AS3_ex.g3:1696:1: formalParameterList : L= LPAREN ( ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? ) | formalEllipsisParameter )? R= RPAREN ;
+    // AS3_ex.g3:1701:1: formalParameterList : L= LPAREN ( ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? ) | formalEllipsisParameter )? R= RPAREN ;
     public AS3_exParser.formalParameterList_return formalParameterList() // throws RecognitionException [1]
     {   
         AS3_exParser.formalParameterList_return retval = new AS3_exParser.formalParameterList_return();
@@ -8860,8 +8856,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1703:5: (L= LPAREN ( ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? ) | formalEllipsisParameter )? R= RPAREN )
-            // AS3_ex.g3:1704:3: L= LPAREN ( ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? ) | formalEllipsisParameter )? R= RPAREN
+            // AS3_ex.g3:1708:5: (L= LPAREN ( ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? ) | formalEllipsisParameter )? R= RPAREN )
+            // AS3_ex.g3:1709:3: L= LPAREN ( ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? ) | formalEllipsisParameter )? R= RPAREN
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -8872,7 +8868,7 @@ public class AS3_exParser : Parser
             	  			mPrinter.SetInParameterDecl(true);
             	  		
             	}
-            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_formalParameterList7175); if (state.failed) return retval;
+            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_formalParameterList7180); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -8881,7 +8877,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideParens());
             	}
-            	// AS3_ex.g3:1709:9: ( ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? ) | formalEllipsisParameter )?
+            	// AS3_ex.g3:1714:9: ( ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? ) | formalEllipsisParameter )?
             	int alt73 = 3;
             	int LA73_0 = input.LA(1);
 
@@ -8896,21 +8892,21 @@ public class AS3_exParser : Parser
             	switch (alt73) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1709:11: ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? )
+            	        // AS3_ex.g3:1714:11: ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? )
             	        {
-            	        	// AS3_ex.g3:1709:11: ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? )
-            	        	// AS3_ex.g3:1709:13: variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )?
+            	        	// AS3_ex.g3:1714:11: ( variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )? )
+            	        	// AS3_ex.g3:1714:13: variableDeclaration (C= COMMA variableDeclaration )* (C= COMMA formalEllipsisParameter )?
             	        	{
             	        		if ( state.backtracking == 0 ) 
             	        		{
             	        		  pushedIndent=PushLazyParmIndent(pushedIndent, options.IndentStyle);
             	        		}
-            	        		PushFollow(FOLLOW_variableDeclaration_in_formalParameterList7194);
+            	        		PushFollow(FOLLOW_variableDeclaration_in_formalParameterList7199);
             	        		variableDeclaration122 = variableDeclaration();
             	        		state.followingStackPointer--;
             	        		if (state.failed) return retval;
             	        		if ( state.backtracking == 0 ) adaptor.AddChild(root_0, variableDeclaration122.Tree);
-            	        		// AS3_ex.g3:1710:13: (C= COMMA variableDeclaration )*
+            	        		// AS3_ex.g3:1715:13: (C= COMMA variableDeclaration )*
             	        		do 
             	        		{
             	        		    int alt71 = 2;
@@ -8932,9 +8928,9 @@ public class AS3_exParser : Parser
             	        		    switch (alt71) 
             	        			{
             	        				case 1 :
-            	        				    // AS3_ex.g3:1711:16: C= COMMA variableDeclaration
+            	        				    // AS3_ex.g3:1716:16: C= COMMA variableDeclaration
             	        				    {
-            	        				    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_formalParameterList7229); if (state.failed) return retval;
+            	        				    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_formalParameterList7234); if (state.failed) return retval;
             	        				    	if ( state.backtracking == 0 )
             	        				    	{C_tree = (object)adaptor.Create(C);
             	        				    		adaptor.AddChild(root_0, C_tree);
@@ -8943,7 +8939,7 @@ public class AS3_exParser : Parser
             	        				    	{
             	        				    	  pushedIndent=EmitCommaWithSpacingAndCRs(options, (CommonToken) C, pushedIndent);
             	        				    	}
-            	        				    	PushFollow(FOLLOW_variableDeclaration_in_formalParameterList7264);
+            	        				    	PushFollow(FOLLOW_variableDeclaration_in_formalParameterList7269);
             	        				    	variableDeclaration123 = variableDeclaration();
             	        				    	state.followingStackPointer--;
             	        				    	if (state.failed) return retval;
@@ -8960,7 +8956,7 @@ public class AS3_exParser : Parser
             	        		loop71:
             	        			;	// Stops C# compiler whining that label 'loop71' has no statements
 
-            	        		// AS3_ex.g3:1715:13: (C= COMMA formalEllipsisParameter )?
+            	        		// AS3_ex.g3:1720:13: (C= COMMA formalEllipsisParameter )?
             	        		int alt72 = 2;
             	        		int LA72_0 = input.LA(1);
 
@@ -8971,13 +8967,13 @@ public class AS3_exParser : Parser
             	        		switch (alt72) 
             	        		{
             	        		    case 1 :
-            	        		        // AS3_ex.g3:1715:15: C= COMMA formalEllipsisParameter
+            	        		        // AS3_ex.g3:1720:15: C= COMMA formalEllipsisParameter
             	        		        {
             	        		        	if ( state.backtracking == 0 ) 
             	        		        	{
             	        		        	  InsertWS(mPrinter.GetSpacesBeforeComma());
             	        		        	}
-            	        		        	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_formalParameterList7301); if (state.failed) return retval;
+            	        		        	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_formalParameterList7306); if (state.failed) return retval;
             	        		        	if ( state.backtracking == 0 )
             	        		        	{C_tree = (object)adaptor.Create(C);
             	        		        		adaptor.AddChild(root_0, C_tree);
@@ -8990,7 +8986,7 @@ public class AS3_exParser : Parser
             	        		        	{
             	        		        	  InsertWS(mPrinter.GetSpacesAfterComma());
             	        		        	}
-            	        		        	PushFollow(FOLLOW_formalEllipsisParameter_in_formalParameterList7307);
+            	        		        	PushFollow(FOLLOW_formalEllipsisParameter_in_formalParameterList7312);
             	        		        	formalEllipsisParameter124 = formalEllipsisParameter();
             	        		        	state.followingStackPointer--;
             	        		        	if (state.failed) return retval;
@@ -9008,13 +9004,13 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1717:14: formalEllipsisParameter
+            	        // AS3_ex.g3:1722:14: formalEllipsisParameter
             	        {
             	        	if ( state.backtracking == 0 ) 
             	        	{
             	        	  pushedIndent=PushLazyParmIndent(pushedIndent, options.IndentStyle);
             	        	}
-            	        	PushFollow(FOLLOW_formalEllipsisParameter_in_formalParameterList7339);
+            	        	PushFollow(FOLLOW_formalEllipsisParameter_in_formalParameterList7344);
             	        	formalEllipsisParameter125 = formalEllipsisParameter();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -9025,7 +9021,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_formalParameterList7363); if (state.failed) return retval;
+            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_formalParameterList7368); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -9083,7 +9079,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "formalEllipsisParameter"
-    // AS3_ex.g3:1730:1: formalEllipsisParameter : E= ELLIPSIS variableIdentifierDecl ;
+    // AS3_ex.g3:1735:1: formalEllipsisParameter : E= ELLIPSIS variableIdentifierDecl ;
     public AS3_exParser.formalEllipsisParameter_return formalEllipsisParameter() // throws RecognitionException [1]
     {   
         AS3_exParser.formalEllipsisParameter_return retval = new AS3_exParser.formalEllipsisParameter_return();
@@ -9103,12 +9099,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1731:5: (E= ELLIPSIS variableIdentifierDecl )
-            // AS3_ex.g3:1731:9: E= ELLIPSIS variableIdentifierDecl
+            // AS3_ex.g3:1736:5: (E= ELLIPSIS variableIdentifierDecl )
+            // AS3_ex.g3:1736:9: E= ELLIPSIS variableIdentifierDecl
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	E=(IToken)Match(input,ELLIPSIS,FOLLOW_ELLIPSIS_in_formalEllipsisParameter7410); if (state.failed) return retval;
+            	E=(IToken)Match(input,ELLIPSIS,FOLLOW_ELLIPSIS_in_formalEllipsisParameter7415); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{E_tree = (object)adaptor.Create(E);
             		adaptor.AddChild(root_0, E_tree);
@@ -9117,7 +9113,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)E);InsertWS(1);
             	}
-            	PushFollow(FOLLOW_variableIdentifierDecl_in_formalEllipsisParameter7415);
+            	PushFollow(FOLLOW_variableIdentifierDecl_in_formalEllipsisParameter7420);
             	variableIdentifierDecl126 = variableIdentifierDecl();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -9161,7 +9157,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "functionBody"
-    // AS3_ex.g3:1734:1: functionBody : L= LCURLY ( statement | functionDeclaration )* R= RCURLY ;
+    // AS3_ex.g3:1739:1: functionBody : L= LCURLY ( statement | functionDeclaration )* R= RCURLY ;
     public AS3_exParser.functionBody_return functionBody() // throws RecognitionException [1]
     {   
         AS3_exParser.functionBody_return retval = new AS3_exParser.functionBody_return();
@@ -9185,12 +9181,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1735:5: (L= LCURLY ( statement | functionDeclaration )* R= RCURLY )
-            // AS3_ex.g3:1735:9: L= LCURLY ( statement | functionDeclaration )* R= RCURLY
+            // AS3_ex.g3:1740:5: (L= LCURLY ( statement | functionDeclaration )* R= RCURLY )
+            // AS3_ex.g3:1740:9: L= LCURLY ( statement | functionDeclaration )* R= RCURLY
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_functionBody7439); if (state.failed) return retval;
+            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_functionBody7444); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -9202,7 +9198,7 @@ public class AS3_exParser : Parser
             	      		Emit((CommonToken)L);PushIndent(true);
             	      	
             	}
-            	// AS3_ex.g3:1740:7: ( statement | functionDeclaration )*
+            	// AS3_ex.g3:1745:7: ( statement | functionDeclaration )*
             	do 
             	{
             	    int alt74 = 3;
@@ -9210,9 +9206,9 @@ public class AS3_exParser : Parser
             	    switch (alt74) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1740:8: statement
+            			    // AS3_ex.g3:1745:8: statement
             			    {
-            			    	PushFollow(FOLLOW_statement_in_functionBody7457);
+            			    	PushFollow(FOLLOW_statement_in_functionBody7462);
             			    	statement127 = statement();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -9221,9 +9217,9 @@ public class AS3_exParser : Parser
             			    }
             			    break;
             			case 2 :
-            			    // AS3_ex.g3:1740:18: functionDeclaration
+            			    // AS3_ex.g3:1745:18: functionDeclaration
             			    {
-            			    	PushFollow(FOLLOW_functionDeclaration_in_functionBody7459);
+            			    	PushFollow(FOLLOW_functionDeclaration_in_functionBody7464);
             			    	functionDeclaration128 = functionDeclaration();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -9244,7 +9240,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_functionBody7473); if (state.failed) return retval;
+            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_functionBody7478); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -9292,7 +9288,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "memberModifiers"
-    // AS3_ex.g3:1748:1: memberModifiers : ( memberModifier )+ ;
+    // AS3_ex.g3:1753:1: memberModifiers : ( memberModifier )+ ;
     public AS3_exParser.memberModifiers_return memberModifiers() // throws RecognitionException [1]
     {   
         AS3_exParser.memberModifiers_return retval = new AS3_exParser.memberModifiers_return();
@@ -9310,12 +9306,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1749:5: ( ( memberModifier )+ )
-            // AS3_ex.g3:1749:9: ( memberModifier )+
+            // AS3_ex.g3:1754:5: ( ( memberModifier )+ )
+            // AS3_ex.g3:1754:9: ( memberModifier )+
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1749:9: ( memberModifier )+
+            	// AS3_ex.g3:1754:9: ( memberModifier )+
             	int cnt75 = 0;
             	do 
             	{
@@ -9326,7 +9322,7 @@ public class AS3_exParser : Parser
             	    {
             	        int LA75_2 = input.LA(2);
 
-            	        if ( (synpred161_AS3_ex()) )
+            	        if ( (synpred159_AS3_ex()) )
             	        {
             	            alt75 = 1;
             	        }
@@ -9344,7 +9340,7 @@ public class AS3_exParser : Parser
             			case 1 :
             			    // AS3_ex.g3:0:0: memberModifier
             			    {
-            			    	PushFollow(FOLLOW_memberModifier_in_memberModifiers7501);
+            			    	PushFollow(FOLLOW_memberModifier_in_memberModifiers7506);
             			    	memberModifier129 = memberModifier();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -9405,7 +9401,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "memberModifier"
-    // AS3_ex.g3:1756:1: memberModifier : x= ( DYNAMIC | FINAL | INTERNAL | NATIVE | OVERRIDE | PRIVATE | PROTECTED | PUBLIC | STATIC | IDENTIFIER ) ;
+    // AS3_ex.g3:1761:1: memberModifier : x= ( DYNAMIC | FINAL | INTERNAL | NATIVE | OVERRIDE | PRIVATE | PROTECTED | PUBLIC | STATIC | IDENTIFIER ) ;
     public AS3_exParser.memberModifier_return memberModifier() // throws RecognitionException [1]
     {   
         AS3_exParser.memberModifier_return retval = new AS3_exParser.memberModifier_return();
@@ -9423,8 +9419,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1757:5: (x= ( DYNAMIC | FINAL | INTERNAL | NATIVE | OVERRIDE | PRIVATE | PROTECTED | PUBLIC | STATIC | IDENTIFIER ) )
-            // AS3_ex.g3:1757:9: x= ( DYNAMIC | FINAL | INTERNAL | NATIVE | OVERRIDE | PRIVATE | PROTECTED | PUBLIC | STATIC | IDENTIFIER )
+            // AS3_ex.g3:1762:5: (x= ( DYNAMIC | FINAL | INTERNAL | NATIVE | OVERRIDE | PRIVATE | PROTECTED | PUBLIC | STATIC | IDENTIFIER ) )
+            // AS3_ex.g3:1762:9: x= ( DYNAMIC | FINAL | INTERNAL | NATIVE | OVERRIDE | PRIVATE | PROTECTED | PUBLIC | STATIC | IDENTIFIER )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -9485,7 +9481,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "statement"
-    // AS3_ex.g3:1778:1: statement : ( blockStatement | directive | namespaceDirective | expression semic | constantVarStatement | tryStatement | labelledStatement | switchStatement | withStatement | returnStatement | breakStatement | continueStatement | forStatement | forInStatement | forEachInStatement | doWhileStatement | whileStatement | ifStatement | emptyStatement | variableStatement | throwStatement );
+    // AS3_ex.g3:1783:1: statement : ( blockStatement | directive | namespaceDirective | expression semic | constantVarStatement | tryStatement | labelledStatement | switchStatement | withStatement | returnStatement | breakStatement | continueStatement | forStatement | forInStatement | forEachInStatement | doWhileStatement | whileStatement | ifStatement | emptyStatement | variableStatement | throwStatement );
     public AS3_exParser.statement_return statement() // throws RecognitionException [1]
     {   
         AS3_exParser.statement_return retval = new AS3_exParser.statement_return();
@@ -9545,13 +9541,13 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1779:5: ( blockStatement | directive | namespaceDirective | expression semic | constantVarStatement | tryStatement | labelledStatement | switchStatement | withStatement | returnStatement | breakStatement | continueStatement | forStatement | forInStatement | forEachInStatement | doWhileStatement | whileStatement | ifStatement | emptyStatement | variableStatement | throwStatement )
+            // AS3_ex.g3:1784:5: ( blockStatement | directive | namespaceDirective | expression semic | constantVarStatement | tryStatement | labelledStatement | switchStatement | withStatement | returnStatement | breakStatement | continueStatement | forStatement | forInStatement | forEachInStatement | doWhileStatement | whileStatement | ifStatement | emptyStatement | variableStatement | throwStatement )
             int alt76 = 21;
             alt76 = dfa76.Predict(input);
             switch (alt76) 
             {
                 case 1 :
-                    // AS3_ex.g3:1780:6: blockStatement
+                    // AS3_ex.g3:1785:6: blockStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9559,7 +9555,7 @@ public class AS3_exParser : Parser
                     	{
                     	  SetBlockFlag(true);
                     	}
-                    	PushFollow(FOLLOW_blockStatement_in_statement7668);
+                    	PushFollow(FOLLOW_blockStatement_in_statement7673);
                     	blockStatement130 = blockStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9568,7 +9564,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1781:9: directive
+                    // AS3_ex.g3:1786:9: directive
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9576,7 +9572,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_directive_in_statement7679);
+                    	PushFollow(FOLLOW_directive_in_statement7684);
                     	directive131 = directive();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9585,7 +9581,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:1782:9: namespaceDirective
+                    // AS3_ex.g3:1787:9: namespaceDirective
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9593,7 +9589,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_namespaceDirective_in_statement7690);
+                    	PushFollow(FOLLOW_namespaceDirective_in_statement7695);
                     	namespaceDirective132 = namespaceDirective();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9602,7 +9598,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:1783:9: expression semic
+                    // AS3_ex.g3:1788:9: expression semic
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9614,12 +9610,12 @@ public class AS3_exParser : Parser
                     	{
                     	  PushLazyIndent();
                     	}
-                    	PushFollow(FOLLOW_expression_in_statement7703);
+                    	PushFollow(FOLLOW_expression_in_statement7708);
                     	expression133 = expression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, expression133.Tree);
-                    	PushFollow(FOLLOW_semic_in_statement7705);
+                    	PushFollow(FOLLOW_semic_in_statement7710);
                     	semic134 = semic();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9632,7 +9628,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 5 :
-                    // AS3_ex.g3:1784:9: constantVarStatement
+                    // AS3_ex.g3:1789:9: constantVarStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9644,7 +9640,7 @@ public class AS3_exParser : Parser
                     	{
                     	  PushLazyIndent();
                     	}
-                    	PushFollow(FOLLOW_constantVarStatement_in_statement7720);
+                    	PushFollow(FOLLOW_constantVarStatement_in_statement7725);
                     	constantVarStatement135 = constantVarStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9657,7 +9653,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 6 :
-                    // AS3_ex.g3:1785:9: tryStatement
+                    // AS3_ex.g3:1790:9: tryStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9665,7 +9661,7 @@ public class AS3_exParser : Parser
                     	{
                     	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
                     	}
-                    	PushFollow(FOLLOW_tryStatement_in_statement7733);
+                    	PushFollow(FOLLOW_tryStatement_in_statement7738);
                     	tryStatement136 = tryStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9674,7 +9670,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 7 :
-                    // AS3_ex.g3:1786:9: labelledStatement
+                    // AS3_ex.g3:1791:9: labelledStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9686,7 +9682,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_labelledStatement_in_statement7745);
+                    	PushFollow(FOLLOW_labelledStatement_in_statement7750);
                     	labelledStatement137 = labelledStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9695,7 +9691,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 8 :
-                    // AS3_ex.g3:1787:9: switchStatement
+                    // AS3_ex.g3:1792:9: switchStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9703,7 +9699,7 @@ public class AS3_exParser : Parser
                     	{
                     	  MarkBlockFlag();
                     	}
-                    	PushFollow(FOLLOW_switchStatement_in_statement7758);
+                    	PushFollow(FOLLOW_switchStatement_in_statement7763);
                     	switchStatement138 = switchStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9712,7 +9708,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 9 :
-                    // AS3_ex.g3:1788:9: withStatement
+                    // AS3_ex.g3:1793:9: withStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9724,7 +9720,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_withStatement_in_statement7770);
+                    	PushFollow(FOLLOW_withStatement_in_statement7775);
                     	withStatement139 = withStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9733,7 +9729,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 10 :
-                    // AS3_ex.g3:1789:9: returnStatement
+                    // AS3_ex.g3:1794:9: returnStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9745,7 +9741,7 @@ public class AS3_exParser : Parser
                     	{
                     	  PushLazyIndent();
                     	}
-                    	PushFollow(FOLLOW_returnStatement_in_statement7784);
+                    	PushFollow(FOLLOW_returnStatement_in_statement7789);
                     	returnStatement140 = returnStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9758,7 +9754,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 11 :
-                    // AS3_ex.g3:1790:9: breakStatement
+                    // AS3_ex.g3:1795:9: breakStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9770,7 +9766,7 @@ public class AS3_exParser : Parser
                     	{
                     	  PushLazyIndent();
                     	}
-                    	PushFollow(FOLLOW_breakStatement_in_statement7800);
+                    	PushFollow(FOLLOW_breakStatement_in_statement7805);
                     	breakStatement141 = breakStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9783,7 +9779,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 12 :
-                    // AS3_ex.g3:1791:9: continueStatement
+                    // AS3_ex.g3:1796:9: continueStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9795,7 +9791,7 @@ public class AS3_exParser : Parser
                     	{
                     	  PushLazyIndent();
                     	}
-                    	PushFollow(FOLLOW_continueStatement_in_statement7816);
+                    	PushFollow(FOLLOW_continueStatement_in_statement7821);
                     	continueStatement142 = continueStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9808,7 +9804,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 13 :
-                    // AS3_ex.g3:1792:9: forStatement
+                    // AS3_ex.g3:1797:9: forStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9820,7 +9816,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_forStatement_in_statement7830);
+                    	PushFollow(FOLLOW_forStatement_in_statement7835);
                     	forStatement143 = forStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9829,7 +9825,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 14 :
-                    // AS3_ex.g3:1793:9: forInStatement
+                    // AS3_ex.g3:1798:9: forInStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9841,7 +9837,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_forInStatement_in_statement7842);
+                    	PushFollow(FOLLOW_forInStatement_in_statement7847);
                     	forInStatement144 = forInStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9850,7 +9846,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 15 :
-                    // AS3_ex.g3:1794:9: forEachInStatement
+                    // AS3_ex.g3:1799:9: forEachInStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9862,7 +9858,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_forEachInStatement_in_statement7854);
+                    	PushFollow(FOLLOW_forEachInStatement_in_statement7859);
                     	forEachInStatement145 = forEachInStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9871,7 +9867,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 16 :
-                    // AS3_ex.g3:1795:9: doWhileStatement
+                    // AS3_ex.g3:1800:9: doWhileStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9883,7 +9879,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_doWhileStatement_in_statement7866);
+                    	PushFollow(FOLLOW_doWhileStatement_in_statement7871);
                     	doWhileStatement146 = doWhileStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9892,7 +9888,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 17 :
-                    // AS3_ex.g3:1796:9: whileStatement
+                    // AS3_ex.g3:1801:9: whileStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9904,7 +9900,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_whileStatement_in_statement7878);
+                    	PushFollow(FOLLOW_whileStatement_in_statement7883);
                     	whileStatement147 = whileStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9913,7 +9909,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 18 :
-                    // AS3_ex.g3:1797:9: ifStatement
+                    // AS3_ex.g3:1802:9: ifStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9921,7 +9917,7 @@ public class AS3_exParser : Parser
                     	{
                     	  InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
                     	}
-                    	PushFollow(FOLLOW_ifStatement_in_statement7889);
+                    	PushFollow(FOLLOW_ifStatement_in_statement7894);
                     	ifStatement148 = ifStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9930,7 +9926,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 19 :
-                    // AS3_ex.g3:1798:9: emptyStatement
+                    // AS3_ex.g3:1803:9: emptyStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9938,7 +9934,7 @@ public class AS3_exParser : Parser
                     	{
                     	  if (mPrinter.IsEmptyStatementsOnNewLine())InsertStatementCR();
                     	}
-                    	PushFollow(FOLLOW_emptyStatement_in_statement7900);
+                    	PushFollow(FOLLOW_emptyStatement_in_statement7905);
                     	emptyStatement149 = emptyStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9947,7 +9943,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 20 :
-                    // AS3_ex.g3:1799:9: variableStatement
+                    // AS3_ex.g3:1804:9: variableStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9959,7 +9955,7 @@ public class AS3_exParser : Parser
                     	{
                     	  PushLazyIndent();
                     	}
-                    	PushFollow(FOLLOW_variableStatement_in_statement7914);
+                    	PushFollow(FOLLOW_variableStatement_in_statement7919);
                     	variableStatement150 = variableStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -9972,7 +9968,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 21 :
-                    // AS3_ex.g3:1800:9: throwStatement
+                    // AS3_ex.g3:1805:9: throwStatement
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -9984,7 +9980,7 @@ public class AS3_exParser : Parser
                     	{
                     	  PushLazyIndent();
                     	}
-                    	PushFollow(FOLLOW_throwStatement_in_statement7930);
+                    	PushFollow(FOLLOW_throwStatement_in_statement7935);
                     	throwStatement151 = throwStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -10034,7 +10030,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "blockStatement"
-    // AS3_ex.g3:1808:1: blockStatement : (conditionalToken= conditionalCompilerOption )? L= LCURLY ( statement )* R= RCURLY ;
+    // AS3_ex.g3:1813:1: blockStatement : (conditionalToken= conditionalCompilerOption )? L= LCURLY ( statement )* R= RCURLY ;
     public AS3_exParser.blockStatement_return blockStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.blockStatement_return retval = new AS3_exParser.blockStatement_return();
@@ -10058,12 +10054,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1809:5: ( (conditionalToken= conditionalCompilerOption )? L= LCURLY ( statement )* R= RCURLY )
-            // AS3_ex.g3:1809:9: (conditionalToken= conditionalCompilerOption )? L= LCURLY ( statement )* R= RCURLY
+            // AS3_ex.g3:1814:5: ( (conditionalToken= conditionalCompilerOption )? L= LCURLY ( statement )* R= RCURLY )
+            // AS3_ex.g3:1814:9: (conditionalToken= conditionalCompilerOption )? L= LCURLY ( statement )* R= RCURLY
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1809:9: (conditionalToken= conditionalCompilerOption )?
+            	// AS3_ex.g3:1814:9: (conditionalToken= conditionalCompilerOption )?
             	int alt77 = 2;
             	int LA77_0 = input.LA(1);
 
@@ -10074,13 +10070,13 @@ public class AS3_exParser : Parser
             	switch (alt77) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1809:10: conditionalToken= conditionalCompilerOption
+            	        // AS3_ex.g3:1814:10: conditionalToken= conditionalCompilerOption
             	        {
             	        	if ( state.backtracking == 0 ) 
             	        	{
             	        	  InsertCR(false);
             	        	}
-            	        	PushFollow(FOLLOW_conditionalCompilerOption_in_blockStatement7961);
+            	        	PushFollow(FOLLOW_conditionalCompilerOption_in_blockStatement7966);
             	        	conditionalToken = conditionalCompilerOption();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -10091,7 +10087,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_blockStatement7967); if (state.failed) return retval;
+            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_blockStatement7972); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -10107,7 +10103,7 @@ public class AS3_exParser : Parser
             	  PushIndent(true);
             	      	
             	}
-            	// AS3_ex.g3:1814:6: ( statement )*
+            	// AS3_ex.g3:1819:6: ( statement )*
             	do 
             	{
             	    int alt78 = 2;
@@ -10124,7 +10120,7 @@ public class AS3_exParser : Parser
             			case 1 :
             			    // AS3_ex.g3:0:0: statement
             			    {
-            			    	PushFollow(FOLLOW_statement_in_blockStatement7984);
+            			    	PushFollow(FOLLOW_statement_in_blockStatement7989);
             			    	statement152 = statement();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -10145,7 +10141,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_blockStatement7997); if (state.failed) return retval;
+            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_blockStatement8002); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -10193,7 +10189,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "throwStatement"
-    // AS3_ex.g3:1820:1: throwStatement : T= THROW expression semic ;
+    // AS3_ex.g3:1825:1: throwStatement : T= THROW expression semic ;
     public AS3_exParser.throwStatement_return throwStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.throwStatement_return retval = new AS3_exParser.throwStatement_return();
@@ -10215,12 +10211,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1821:2: (T= THROW expression semic )
-            // AS3_ex.g3:1821:5: T= THROW expression semic
+            // AS3_ex.g3:1826:2: (T= THROW expression semic )
+            // AS3_ex.g3:1826:5: T= THROW expression semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	T=(IToken)Match(input,THROW,FOLLOW_THROW_in_throwStatement8018); if (state.failed) return retval;
+            	T=(IToken)Match(input,THROW,FOLLOW_THROW_in_throwStatement8023); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{T_tree = (object)adaptor.Create(T);
             		adaptor.AddChild(root_0, T_tree);
@@ -10229,12 +10225,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)T);
             	}
-            	PushFollow(FOLLOW_expression_in_throwStatement8022);
+            	PushFollow(FOLLOW_expression_in_throwStatement8027);
             	expression153 = expression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, expression153.Tree);
-            	PushFollow(FOLLOW_semic_in_throwStatement8024);
+            	PushFollow(FOLLOW_semic_in_throwStatement8029);
             	semic154 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -10278,7 +10274,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "constantVarStatement"
-    // AS3_ex.g3:1826:1: constantVarStatement : C= CONST variableDeclarationList (S= SEMI )? ;
+    // AS3_ex.g3:1831:1: constantVarStatement : C= CONST variableDeclarationList (S= SEMI )? ;
     public AS3_exParser.constantVarStatement_return constantVarStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.constantVarStatement_return retval = new AS3_exParser.constantVarStatement_return();
@@ -10300,12 +10296,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1827:5: (C= CONST variableDeclarationList (S= SEMI )? )
-            // AS3_ex.g3:1827:9: C= CONST variableDeclarationList (S= SEMI )?
+            // AS3_ex.g3:1832:5: (C= CONST variableDeclarationList (S= SEMI )? )
+            // AS3_ex.g3:1832:9: C= CONST variableDeclarationList (S= SEMI )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	C=(IToken)Match(input,CONST,FOLLOW_CONST_in_constantVarStatement8044); if (state.failed) return retval;
+            	C=(IToken)Match(input,CONST,FOLLOW_CONST_in_constantVarStatement8049); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{C_tree = (object)adaptor.Create(C);
             		adaptor.AddChild(root_0, C_tree);
@@ -10314,12 +10310,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)C);
             	}
-            	PushFollow(FOLLOW_variableDeclarationList_in_constantVarStatement8049);
+            	PushFollow(FOLLOW_variableDeclarationList_in_constantVarStatement8054);
             	variableDeclarationList155 = variableDeclarationList();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, variableDeclarationList155.Tree);
-            	// AS3_ex.g3:1827:67: (S= SEMI )?
+            	// AS3_ex.g3:1832:67: (S= SEMI )?
             	int alt79 = 2;
             	int LA79_0 = input.LA(1);
 
@@ -10327,7 +10323,7 @@ public class AS3_exParser : Parser
             	{
             	    int LA79_1 = input.LA(2);
 
-            	    if ( (synpred193_AS3_ex()) )
+            	    if ( (synpred191_AS3_ex()) )
             	    {
             	        alt79 = 1;
             	    }
@@ -10335,9 +10331,9 @@ public class AS3_exParser : Parser
             	switch (alt79) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1827:68: S= SEMI
+            	        // AS3_ex.g3:1832:68: S= SEMI
             	        {
-            	        	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_constantVarStatement8054); if (state.failed) return retval;
+            	        	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_constantVarStatement8059); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{S_tree = (object)adaptor.Create(S);
             	        		adaptor.AddChild(root_0, S_tree);
@@ -10391,7 +10387,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "useNamespaceDirective"
-    // AS3_ex.g3:1832:1: useNamespaceDirective : U= USE N= NAMESPACE qualifiedIdentifier (C= COMMA qualifiedIdentifier )* semic ;
+    // AS3_ex.g3:1837:1: useNamespaceDirective : U= USE N= NAMESPACE qualifiedIdentifier (C= COMMA qualifiedIdentifier )* semic ;
     public AS3_exParser.useNamespaceDirective_return useNamespaceDirective() // throws RecognitionException [1]
     {   
         AS3_exParser.useNamespaceDirective_return retval = new AS3_exParser.useNamespaceDirective_return();
@@ -10419,12 +10415,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1833:2: (U= USE N= NAMESPACE qualifiedIdentifier (C= COMMA qualifiedIdentifier )* semic )
-            // AS3_ex.g3:1834:2: U= USE N= NAMESPACE qualifiedIdentifier (C= COMMA qualifiedIdentifier )* semic
+            // AS3_ex.g3:1838:2: (U= USE N= NAMESPACE qualifiedIdentifier (C= COMMA qualifiedIdentifier )* semic )
+            // AS3_ex.g3:1839:2: U= USE N= NAMESPACE qualifiedIdentifier (C= COMMA qualifiedIdentifier )* semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	U=(IToken)Match(input,USE,FOLLOW_USE_in_useNamespaceDirective8156); if (state.failed) return retval;
+            	U=(IToken)Match(input,USE,FOLLOW_USE_in_useNamespaceDirective8161); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{U_tree = (object)adaptor.Create(U);
             		adaptor.AddChild(root_0, U_tree);
@@ -10433,7 +10429,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)U);
             	}
-            	N=(IToken)Match(input,NAMESPACE,FOLLOW_NAMESPACE_in_useNamespaceDirective8165); if (state.failed) return retval;
+            	N=(IToken)Match(input,NAMESPACE,FOLLOW_NAMESPACE_in_useNamespaceDirective8170); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{N_tree = (object)adaptor.Create(N);
             		adaptor.AddChild(root_0, N_tree);
@@ -10442,12 +10438,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)N);
             	}
-            	PushFollow(FOLLOW_qualifiedIdentifier_in_useNamespaceDirective8172);
+            	PushFollow(FOLLOW_qualifiedIdentifier_in_useNamespaceDirective8177);
             	qualifiedIdentifier156 = qualifiedIdentifier();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, qualifiedIdentifier156.Tree);
-            	// AS3_ex.g3:1836:22: (C= COMMA qualifiedIdentifier )*
+            	// AS3_ex.g3:1841:22: (C= COMMA qualifiedIdentifier )*
             	do 
             	{
             	    int alt80 = 2;
@@ -10462,9 +10458,9 @@ public class AS3_exParser : Parser
             	    switch (alt80) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:1836:23: C= COMMA qualifiedIdentifier
+            			    // AS3_ex.g3:1841:23: C= COMMA qualifiedIdentifier
             			    {
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_useNamespaceDirective8177); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_useNamespaceDirective8182); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -10473,7 +10469,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  Emit((CommonToken)C);
             			    	}
-            			    	PushFollow(FOLLOW_qualifiedIdentifier_in_useNamespaceDirective8181);
+            			    	PushFollow(FOLLOW_qualifiedIdentifier_in_useNamespaceDirective8186);
             			    	qualifiedIdentifier157 = qualifiedIdentifier();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -10490,7 +10486,7 @@ public class AS3_exParser : Parser
             	loop80:
             		;	// Stops C# compiler whining that label 'loop80' has no statements
 
-            	PushFollow(FOLLOW_semic_in_useNamespaceDirective8185);
+            	PushFollow(FOLLOW_semic_in_useNamespaceDirective8190);
             	semic158 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -10534,7 +10530,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "namespaceDirective"
-    // AS3_ex.g3:1842:1: namespaceDirective : N= NAMESPACE qualifiedIdentifier (A= ASSIGN stringLiteral )? semic ;
+    // AS3_ex.g3:1847:1: namespaceDirective : N= NAMESPACE qualifiedIdentifier (A= ASSIGN stringLiteral )? semic ;
     public AS3_exParser.namespaceDirective_return namespaceDirective() // throws RecognitionException [1]
     {   
         AS3_exParser.namespaceDirective_return retval = new AS3_exParser.namespaceDirective_return();
@@ -10560,12 +10556,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1843:5: (N= NAMESPACE qualifiedIdentifier (A= ASSIGN stringLiteral )? semic )
-            // AS3_ex.g3:1844:5: N= NAMESPACE qualifiedIdentifier (A= ASSIGN stringLiteral )? semic
+            // AS3_ex.g3:1848:5: (N= NAMESPACE qualifiedIdentifier (A= ASSIGN stringLiteral )? semic )
+            // AS3_ex.g3:1849:5: N= NAMESPACE qualifiedIdentifier (A= ASSIGN stringLiteral )? semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	N=(IToken)Match(input,NAMESPACE,FOLLOW_NAMESPACE_in_namespaceDirective8215); if (state.failed) return retval;
+            	N=(IToken)Match(input,NAMESPACE,FOLLOW_NAMESPACE_in_namespaceDirective8220); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{N_tree = (object)adaptor.Create(N);
             		adaptor.AddChild(root_0, N_tree);
@@ -10578,12 +10574,12 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	PushFollow(FOLLOW_qualifiedIdentifier_in_namespaceDirective8226);
+            	PushFollow(FOLLOW_qualifiedIdentifier_in_namespaceDirective8231);
             	qualifiedIdentifier159 = qualifiedIdentifier();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, qualifiedIdentifier159.Tree);
-            	// AS3_ex.g3:1845:25: (A= ASSIGN stringLiteral )?
+            	// AS3_ex.g3:1850:25: (A= ASSIGN stringLiteral )?
             	int alt81 = 2;
             	int LA81_0 = input.LA(1);
 
@@ -10594,9 +10590,9 @@ public class AS3_exParser : Parser
             	switch (alt81) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1845:27: A= ASSIGN stringLiteral
+            	        // AS3_ex.g3:1850:27: A= ASSIGN stringLiteral
             	        {
-            	        	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_namespaceDirective8232); if (state.failed) return retval;
+            	        	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_namespaceDirective8237); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{A_tree = (object)adaptor.Create(A);
             	        		adaptor.AddChild(root_0, A_tree);
@@ -10605,7 +10601,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  InsertWS(mPrinter.GetSpacesAroundAssignment());Emit((CommonToken)A);InsertWS(mPrinter.GetSpacesAroundAssignment());
             	        	}
-            	        	PushFollow(FOLLOW_stringLiteral_in_namespaceDirective8237);
+            	        	PushFollow(FOLLOW_stringLiteral_in_namespaceDirective8242);
             	        	stringLiteral160 = stringLiteral();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -10616,7 +10612,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_semic_in_namespaceDirective8242);
+            	PushFollow(FOLLOW_semic_in_namespaceDirective8247);
             	semic161 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -10664,7 +10660,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "tryStatement"
-    // AS3_ex.g3:1853:1: tryStatement : T= TRY blockStatement ( ( catchClause )+ finallyClause | ( catchClause )+ | finallyClause ) ;
+    // AS3_ex.g3:1858:1: tryStatement : T= TRY blockStatement ( ( catchClause )+ finallyClause | ( catchClause )+ | finallyClause ) ;
     public AS3_exParser.tryStatement_return tryStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.tryStatement_return retval = new AS3_exParser.tryStatement_return();
@@ -10692,8 +10688,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1854:5: (T= TRY blockStatement ( ( catchClause )+ finallyClause | ( catchClause )+ | finallyClause ) )
-            // AS3_ex.g3:1854:7: T= TRY blockStatement ( ( catchClause )+ finallyClause | ( catchClause )+ | finallyClause )
+            // AS3_ex.g3:1859:5: (T= TRY blockStatement ( ( catchClause )+ finallyClause | ( catchClause )+ | finallyClause ) )
+            // AS3_ex.g3:1859:7: T= TRY blockStatement ( ( catchClause )+ finallyClause | ( catchClause )+ | finallyClause )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -10701,7 +10697,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertStatementCR();
             	}
-            	T=(IToken)Match(input,TRY,FOLLOW_TRY_in_tryStatement8270); if (state.failed) return retval;
+            	T=(IToken)Match(input,TRY,FOLLOW_TRY_in_tryStatement8275); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{T_tree = (object)adaptor.Create(T);
             		adaptor.AddChild(root_0, T_tree);
@@ -10714,7 +10710,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	PushFollow(FOLLOW_blockStatement_in_tryStatement8276);
+            	PushFollow(FOLLOW_blockStatement_in_tryStatement8281);
             	blockStatement162 = blockStatement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -10723,7 +10719,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	// AS3_ex.g3:1855:9: ( ( catchClause )+ finallyClause | ( catchClause )+ | finallyClause )
+            	// AS3_ex.g3:1860:9: ( ( catchClause )+ finallyClause | ( catchClause )+ | finallyClause )
             	int alt84 = 3;
             	int LA84_0 = input.LA(1);
 
@@ -10731,11 +10727,11 @@ public class AS3_exParser : Parser
             	{
             	    int LA84_1 = input.LA(2);
 
-            	    if ( (synpred197_AS3_ex()) )
+            	    if ( (synpred195_AS3_ex()) )
             	    {
             	        alt84 = 1;
             	    }
-            	    else if ( (synpred199_AS3_ex()) )
+            	    else if ( (synpred197_AS3_ex()) )
             	    {
             	        alt84 = 2;
             	    }
@@ -10763,9 +10759,9 @@ public class AS3_exParser : Parser
             	switch (alt84) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1855:11: ( catchClause )+ finallyClause
+            	        // AS3_ex.g3:1860:11: ( catchClause )+ finallyClause
             	        {
-            	        	// AS3_ex.g3:1855:11: ( catchClause )+
+            	        	// AS3_ex.g3:1860:11: ( catchClause )+
             	        	int cnt82 = 0;
             	        	do 
             	        	{
@@ -10783,7 +10779,7 @@ public class AS3_exParser : Parser
             	        			case 1 :
             	        			    // AS3_ex.g3:0:0: catchClause
             	        			    {
-            	        			    	PushFollow(FOLLOW_catchClause_in_tryStatement8290);
+            	        			    	PushFollow(FOLLOW_catchClause_in_tryStatement8295);
             	        			    	catchClause163 = catchClause();
             	        			    	state.followingStackPointer--;
             	        			    	if (state.failed) return retval;
@@ -10805,7 +10801,7 @@ public class AS3_exParser : Parser
             	        	loop82:
             	        		;	// Stops C# compiler whinging that label 'loop82' has no statements
 
-            	        	PushFollow(FOLLOW_finallyClause_in_tryStatement8293);
+            	        	PushFollow(FOLLOW_finallyClause_in_tryStatement8298);
             	        	finallyClause164 = finallyClause();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -10814,9 +10810,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:1856:11: ( catchClause )+
+            	        // AS3_ex.g3:1861:11: ( catchClause )+
             	        {
-            	        	// AS3_ex.g3:1856:11: ( catchClause )+
+            	        	// AS3_ex.g3:1861:11: ( catchClause )+
             	        	int cnt83 = 0;
             	        	do 
             	        	{
@@ -10841,7 +10837,7 @@ public class AS3_exParser : Parser
             	        			case 1 :
             	        			    // AS3_ex.g3:0:0: catchClause
             	        			    {
-            	        			    	PushFollow(FOLLOW_catchClause_in_tryStatement8305);
+            	        			    	PushFollow(FOLLOW_catchClause_in_tryStatement8310);
             	        			    	catchClause165 = catchClause();
             	        			    	state.followingStackPointer--;
             	        			    	if (state.failed) return retval;
@@ -10867,9 +10863,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 3 :
-            	        // AS3_ex.g3:1857:11: finallyClause
+            	        // AS3_ex.g3:1862:11: finallyClause
             	        {
-            	        	PushFollow(FOLLOW_finallyClause_in_tryStatement8318);
+            	        	PushFollow(FOLLOW_finallyClause_in_tryStatement8323);
             	        	finallyClause166 = finallyClause();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -10919,7 +10915,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "catchClause"
-    // AS3_ex.g3:1861:1: catchClause : C= CATCH L= LPAREN variableIdentifierDecl R= RPAREN blockStatement ;
+    // AS3_ex.g3:1866:1: catchClause : C= CATCH L= LPAREN variableIdentifierDecl R= RPAREN blockStatement ;
     public AS3_exParser.catchClause_return catchClause() // throws RecognitionException [1]
     {   
         AS3_exParser.catchClause_return retval = new AS3_exParser.catchClause_return();
@@ -10945,8 +10941,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1862:5: (C= CATCH L= LPAREN variableIdentifierDecl R= RPAREN blockStatement )
-            // AS3_ex.g3:1862:7: C= CATCH L= LPAREN variableIdentifierDecl R= RPAREN blockStatement
+            // AS3_ex.g3:1867:5: (C= CATCH L= LPAREN variableIdentifierDecl R= RPAREN blockStatement )
+            // AS3_ex.g3:1867:7: C= CATCH L= LPAREN variableIdentifierDecl R= RPAREN blockStatement
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -10958,7 +10954,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertWS(1);
             	}
-            	C=(IToken)Match(input,CATCH,FOLLOW_CATCH_in_catchClause8350); if (state.failed) return retval;
+            	C=(IToken)Match(input,CATCH,FOLLOW_CATCH_in_catchClause8355); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{C_tree = (object)adaptor.Create(C);
             		adaptor.AddChild(root_0, C_tree);
@@ -10971,7 +10967,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_catchClause8357); if (state.failed) return retval;
+            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_catchClause8362); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -10980,12 +10976,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideParens());
             	}
-            	PushFollow(FOLLOW_variableIdentifierDecl_in_catchClause8361);
+            	PushFollow(FOLLOW_variableIdentifierDecl_in_catchClause8366);
             	variableIdentifierDecl167 = variableIdentifierDecl();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, variableIdentifierDecl167.Tree);
-            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_catchClause8365); if (state.failed) return retval;
+            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_catchClause8370); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -10994,7 +10990,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertWS(mPrinter.GetAdvancedSpacesInsideParens());Emit((CommonToken)R);
             	}
-            	PushFollow(FOLLOW_blockStatement_in_catchClause8369);
+            	PushFollow(FOLLOW_blockStatement_in_catchClause8374);
             	blockStatement168 = blockStatement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -11042,7 +11038,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "finallyClause"
-    // AS3_ex.g3:1865:1: finallyClause : F= FINALLY blockStatement ;
+    // AS3_ex.g3:1870:1: finallyClause : F= FINALLY blockStatement ;
     public AS3_exParser.finallyClause_return finallyClause() // throws RecognitionException [1]
     {   
         AS3_exParser.finallyClause_return retval = new AS3_exParser.finallyClause_return();
@@ -11062,8 +11058,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1866:5: (F= FINALLY blockStatement )
-            // AS3_ex.g3:1866:7: F= FINALLY blockStatement
+            // AS3_ex.g3:1871:5: (F= FINALLY blockStatement )
+            // AS3_ex.g3:1871:7: F= FINALLY blockStatement
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -11075,7 +11071,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertWS(1);
             	}
-            	F=(IToken)Match(input,FINALLY,FOLLOW_FINALLY_in_finallyClause8393); if (state.failed) return retval;
+            	F=(IToken)Match(input,FINALLY,FOLLOW_FINALLY_in_finallyClause8398); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{F_tree = (object)adaptor.Create(F);
             		adaptor.AddChild(root_0, F_tree);
@@ -11088,7 +11084,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	PushFollow(FOLLOW_blockStatement_in_finallyClause8398);
+            	PushFollow(FOLLOW_blockStatement_in_finallyClause8403);
             	blockStatement169 = blockStatement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -11136,7 +11132,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "labelledStatement"
-    // AS3_ex.g3:1873:1: labelledStatement : I= IDENTIFIER C= COLON statement ;
+    // AS3_ex.g3:1878:1: labelledStatement : I= IDENTIFIER C= COLON statement ;
     public AS3_exParser.labelledStatement_return labelledStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.labelledStatement_return retval = new AS3_exParser.labelledStatement_return();
@@ -11158,12 +11154,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1874:5: (I= IDENTIFIER C= COLON statement )
-            // AS3_ex.g3:1874:8: I= IDENTIFIER C= COLON statement
+            // AS3_ex.g3:1879:5: (I= IDENTIFIER C= COLON statement )
+            // AS3_ex.g3:1879:8: I= IDENTIFIER C= COLON statement
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_labelledStatement8424); if (state.failed) return retval;
+            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_labelledStatement8429); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{I_tree = (object)adaptor.Create(I);
             		adaptor.AddChild(root_0, I_tree);
@@ -11176,7 +11172,7 @@ public class AS3_exParser : Parser
             	{
             	  PushLabeledIndent();
             	}
-            	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_labelledStatement8437); if (state.failed) return retval;
+            	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_labelledStatement8442); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{C_tree = (object)adaptor.Create(C);
             		adaptor.AddChild(root_0, C_tree);
@@ -11188,7 +11184,7 @@ public class AS3_exParser : Parser
             	      		InsertWS(mPrinter.GetSpacesAfterLabel());
             	      	
             	}
-            	PushFollow(FOLLOW_statement_in_labelledStatement8453);
+            	PushFollow(FOLLOW_statement_in_labelledStatement8458);
             	statement170 = statement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -11236,7 +11232,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "switchStatement"
-    // AS3_ex.g3:1888:1: switchStatement : S= SWITCH parExpression L= LCURLY ( switchBlockStatementGroup )* R= RCURLY ;
+    // AS3_ex.g3:1893:1: switchStatement : S= SWITCH parExpression L= LCURLY ( switchBlockStatementGroup )* R= RCURLY ;
     public AS3_exParser.switchStatement_return switchStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.switchStatement_return retval = new AS3_exParser.switchStatement_return();
@@ -11262,8 +11258,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1889:5: (S= SWITCH parExpression L= LCURLY ( switchBlockStatementGroup )* R= RCURLY )
-            // AS3_ex.g3:1889:8: S= SWITCH parExpression L= LCURLY ( switchBlockStatementGroup )* R= RCURLY
+            // AS3_ex.g3:1894:5: (S= SWITCH parExpression L= LCURLY ( switchBlockStatementGroup )* R= RCURLY )
+            // AS3_ex.g3:1894:8: S= SWITCH parExpression L= LCURLY ( switchBlockStatementGroup )* R= RCURLY
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -11275,7 +11271,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertStatementCR();
             	}
-            	S=(IToken)Match(input,SWITCH,FOLLOW_SWITCH_in_switchStatement8488); if (state.failed) return retval;
+            	S=(IToken)Match(input,SWITCH,FOLLOW_SWITCH_in_switchStatement8493); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{S_tree = (object)adaptor.Create(S);
             		adaptor.AddChild(root_0, S_tree);
@@ -11288,7 +11284,7 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	PushFollow(FOLLOW_parExpression_in_switchStatement8493);
+            	PushFollow(FOLLOW_parExpression_in_switchStatement8498);
             	parExpression171 = parExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -11297,7 +11293,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_switchStatement8505); if (state.failed) return retval;
+            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_switchStatement8510); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -11309,7 +11305,7 @@ public class AS3_exParser : Parser
             	      		Emit((CommonToken)L);PushIndent(true);
             	      	
             	}
-            	// AS3_ex.g3:1895:6: ( switchBlockStatementGroup )*
+            	// AS3_ex.g3:1900:6: ( switchBlockStatementGroup )*
             	do 
             	{
             	    int alt85 = 2;
@@ -11326,7 +11322,7 @@ public class AS3_exParser : Parser
             			case 1 :
             			    // AS3_ex.g3:0:0: switchBlockStatementGroup
             			    {
-            			    	PushFollow(FOLLOW_switchBlockStatementGroup_in_switchStatement8521);
+            			    	PushFollow(FOLLOW_switchBlockStatementGroup_in_switchStatement8526);
             			    	switchBlockStatementGroup172 = switchBlockStatementGroup();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -11347,7 +11343,7 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_switchStatement8534); if (state.failed) return retval;
+            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_switchStatement8539); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -11395,7 +11391,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "switchBlockStatementGroup"
-    // AS3_ex.g3:1903:1: switchBlockStatementGroup : switchLabel ( statement )* ( breakStatement )? ;
+    // AS3_ex.g3:1908:1: switchBlockStatementGroup : switchLabel ( statement )* ( breakStatement )? ;
     public AS3_exParser.switchBlockStatementGroup_return switchBlockStatementGroup() // throws RecognitionException [1]
     {   
         AS3_exParser.switchBlockStatementGroup_return retval = new AS3_exParser.switchBlockStatementGroup_return();
@@ -11417,8 +11413,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1904:5: ( switchLabel ( statement )* ( breakStatement )? )
-            // AS3_ex.g3:1904:9: switchLabel ( statement )* ( breakStatement )?
+            // AS3_ex.g3:1909:5: ( switchLabel ( statement )* ( breakStatement )? )
+            // AS3_ex.g3:1909:9: switchLabel ( statement )* ( breakStatement )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -11426,7 +11422,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertCR(false);
             	}
-            	PushFollow(FOLLOW_switchLabel_in_switchBlockStatementGroup8567);
+            	PushFollow(FOLLOW_switchLabel_in_switchBlockStatementGroup8572);
             	switchLabel173 = switchLabel();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -11435,7 +11431,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	// AS3_ex.g3:1904:61: ( statement )*
+            	// AS3_ex.g3:1909:61: ( statement )*
             	do 
             	{
             	    int alt86 = 2;
@@ -11445,7 +11441,7 @@ public class AS3_exParser : Parser
             			case 1 :
             			    // AS3_ex.g3:0:0: statement
             			    {
-            			    	PushFollow(FOLLOW_statement_in_switchBlockStatementGroup8571);
+            			    	PushFollow(FOLLOW_statement_in_switchBlockStatementGroup8576);
             			    	statement174 = statement();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -11470,7 +11466,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertCR(false);
             	}
-            	// AS3_ex.g3:1904:105: ( breakStatement )?
+            	// AS3_ex.g3:1909:105: ( breakStatement )?
             	int alt87 = 2;
             	int LA87_0 = input.LA(1);
 
@@ -11483,7 +11479,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: breakStatement
             	        {
-            	        	PushFollow(FOLLOW_breakStatement_in_switchBlockStatementGroup8577);
+            	        	PushFollow(FOLLOW_breakStatement_in_switchBlockStatementGroup8582);
             	        	breakStatement175 = breakStatement();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -11533,7 +11529,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "switchLabel"
-    // AS3_ex.g3:1907:1: switchLabel : (C= CASE expression C= COLON | D= DEFAULT C= COLON );
+    // AS3_ex.g3:1912:1: switchLabel : (C= CASE expression C= COLON | D= DEFAULT C= COLON );
     public AS3_exParser.switchLabel_return switchLabel() // throws RecognitionException [1]
     {   
         AS3_exParser.switchLabel_return retval = new AS3_exParser.switchLabel_return();
@@ -11555,7 +11551,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1908:5: (C= CASE expression C= COLON | D= DEFAULT C= COLON )
+            // AS3_ex.g3:1913:5: (C= CASE expression C= COLON | D= DEFAULT C= COLON )
             int alt88 = 2;
             int LA88_0 = input.LA(1);
 
@@ -11578,11 +11574,11 @@ public class AS3_exParser : Parser
             switch (alt88) 
             {
                 case 1 :
-                    // AS3_ex.g3:1908:9: C= CASE expression C= COLON
+                    // AS3_ex.g3:1913:9: C= CASE expression C= COLON
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	C=(IToken)Match(input,CASE,FOLLOW_CASE_in_switchLabel8603); if (state.failed) return retval;
+                    	C=(IToken)Match(input,CASE,FOLLOW_CASE_in_switchLabel8608); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{C_tree = (object)adaptor.Create(C);
                     		adaptor.AddChild(root_0, C_tree);
@@ -11591,12 +11587,12 @@ public class AS3_exParser : Parser
                     	{
                     	  Emit((CommonToken)C);
                     	}
-                    	PushFollow(FOLLOW_expression_in_switchLabel8607);
+                    	PushFollow(FOLLOW_expression_in_switchLabel8612);
                     	expression176 = expression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, expression176.Tree);
-                    	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_switchLabel8611); if (state.failed) return retval;
+                    	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_switchLabel8616); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{C_tree = (object)adaptor.Create(C);
                     		adaptor.AddChild(root_0, C_tree);
@@ -11612,11 +11608,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1913:9: D= DEFAULT C= COLON
+                    // AS3_ex.g3:1918:9: D= DEFAULT C= COLON
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	D=(IToken)Match(input,DEFAULT,FOLLOW_DEFAULT_in_switchLabel8632); if (state.failed) return retval;
+                    	D=(IToken)Match(input,DEFAULT,FOLLOW_DEFAULT_in_switchLabel8637); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{D_tree = (object)adaptor.Create(D);
                     		adaptor.AddChild(root_0, D_tree);
@@ -11625,7 +11621,7 @@ public class AS3_exParser : Parser
                     	{
                     	  Emit((CommonToken)D);
                     	}
-                    	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_switchLabel8638); if (state.failed) return retval;
+                    	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_switchLabel8643); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{C_tree = (object)adaptor.Create(C);
                     		adaptor.AddChild(root_0, C_tree);
@@ -11678,7 +11674,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "withStatement"
-    // AS3_ex.g3:1924:1: withStatement : W= WITH L= LPAREN expression R= RPAREN statement ;
+    // AS3_ex.g3:1929:1: withStatement : W= WITH L= LPAREN expression R= RPAREN statement ;
     public AS3_exParser.withStatement_return withStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.withStatement_return retval = new AS3_exParser.withStatement_return();
@@ -11704,12 +11700,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1925:5: (W= WITH L= LPAREN expression R= RPAREN statement )
-            // AS3_ex.g3:1925:9: W= WITH L= LPAREN expression R= RPAREN statement
+            // AS3_ex.g3:1930:5: (W= WITH L= LPAREN expression R= RPAREN statement )
+            // AS3_ex.g3:1930:9: W= WITH L= LPAREN expression R= RPAREN statement
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	W=(IToken)Match(input,WITH,FOLLOW_WITH_in_withStatement8672); if (state.failed) return retval;
+            	W=(IToken)Match(input,WITH,FOLLOW_WITH_in_withStatement8677); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{W_tree = (object)adaptor.Create(W);
             		adaptor.AddChild(root_0, W_tree);
@@ -11722,7 +11718,7 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_withStatement8680); if (state.failed) return retval;
+            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_withStatement8685); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -11731,12 +11727,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideParens());
             	}
-            	PushFollow(FOLLOW_expression_in_withStatement8685);
+            	PushFollow(FOLLOW_expression_in_withStatement8690);
             	expression177 = expression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, expression177.Tree);
-            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_withStatement8690); if (state.failed) return retval;
+            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_withStatement8695); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -11753,7 +11749,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	PushFollow(FOLLOW_statement_in_withStatement8698);
+            	PushFollow(FOLLOW_statement_in_withStatement8703);
             	statement178 = statement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -11801,7 +11797,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "returnStatement"
-    // AS3_ex.g3:1932:1: returnStatement : R= RETURN ( expression )? semic ;
+    // AS3_ex.g3:1937:1: returnStatement : R= RETURN ( expression )? semic ;
     public AS3_exParser.returnStatement_return returnStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.returnStatement_return retval = new AS3_exParser.returnStatement_return();
@@ -11823,12 +11819,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1933:5: (R= RETURN ( expression )? semic )
-            // AS3_ex.g3:1933:9: R= RETURN ( expression )? semic
+            // AS3_ex.g3:1938:5: (R= RETURN ( expression )? semic )
+            // AS3_ex.g3:1938:9: R= RETURN ( expression )? semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	R=(IToken)Match(input,RETURN,FOLLOW_RETURN_in_returnStatement8725); if (state.failed) return retval;
+            	R=(IToken)Match(input,RETURN,FOLLOW_RETURN_in_returnStatement8730); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -11837,7 +11833,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)R);
             	}
-            	// AS3_ex.g3:1933:43: ( expression )?
+            	// AS3_ex.g3:1938:43: ( expression )?
             	int alt89 = 2;
             	int LA89_0 = input.LA(1);
 
@@ -11848,13 +11844,13 @@ public class AS3_exParser : Parser
             	switch (alt89) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1933:45: expression
+            	        // AS3_ex.g3:1938:45: expression
             	        {
             	        	if ( state.backtracking == 0 ) 
             	        	{
             	        	  InsertWS(mPrinter.GetSpacesBetweenControlKeywordsAndParens());
             	        	}
-            	        	PushFollow(FOLLOW_expression_in_returnStatement8733);
+            	        	PushFollow(FOLLOW_expression_in_returnStatement8738);
             	        	expression179 = expression();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -11865,7 +11861,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_semic_in_returnStatement8737);
+            	PushFollow(FOLLOW_semic_in_returnStatement8742);
             	semic180 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -11909,7 +11905,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "breakStatement"
-    // AS3_ex.g3:1941:1: breakStatement : B= BREAK (I= IDENTIFIER )? semic ;
+    // AS3_ex.g3:1946:1: breakStatement : B= BREAK (I= IDENTIFIER )? semic ;
     public AS3_exParser.breakStatement_return breakStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.breakStatement_return retval = new AS3_exParser.breakStatement_return();
@@ -11931,12 +11927,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1942:5: (B= BREAK (I= IDENTIFIER )? semic )
-            // AS3_ex.g3:1942:9: B= BREAK (I= IDENTIFIER )? semic
+            // AS3_ex.g3:1947:5: (B= BREAK (I= IDENTIFIER )? semic )
+            // AS3_ex.g3:1947:9: B= BREAK (I= IDENTIFIER )? semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	B=(IToken)Match(input,BREAK,FOLLOW_BREAK_in_breakStatement8764); if (state.failed) return retval;
+            	B=(IToken)Match(input,BREAK,FOLLOW_BREAK_in_breakStatement8769); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{B_tree = (object)adaptor.Create(B);
             		adaptor.AddChild(root_0, B_tree);
@@ -11945,7 +11941,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)B);
             	}
-            	// AS3_ex.g3:1942:45: (I= IDENTIFIER )?
+            	// AS3_ex.g3:1947:45: (I= IDENTIFIER )?
             	int alt90 = 2;
             	int LA90_0 = input.LA(1);
 
@@ -11956,9 +11952,9 @@ public class AS3_exParser : Parser
             	switch (alt90) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1942:46: I= IDENTIFIER
+            	        // AS3_ex.g3:1947:46: I= IDENTIFIER
             	        {
-            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_breakStatement8774); if (state.failed) return retval;
+            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_breakStatement8779); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{I_tree = (object)adaptor.Create(I);
             	        		adaptor.AddChild(root_0, I_tree);
@@ -11973,7 +11969,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_semic_in_breakStatement8779);
+            	PushFollow(FOLLOW_semic_in_breakStatement8784);
             	semic181 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -12017,7 +12013,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "continueStatement"
-    // AS3_ex.g3:1950:1: continueStatement : C= CONTINUE (I= IDENTIFIER )? semic ;
+    // AS3_ex.g3:1955:1: continueStatement : C= CONTINUE (I= IDENTIFIER )? semic ;
     public AS3_exParser.continueStatement_return continueStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.continueStatement_return retval = new AS3_exParser.continueStatement_return();
@@ -12039,12 +12035,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1951:5: (C= CONTINUE (I= IDENTIFIER )? semic )
-            // AS3_ex.g3:1951:9: C= CONTINUE (I= IDENTIFIER )? semic
+            // AS3_ex.g3:1956:5: (C= CONTINUE (I= IDENTIFIER )? semic )
+            // AS3_ex.g3:1956:9: C= CONTINUE (I= IDENTIFIER )? semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	C=(IToken)Match(input,CONTINUE,FOLLOW_CONTINUE_in_continueStatement8805); if (state.failed) return retval;
+            	C=(IToken)Match(input,CONTINUE,FOLLOW_CONTINUE_in_continueStatement8810); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{C_tree = (object)adaptor.Create(C);
             		adaptor.AddChild(root_0, C_tree);
@@ -12053,7 +12049,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)C);
             	}
-            	// AS3_ex.g3:1951:45: (I= IDENTIFIER )?
+            	// AS3_ex.g3:1956:45: (I= IDENTIFIER )?
             	int alt91 = 2;
             	int LA91_0 = input.LA(1);
 
@@ -12064,9 +12060,9 @@ public class AS3_exParser : Parser
             	switch (alt91) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:1951:46: I= IDENTIFIER
+            	        // AS3_ex.g3:1956:46: I= IDENTIFIER
             	        {
-            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_continueStatement8812); if (state.failed) return retval;
+            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_continueStatement8817); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{I_tree = (object)adaptor.Create(I);
             	        		adaptor.AddChild(root_0, I_tree);
@@ -12081,7 +12077,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_semic_in_continueStatement8817);
+            	PushFollow(FOLLOW_semic_in_continueStatement8822);
             	semic182 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -12125,7 +12121,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "forStatement"
-    // AS3_ex.g3:1959:1: forStatement : F= FOR L= LPAREN forControl R= RPAREN statement ;
+    // AS3_ex.g3:1964:1: forStatement : F= FOR L= LPAREN forControl R= RPAREN statement ;
     public AS3_exParser.forStatement_return forStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.forStatement_return retval = new AS3_exParser.forStatement_return();
@@ -12151,12 +12147,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1960:5: (F= FOR L= LPAREN forControl R= RPAREN statement )
-            // AS3_ex.g3:1960:9: F= FOR L= LPAREN forControl R= RPAREN statement
+            // AS3_ex.g3:1965:5: (F= FOR L= LPAREN forControl R= RPAREN statement )
+            // AS3_ex.g3:1965:9: F= FOR L= LPAREN forControl R= RPAREN statement
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	F=(IToken)Match(input,FOR,FOLLOW_FOR_in_forStatement8843); if (state.failed) return retval;
+            	F=(IToken)Match(input,FOR,FOLLOW_FOR_in_forStatement8848); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{F_tree = (object)adaptor.Create(F);
             		adaptor.AddChild(root_0, F_tree);
@@ -12169,7 +12165,7 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_forStatement8851); if (state.failed) return retval;
+            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_forStatement8856); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -12178,12 +12174,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideParens());
             	}
-            	PushFollow(FOLLOW_forControl_in_forStatement8855);
+            	PushFollow(FOLLOW_forControl_in_forStatement8860);
             	forControl183 = forControl();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, forControl183.Tree);
-            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_forStatement8859); if (state.failed) return retval;
+            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_forStatement8864); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -12200,7 +12196,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	PushFollow(FOLLOW_statement_in_forStatement8865);
+            	PushFollow(FOLLOW_statement_in_forStatement8870);
             	statement184 = statement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -12248,7 +12244,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "forInStatement"
-    // AS3_ex.g3:1963:1: forInStatement : F= FOR L= LPAREN forInControl R= RPAREN statement ;
+    // AS3_ex.g3:1968:1: forInStatement : F= FOR L= LPAREN forInControl R= RPAREN statement ;
     public AS3_exParser.forInStatement_return forInStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.forInStatement_return retval = new AS3_exParser.forInStatement_return();
@@ -12274,12 +12270,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1964:5: (F= FOR L= LPAREN forInControl R= RPAREN statement )
-            // AS3_ex.g3:1964:9: F= FOR L= LPAREN forInControl R= RPAREN statement
+            // AS3_ex.g3:1969:5: (F= FOR L= LPAREN forInControl R= RPAREN statement )
+            // AS3_ex.g3:1969:9: F= FOR L= LPAREN forInControl R= RPAREN statement
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	F=(IToken)Match(input,FOR,FOLLOW_FOR_in_forInStatement8892); if (state.failed) return retval;
+            	F=(IToken)Match(input,FOR,FOLLOW_FOR_in_forInStatement8897); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{F_tree = (object)adaptor.Create(F);
             		adaptor.AddChild(root_0, F_tree);
@@ -12292,7 +12288,7 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_forInStatement8900); if (state.failed) return retval;
+            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_forInStatement8905); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -12301,12 +12297,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideParens());
             	}
-            	PushFollow(FOLLOW_forInControl_in_forInStatement8904);
+            	PushFollow(FOLLOW_forInControl_in_forInStatement8909);
             	forInControl185 = forInControl();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, forInControl185.Tree);
-            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_forInStatement8908); if (state.failed) return retval;
+            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_forInStatement8913); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -12323,7 +12319,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	PushFollow(FOLLOW_statement_in_forInStatement8916);
+            	PushFollow(FOLLOW_statement_in_forInStatement8921);
             	statement186 = statement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -12371,7 +12367,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "forEachInStatement"
-    // AS3_ex.g3:1967:1: forEachInStatement : F= FOR E= EACH L= LPAREN forInControl R= RPAREN statement ;
+    // AS3_ex.g3:1972:1: forEachInStatement : F= FOR E= EACH L= LPAREN forInControl R= RPAREN statement ;
     public AS3_exParser.forEachInStatement_return forEachInStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.forEachInStatement_return retval = new AS3_exParser.forEachInStatement_return();
@@ -12399,12 +12395,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1968:5: (F= FOR E= EACH L= LPAREN forInControl R= RPAREN statement )
-            // AS3_ex.g3:1968:9: F= FOR E= EACH L= LPAREN forInControl R= RPAREN statement
+            // AS3_ex.g3:1973:5: (F= FOR E= EACH L= LPAREN forInControl R= RPAREN statement )
+            // AS3_ex.g3:1973:9: F= FOR E= EACH L= LPAREN forInControl R= RPAREN statement
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	F=(IToken)Match(input,FOR,FOLLOW_FOR_in_forEachInStatement8945); if (state.failed) return retval;
+            	F=(IToken)Match(input,FOR,FOLLOW_FOR_in_forEachInStatement8950); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{F_tree = (object)adaptor.Create(F);
             		adaptor.AddChild(root_0, F_tree);
@@ -12417,7 +12413,7 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	E=(IToken)Match(input,EACH,FOLLOW_EACH_in_forEachInStatement8963); if (state.failed) return retval;
+            	E=(IToken)Match(input,EACH,FOLLOW_EACH_in_forEachInStatement8968); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{E_tree = (object)adaptor.Create(E);
             		adaptor.AddChild(root_0, E_tree);
@@ -12426,7 +12422,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)E);InsertWS(mPrinter.GetSpacesBetweenControlKeywordsAndParens());
             	}
-            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_forEachInStatement8974); if (state.failed) return retval;
+            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_forEachInStatement8979); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -12435,12 +12431,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideParens());
             	}
-            	PushFollow(FOLLOW_forInControl_in_forEachInStatement8978);
+            	PushFollow(FOLLOW_forInControl_in_forEachInStatement8983);
             	forInControl187 = forInControl();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, forInControl187.Tree);
-            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_forEachInStatement8982); if (state.failed) return retval;
+            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_forEachInStatement8987); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -12457,7 +12453,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	PushFollow(FOLLOW_statement_in_forEachInStatement8988);
+            	PushFollow(FOLLOW_statement_in_forEachInStatement8993);
             	statement188 = statement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -12505,7 +12501,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "forControl"
-    // AS3_ex.g3:1973:1: forControl options {k=3; } : ( forInit )? semic ( expression )? semic ( forUpdate )? ;
+    // AS3_ex.g3:1978:1: forControl options {k=3; } : ( forInit )? semic ( expression )? semic ( forUpdate )? ;
     public AS3_exParser.forControl_return forControl() // throws RecognitionException [1]
     {   
         AS3_exParser.forControl_return retval = new AS3_exParser.forControl_return();
@@ -12531,12 +12527,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1975:5: ( ( forInit )? semic ( expression )? semic ( forUpdate )? )
-            // AS3_ex.g3:1975:9: ( forInit )? semic ( expression )? semic ( forUpdate )?
+            // AS3_ex.g3:1980:5: ( ( forInit )? semic ( expression )? semic ( forUpdate )? )
+            // AS3_ex.g3:1980:9: ( forInit )? semic ( expression )? semic ( forUpdate )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:1975:9: ( forInit )?
+            	// AS3_ex.g3:1980:9: ( forInit )?
             	int alt92 = 2;
             	int LA92_0 = input.LA(1);
 
@@ -12549,7 +12545,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: forInit
             	        {
-            	        	PushFollow(FOLLOW_forInit_in_forControl9018);
+            	        	PushFollow(FOLLOW_forInit_in_forControl9023);
             	        	forInit189 = forInit();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -12564,7 +12560,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertWS(mPrinter.GetSpacesBeforeComma());
             	}
-            	PushFollow(FOLLOW_semic_in_forControl9023);
+            	PushFollow(FOLLOW_semic_in_forControl9028);
             	semic190 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -12573,7 +12569,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertWS(mPrinter.GetSpacesAfterComma());
             	}
-            	// AS3_ex.g3:1975:114: ( expression )?
+            	// AS3_ex.g3:1980:114: ( expression )?
             	int alt93 = 2;
             	int LA93_0 = input.LA(1);
 
@@ -12586,7 +12582,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: expression
             	        {
-            	        	PushFollow(FOLLOW_expression_in_forControl9028);
+            	        	PushFollow(FOLLOW_expression_in_forControl9033);
             	        	expression191 = expression();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -12601,7 +12597,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertWS(mPrinter.GetSpacesBeforeComma());
             	}
-            	PushFollow(FOLLOW_semic_in_forControl9032);
+            	PushFollow(FOLLOW_semic_in_forControl9037);
             	semic192 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -12610,7 +12606,7 @@ public class AS3_exParser : Parser
             	{
             	  InsertWS(mPrinter.GetSpacesAfterComma());
             	}
-            	// AS3_ex.g3:1975:220: ( forUpdate )?
+            	// AS3_ex.g3:1980:220: ( forUpdate )?
             	int alt94 = 2;
             	int LA94_0 = input.LA(1);
 
@@ -12623,7 +12619,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: forUpdate
             	        {
-            	        	PushFollow(FOLLOW_forUpdate_in_forControl9036);
+            	        	PushFollow(FOLLOW_forUpdate_in_forControl9041);
             	        	forUpdate193 = forUpdate();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -12673,7 +12669,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "forInControl"
-    // AS3_ex.g3:1978:1: forInControl options {k=3; } : forInDecl I= IN expression ;
+    // AS3_ex.g3:1983:1: forInControl options {k=3; } : forInDecl I= IN expression ;
     public AS3_exParser.forInControl_return forInControl() // throws RecognitionException [1]
     {   
         AS3_exParser.forInControl_return retval = new AS3_exParser.forInControl_return();
@@ -12695,17 +12691,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1980:5: ( forInDecl I= IN expression )
-            // AS3_ex.g3:1980:9: forInDecl I= IN expression
+            // AS3_ex.g3:1985:5: ( forInDecl I= IN expression )
+            // AS3_ex.g3:1985:9: forInDecl I= IN expression
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_forInDecl_in_forInControl9064);
+            	PushFollow(FOLLOW_forInDecl_in_forInControl9069);
             	forInDecl194 = forInDecl();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, forInDecl194.Tree);
-            	I=(IToken)Match(input,IN,FOLLOW_IN_in_forInControl9068); if (state.failed) return retval;
+            	I=(IToken)Match(input,IN,FOLLOW_IN_in_forInControl9073); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{I_tree = (object)adaptor.Create(I);
             		adaptor.AddChild(root_0, I_tree);
@@ -12714,7 +12710,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)I);
             	}
-            	PushFollow(FOLLOW_expression_in_forInControl9072);
+            	PushFollow(FOLLOW_expression_in_forInControl9077);
             	expression195 = expression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -12758,7 +12754,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "forInDecl"
-    // AS3_ex.g3:1983:1: forInDecl : ( leftHandSideExpression | V= VAR variableDeclarationNoIn );
+    // AS3_ex.g3:1988:1: forInDecl : ( leftHandSideExpression | V= VAR variableDeclarationNoIn );
     public AS3_exParser.forInDecl_return forInDecl() // throws RecognitionException [1]
     {   
         AS3_exParser.forInDecl_return retval = new AS3_exParser.forInDecl_return();
@@ -12780,7 +12776,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1984:5: ( leftHandSideExpression | V= VAR variableDeclarationNoIn )
+            // AS3_ex.g3:1989:5: ( leftHandSideExpression | V= VAR variableDeclarationNoIn )
             int alt95 = 2;
             int LA95_0 = input.LA(1);
 
@@ -12792,13 +12788,13 @@ public class AS3_exParser : Parser
             {
                 int LA95_2 = input.LA(2);
 
-                if ( (LA95_2 == DOT || LA95_2 == SUB || LA95_2 == COLON || LA95_2 == XML_NS_OP) )
-                {
-                    alt95 = 1;
-                }
-                else if ( (LA95_2 == NATIVE || LA95_2 == TO || (LA95_2 >= EACH && LA95_2 <= NAMESPACE) || (LA95_2 >= DYNAMIC && LA95_2 <= STATIC) || LA95_2 == IDENTIFIER) )
+                if ( (LA95_2 == NATIVE || LA95_2 == TO || (LA95_2 >= EACH && LA95_2 <= NAMESPACE) || (LA95_2 >= DYNAMIC && LA95_2 <= STATIC) || LA95_2 == IDENTIFIER) )
                 {
                     alt95 = 2;
+                }
+                else if ( (LA95_2 == DOT || LA95_2 == SUB || LA95_2 == COLON || LA95_2 == XML_NS_OP) )
+                {
+                    alt95 = 1;
                 }
                 else 
                 {
@@ -12820,11 +12816,11 @@ public class AS3_exParser : Parser
             switch (alt95) 
             {
                 case 1 :
-                    // AS3_ex.g3:1984:9: leftHandSideExpression
+                    // AS3_ex.g3:1989:9: leftHandSideExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_leftHandSideExpression_in_forInDecl9091);
+                    	PushFollow(FOLLOW_leftHandSideExpression_in_forInDecl9096);
                     	leftHandSideExpression196 = leftHandSideExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -12833,11 +12829,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1985:9: V= VAR variableDeclarationNoIn
+                    // AS3_ex.g3:1990:9: V= VAR variableDeclarationNoIn
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	V=(IToken)Match(input,VAR,FOLLOW_VAR_in_forInDecl9103); if (state.failed) return retval;
+                    	V=(IToken)Match(input,VAR,FOLLOW_VAR_in_forInDecl9108); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{V_tree = (object)adaptor.Create(V);
                     		adaptor.AddChild(root_0, V_tree);
@@ -12846,7 +12842,7 @@ public class AS3_exParser : Parser
                     	{
                     	  Emit((CommonToken)V);
                     	}
-                    	PushFollow(FOLLOW_variableDeclarationNoIn_in_forInDecl9107);
+                    	PushFollow(FOLLOW_variableDeclarationNoIn_in_forInDecl9112);
                     	variableDeclarationNoIn197 = variableDeclarationNoIn();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -12892,7 +12888,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "forInit"
-    // AS3_ex.g3:1988:1: forInit : ( variableDeclarationNoInList | expressionNoIn );
+    // AS3_ex.g3:1993:1: forInit : ( variableDeclarationNoInList | expressionNoIn );
     public AS3_exParser.forInit_return forInit() // throws RecognitionException [1]
     {   
         AS3_exParser.forInit_return retval = new AS3_exParser.forInit_return();
@@ -12912,7 +12908,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1989:5: ( variableDeclarationNoInList | expressionNoIn )
+            // AS3_ex.g3:1994:5: ( variableDeclarationNoInList | expressionNoIn )
             int alt96 = 2;
             switch ( input.LA(1) ) 
             {
@@ -12942,7 +12938,7 @@ public class AS3_exParser : Parser
             	{
                 int LA96_2 = input.LA(2);
 
-                if ( (synpred211_AS3_ex()) )
+                if ( (synpred209_AS3_ex()) )
                 {
                     alt96 = 1;
                 }
@@ -12973,7 +12969,7 @@ public class AS3_exParser : Parser
             	{
                 int LA96_3 = input.LA(2);
 
-                if ( (synpred211_AS3_ex()) )
+                if ( (synpred209_AS3_ex()) )
                 {
                     alt96 = 1;
                 }
@@ -13070,11 +13066,11 @@ public class AS3_exParser : Parser
             switch (alt96) 
             {
                 case 1 :
-                    // AS3_ex.g3:1989:9: variableDeclarationNoInList
+                    // AS3_ex.g3:1994:9: variableDeclarationNoInList
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_variableDeclarationNoInList_in_forInit9126);
+                    	PushFollow(FOLLOW_variableDeclarationNoInList_in_forInit9131);
                     	variableDeclarationNoInList198 = variableDeclarationNoInList();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -13083,11 +13079,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:1990:9: expressionNoIn
+                    // AS3_ex.g3:1995:9: expressionNoIn
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_expressionNoIn_in_forInit9136);
+                    	PushFollow(FOLLOW_expressionNoIn_in_forInit9141);
                     	expressionNoIn199 = expressionNoIn();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -13133,7 +13129,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "forUpdate"
-    // AS3_ex.g3:1993:1: forUpdate : expression ;
+    // AS3_ex.g3:1998:1: forUpdate : expression ;
     public AS3_exParser.forUpdate_return forUpdate() // throws RecognitionException [1]
     {   
         AS3_exParser.forUpdate_return retval = new AS3_exParser.forUpdate_return();
@@ -13151,12 +13147,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:1994:5: ( expression )
-            // AS3_ex.g3:1994:9: expression
+            // AS3_ex.g3:1999:5: ( expression )
+            // AS3_ex.g3:1999:9: expression
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_expression_in_forUpdate9155);
+            	PushFollow(FOLLOW_expression_in_forUpdate9160);
             	expression200 = expression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -13200,7 +13196,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "doWhileStatement"
-    // AS3_ex.g3:2002:1: doWhileStatement : D= DO statement W= WHILE parExpression semic (S= SEMI )? ;
+    // AS3_ex.g3:2007:1: doWhileStatement : D= DO statement W= WHILE parExpression semic (S= SEMI )? ;
     public AS3_exParser.doWhileStatement_return doWhileStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.doWhileStatement_return retval = new AS3_exParser.doWhileStatement_return();
@@ -13228,12 +13224,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2003:5: (D= DO statement W= WHILE parExpression semic (S= SEMI )? )
-            // AS3_ex.g3:2003:9: D= DO statement W= WHILE parExpression semic (S= SEMI )?
+            // AS3_ex.g3:2008:5: (D= DO statement W= WHILE parExpression semic (S= SEMI )? )
+            // AS3_ex.g3:2008:9: D= DO statement W= WHILE parExpression semic (S= SEMI )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	D=(IToken)Match(input,DO,FOLLOW_DO_in_doWhileStatement9181); if (state.failed) return retval;
+            	D=(IToken)Match(input,DO,FOLLOW_DO_in_doWhileStatement9186); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{D_tree = (object)adaptor.Create(D);
             		adaptor.AddChild(root_0, D_tree);
@@ -13246,7 +13242,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	PushFollow(FOLLOW_statement_in_doWhileStatement9187);
+            	PushFollow(FOLLOW_statement_in_doWhileStatement9192);
             	statement201 = statement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -13263,7 +13259,7 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	W=(IToken)Match(input,WHILE,FOLLOW_WHILE_in_doWhileStatement9196); if (state.failed) return retval;
+            	W=(IToken)Match(input,WHILE,FOLLOW_WHILE_in_doWhileStatement9201); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{W_tree = (object)adaptor.Create(W);
             		adaptor.AddChild(root_0, W_tree);
@@ -13272,17 +13268,17 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)W);InsertWS(mPrinter.GetSpacesBetweenControlKeywordsAndParens());
             	}
-            	PushFollow(FOLLOW_parExpression_in_doWhileStatement9200);
+            	PushFollow(FOLLOW_parExpression_in_doWhileStatement9205);
             	parExpression202 = parExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, parExpression202.Tree);
-            	PushFollow(FOLLOW_semic_in_doWhileStatement9202);
+            	PushFollow(FOLLOW_semic_in_doWhileStatement9207);
             	semic203 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, semic203.Tree);
-            	// AS3_ex.g3:2003:240: (S= SEMI )?
+            	// AS3_ex.g3:2008:240: (S= SEMI )?
             	int alt97 = 2;
             	int LA97_0 = input.LA(1);
 
@@ -13290,7 +13286,7 @@ public class AS3_exParser : Parser
             	{
             	    int LA97_1 = input.LA(2);
 
-            	    if ( (synpred212_AS3_ex()) )
+            	    if ( (synpred210_AS3_ex()) )
             	    {
             	        alt97 = 1;
             	    }
@@ -13298,9 +13294,9 @@ public class AS3_exParser : Parser
             	switch (alt97) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2003:241: S= SEMI
+            	        // AS3_ex.g3:2008:241: S= SEMI
             	        {
-            	        	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_doWhileStatement9207); if (state.failed) return retval;
+            	        	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_doWhileStatement9212); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{S_tree = (object)adaptor.Create(S);
             	        		adaptor.AddChild(root_0, S_tree);
@@ -13358,7 +13354,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "whileStatement"
-    // AS3_ex.g3:2010:1: whileStatement : W= WHILE parExpression statement ;
+    // AS3_ex.g3:2015:1: whileStatement : W= WHILE parExpression statement ;
     public AS3_exParser.whileStatement_return whileStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.whileStatement_return retval = new AS3_exParser.whileStatement_return();
@@ -13380,12 +13376,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2011:5: (W= WHILE parExpression statement )
-            // AS3_ex.g3:2011:9: W= WHILE parExpression statement
+            // AS3_ex.g3:2016:5: (W= WHILE parExpression statement )
+            // AS3_ex.g3:2016:9: W= WHILE parExpression statement
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	W=(IToken)Match(input,WHILE,FOLLOW_WHILE_in_whileStatement9237); if (state.failed) return retval;
+            	W=(IToken)Match(input,WHILE,FOLLOW_WHILE_in_whileStatement9242); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{W_tree = (object)adaptor.Create(W);
             		adaptor.AddChild(root_0, W_tree);
@@ -13398,7 +13394,7 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	PushFollow(FOLLOW_parExpression_in_whileStatement9242);
+            	PushFollow(FOLLOW_parExpression_in_whileStatement9247);
             	parExpression204 = parExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -13411,7 +13407,7 @@ public class AS3_exParser : Parser
             	{
             	  PushIndent(false);
             	}
-            	PushFollow(FOLLOW_statement_in_whileStatement9248);
+            	PushFollow(FOLLOW_statement_in_whileStatement9253);
             	statement205 = statement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -13459,7 +13455,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "ifStatement"
-    // AS3_ex.g3:2020:1: ifStatement : I= IF parExpression statement ( options {k=1; } : E= ELSE statement )? ;
+    // AS3_ex.g3:2025:1: ifStatement : I= IF parExpression statement ( options {k=1; } : E= ELSE statement )? ;
     public AS3_exParser.ifStatement_return ifStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.ifStatement_return retval = new AS3_exParser.ifStatement_return();
@@ -13490,8 +13486,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2027:5: (I= IF parExpression statement ( options {k=1; } : E= ELSE statement )? )
-            // AS3_ex.g3:2028:9: I= IF parExpression statement ( options {k=1; } : E= ELSE statement )?
+            // AS3_ex.g3:2032:5: (I= IF parExpression statement ( options {k=1; } : E= ELSE statement )? )
+            // AS3_ex.g3:2033:9: I= IF parExpression statement ( options {k=1; } : E= ELSE statement )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -13511,7 +13507,7 @@ public class AS3_exParser : Parser
             	             }
             	          
             	}
-            	I=(IToken)Match(input,IF,FOLLOW_IF_in_ifStatement9311); if (state.failed) return retval;
+            	I=(IToken)Match(input,IF,FOLLOW_IF_in_ifStatement9316); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{I_tree = (object)adaptor.Create(I);
             		adaptor.AddChild(root_0, I_tree);
@@ -13530,7 +13526,7 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	PushFollow(FOLLOW_parExpression_in_ifStatement9346);
+            	PushFollow(FOLLOW_parExpression_in_ifStatement9351);
             	parExpression206 = parExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -13547,7 +13543,7 @@ public class AS3_exParser : Parser
             	{
             	  AddIfElseBlockTracker();SetBlockFlag(false);ClearBlockFlag();
             	}
-            	PushFollow(FOLLOW_statement_in_ifStatement9391);
+            	PushFollow(FOLLOW_statement_in_ifStatement9396);
             	statement207 = statement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -13560,15 +13556,15 @@ public class AS3_exParser : Parser
             	{
             	  PopIndent();
             	}
-            	// AS3_ex.g3:2058:10: ( options {k=1; } : E= ELSE statement )?
+            	// AS3_ex.g3:2063:10: ( options {k=1; } : E= ELSE statement )?
             	int alt98 = 2;
             	int LA98_0 = input.LA(1);
 
             	if ( (LA98_0 == ELSE) )
             	{
-            	    int LA98_1 = input.LA(2);
+            	    int LA98_2 = input.LA(2);
 
-            	    if ( (synpred213_AS3_ex()) )
+            	    if ( (synpred211_AS3_ex()) )
             	    {
             	        alt98 = 1;
             	    }
@@ -13576,9 +13572,9 @@ public class AS3_exParser : Parser
             	switch (alt98) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2058:26: E= ELSE statement
+            	        // AS3_ex.g3:2063:26: E= ELSE statement
             	        {
-            	        	E=(IToken)Match(input,ELSE,FOLLOW_ELSE_in_ifStatement9446); if (state.failed) return retval;
+            	        	E=(IToken)Match(input,ELSE,FOLLOW_ELSE_in_ifStatement9451); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{E_tree = (object)adaptor.Create(E);
             	        		adaptor.AddChild(root_0, E_tree);
@@ -13603,7 +13599,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  PushIndent(false);
             	        	}
-            	        	PushFollow(FOLLOW_statement_in_ifStatement9487);
+            	        	PushFollow(FOLLOW_statement_in_ifStatement9492);
             	        	statement208 = statement();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -13662,7 +13658,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "emptyStatement"
-    // AS3_ex.g3:2076:1: emptyStatement : S= SEMI ;
+    // AS3_ex.g3:2081:1: emptyStatement : S= SEMI ;
     public AS3_exParser.emptyStatement_return emptyStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.emptyStatement_return retval = new AS3_exParser.emptyStatement_return();
@@ -13680,12 +13676,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2077:5: (S= SEMI )
-            // AS3_ex.g3:2077:11: S= SEMI
+            // AS3_ex.g3:2082:5: (S= SEMI )
+            // AS3_ex.g3:2082:11: S= SEMI
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_emptyStatement9545); if (state.failed) return retval;
+            	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_emptyStatement9550); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{S_tree = (object)adaptor.Create(S);
             		adaptor.AddChild(root_0, S_tree);
@@ -13733,7 +13729,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "variableStatement"
-    // AS3_ex.g3:2085:1: variableStatement : (I= IDENTIFIER )? V= VAR variableDeclaration (C= COMMA variableDeclaration )* semic ;
+    // AS3_ex.g3:2090:1: variableStatement : (I= IDENTIFIER )? V= VAR variableDeclaration (C= COMMA variableDeclaration )* semic ;
     public AS3_exParser.variableStatement_return variableStatement() // throws RecognitionException [1]
     {   
         AS3_exParser.variableStatement_return retval = new AS3_exParser.variableStatement_return();
@@ -13765,8 +13761,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2090:5: ( (I= IDENTIFIER )? V= VAR variableDeclaration (C= COMMA variableDeclaration )* semic )
-            // AS3_ex.g3:2091:6: (I= IDENTIFIER )? V= VAR variableDeclaration (C= COMMA variableDeclaration )* semic
+            // AS3_ex.g3:2095:5: ( (I= IDENTIFIER )? V= VAR variableDeclaration (C= COMMA variableDeclaration )* semic )
+            // AS3_ex.g3:2096:6: (I= IDENTIFIER )? V= VAR variableDeclaration (C= COMMA variableDeclaration )* semic
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -13774,7 +13770,7 @@ public class AS3_exParser : Parser
             	{
             	  pushedFormat=PushFormatType(options, false);
             	}
-            	// AS3_ex.g3:2092:9: (I= IDENTIFIER )?
+            	// AS3_ex.g3:2097:9: (I= IDENTIFIER )?
             	int alt99 = 2;
             	int LA99_0 = input.LA(1);
 
@@ -13785,9 +13781,9 @@ public class AS3_exParser : Parser
             	switch (alt99) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2092:10: I= IDENTIFIER
+            	        // AS3_ex.g3:2097:10: I= IDENTIFIER
             	        {
-            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_variableStatement9592); if (state.failed) return retval;
+            	        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_variableStatement9597); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{I_tree = (object)adaptor.Create(I);
             	        		adaptor.AddChild(root_0, I_tree);
@@ -13802,7 +13798,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	V=(IToken)Match(input,VAR,FOLLOW_VAR_in_variableStatement9600); if (state.failed) return retval;
+            	V=(IToken)Match(input,VAR,FOLLOW_VAR_in_variableStatement9605); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{V_tree = (object)adaptor.Create(V);
             		adaptor.AddChild(root_0, V_tree);
@@ -13811,12 +13807,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)V);
             	}
-            	PushFollow(FOLLOW_variableDeclaration_in_variableStatement9604);
+            	PushFollow(FOLLOW_variableDeclaration_in_variableStatement9609);
             	variableDeclaration209 = variableDeclaration();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, variableDeclaration209.Tree);
-            	// AS3_ex.g3:2092:101: (C= COMMA variableDeclaration )*
+            	// AS3_ex.g3:2097:101: (C= COMMA variableDeclaration )*
             	do 
             	{
             	    int alt100 = 2;
@@ -13831,13 +13827,13 @@ public class AS3_exParser : Parser
             	    switch (alt100) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2092:103: C= COMMA variableDeclaration
+            			    // AS3_ex.g3:2097:103: C= COMMA variableDeclaration
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesBeforeComma());
             			    	}
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_variableStatement9611); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_variableStatement9616); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -13850,7 +13846,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesAfterComma());
             			    	}
-            			    	PushFollow(FOLLOW_variableDeclaration_in_variableStatement9616);
+            			    	PushFollow(FOLLOW_variableDeclaration_in_variableStatement9621);
             			    	variableDeclaration210 = variableDeclaration();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -13867,7 +13863,7 @@ public class AS3_exParser : Parser
             	loop100:
             		;	// Stops C# compiler whining that label 'loop100' has no statements
 
-            	PushFollow(FOLLOW_semic_in_variableStatement9621);
+            	PushFollow(FOLLOW_semic_in_variableStatement9626);
             	semic211 = semic();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -13918,7 +13914,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "variableDeclarationList"
-    // AS3_ex.g3:2100:1: variableDeclarationList : variableDeclaration (C= COMMA variableDeclaration )* ;
+    // AS3_ex.g3:2105:1: variableDeclarationList : variableDeclaration (C= COMMA variableDeclaration )* ;
     public AS3_exParser.variableDeclarationList_return variableDeclarationList() // throws RecognitionException [1]
     {   
         AS3_exParser.variableDeclarationList_return retval = new AS3_exParser.variableDeclarationList_return();
@@ -13940,17 +13936,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2101:5: ( variableDeclaration (C= COMMA variableDeclaration )* )
-            // AS3_ex.g3:2101:11: variableDeclaration (C= COMMA variableDeclaration )*
+            // AS3_ex.g3:2106:5: ( variableDeclaration (C= COMMA variableDeclaration )* )
+            // AS3_ex.g3:2106:11: variableDeclaration (C= COMMA variableDeclaration )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_variableDeclaration_in_variableDeclarationList9663);
+            	PushFollow(FOLLOW_variableDeclaration_in_variableDeclarationList9668);
             	variableDeclaration212 = variableDeclaration();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, variableDeclaration212.Tree);
-            	// AS3_ex.g3:2101:31: (C= COMMA variableDeclaration )*
+            	// AS3_ex.g3:2106:31: (C= COMMA variableDeclaration )*
             	do 
             	{
             	    int alt101 = 2;
@@ -13965,13 +13961,13 @@ public class AS3_exParser : Parser
             	    switch (alt101) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2101:33: C= COMMA variableDeclaration
+            			    // AS3_ex.g3:2106:33: C= COMMA variableDeclaration
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesBeforeComma());
             			    	}
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_variableDeclarationList9671); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_variableDeclarationList9676); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -13984,7 +13980,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesAfterComma());
             			    	}
-            			    	PushFollow(FOLLOW_variableDeclaration_in_variableDeclarationList9676);
+            			    	PushFollow(FOLLOW_variableDeclaration_in_variableDeclarationList9681);
             			    	variableDeclaration213 = variableDeclaration();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -14040,7 +14036,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "variableDeclarationNoInList"
-    // AS3_ex.g3:2104:1: variableDeclarationNoInList : (V= VAR )? variableDeclarationNoIn (C= COMMA variableDeclarationNoIn )* ;
+    // AS3_ex.g3:2109:1: variableDeclarationNoInList : (V= VAR )? variableDeclarationNoIn (C= COMMA variableDeclarationNoIn )* ;
     public AS3_exParser.variableDeclarationNoInList_return variableDeclarationNoInList() // throws RecognitionException [1]
     {   
         AS3_exParser.variableDeclarationNoInList_return retval = new AS3_exParser.variableDeclarationNoInList_return();
@@ -14064,12 +14060,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2105:5: ( (V= VAR )? variableDeclarationNoIn (C= COMMA variableDeclarationNoIn )* )
-            // AS3_ex.g3:2105:10: (V= VAR )? variableDeclarationNoIn (C= COMMA variableDeclarationNoIn )*
+            // AS3_ex.g3:2110:5: ( (V= VAR )? variableDeclarationNoIn (C= COMMA variableDeclarationNoIn )* )
+            // AS3_ex.g3:2110:10: (V= VAR )? variableDeclarationNoIn (C= COMMA variableDeclarationNoIn )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:2105:10: (V= VAR )?
+            	// AS3_ex.g3:2110:10: (V= VAR )?
             	int alt102 = 2;
             	int LA102_0 = input.LA(1);
 
@@ -14080,9 +14076,9 @@ public class AS3_exParser : Parser
             	switch (alt102) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2105:11: V= VAR
+            	        // AS3_ex.g3:2110:11: V= VAR
             	        {
-            	        	V=(IToken)Match(input,VAR,FOLLOW_VAR_in_variableDeclarationNoInList9705); if (state.failed) return retval;
+            	        	V=(IToken)Match(input,VAR,FOLLOW_VAR_in_variableDeclarationNoInList9710); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{V_tree = (object)adaptor.Create(V);
             	        		adaptor.AddChild(root_0, V_tree);
@@ -14097,12 +14093,12 @@ public class AS3_exParser : Parser
 
             	}
 
-            	PushFollow(FOLLOW_variableDeclarationNoIn_in_variableDeclarationNoInList9711);
+            	PushFollow(FOLLOW_variableDeclarationNoIn_in_variableDeclarationNoInList9716);
             	variableDeclarationNoIn214 = variableDeclarationNoIn();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, variableDeclarationNoIn214.Tree);
-            	// AS3_ex.g3:2105:68: (C= COMMA variableDeclarationNoIn )*
+            	// AS3_ex.g3:2110:68: (C= COMMA variableDeclarationNoIn )*
             	do 
             	{
             	    int alt103 = 2;
@@ -14117,13 +14113,13 @@ public class AS3_exParser : Parser
             	    switch (alt103) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2105:70: C= COMMA variableDeclarationNoIn
+            			    // AS3_ex.g3:2110:70: C= COMMA variableDeclarationNoIn
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesBeforeComma());
             			    	}
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_variableDeclarationNoInList9719); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_variableDeclarationNoInList9724); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -14136,7 +14132,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesAfterComma());
             			    	}
-            			    	PushFollow(FOLLOW_variableDeclarationNoIn_in_variableDeclarationNoInList9724);
+            			    	PushFollow(FOLLOW_variableDeclarationNoIn_in_variableDeclarationNoInList9729);
             			    	variableDeclarationNoIn215 = variableDeclarationNoIn();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -14192,7 +14188,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "variableDeclaration"
-    // AS3_ex.g3:2108:1: variableDeclaration : variableIdentifierDecl (A= ASSIGN assignmentExpression )? ;
+    // AS3_ex.g3:2113:1: variableDeclaration : variableIdentifierDecl (A= ASSIGN assignmentExpression )? ;
     public AS3_exParser.variableDeclaration_return variableDeclaration() // throws RecognitionException [1]
     {   
         AS3_exParser.variableDeclaration_return retval = new AS3_exParser.variableDeclaration_return();
@@ -14214,17 +14210,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2109:5: ( variableIdentifierDecl (A= ASSIGN assignmentExpression )? )
-            // AS3_ex.g3:2109:9: variableIdentifierDecl (A= ASSIGN assignmentExpression )?
+            // AS3_ex.g3:2114:5: ( variableIdentifierDecl (A= ASSIGN assignmentExpression )? )
+            // AS3_ex.g3:2114:9: variableIdentifierDecl (A= ASSIGN assignmentExpression )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_variableIdentifierDecl_in_variableDeclaration9749);
+            	PushFollow(FOLLOW_variableIdentifierDecl_in_variableDeclaration9754);
             	variableIdentifierDecl216 = variableIdentifierDecl();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, variableIdentifierDecl216.Tree);
-            	// AS3_ex.g3:2109:32: (A= ASSIGN assignmentExpression )?
+            	// AS3_ex.g3:2114:32: (A= ASSIGN assignmentExpression )?
             	int alt104 = 2;
             	int LA104_0 = input.LA(1);
 
@@ -14235,9 +14231,9 @@ public class AS3_exParser : Parser
             	switch (alt104) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2109:34: A= ASSIGN assignmentExpression
+            	        // AS3_ex.g3:2114:34: A= ASSIGN assignmentExpression
             	        {
-            	        	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_variableDeclaration9755); if (state.failed) return retval;
+            	        	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_variableDeclaration9760); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{A_tree = (object)adaptor.Create(A);
             	        		adaptor.AddChild(root_0, A_tree);
@@ -14252,7 +14248,7 @@ public class AS3_exParser : Parser
             	        	      		//InsertWS(mPrinter.isInParameterDecl() ? mPrinter.getAdvancedSpacesAroundAssignmentInOptionalParameters() : mPrinter.getSpacesAroundAssignment());
             	        	      	
             	        	}
-            	        	PushFollow(FOLLOW_assignmentExpression_in_variableDeclaration9771);
+            	        	PushFollow(FOLLOW_assignmentExpression_in_variableDeclaration9776);
             	        	assignmentExpression217 = assignmentExpression();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -14302,7 +14298,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "variableDeclarationNoIn"
-    // AS3_ex.g3:2120:1: variableDeclarationNoIn : variableIdentifierDecl (A= ASSIGN assignmentExpressionNoIn )? ;
+    // AS3_ex.g3:2125:1: variableDeclarationNoIn : variableIdentifierDecl (A= ASSIGN assignmentExpressionNoIn )? ;
     public AS3_exParser.variableDeclarationNoIn_return variableDeclarationNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.variableDeclarationNoIn_return retval = new AS3_exParser.variableDeclarationNoIn_return();
@@ -14324,17 +14320,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2121:5: ( variableIdentifierDecl (A= ASSIGN assignmentExpressionNoIn )? )
-            // AS3_ex.g3:2121:10: variableIdentifierDecl (A= ASSIGN assignmentExpressionNoIn )?
+            // AS3_ex.g3:2126:5: ( variableIdentifierDecl (A= ASSIGN assignmentExpressionNoIn )? )
+            // AS3_ex.g3:2126:10: variableIdentifierDecl (A= ASSIGN assignmentExpressionNoIn )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_variableIdentifierDecl_in_variableDeclarationNoIn9794);
+            	PushFollow(FOLLOW_variableIdentifierDecl_in_variableDeclarationNoIn9799);
             	variableIdentifierDecl218 = variableIdentifierDecl();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, variableIdentifierDecl218.Tree);
-            	// AS3_ex.g3:2121:33: (A= ASSIGN assignmentExpressionNoIn )?
+            	// AS3_ex.g3:2126:33: (A= ASSIGN assignmentExpressionNoIn )?
             	int alt105 = 2;
             	int LA105_0 = input.LA(1);
 
@@ -14345,9 +14341,9 @@ public class AS3_exParser : Parser
             	switch (alt105) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2121:35: A= ASSIGN assignmentExpressionNoIn
+            	        // AS3_ex.g3:2126:35: A= ASSIGN assignmentExpressionNoIn
             	        {
-            	        	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_variableDeclarationNoIn9800); if (state.failed) return retval;
+            	        	A=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_variableDeclarationNoIn9805); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{A_tree = (object)adaptor.Create(A);
             	        		adaptor.AddChild(root_0, A_tree);
@@ -14362,7 +14358,7 @@ public class AS3_exParser : Parser
             	        	            //InsertWS(mPrinter.getSpacesAroundAssignment());
             	        	           
             	        	}
-            	        	PushFollow(FOLLOW_assignmentExpressionNoIn_in_variableDeclarationNoIn9824);
+            	        	PushFollow(FOLLOW_assignmentExpressionNoIn_in_variableDeclarationNoIn9829);
             	        	assignmentExpressionNoIn219 = assignmentExpressionNoIn();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -14412,7 +14408,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "variableIdentifierDecl"
-    // AS3_ex.g3:2132:1: variableIdentifierDecl : identifierLiteral (C= COLON type )? ;
+    // AS3_ex.g3:2137:1: variableIdentifierDecl : identifierLiteral (C= COLON type )? ;
     public AS3_exParser.variableIdentifierDecl_return variableIdentifierDecl() // throws RecognitionException [1]
     {   
         AS3_exParser.variableIdentifierDecl_return retval = new AS3_exParser.variableIdentifierDecl_return();
@@ -14434,17 +14430,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2133:5: ( identifierLiteral (C= COLON type )? )
-            // AS3_ex.g3:2133:10: identifierLiteral (C= COLON type )?
+            // AS3_ex.g3:2138:5: ( identifierLiteral (C= COLON type )? )
+            // AS3_ex.g3:2138:10: identifierLiteral (C= COLON type )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_identifierLiteral_in_variableIdentifierDecl9851);
+            	PushFollow(FOLLOW_identifierLiteral_in_variableIdentifierDecl9856);
             	identifierLiteral220 = identifierLiteral();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, identifierLiteral220.Tree);
-            	// AS3_ex.g3:2133:28: (C= COLON type )?
+            	// AS3_ex.g3:2138:28: (C= COLON type )?
             	int alt106 = 2;
             	int LA106_0 = input.LA(1);
 
@@ -14455,9 +14451,9 @@ public class AS3_exParser : Parser
             	switch (alt106) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2133:30: C= COLON type
+            	        // AS3_ex.g3:2138:30: C= COLON type
             	        {
-            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_variableIdentifierDecl9857); if (state.failed) return retval;
+            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_variableIdentifierDecl9862); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{C_tree = (object)adaptor.Create(C);
             	        		adaptor.AddChild(root_0, C_tree);
@@ -14466,7 +14462,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  InsertWS(mPrinter.GetAdvancedSpacesBeforeColons());Emit((CommonToken)C);InsertWS(mPrinter.GetAdvancedSpacesAfterColons());
             	        	}
-            	        	PushFollow(FOLLOW_type_in_variableIdentifierDecl9861);
+            	        	PushFollow(FOLLOW_type_in_variableIdentifierDecl9866);
             	        	type221 = type();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -14516,7 +14512,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "type"
-    // AS3_ex.g3:2139:1: type : ( qualifiedName | S= STAR | V= VOID );
+    // AS3_ex.g3:2144:1: type : ( qualifiedName | S= STAR | V= VOID );
     public AS3_exParser.type_return type() // throws RecognitionException [1]
     {   
         AS3_exParser.type_return retval = new AS3_exParser.type_return();
@@ -14538,7 +14534,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2139:5: ( qualifiedName | S= STAR | V= VOID )
+            // AS3_ex.g3:2144:5: ( qualifiedName | S= STAR | V= VOID )
             int alt107 = 3;
             switch ( input.LA(1) ) 
             {
@@ -14580,11 +14576,11 @@ public class AS3_exParser : Parser
             switch (alt107) 
             {
                 case 1 :
-                    // AS3_ex.g3:2139:9: qualifiedName
+                    // AS3_ex.g3:2144:9: qualifiedName
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_qualifiedName_in_type9885);
+                    	PushFollow(FOLLOW_qualifiedName_in_type9890);
                     	qualifiedName222 = qualifiedName();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -14593,11 +14589,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2139:25: S= STAR
+                    // AS3_ex.g3:2144:25: S= STAR
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	S=(IToken)Match(input,STAR,FOLLOW_STAR_in_type9891); if (state.failed) return retval;
+                    	S=(IToken)Match(input,STAR,FOLLOW_STAR_in_type9896); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{S_tree = (object)adaptor.Create(S);
                     		adaptor.AddChild(root_0, S_tree);
@@ -14610,11 +14606,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2139:59: V= VOID
+                    // AS3_ex.g3:2144:59: V= VOID
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	V=(IToken)Match(input,VOID,FOLLOW_VOID_in_type9899); if (state.failed) return retval;
+                    	V=(IToken)Match(input,VOID,FOLLOW_VOID_in_type9904); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{V_tree = (object)adaptor.Create(V);
                     		adaptor.AddChild(root_0, V_tree);
@@ -14664,7 +14660,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "typeList"
-    // AS3_ex.g3:2141:1: typeList : type (C= COMMA type )* ;
+    // AS3_ex.g3:2146:1: typeList : type (C= COMMA type )* ;
     public AS3_exParser.typeList_return typeList() // throws RecognitionException [1]
     {   
         AS3_exParser.typeList_return retval = new AS3_exParser.typeList_return();
@@ -14686,17 +14682,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2142:5: ( type (C= COMMA type )* )
-            // AS3_ex.g3:2142:9: type (C= COMMA type )*
+            // AS3_ex.g3:2147:5: ( type (C= COMMA type )* )
+            // AS3_ex.g3:2147:9: type (C= COMMA type )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_type_in_typeList9916);
+            	PushFollow(FOLLOW_type_in_typeList9921);
             	type223 = type();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, type223.Tree);
-            	// AS3_ex.g3:2142:14: (C= COMMA type )*
+            	// AS3_ex.g3:2147:14: (C= COMMA type )*
             	do 
             	{
             	    int alt108 = 2;
@@ -14711,13 +14707,13 @@ public class AS3_exParser : Parser
             	    switch (alt108) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2142:15: C= COMMA type
+            			    // AS3_ex.g3:2147:15: C= COMMA type
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesBeforeComma());
             			    	}
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_typeList9922); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_typeList9927); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -14730,7 +14726,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesAfterComma());
             			    	}
-            			    	PushFollow(FOLLOW_type_in_typeList9927);
+            			    	PushFollow(FOLLOW_type_in_typeList9932);
             			    	type224 = type();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -14786,7 +14782,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "standardQualifiedName"
-    // AS3_ex.g3:2146:1: standardQualifiedName : typeSpecifier (D= DOT typeSpecifier )* ;
+    // AS3_ex.g3:2151:1: standardQualifiedName : typeSpecifier (D= DOT typeSpecifier )* ;
     public AS3_exParser.standardQualifiedName_return standardQualifiedName() // throws RecognitionException [1]
     {   
         AS3_exParser.standardQualifiedName_return retval = new AS3_exParser.standardQualifiedName_return();
@@ -14808,17 +14804,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2147:2: ( typeSpecifier (D= DOT typeSpecifier )* )
-            // AS3_ex.g3:2148:2: typeSpecifier (D= DOT typeSpecifier )*
+            // AS3_ex.g3:2152:2: ( typeSpecifier (D= DOT typeSpecifier )* )
+            // AS3_ex.g3:2153:2: typeSpecifier (D= DOT typeSpecifier )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_typeSpecifier_in_standardQualifiedName9951);
+            	PushFollow(FOLLOW_typeSpecifier_in_standardQualifiedName9956);
             	typeSpecifier225 = typeSpecifier();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, typeSpecifier225.Tree);
-            	// AS3_ex.g3:2148:16: (D= DOT typeSpecifier )*
+            	// AS3_ex.g3:2153:16: (D= DOT typeSpecifier )*
             	do 
             	{
             	    int alt109 = 2;
@@ -14840,9 +14836,9 @@ public class AS3_exParser : Parser
             	    switch (alt109) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2148:17: D= DOT typeSpecifier
+            			    // AS3_ex.g3:2153:17: D= DOT typeSpecifier
             			    {
-            			    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_standardQualifiedName9956); if (state.failed) return retval;
+            			    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_standardQualifiedName9961); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{D_tree = (object)adaptor.Create(D);
             			    		adaptor.AddChild(root_0, D_tree);
@@ -14851,7 +14847,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  Emit((CommonToken)D);
             			    	}
-            			    	PushFollow(FOLLOW_typeSpecifier_in_standardQualifiedName9960);
+            			    	PushFollow(FOLLOW_typeSpecifier_in_standardQualifiedName9965);
             			    	typeSpecifier226 = typeSpecifier();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -14907,7 +14903,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "qualifiedName"
-    // AS3_ex.g3:2152:1: qualifiedName : standardQualifiedName ( typePostfixSyntax )? ;
+    // AS3_ex.g3:2157:1: qualifiedName : standardQualifiedName ( typePostfixSyntax )? ;
     public AS3_exParser.qualifiedName_return qualifiedName() // throws RecognitionException [1]
     {   
         AS3_exParser.qualifiedName_return retval = new AS3_exParser.qualifiedName_return();
@@ -14927,17 +14923,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2153:5: ( standardQualifiedName ( typePostfixSyntax )? )
-            // AS3_ex.g3:2154:6: standardQualifiedName ( typePostfixSyntax )?
+            // AS3_ex.g3:2158:5: ( standardQualifiedName ( typePostfixSyntax )? )
+            // AS3_ex.g3:2159:6: standardQualifiedName ( typePostfixSyntax )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_standardQualifiedName_in_qualifiedName9988);
+            	PushFollow(FOLLOW_standardQualifiedName_in_qualifiedName9993);
             	standardQualifiedName227 = standardQualifiedName();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, standardQualifiedName227.Tree);
-            	// AS3_ex.g3:2154:28: ( typePostfixSyntax )?
+            	// AS3_ex.g3:2159:28: ( typePostfixSyntax )?
             	int alt110 = 2;
             	int LA110_0 = input.LA(1);
 
@@ -14953,9 +14949,9 @@ public class AS3_exParser : Parser
             	switch (alt110) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2154:29: typePostfixSyntax
+            	        // AS3_ex.g3:2159:29: typePostfixSyntax
             	        {
-            	        	PushFollow(FOLLOW_typePostfixSyntax_in_qualifiedName9991);
+            	        	PushFollow(FOLLOW_typePostfixSyntax_in_qualifiedName9996);
             	        	typePostfixSyntax228 = typePostfixSyntax();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -15005,7 +15001,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "typePostfixSyntax"
-    // AS3_ex.g3:2157:1: typePostfixSyntax : D= DOT L= LT standardQualifiedName ( typePostfixSyntax )? G= GT ;
+    // AS3_ex.g3:2162:1: typePostfixSyntax : D= DOT L= LT standardQualifiedName ( typePostfixSyntax )? G= GT ;
     public AS3_exParser.typePostfixSyntax_return typePostfixSyntax() // throws RecognitionException [1]
     {   
         AS3_exParser.typePostfixSyntax_return retval = new AS3_exParser.typePostfixSyntax_return();
@@ -15031,12 +15027,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2157:18: (D= DOT L= LT standardQualifiedName ( typePostfixSyntax )? G= GT )
-            // AS3_ex.g3:2158:2: D= DOT L= LT standardQualifiedName ( typePostfixSyntax )? G= GT
+            // AS3_ex.g3:2162:18: (D= DOT L= LT standardQualifiedName ( typePostfixSyntax )? G= GT )
+            // AS3_ex.g3:2163:2: D= DOT L= LT standardQualifiedName ( typePostfixSyntax )? G= GT
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_typePostfixSyntax10013); if (state.failed) return retval;
+            	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_typePostfixSyntax10018); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{D_tree = (object)adaptor.Create(D);
             		adaptor.AddChild(root_0, D_tree);
@@ -15045,7 +15041,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)D);
             	}
-            	L=(IToken)Match(input,LT,FOLLOW_LT_in_typePostfixSyntax10019); if (state.failed) return retval;
+            	L=(IToken)Match(input,LT,FOLLOW_LT_in_typePostfixSyntax10024); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -15054,12 +15050,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);
             	}
-            	PushFollow(FOLLOW_standardQualifiedName_in_typePostfixSyntax10023);
+            	PushFollow(FOLLOW_standardQualifiedName_in_typePostfixSyntax10028);
             	standardQualifiedName229 = standardQualifiedName();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, standardQualifiedName229.Tree);
-            	// AS3_ex.g3:2158:85: ( typePostfixSyntax )?
+            	// AS3_ex.g3:2163:85: ( typePostfixSyntax )?
             	int alt111 = 2;
             	int LA111_0 = input.LA(1);
 
@@ -15070,9 +15066,9 @@ public class AS3_exParser : Parser
             	switch (alt111) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2158:86: typePostfixSyntax
+            	        // AS3_ex.g3:2163:86: typePostfixSyntax
             	        {
-            	        	PushFollow(FOLLOW_typePostfixSyntax_in_typePostfixSyntax10026);
+            	        	PushFollow(FOLLOW_typePostfixSyntax_in_typePostfixSyntax10031);
             	        	typePostfixSyntax230 = typePostfixSyntax();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -15083,7 +15079,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	G=(IToken)Match(input,GT,FOLLOW_GT_in_typePostfixSyntax10032); if (state.failed) return retval;
+            	G=(IToken)Match(input,GT,FOLLOW_GT_in_typePostfixSyntax10037); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{G_tree = (object)adaptor.Create(G);
             		adaptor.AddChild(root_0, G_tree);
@@ -15131,7 +15127,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "qualifiedIdentifier"
-    // AS3_ex.g3:2161:1: qualifiedIdentifier : I= IDENTIFIER ;
+    // AS3_ex.g3:2166:1: qualifiedIdentifier : I= IDENTIFIER ;
     public AS3_exParser.qualifiedIdentifier_return qualifiedIdentifier() // throws RecognitionException [1]
     {   
         AS3_exParser.qualifiedIdentifier_return retval = new AS3_exParser.qualifiedIdentifier_return();
@@ -15149,12 +15145,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2162:5: (I= IDENTIFIER )
-            // AS3_ex.g3:2162:9: I= IDENTIFIER
+            // AS3_ex.g3:2167:5: (I= IDENTIFIER )
+            // AS3_ex.g3:2167:9: I= IDENTIFIER
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_qualifiedIdentifier10056); if (state.failed) return retval;
+            	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_qualifiedIdentifier10061); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{I_tree = (object)adaptor.Create(I);
             		adaptor.AddChild(root_0, I_tree);
@@ -15202,7 +15198,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "parExpression"
-    // AS3_ex.g3:2168:1: parExpression : L= LPAREN expression R= RPAREN ;
+    // AS3_ex.g3:2173:1: parExpression : L= LPAREN expression R= RPAREN ;
     public AS3_exParser.parExpression_return parExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.parExpression_return retval = new AS3_exParser.parExpression_return();
@@ -15224,12 +15220,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2169:5: (L= LPAREN expression R= RPAREN )
-            // AS3_ex.g3:2169:7: L= LPAREN expression R= RPAREN
+            // AS3_ex.g3:2174:5: (L= LPAREN expression R= RPAREN )
+            // AS3_ex.g3:2174:7: L= LPAREN expression R= RPAREN
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_parExpression10081); if (state.failed) return retval;
+            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_parExpression10086); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -15242,12 +15238,12 @@ public class AS3_exParser : Parser
             	{
             	  PushExpressionIndent();
             	}
-            	PushFollow(FOLLOW_expression_in_parExpression10088);
+            	PushFollow(FOLLOW_expression_in_parExpression10093);
             	expression231 = expression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, expression231.Tree);
-            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_parExpression10093); if (state.failed) return retval;
+            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_parExpression10098); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -15299,7 +15295,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "expression"
-    // AS3_ex.g3:2172:1: expression : assignmentExpression (C= COMMA assignmentExpression )* ;
+    // AS3_ex.g3:2177:1: expression : assignmentExpression (C= COMMA assignmentExpression )* ;
     public AS3_exParser.expression_return expression() // throws RecognitionException [1]
     {   
         AS3_exParser.expression_return retval = new AS3_exParser.expression_return();
@@ -15325,8 +15321,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2177:5: ( assignmentExpression (C= COMMA assignmentExpression )* )
-            // AS3_ex.g3:2178:6: assignmentExpression (C= COMMA assignmentExpression )*
+            // AS3_ex.g3:2182:5: ( assignmentExpression (C= COMMA assignmentExpression )* )
+            // AS3_ex.g3:2183:6: assignmentExpression (C= COMMA assignmentExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -15334,12 +15330,12 @@ public class AS3_exParser : Parser
             	{
             	  pushedFormat=PushFormatType(options, true);
             	}
-            	PushFollow(FOLLOW_assignmentExpression_in_expression10134);
+            	PushFollow(FOLLOW_assignmentExpression_in_expression10139);
             	assignmentExpression232 = assignmentExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpression232.Tree);
-            	// AS3_ex.g3:2179:27: (C= COMMA assignmentExpression )*
+            	// AS3_ex.g3:2184:27: (C= COMMA assignmentExpression )*
             	do 
             	{
             	    int alt112 = 2;
@@ -15354,13 +15350,13 @@ public class AS3_exParser : Parser
             	    switch (alt112) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2179:29: C= COMMA assignmentExpression
+            			    // AS3_ex.g3:2184:29: C= COMMA assignmentExpression
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesBeforeComma());
             			    	}
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_expression10142); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_expression10147); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -15373,7 +15369,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesAfterComma());
             			    	}
-            			    	PushFollow(FOLLOW_assignmentExpression_in_expression10148);
+            			    	PushFollow(FOLLOW_assignmentExpression_in_expression10153);
             			    	assignmentExpression233 = assignmentExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -15436,7 +15432,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "expressionNoIn"
-    // AS3_ex.g3:2186:1: expressionNoIn : assignmentExpressionNoIn (C= COMMA assignmentExpressionNoIn )* ;
+    // AS3_ex.g3:2191:1: expressionNoIn : assignmentExpressionNoIn (C= COMMA assignmentExpressionNoIn )* ;
     public AS3_exParser.expressionNoIn_return expressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.expressionNoIn_return retval = new AS3_exParser.expressionNoIn_return();
@@ -15458,17 +15454,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2187:5: ( assignmentExpressionNoIn (C= COMMA assignmentExpressionNoIn )* )
-            // AS3_ex.g3:2187:9: assignmentExpressionNoIn (C= COMMA assignmentExpressionNoIn )*
+            // AS3_ex.g3:2192:5: ( assignmentExpressionNoIn (C= COMMA assignmentExpressionNoIn )* )
+            // AS3_ex.g3:2192:9: assignmentExpressionNoIn (C= COMMA assignmentExpressionNoIn )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_assignmentExpressionNoIn_in_expressionNoIn10176);
+            	PushFollow(FOLLOW_assignmentExpressionNoIn_in_expressionNoIn10181);
             	assignmentExpressionNoIn234 = assignmentExpressionNoIn();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpressionNoIn234.Tree);
-            	// AS3_ex.g3:2187:34: (C= COMMA assignmentExpressionNoIn )*
+            	// AS3_ex.g3:2192:34: (C= COMMA assignmentExpressionNoIn )*
             	do 
             	{
             	    int alt113 = 2;
@@ -15483,13 +15479,13 @@ public class AS3_exParser : Parser
             	    switch (alt113) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2187:36: C= COMMA assignmentExpressionNoIn
+            			    // AS3_ex.g3:2192:36: C= COMMA assignmentExpressionNoIn
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesBeforeComma());
             			    	}
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_expressionNoIn10184); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_expressionNoIn10189); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -15502,7 +15498,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesAfterComma());
             			    	}
-            			    	PushFollow(FOLLOW_assignmentExpressionNoIn_in_expressionNoIn10190);
+            			    	PushFollow(FOLLOW_assignmentExpressionNoIn_in_expressionNoIn10195);
             			    	assignmentExpressionNoIn235 = assignmentExpressionNoIn();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -15558,7 +15554,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "assignmentExpression"
-    // AS3_ex.g3:2191:1: assignmentExpression : ( leftHandSideExpression assignmentOperator assignmentExpression | conditionalExpression );
+    // AS3_ex.g3:2196:1: assignmentExpression : ( leftHandSideExpression assignmentOperator assignmentExpression | conditionalExpression );
     public AS3_exParser.assignmentExpression_return assignmentExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.assignmentExpression_return retval = new AS3_exParser.assignmentExpression_return();
@@ -15582,27 +15578,27 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2192:5: ( leftHandSideExpression assignmentOperator assignmentExpression | conditionalExpression )
+            // AS3_ex.g3:2197:5: ( leftHandSideExpression assignmentOperator assignmentExpression | conditionalExpression )
             int alt114 = 2;
             alt114 = dfa114.Predict(input);
             switch (alt114) 
             {
                 case 1 :
-                    // AS3_ex.g3:2193:7: leftHandSideExpression assignmentOperator assignmentExpression
+                    // AS3_ex.g3:2198:7: leftHandSideExpression assignmentOperator assignmentExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_leftHandSideExpression_in_assignmentExpression10219);
+                    	PushFollow(FOLLOW_leftHandSideExpression_in_assignmentExpression10224);
                     	leftHandSideExpression236 = leftHandSideExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, leftHandSideExpression236.Tree);
-                    	PushFollow(FOLLOW_assignmentOperator_in_assignmentExpression10222);
+                    	PushFollow(FOLLOW_assignmentOperator_in_assignmentExpression10227);
                     	assignmentOperator237 = assignmentOperator();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentOperator237.Tree);
-                    	PushFollow(FOLLOW_assignmentExpression_in_assignmentExpression10225);
+                    	PushFollow(FOLLOW_assignmentExpression_in_assignmentExpression10230);
                     	assignmentExpression238 = assignmentExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -15611,11 +15607,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2194:7: conditionalExpression
+                    // AS3_ex.g3:2199:7: conditionalExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_conditionalExpression_in_assignmentExpression10233);
+                    	PushFollow(FOLLOW_conditionalExpression_in_assignmentExpression10238);
                     	conditionalExpression239 = conditionalExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -15661,7 +15657,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "assignmentExpressionNoIn"
-    // AS3_ex.g3:2198:1: assignmentExpressionNoIn : ( conditionalExpressionNoIn | leftHandSideExpression assignmentOperator assignmentExpressionNoIn );
+    // AS3_ex.g3:2203:1: assignmentExpressionNoIn : ( conditionalExpressionNoIn | leftHandSideExpression assignmentOperator assignmentExpressionNoIn );
     public AS3_exParser.assignmentExpressionNoIn_return assignmentExpressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.assignmentExpressionNoIn_return retval = new AS3_exParser.assignmentExpressionNoIn_return();
@@ -15685,17 +15681,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2199:5: ( conditionalExpressionNoIn | leftHandSideExpression assignmentOperator assignmentExpressionNoIn )
+            // AS3_ex.g3:2204:5: ( conditionalExpressionNoIn | leftHandSideExpression assignmentOperator assignmentExpressionNoIn )
             int alt115 = 2;
             alt115 = dfa115.Predict(input);
             switch (alt115) 
             {
                 case 1 :
-                    // AS3_ex.g3:2199:9: conditionalExpressionNoIn
+                    // AS3_ex.g3:2204:9: conditionalExpressionNoIn
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_conditionalExpressionNoIn_in_assignmentExpressionNoIn10253);
+                    	PushFollow(FOLLOW_conditionalExpressionNoIn_in_assignmentExpressionNoIn10258);
                     	conditionalExpressionNoIn240 = conditionalExpressionNoIn();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -15704,21 +15700,21 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2200:9: leftHandSideExpression assignmentOperator assignmentExpressionNoIn
+                    // AS3_ex.g3:2205:9: leftHandSideExpression assignmentOperator assignmentExpressionNoIn
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_leftHandSideExpression_in_assignmentExpressionNoIn10263);
+                    	PushFollow(FOLLOW_leftHandSideExpression_in_assignmentExpressionNoIn10268);
                     	leftHandSideExpression241 = leftHandSideExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, leftHandSideExpression241.Tree);
-                    	PushFollow(FOLLOW_assignmentOperator_in_assignmentExpressionNoIn10266);
+                    	PushFollow(FOLLOW_assignmentOperator_in_assignmentExpressionNoIn10271);
                     	assignmentOperator242 = assignmentOperator();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentOperator242.Tree);
-                    	PushFollow(FOLLOW_assignmentExpressionNoIn_in_assignmentExpressionNoIn10269);
+                    	PushFollow(FOLLOW_assignmentExpressionNoIn_in_assignmentExpressionNoIn10274);
                     	assignmentExpressionNoIn243 = assignmentExpressionNoIn();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -15764,7 +15760,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "assignmentOperator"
-    // AS3_ex.g3:2203:1: assignmentOperator : op= assignmentOperator_int ;
+    // AS3_ex.g3:2208:1: assignmentOperator : op= assignmentOperator_int ;
     public AS3_exParser.assignmentOperator_return assignmentOperator() // throws RecognitionException [1]
     {   
         AS3_exParser.assignmentOperator_return retval = new AS3_exParser.assignmentOperator_return();
@@ -15782,12 +15778,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2204:2: (op= assignmentOperator_int )
-            // AS3_ex.g3:2204:4: op= assignmentOperator_int
+            // AS3_ex.g3:2209:2: (op= assignmentOperator_int )
+            // AS3_ex.g3:2209:4: op= assignmentOperator_int
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_assignmentOperator_int_in_assignmentOperator10285);
+            	PushFollow(FOLLOW_assignmentOperator_int_in_assignmentOperator10290);
             	op = assignmentOperator_int();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -15838,7 +15834,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "assignmentOperator_int"
-    // AS3_ex.g3:2211:1: assignmentOperator_int : ( ASSIGN | s= STAR a= ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN ) | ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN ) | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN );
+    // AS3_ex.g3:2216:1: assignmentOperator_int : ( ASSIGN | s= STAR a= ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN ) | ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN ) | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN );
     public AS3_exParser.assignmentOperator_int_return assignmentOperator_int() // throws RecognitionException [1]
     {   
         AS3_exParser.assignmentOperator_int_return retval = new AS3_exParser.assignmentOperator_int_return();
@@ -15890,17 +15886,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2212:5: ( ASSIGN | s= STAR a= ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN ) | ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN ) | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN )
+            // AS3_ex.g3:2217:5: ( ASSIGN | s= STAR a= ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN ) | ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN ) | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN )
             int alt116 = 14;
             alt116 = dfa116.Predict(input);
             switch (alt116) 
             {
                 case 1 :
-                    // AS3_ex.g3:2212:7: ASSIGN
+                    // AS3_ex.g3:2217:7: ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	ASSIGN244=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_assignmentOperator_int10311); if (state.failed) return retval;
+                    	ASSIGN244=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_assignmentOperator_int10316); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{ASSIGN244_tree = (object)adaptor.Create(ASSIGN244);
                     		adaptor.AddChild(root_0, ASSIGN244_tree);
@@ -15909,16 +15905,16 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2214:4: s= STAR a= ASSIGN
+                    // AS3_ex.g3:2219:4: s= STAR a= ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	s=(IToken)Match(input,STAR,FOLLOW_STAR_in_assignmentOperator_int10320); if (state.failed) return retval;
+                    	s=(IToken)Match(input,STAR,FOLLOW_STAR_in_assignmentOperator_int10325); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{s_tree = (object)adaptor.Create(s);
                     		adaptor.AddChild(root_0, s_tree);
                     	}
-                    	a=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_assignmentOperator_int10324); if (state.failed) return retval;
+                    	a=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_assignmentOperator_int10329); if (state.failed) return retval;
                     	if ( state.backtracking == 0 ) 
                     	{
                     	  s.Text = "*=";
@@ -15927,11 +15923,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2215:7: DIV_ASSIGN
+                    // AS3_ex.g3:2220:7: DIV_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	DIV_ASSIGN245=(IToken)Match(input,DIV_ASSIGN,FOLLOW_DIV_ASSIGN_in_assignmentOperator_int10335); if (state.failed) return retval;
+                    	DIV_ASSIGN245=(IToken)Match(input,DIV_ASSIGN,FOLLOW_DIV_ASSIGN_in_assignmentOperator_int10340); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{DIV_ASSIGN245_tree = (object)adaptor.Create(DIV_ASSIGN245);
                     		adaptor.AddChild(root_0, DIV_ASSIGN245_tree);
@@ -15940,11 +15936,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:2216:7: MOD_ASSIGN
+                    // AS3_ex.g3:2221:7: MOD_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	MOD_ASSIGN246=(IToken)Match(input,MOD_ASSIGN,FOLLOW_MOD_ASSIGN_in_assignmentOperator_int10344); if (state.failed) return retval;
+                    	MOD_ASSIGN246=(IToken)Match(input,MOD_ASSIGN,FOLLOW_MOD_ASSIGN_in_assignmentOperator_int10349); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{MOD_ASSIGN246_tree = (object)adaptor.Create(MOD_ASSIGN246);
                     		adaptor.AddChild(root_0, MOD_ASSIGN246_tree);
@@ -15953,11 +15949,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 5 :
-                    // AS3_ex.g3:2217:7: ADD_ASSIGN
+                    // AS3_ex.g3:2222:7: ADD_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	ADD_ASSIGN247=(IToken)Match(input,ADD_ASSIGN,FOLLOW_ADD_ASSIGN_in_assignmentOperator_int10353); if (state.failed) return retval;
+                    	ADD_ASSIGN247=(IToken)Match(input,ADD_ASSIGN,FOLLOW_ADD_ASSIGN_in_assignmentOperator_int10358); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{ADD_ASSIGN247_tree = (object)adaptor.Create(ADD_ASSIGN247);
                     		adaptor.AddChild(root_0, ADD_ASSIGN247_tree);
@@ -15966,11 +15962,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 6 :
-                    // AS3_ex.g3:2218:7: SUB_ASSIGN
+                    // AS3_ex.g3:2223:7: SUB_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	SUB_ASSIGN248=(IToken)Match(input,SUB_ASSIGN,FOLLOW_SUB_ASSIGN_in_assignmentOperator_int10362); if (state.failed) return retval;
+                    	SUB_ASSIGN248=(IToken)Match(input,SUB_ASSIGN,FOLLOW_SUB_ASSIGN_in_assignmentOperator_int10367); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{SUB_ASSIGN248_tree = (object)adaptor.Create(SUB_ASSIGN248);
                     		adaptor.AddChild(root_0, SUB_ASSIGN248_tree);
@@ -15979,11 +15975,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 7 :
-                    // AS3_ex.g3:2219:7: SHL_ASSIGN
+                    // AS3_ex.g3:2224:7: SHL_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	SHL_ASSIGN249=(IToken)Match(input,SHL_ASSIGN,FOLLOW_SHL_ASSIGN_in_assignmentOperator_int10370); if (state.failed) return retval;
+                    	SHL_ASSIGN249=(IToken)Match(input,SHL_ASSIGN,FOLLOW_SHL_ASSIGN_in_assignmentOperator_int10375); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{SHL_ASSIGN249_tree = (object)adaptor.Create(SHL_ASSIGN249);
                     		adaptor.AddChild(root_0, SHL_ASSIGN249_tree);
@@ -15992,18 +15988,18 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 8 :
-                    // AS3_ex.g3:2222:9: ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN )
+                    // AS3_ex.g3:2227:9: ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN )
                     {
-                    	// AS3_ex.g3:2222:9: ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN )
-                    	// AS3_ex.g3:2222:10: ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}?
+                    	// AS3_ex.g3:2227:9: ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN )
+                    	// AS3_ex.g3:2227:10: ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}?
                     	{
-                    		t1=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10394); if (state.failed) return retval; 
+                    		t1=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10399); if (state.failed) return retval; 
                     		if ( state.backtracking==0 ) stream_GT.Add(t1);
 
-                    		t2=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10398); if (state.failed) return retval; 
+                    		t2=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10403); if (state.failed) return retval; 
                     		if ( state.backtracking==0 ) stream_GT.Add(t2);
 
-                    		t3=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_assignmentOperator_int10402); if (state.failed) return retval; 
+                    		t3=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_assignmentOperator_int10407); if (state.failed) return retval; 
                     		if ( state.backtracking==0 ) stream_ASSIGN.Add(t3);
 
                     		if ( !(( t1.Line == t2.Line && 
@@ -16027,7 +16023,7 @@ public class AS3_exParser : Parser
                     		RewriteRuleSubtreeStream stream_retval = new RewriteRuleSubtreeStream(adaptor, "token retval", (retval!=null ? retval.Tree : null));
 
                     		root_0 = (object)adaptor.GetNilNode();
-                    		// 2227:7: -> SHR_ASSIGN
+                    		// 2232:7: -> SHR_ASSIGN
                     		{
                     		    adaptor.AddChild(root_0, (object)adaptor.Create(SHR_ASSIGN, "SHR_ASSIGN"));
 
@@ -16044,21 +16040,21 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 9 :
-                    // AS3_ex.g3:2229:7: ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN )
+                    // AS3_ex.g3:2234:7: ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN )
                     {
-                    	// AS3_ex.g3:2229:7: ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN )
-                    	// AS3_ex.g3:2229:8: ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}?
+                    	// AS3_ex.g3:2234:7: ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN )
+                    	// AS3_ex.g3:2234:8: ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}?
                     	{
-                    		t1=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10448); if (state.failed) return retval; 
+                    		t1=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10453); if (state.failed) return retval; 
                     		if ( state.backtracking==0 ) stream_GT.Add(t1);
 
-                    		t2=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10452); if (state.failed) return retval; 
+                    		t2=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10457); if (state.failed) return retval; 
                     		if ( state.backtracking==0 ) stream_GT.Add(t2);
 
-                    		t3=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10456); if (state.failed) return retval; 
+                    		t3=(IToken)Match(input,GT,FOLLOW_GT_in_assignmentOperator_int10461); if (state.failed) return retval; 
                     		if ( state.backtracking==0 ) stream_GT.Add(t3);
 
-                    		t4=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_assignmentOperator_int10460); if (state.failed) return retval; 
+                    		t4=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_assignmentOperator_int10465); if (state.failed) return retval; 
                     		if ( state.backtracking==0 ) stream_ASSIGN.Add(t4);
 
                     		if ( !(( t1.Line == t2.Line && 
@@ -16084,7 +16080,7 @@ public class AS3_exParser : Parser
                     		RewriteRuleSubtreeStream stream_retval = new RewriteRuleSubtreeStream(adaptor, "token retval", (retval!=null ? retval.Tree : null));
 
                     		root_0 = (object)adaptor.GetNilNode();
-                    		// 2236:7: -> SHU_ASSIGN
+                    		// 2241:7: -> SHU_ASSIGN
                     		{
                     		    adaptor.AddChild(root_0, (object)adaptor.Create(SHU_ASSIGN, "SHU_ASSIGN"));
 
@@ -16101,11 +16097,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 10 :
-                    // AS3_ex.g3:2237:7: AND_ASSIGN
+                    // AS3_ex.g3:2242:7: AND_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	AND_ASSIGN250=(IToken)Match(input,AND_ASSIGN,FOLLOW_AND_ASSIGN_in_assignmentOperator_int10491); if (state.failed) return retval;
+                    	AND_ASSIGN250=(IToken)Match(input,AND_ASSIGN,FOLLOW_AND_ASSIGN_in_assignmentOperator_int10496); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{AND_ASSIGN250_tree = (object)adaptor.Create(AND_ASSIGN250);
                     		adaptor.AddChild(root_0, AND_ASSIGN250_tree);
@@ -16114,11 +16110,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 11 :
-                    // AS3_ex.g3:2238:7: XOR_ASSIGN
+                    // AS3_ex.g3:2243:7: XOR_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	XOR_ASSIGN251=(IToken)Match(input,XOR_ASSIGN,FOLLOW_XOR_ASSIGN_in_assignmentOperator_int10500); if (state.failed) return retval;
+                    	XOR_ASSIGN251=(IToken)Match(input,XOR_ASSIGN,FOLLOW_XOR_ASSIGN_in_assignmentOperator_int10505); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{XOR_ASSIGN251_tree = (object)adaptor.Create(XOR_ASSIGN251);
                     		adaptor.AddChild(root_0, XOR_ASSIGN251_tree);
@@ -16127,11 +16123,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 12 :
-                    // AS3_ex.g3:2239:7: OR_ASSIGN
+                    // AS3_ex.g3:2244:7: OR_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	OR_ASSIGN252=(IToken)Match(input,OR_ASSIGN,FOLLOW_OR_ASSIGN_in_assignmentOperator_int10509); if (state.failed) return retval;
+                    	OR_ASSIGN252=(IToken)Match(input,OR_ASSIGN,FOLLOW_OR_ASSIGN_in_assignmentOperator_int10514); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{OR_ASSIGN252_tree = (object)adaptor.Create(OR_ASSIGN252);
                     		adaptor.AddChild(root_0, OR_ASSIGN252_tree);
@@ -16140,11 +16136,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 13 :
-                    // AS3_ex.g3:2240:7: LOR_ASSIGN
+                    // AS3_ex.g3:2245:7: LOR_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	LOR_ASSIGN253=(IToken)Match(input,LOR_ASSIGN,FOLLOW_LOR_ASSIGN_in_assignmentOperator_int10517); if (state.failed) return retval;
+                    	LOR_ASSIGN253=(IToken)Match(input,LOR_ASSIGN,FOLLOW_LOR_ASSIGN_in_assignmentOperator_int10522); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{LOR_ASSIGN253_tree = (object)adaptor.Create(LOR_ASSIGN253);
                     		adaptor.AddChild(root_0, LOR_ASSIGN253_tree);
@@ -16153,11 +16149,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 14 :
-                    // AS3_ex.g3:2241:7: LAND_ASSIGN
+                    // AS3_ex.g3:2246:7: LAND_ASSIGN
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	LAND_ASSIGN254=(IToken)Match(input,LAND_ASSIGN,FOLLOW_LAND_ASSIGN_in_assignmentOperator_int10525); if (state.failed) return retval;
+                    	LAND_ASSIGN254=(IToken)Match(input,LAND_ASSIGN,FOLLOW_LAND_ASSIGN_in_assignmentOperator_int10530); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{LAND_ASSIGN254_tree = (object)adaptor.Create(LAND_ASSIGN254);
                     		adaptor.AddChild(root_0, LAND_ASSIGN254_tree);
@@ -16203,7 +16199,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "conditionalExpression"
-    // AS3_ex.g3:2245:1: conditionalExpression : logicalORExpression (Q= QUE assignmentExpression C= COLON assignmentExpression )? ;
+    // AS3_ex.g3:2250:1: conditionalExpression : logicalORExpression (Q= QUE assignmentExpression C= COLON assignmentExpression )? ;
     public AS3_exParser.conditionalExpression_return conditionalExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.conditionalExpression_return retval = new AS3_exParser.conditionalExpression_return();
@@ -16229,17 +16225,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2246:5: ( logicalORExpression (Q= QUE assignmentExpression C= COLON assignmentExpression )? )
-            // AS3_ex.g3:2246:9: logicalORExpression (Q= QUE assignmentExpression C= COLON assignmentExpression )?
+            // AS3_ex.g3:2251:5: ( logicalORExpression (Q= QUE assignmentExpression C= COLON assignmentExpression )? )
+            // AS3_ex.g3:2251:9: logicalORExpression (Q= QUE assignmentExpression C= COLON assignmentExpression )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_logicalORExpression_in_conditionalExpression10545);
+            	PushFollow(FOLLOW_logicalORExpression_in_conditionalExpression10550);
             	logicalORExpression255 = logicalORExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, logicalORExpression255.Tree);
-            	// AS3_ex.g3:2246:29: (Q= QUE assignmentExpression C= COLON assignmentExpression )?
+            	// AS3_ex.g3:2251:29: (Q= QUE assignmentExpression C= COLON assignmentExpression )?
             	int alt117 = 2;
             	int LA117_0 = input.LA(1);
 
@@ -16250,9 +16246,9 @@ public class AS3_exParser : Parser
             	switch (alt117) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2246:31: Q= QUE assignmentExpression C= COLON assignmentExpression
+            	        // AS3_ex.g3:2251:31: Q= QUE assignmentExpression C= COLON assignmentExpression
             	        {
-            	        	Q=(IToken)Match(input,QUE,FOLLOW_QUE_in_conditionalExpression10551); if (state.failed) return retval;
+            	        	Q=(IToken)Match(input,QUE,FOLLOW_QUE_in_conditionalExpression10556); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{Q_tree = (object)adaptor.Create(Q);
             	        		adaptor.AddChild(root_0, Q_tree);
@@ -16261,7 +16257,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  IndentEmit((CommonToken)Q);
             	        	}
-            	        	PushFollow(FOLLOW_assignmentExpression_in_conditionalExpression10556);
+            	        	PushFollow(FOLLOW_assignmentExpression_in_conditionalExpression10561);
             	        	assignmentExpression256 = assignmentExpression();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -16270,7 +16266,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  PopIndent();
             	        	}
-            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_conditionalExpression10563); if (state.failed) return retval;
+            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_conditionalExpression10568); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{C_tree = (object)adaptor.Create(C);
             	        		adaptor.AddChild(root_0, C_tree);
@@ -16279,7 +16275,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  IndentEmit((CommonToken)C);
             	        	}
-            	        	PushFollow(FOLLOW_assignmentExpression_in_conditionalExpression10568);
+            	        	PushFollow(FOLLOW_assignmentExpression_in_conditionalExpression10573);
             	        	assignmentExpression257 = assignmentExpression();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -16333,7 +16329,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "conditionalExpressionNoIn"
-    // AS3_ex.g3:2249:1: conditionalExpressionNoIn : logicalORExpressionNoIn (Q= QUE assignmentExpression C= COLON assignmentExpression )? ;
+    // AS3_ex.g3:2254:1: conditionalExpressionNoIn : logicalORExpressionNoIn (Q= QUE assignmentExpression C= COLON assignmentExpression )? ;
     public AS3_exParser.conditionalExpressionNoIn_return conditionalExpressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.conditionalExpressionNoIn_return retval = new AS3_exParser.conditionalExpressionNoIn_return();
@@ -16359,17 +16355,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2250:5: ( logicalORExpressionNoIn (Q= QUE assignmentExpression C= COLON assignmentExpression )? )
-            // AS3_ex.g3:2250:9: logicalORExpressionNoIn (Q= QUE assignmentExpression C= COLON assignmentExpression )?
+            // AS3_ex.g3:2255:5: ( logicalORExpressionNoIn (Q= QUE assignmentExpression C= COLON assignmentExpression )? )
+            // AS3_ex.g3:2255:9: logicalORExpressionNoIn (Q= QUE assignmentExpression C= COLON assignmentExpression )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_logicalORExpressionNoIn_in_conditionalExpressionNoIn10595);
+            	PushFollow(FOLLOW_logicalORExpressionNoIn_in_conditionalExpressionNoIn10600);
             	logicalORExpressionNoIn258 = logicalORExpressionNoIn();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, logicalORExpressionNoIn258.Tree);
-            	// AS3_ex.g3:2250:33: (Q= QUE assignmentExpression C= COLON assignmentExpression )?
+            	// AS3_ex.g3:2255:33: (Q= QUE assignmentExpression C= COLON assignmentExpression )?
             	int alt118 = 2;
             	int LA118_0 = input.LA(1);
 
@@ -16380,9 +16376,9 @@ public class AS3_exParser : Parser
             	switch (alt118) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2250:35: Q= QUE assignmentExpression C= COLON assignmentExpression
+            	        // AS3_ex.g3:2255:35: Q= QUE assignmentExpression C= COLON assignmentExpression
             	        {
-            	        	Q=(IToken)Match(input,QUE,FOLLOW_QUE_in_conditionalExpressionNoIn10601); if (state.failed) return retval;
+            	        	Q=(IToken)Match(input,QUE,FOLLOW_QUE_in_conditionalExpressionNoIn10606); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{Q_tree = (object)adaptor.Create(Q);
             	        		adaptor.AddChild(root_0, Q_tree);
@@ -16391,7 +16387,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  IndentEmit((CommonToken)Q);
             	        	}
-            	        	PushFollow(FOLLOW_assignmentExpression_in_conditionalExpressionNoIn10605);
+            	        	PushFollow(FOLLOW_assignmentExpression_in_conditionalExpressionNoIn10610);
             	        	assignmentExpression259 = assignmentExpression();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -16400,7 +16396,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  PopIndent();
             	        	}
-            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_conditionalExpressionNoIn10612); if (state.failed) return retval;
+            	        	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_conditionalExpressionNoIn10617); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{C_tree = (object)adaptor.Create(C);
             	        		adaptor.AddChild(root_0, C_tree);
@@ -16409,7 +16405,7 @@ public class AS3_exParser : Parser
             	        	{
             	        	  IndentEmit((CommonToken)C);
             	        	}
-            	        	PushFollow(FOLLOW_assignmentExpression_in_conditionalExpressionNoIn10617);
+            	        	PushFollow(FOLLOW_assignmentExpression_in_conditionalExpressionNoIn10622);
             	        	assignmentExpression260 = assignmentExpression();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -16463,7 +16459,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "logicalORExpression"
-    // AS3_ex.g3:2254:1: logicalORExpression : logicalANDExpression (L= LOR logicalANDExpression )* ;
+    // AS3_ex.g3:2259:1: logicalORExpression : logicalANDExpression (L= LOR logicalANDExpression )* ;
     public AS3_exParser.logicalORExpression_return logicalORExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.logicalORExpression_return retval = new AS3_exParser.logicalORExpression_return();
@@ -16485,17 +16481,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2255:5: ( logicalANDExpression (L= LOR logicalANDExpression )* )
-            // AS3_ex.g3:2255:9: logicalANDExpression (L= LOR logicalANDExpression )*
+            // AS3_ex.g3:2260:5: ( logicalANDExpression (L= LOR logicalANDExpression )* )
+            // AS3_ex.g3:2260:9: logicalANDExpression (L= LOR logicalANDExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_logicalANDExpression_in_logicalORExpression10649);
+            	PushFollow(FOLLOW_logicalANDExpression_in_logicalORExpression10654);
             	logicalANDExpression261 = logicalANDExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, logicalANDExpression261.Tree);
-            	// AS3_ex.g3:2255:30: (L= LOR logicalANDExpression )*
+            	// AS3_ex.g3:2260:30: (L= LOR logicalANDExpression )*
             	do 
             	{
             	    int alt119 = 2;
@@ -16510,9 +16506,9 @@ public class AS3_exParser : Parser
             	    switch (alt119) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2255:32: L= LOR logicalANDExpression
+            			    // AS3_ex.g3:2260:32: L= LOR logicalANDExpression
             			    {
-            			    	L=(IToken)Match(input,LOR,FOLLOW_LOR_in_logicalORExpression10655); if (state.failed) return retval;
+            			    	L=(IToken)Match(input,LOR,FOLLOW_LOR_in_logicalORExpression10660); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{L_tree = (object)adaptor.Create(L);
             			    		adaptor.AddChild(root_0, L_tree);
@@ -16521,7 +16517,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)L);
             			    	}
-            			    	PushFollow(FOLLOW_logicalANDExpression_in_logicalORExpression10659);
+            			    	PushFollow(FOLLOW_logicalANDExpression_in_logicalORExpression10664);
             			    	logicalANDExpression262 = logicalANDExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -16581,7 +16577,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "logicalORExpressionNoIn"
-    // AS3_ex.g3:2258:1: logicalORExpressionNoIn : logicalANDExpressionNoIn (L= LOR logicalANDExpressionNoIn )* ;
+    // AS3_ex.g3:2263:1: logicalORExpressionNoIn : logicalANDExpressionNoIn (L= LOR logicalANDExpressionNoIn )* ;
     public AS3_exParser.logicalORExpressionNoIn_return logicalORExpressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.logicalORExpressionNoIn_return retval = new AS3_exParser.logicalORExpressionNoIn_return();
@@ -16603,17 +16599,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2259:5: ( logicalANDExpressionNoIn (L= LOR logicalANDExpressionNoIn )* )
-            // AS3_ex.g3:2259:9: logicalANDExpressionNoIn (L= LOR logicalANDExpressionNoIn )*
+            // AS3_ex.g3:2264:5: ( logicalANDExpressionNoIn (L= LOR logicalANDExpressionNoIn )* )
+            // AS3_ex.g3:2264:9: logicalANDExpressionNoIn (L= LOR logicalANDExpressionNoIn )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_logicalANDExpressionNoIn_in_logicalORExpressionNoIn10687);
+            	PushFollow(FOLLOW_logicalANDExpressionNoIn_in_logicalORExpressionNoIn10692);
             	logicalANDExpressionNoIn263 = logicalANDExpressionNoIn();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, logicalANDExpressionNoIn263.Tree);
-            	// AS3_ex.g3:2259:34: (L= LOR logicalANDExpressionNoIn )*
+            	// AS3_ex.g3:2264:34: (L= LOR logicalANDExpressionNoIn )*
             	do 
             	{
             	    int alt120 = 2;
@@ -16628,9 +16624,9 @@ public class AS3_exParser : Parser
             	    switch (alt120) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2259:36: L= LOR logicalANDExpressionNoIn
+            			    // AS3_ex.g3:2264:36: L= LOR logicalANDExpressionNoIn
             			    {
-            			    	L=(IToken)Match(input,LOR,FOLLOW_LOR_in_logicalORExpressionNoIn10693); if (state.failed) return retval;
+            			    	L=(IToken)Match(input,LOR,FOLLOW_LOR_in_logicalORExpressionNoIn10698); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{L_tree = (object)adaptor.Create(L);
             			    		adaptor.AddChild(root_0, L_tree);
@@ -16639,7 +16635,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)L);
             			    	}
-            			    	PushFollow(FOLLOW_logicalANDExpressionNoIn_in_logicalORExpressionNoIn10697);
+            			    	PushFollow(FOLLOW_logicalANDExpressionNoIn_in_logicalORExpressionNoIn10702);
             			    	logicalANDExpressionNoIn264 = logicalANDExpressionNoIn();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -16699,7 +16695,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "logicalANDExpression"
-    // AS3_ex.g3:2262:1: logicalANDExpression : bitwiseORExpression (L= LAND bitwiseORExpression )* ;
+    // AS3_ex.g3:2267:1: logicalANDExpression : bitwiseORExpression (L= LAND bitwiseORExpression )* ;
     public AS3_exParser.logicalANDExpression_return logicalANDExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.logicalANDExpression_return retval = new AS3_exParser.logicalANDExpression_return();
@@ -16721,17 +16717,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2263:5: ( bitwiseORExpression (L= LAND bitwiseORExpression )* )
-            // AS3_ex.g3:2263:9: bitwiseORExpression (L= LAND bitwiseORExpression )*
+            // AS3_ex.g3:2268:5: ( bitwiseORExpression (L= LAND bitwiseORExpression )* )
+            // AS3_ex.g3:2268:9: bitwiseORExpression (L= LAND bitwiseORExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_bitwiseORExpression_in_logicalANDExpression10729);
+            	PushFollow(FOLLOW_bitwiseORExpression_in_logicalANDExpression10734);
             	bitwiseORExpression265 = bitwiseORExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, bitwiseORExpression265.Tree);
-            	// AS3_ex.g3:2263:29: (L= LAND bitwiseORExpression )*
+            	// AS3_ex.g3:2268:29: (L= LAND bitwiseORExpression )*
             	do 
             	{
             	    int alt121 = 2;
@@ -16746,9 +16742,9 @@ public class AS3_exParser : Parser
             	    switch (alt121) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2263:31: L= LAND bitwiseORExpression
+            			    // AS3_ex.g3:2268:31: L= LAND bitwiseORExpression
             			    {
-            			    	L=(IToken)Match(input,LAND,FOLLOW_LAND_in_logicalANDExpression10735); if (state.failed) return retval;
+            			    	L=(IToken)Match(input,LAND,FOLLOW_LAND_in_logicalANDExpression10740); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{L_tree = (object)adaptor.Create(L);
             			    		adaptor.AddChild(root_0, L_tree);
@@ -16757,7 +16753,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)L);
             			    	}
-            			    	PushFollow(FOLLOW_bitwiseORExpression_in_logicalANDExpression10739);
+            			    	PushFollow(FOLLOW_bitwiseORExpression_in_logicalANDExpression10744);
             			    	bitwiseORExpression266 = bitwiseORExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -16817,7 +16813,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "logicalANDExpressionNoIn"
-    // AS3_ex.g3:2266:1: logicalANDExpressionNoIn : bitwiseORExpressionNoIn (L= LAND bitwiseORExpressionNoIn )* ;
+    // AS3_ex.g3:2271:1: logicalANDExpressionNoIn : bitwiseORExpressionNoIn (L= LAND bitwiseORExpressionNoIn )* ;
     public AS3_exParser.logicalANDExpressionNoIn_return logicalANDExpressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.logicalANDExpressionNoIn_return retval = new AS3_exParser.logicalANDExpressionNoIn_return();
@@ -16839,17 +16835,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2267:5: ( bitwiseORExpressionNoIn (L= LAND bitwiseORExpressionNoIn )* )
-            // AS3_ex.g3:2267:9: bitwiseORExpressionNoIn (L= LAND bitwiseORExpressionNoIn )*
+            // AS3_ex.g3:2272:5: ( bitwiseORExpressionNoIn (L= LAND bitwiseORExpressionNoIn )* )
+            // AS3_ex.g3:2272:9: bitwiseORExpressionNoIn (L= LAND bitwiseORExpressionNoIn )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_bitwiseORExpressionNoIn_in_logicalANDExpressionNoIn10766);
+            	PushFollow(FOLLOW_bitwiseORExpressionNoIn_in_logicalANDExpressionNoIn10771);
             	bitwiseORExpressionNoIn267 = bitwiseORExpressionNoIn();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, bitwiseORExpressionNoIn267.Tree);
-            	// AS3_ex.g3:2267:33: (L= LAND bitwiseORExpressionNoIn )*
+            	// AS3_ex.g3:2272:33: (L= LAND bitwiseORExpressionNoIn )*
             	do 
             	{
             	    int alt122 = 2;
@@ -16864,9 +16860,9 @@ public class AS3_exParser : Parser
             	    switch (alt122) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2267:35: L= LAND bitwiseORExpressionNoIn
+            			    // AS3_ex.g3:2272:35: L= LAND bitwiseORExpressionNoIn
             			    {
-            			    	L=(IToken)Match(input,LAND,FOLLOW_LAND_in_logicalANDExpressionNoIn10772); if (state.failed) return retval;
+            			    	L=(IToken)Match(input,LAND,FOLLOW_LAND_in_logicalANDExpressionNoIn10777); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{L_tree = (object)adaptor.Create(L);
             			    		adaptor.AddChild(root_0, L_tree);
@@ -16875,7 +16871,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)L);
             			    	}
-            			    	PushFollow(FOLLOW_bitwiseORExpressionNoIn_in_logicalANDExpressionNoIn10776);
+            			    	PushFollow(FOLLOW_bitwiseORExpressionNoIn_in_logicalANDExpressionNoIn10781);
             			    	bitwiseORExpressionNoIn268 = bitwiseORExpressionNoIn();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -16935,7 +16931,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "bitwiseORExpression"
-    // AS3_ex.g3:2271:1: bitwiseORExpression : bitwiseXORExpression (O= OR bitwiseXORExpression )* ;
+    // AS3_ex.g3:2276:1: bitwiseORExpression : bitwiseXORExpression (O= OR bitwiseXORExpression )* ;
     public AS3_exParser.bitwiseORExpression_return bitwiseORExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.bitwiseORExpression_return retval = new AS3_exParser.bitwiseORExpression_return();
@@ -16957,17 +16953,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2272:5: ( bitwiseXORExpression (O= OR bitwiseXORExpression )* )
-            // AS3_ex.g3:2272:9: bitwiseXORExpression (O= OR bitwiseXORExpression )*
+            // AS3_ex.g3:2277:5: ( bitwiseXORExpression (O= OR bitwiseXORExpression )* )
+            // AS3_ex.g3:2277:9: bitwiseXORExpression (O= OR bitwiseXORExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_bitwiseXORExpression_in_bitwiseORExpression10808);
+            	PushFollow(FOLLOW_bitwiseXORExpression_in_bitwiseORExpression10813);
             	bitwiseXORExpression269 = bitwiseXORExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, bitwiseXORExpression269.Tree);
-            	// AS3_ex.g3:2272:30: (O= OR bitwiseXORExpression )*
+            	// AS3_ex.g3:2277:30: (O= OR bitwiseXORExpression )*
             	do 
             	{
             	    int alt123 = 2;
@@ -16982,9 +16978,9 @@ public class AS3_exParser : Parser
             	    switch (alt123) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2272:32: O= OR bitwiseXORExpression
+            			    // AS3_ex.g3:2277:32: O= OR bitwiseXORExpression
             			    {
-            			    	O=(IToken)Match(input,OR,FOLLOW_OR_in_bitwiseORExpression10814); if (state.failed) return retval;
+            			    	O=(IToken)Match(input,OR,FOLLOW_OR_in_bitwiseORExpression10819); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{O_tree = (object)adaptor.Create(O);
             			    		adaptor.AddChild(root_0, O_tree);
@@ -16993,7 +16989,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)O);
             			    	}
-            			    	PushFollow(FOLLOW_bitwiseXORExpression_in_bitwiseORExpression10818);
+            			    	PushFollow(FOLLOW_bitwiseXORExpression_in_bitwiseORExpression10823);
             			    	bitwiseXORExpression270 = bitwiseXORExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -17053,7 +17049,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "bitwiseORExpressionNoIn"
-    // AS3_ex.g3:2275:1: bitwiseORExpressionNoIn : bitwiseXORExpressionNoIn (O= OR bitwiseXORExpressionNoIn )* ;
+    // AS3_ex.g3:2280:1: bitwiseORExpressionNoIn : bitwiseXORExpressionNoIn (O= OR bitwiseXORExpressionNoIn )* ;
     public AS3_exParser.bitwiseORExpressionNoIn_return bitwiseORExpressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.bitwiseORExpressionNoIn_return retval = new AS3_exParser.bitwiseORExpressionNoIn_return();
@@ -17075,17 +17071,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2276:5: ( bitwiseXORExpressionNoIn (O= OR bitwiseXORExpressionNoIn )* )
-            // AS3_ex.g3:2276:9: bitwiseXORExpressionNoIn (O= OR bitwiseXORExpressionNoIn )*
+            // AS3_ex.g3:2281:5: ( bitwiseXORExpressionNoIn (O= OR bitwiseXORExpressionNoIn )* )
+            // AS3_ex.g3:2281:9: bitwiseXORExpressionNoIn (O= OR bitwiseXORExpressionNoIn )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_bitwiseXORExpressionNoIn_in_bitwiseORExpressionNoIn10845);
+            	PushFollow(FOLLOW_bitwiseXORExpressionNoIn_in_bitwiseORExpressionNoIn10850);
             	bitwiseXORExpressionNoIn271 = bitwiseXORExpressionNoIn();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, bitwiseXORExpressionNoIn271.Tree);
-            	// AS3_ex.g3:2276:34: (O= OR bitwiseXORExpressionNoIn )*
+            	// AS3_ex.g3:2281:34: (O= OR bitwiseXORExpressionNoIn )*
             	do 
             	{
             	    int alt124 = 2;
@@ -17100,9 +17096,9 @@ public class AS3_exParser : Parser
             	    switch (alt124) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2276:36: O= OR bitwiseXORExpressionNoIn
+            			    // AS3_ex.g3:2281:36: O= OR bitwiseXORExpressionNoIn
             			    {
-            			    	O=(IToken)Match(input,OR,FOLLOW_OR_in_bitwiseORExpressionNoIn10851); if (state.failed) return retval;
+            			    	O=(IToken)Match(input,OR,FOLLOW_OR_in_bitwiseORExpressionNoIn10856); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{O_tree = (object)adaptor.Create(O);
             			    		adaptor.AddChild(root_0, O_tree);
@@ -17111,7 +17107,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)O);
             			    	}
-            			    	PushFollow(FOLLOW_bitwiseXORExpressionNoIn_in_bitwiseORExpressionNoIn10855);
+            			    	PushFollow(FOLLOW_bitwiseXORExpressionNoIn_in_bitwiseORExpressionNoIn10860);
             			    	bitwiseXORExpressionNoIn272 = bitwiseXORExpressionNoIn();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -17171,7 +17167,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "bitwiseXORExpression"
-    // AS3_ex.g3:2279:1: bitwiseXORExpression : bitwiseANDExpression (x= XOR bitwiseANDExpression )* ;
+    // AS3_ex.g3:2284:1: bitwiseXORExpression : bitwiseANDExpression (x= XOR bitwiseANDExpression )* ;
     public AS3_exParser.bitwiseXORExpression_return bitwiseXORExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.bitwiseXORExpression_return retval = new AS3_exParser.bitwiseXORExpression_return();
@@ -17193,17 +17189,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2280:5: ( bitwiseANDExpression (x= XOR bitwiseANDExpression )* )
-            // AS3_ex.g3:2280:9: bitwiseANDExpression (x= XOR bitwiseANDExpression )*
+            // AS3_ex.g3:2285:5: ( bitwiseANDExpression (x= XOR bitwiseANDExpression )* )
+            // AS3_ex.g3:2285:9: bitwiseANDExpression (x= XOR bitwiseANDExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_bitwiseANDExpression_in_bitwiseXORExpression10886);
+            	PushFollow(FOLLOW_bitwiseANDExpression_in_bitwiseXORExpression10891);
             	bitwiseANDExpression273 = bitwiseANDExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, bitwiseANDExpression273.Tree);
-            	// AS3_ex.g3:2280:30: (x= XOR bitwiseANDExpression )*
+            	// AS3_ex.g3:2285:30: (x= XOR bitwiseANDExpression )*
             	do 
             	{
             	    int alt125 = 2;
@@ -17218,9 +17214,9 @@ public class AS3_exParser : Parser
             	    switch (alt125) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2280:32: x= XOR bitwiseANDExpression
+            			    // AS3_ex.g3:2285:32: x= XOR bitwiseANDExpression
             			    {
-            			    	x=(IToken)Match(input,XOR,FOLLOW_XOR_in_bitwiseXORExpression10892); if (state.failed) return retval;
+            			    	x=(IToken)Match(input,XOR,FOLLOW_XOR_in_bitwiseXORExpression10897); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{x_tree = (object)adaptor.Create(x);
             			    		adaptor.AddChild(root_0, x_tree);
@@ -17229,7 +17225,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)x);
             			    	}
-            			    	PushFollow(FOLLOW_bitwiseANDExpression_in_bitwiseXORExpression10896);
+            			    	PushFollow(FOLLOW_bitwiseANDExpression_in_bitwiseXORExpression10901);
             			    	bitwiseANDExpression274 = bitwiseANDExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -17289,7 +17285,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "bitwiseXORExpressionNoIn"
-    // AS3_ex.g3:2283:1: bitwiseXORExpressionNoIn : bitwiseANDExpressionNoIn (x= XOR bitwiseANDExpressionNoIn )* ;
+    // AS3_ex.g3:2288:1: bitwiseXORExpressionNoIn : bitwiseANDExpressionNoIn (x= XOR bitwiseANDExpressionNoIn )* ;
     public AS3_exParser.bitwiseXORExpressionNoIn_return bitwiseXORExpressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.bitwiseXORExpressionNoIn_return retval = new AS3_exParser.bitwiseXORExpressionNoIn_return();
@@ -17311,17 +17307,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2284:5: ( bitwiseANDExpressionNoIn (x= XOR bitwiseANDExpressionNoIn )* )
-            // AS3_ex.g3:2284:9: bitwiseANDExpressionNoIn (x= XOR bitwiseANDExpressionNoIn )*
+            // AS3_ex.g3:2289:5: ( bitwiseANDExpressionNoIn (x= XOR bitwiseANDExpressionNoIn )* )
+            // AS3_ex.g3:2289:9: bitwiseANDExpressionNoIn (x= XOR bitwiseANDExpressionNoIn )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_bitwiseANDExpressionNoIn_in_bitwiseXORExpressionNoIn10923);
+            	PushFollow(FOLLOW_bitwiseANDExpressionNoIn_in_bitwiseXORExpressionNoIn10928);
             	bitwiseANDExpressionNoIn275 = bitwiseANDExpressionNoIn();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, bitwiseANDExpressionNoIn275.Tree);
-            	// AS3_ex.g3:2284:34: (x= XOR bitwiseANDExpressionNoIn )*
+            	// AS3_ex.g3:2289:34: (x= XOR bitwiseANDExpressionNoIn )*
             	do 
             	{
             	    int alt126 = 2;
@@ -17336,9 +17332,9 @@ public class AS3_exParser : Parser
             	    switch (alt126) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2284:36: x= XOR bitwiseANDExpressionNoIn
+            			    // AS3_ex.g3:2289:36: x= XOR bitwiseANDExpressionNoIn
             			    {
-            			    	x=(IToken)Match(input,XOR,FOLLOW_XOR_in_bitwiseXORExpressionNoIn10929); if (state.failed) return retval;
+            			    	x=(IToken)Match(input,XOR,FOLLOW_XOR_in_bitwiseXORExpressionNoIn10934); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{x_tree = (object)adaptor.Create(x);
             			    		adaptor.AddChild(root_0, x_tree);
@@ -17347,7 +17343,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)x);
             			    	}
-            			    	PushFollow(FOLLOW_bitwiseANDExpressionNoIn_in_bitwiseXORExpressionNoIn10933);
+            			    	PushFollow(FOLLOW_bitwiseANDExpressionNoIn_in_bitwiseXORExpressionNoIn10938);
             			    	bitwiseANDExpressionNoIn276 = bitwiseANDExpressionNoIn();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -17407,7 +17403,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "bitwiseANDExpression"
-    // AS3_ex.g3:2287:1: bitwiseANDExpression : equalityExpression (A= AND equalityExpression )* ;
+    // AS3_ex.g3:2292:1: bitwiseANDExpression : equalityExpression (A= AND equalityExpression )* ;
     public AS3_exParser.bitwiseANDExpression_return bitwiseANDExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.bitwiseANDExpression_return retval = new AS3_exParser.bitwiseANDExpression_return();
@@ -17429,17 +17425,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2288:5: ( equalityExpression (A= AND equalityExpression )* )
-            // AS3_ex.g3:2288:9: equalityExpression (A= AND equalityExpression )*
+            // AS3_ex.g3:2293:5: ( equalityExpression (A= AND equalityExpression )* )
+            // AS3_ex.g3:2293:9: equalityExpression (A= AND equalityExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_equalityExpression_in_bitwiseANDExpression10960);
+            	PushFollow(FOLLOW_equalityExpression_in_bitwiseANDExpression10965);
             	equalityExpression277 = equalityExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, equalityExpression277.Tree);
-            	// AS3_ex.g3:2288:28: (A= AND equalityExpression )*
+            	// AS3_ex.g3:2293:28: (A= AND equalityExpression )*
             	do 
             	{
             	    int alt127 = 2;
@@ -17454,9 +17450,9 @@ public class AS3_exParser : Parser
             	    switch (alt127) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2288:30: A= AND equalityExpression
+            			    // AS3_ex.g3:2293:30: A= AND equalityExpression
             			    {
-            			    	A=(IToken)Match(input,AND,FOLLOW_AND_in_bitwiseANDExpression10966); if (state.failed) return retval;
+            			    	A=(IToken)Match(input,AND,FOLLOW_AND_in_bitwiseANDExpression10971); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{A_tree = (object)adaptor.Create(A);
             			    		adaptor.AddChild(root_0, A_tree);
@@ -17465,7 +17461,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)A);
             			    	}
-            			    	PushFollow(FOLLOW_equalityExpression_in_bitwiseANDExpression10970);
+            			    	PushFollow(FOLLOW_equalityExpression_in_bitwiseANDExpression10975);
             			    	equalityExpression278 = equalityExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -17525,7 +17521,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "bitwiseANDExpressionNoIn"
-    // AS3_ex.g3:2291:1: bitwiseANDExpressionNoIn : equalityExpressionNoIn (A= AND equalityExpressionNoIn )* ;
+    // AS3_ex.g3:2296:1: bitwiseANDExpressionNoIn : equalityExpressionNoIn (A= AND equalityExpressionNoIn )* ;
     public AS3_exParser.bitwiseANDExpressionNoIn_return bitwiseANDExpressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.bitwiseANDExpressionNoIn_return retval = new AS3_exParser.bitwiseANDExpressionNoIn_return();
@@ -17547,17 +17543,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2292:5: ( equalityExpressionNoIn (A= AND equalityExpressionNoIn )* )
-            // AS3_ex.g3:2292:9: equalityExpressionNoIn (A= AND equalityExpressionNoIn )*
+            // AS3_ex.g3:2297:5: ( equalityExpressionNoIn (A= AND equalityExpressionNoIn )* )
+            // AS3_ex.g3:2297:9: equalityExpressionNoIn (A= AND equalityExpressionNoIn )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_equalityExpressionNoIn_in_bitwiseANDExpressionNoIn10997);
+            	PushFollow(FOLLOW_equalityExpressionNoIn_in_bitwiseANDExpressionNoIn11002);
             	equalityExpressionNoIn279 = equalityExpressionNoIn();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, equalityExpressionNoIn279.Tree);
-            	// AS3_ex.g3:2292:32: (A= AND equalityExpressionNoIn )*
+            	// AS3_ex.g3:2297:32: (A= AND equalityExpressionNoIn )*
             	do 
             	{
             	    int alt128 = 2;
@@ -17572,9 +17568,9 @@ public class AS3_exParser : Parser
             	    switch (alt128) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2292:34: A= AND equalityExpressionNoIn
+            			    // AS3_ex.g3:2297:34: A= AND equalityExpressionNoIn
             			    {
-            			    	A=(IToken)Match(input,AND,FOLLOW_AND_in_bitwiseANDExpressionNoIn11003); if (state.failed) return retval;
+            			    	A=(IToken)Match(input,AND,FOLLOW_AND_in_bitwiseANDExpressionNoIn11008); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{A_tree = (object)adaptor.Create(A);
             			    		adaptor.AddChild(root_0, A_tree);
@@ -17583,7 +17579,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)A);
             			    	}
-            			    	PushFollow(FOLLOW_equalityExpressionNoIn_in_bitwiseANDExpressionNoIn11007);
+            			    	PushFollow(FOLLOW_equalityExpressionNoIn_in_bitwiseANDExpressionNoIn11012);
             			    	equalityExpressionNoIn280 = equalityExpressionNoIn();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -17643,7 +17639,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "equalityExpression"
-    // AS3_ex.g3:2296:1: equalityExpression : relationalExpression (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression )* ;
+    // AS3_ex.g3:2301:1: equalityExpression : relationalExpression (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression )* ;
     public AS3_exParser.equalityExpression_return equalityExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.equalityExpression_return retval = new AS3_exParser.equalityExpression_return();
@@ -17665,17 +17661,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2297:5: ( relationalExpression (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression )* )
-            // AS3_ex.g3:2297:9: relationalExpression (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression )*
+            // AS3_ex.g3:2302:5: ( relationalExpression (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression )* )
+            // AS3_ex.g3:2302:9: relationalExpression (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_relationalExpression_in_equalityExpression11035);
+            	PushFollow(FOLLOW_relationalExpression_in_equalityExpression11040);
             	relationalExpression281 = relationalExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, relationalExpression281.Tree);
-            	// AS3_ex.g3:2297:30: (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression )*
+            	// AS3_ex.g3:2302:30: (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression )*
             	do 
             	{
             	    int alt129 = 2;
@@ -17690,7 +17686,7 @@ public class AS3_exParser : Parser
             	    switch (alt129) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2297:32: eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression
+            			    // AS3_ex.g3:2302:32: eq= ( EQ | NEQ | SAME | NSAME ) relationalExpression
             			    {
             			    	eq = (IToken)input.LT(1);
             			    	if ( (input.LA(1) >= EQ && input.LA(1) <= NSAME) ) 
@@ -17710,7 +17706,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)eq);
             			    	}
-            			    	PushFollow(FOLLOW_relationalExpression_in_equalityExpression11053);
+            			    	PushFollow(FOLLOW_relationalExpression_in_equalityExpression11058);
             			    	relationalExpression282 = relationalExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -17770,7 +17766,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "equalityExpressionNoIn"
-    // AS3_ex.g3:2300:1: equalityExpressionNoIn : relationalExpressionNoIn (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn )* ;
+    // AS3_ex.g3:2305:1: equalityExpressionNoIn : relationalExpressionNoIn (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn )* ;
     public AS3_exParser.equalityExpressionNoIn_return equalityExpressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.equalityExpressionNoIn_return retval = new AS3_exParser.equalityExpressionNoIn_return();
@@ -17792,17 +17788,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2301:5: ( relationalExpressionNoIn (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn )* )
-            // AS3_ex.g3:2301:9: relationalExpressionNoIn (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn )*
+            // AS3_ex.g3:2306:5: ( relationalExpressionNoIn (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn )* )
+            // AS3_ex.g3:2306:9: relationalExpressionNoIn (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_relationalExpressionNoIn_in_equalityExpressionNoIn11080);
+            	PushFollow(FOLLOW_relationalExpressionNoIn_in_equalityExpressionNoIn11085);
             	relationalExpressionNoIn283 = relationalExpressionNoIn();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, relationalExpressionNoIn283.Tree);
-            	// AS3_ex.g3:2301:34: (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn )*
+            	// AS3_ex.g3:2306:34: (eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn )*
             	do 
             	{
             	    int alt130 = 2;
@@ -17817,7 +17813,7 @@ public class AS3_exParser : Parser
             	    switch (alt130) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2301:36: eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn
+            			    // AS3_ex.g3:2306:36: eq= ( EQ | NEQ | SAME | NSAME ) relationalExpressionNoIn
             			    {
             			    	eq = (IToken)input.LT(1);
             			    	if ( (input.LA(1) >= EQ && input.LA(1) <= NSAME) ) 
@@ -17837,7 +17833,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)eq);
             			    	}
-            			    	PushFollow(FOLLOW_relationalExpressionNoIn_in_equalityExpressionNoIn11099);
+            			    	PushFollow(FOLLOW_relationalExpressionNoIn_in_equalityExpressionNoIn11104);
             			    	relationalExpressionNoIn284 = relationalExpressionNoIn();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -17897,7 +17893,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "relationalExpression"
-    // AS3_ex.g3:2305:1: relationalExpression : shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )* ;
+    // AS3_ex.g3:2310:1: relationalExpression : shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )* ;
     public AS3_exParser.relationalExpression_return relationalExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.relationalExpression_return retval = new AS3_exParser.relationalExpression_return();
@@ -17923,17 +17919,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2306:5: ( shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )* )
-            // AS3_ex.g3:2306:9: shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*
+            // AS3_ex.g3:2311:5: ( shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )* )
+            // AS3_ex.g3:2311:9: shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_shiftExpression_in_relationalExpression11127);
+            	PushFollow(FOLLOW_shiftExpression_in_relationalExpression11132);
             	shiftExpression285 = shiftExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, shiftExpression285.Tree);
-            	// AS3_ex.g3:2307:6: ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*
+            	// AS3_ex.g3:2312:6: ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*
             	do 
             	{
             	    int alt133 = 2;
@@ -17941,9 +17937,9 @@ public class AS3_exParser : Parser
             	    switch (alt133) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2308:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression
+            			    // AS3_ex.g3:2313:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression
             			    {
-            			    	// AS3_ex.g3:2308:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) )
+            			    	// AS3_ex.g3:2313:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) )
             			    	int alt132 = 2;
             			    	int LA132_0 = input.LA(1);
 
@@ -17966,14 +17962,14 @@ public class AS3_exParser : Parser
             			    	switch (alt132) 
             			    	{
             			    	    case 1 :
-            			    	        // AS3_ex.g3:2308:9: g= GT (assign= ASSIGN )?
+            			    	        // AS3_ex.g3:2313:9: g= GT (assign= ASSIGN )?
             			    	        {
-            			    	        	g=(IToken)Match(input,GT,FOLLOW_GT_in_relationalExpression11147); if (state.failed) return retval;
+            			    	        	g=(IToken)Match(input,GT,FOLLOW_GT_in_relationalExpression11152); if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 )
             			    	        	{g_tree = (object)adaptor.Create(g);
             			    	        		adaptor.AddChild(root_0, g_tree);
             			    	        	}
-            			    	        	// AS3_ex.g3:2308:14: (assign= ASSIGN )?
+            			    	        	// AS3_ex.g3:2313:14: (assign= ASSIGN )?
             			    	        	int alt131 = 2;
             			    	        	int LA131_0 = input.LA(1);
 
@@ -17984,9 +17980,9 @@ public class AS3_exParser : Parser
             			    	        	switch (alt131) 
             			    	        	{
             			    	        	    case 1 :
-            			    	        	        // AS3_ex.g3:2308:15: assign= ASSIGN
+            			    	        	        // AS3_ex.g3:2313:15: assign= ASSIGN
             			    	        	        {
-            			    	        	        	assign=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_relationalExpression11152); if (state.failed) return retval;
+            			    	        	        	assign=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_relationalExpression11157); if (state.failed) return retval;
             			    	        	        	if ( state.backtracking == 0 )
             			    	        	        	{assign_tree = (object)adaptor.Create(assign);
             			    	        	        		adaptor.AddChild(root_0, assign_tree);
@@ -18011,7 +18007,7 @@ public class AS3_exParser : Parser
             			    	        }
             			    	        break;
             			    	    case 2 :
-            			    	        // AS3_ex.g3:2316:14: eq= ( IN | LT | LTE | INSTANCEOF | IS | AS )
+            			    	        // AS3_ex.g3:2321:14: eq= ( IN | LT | LTE | INSTANCEOF | IS | AS )
             			    	        {
             			    	        	eq = (IToken)input.LT(1);
             			    	        	if ( input.LA(1) == AS || (input.LA(1) >= IN && input.LA(1) <= INSTANCEOF) || input.LA(1) == IS || input.LA(1) == LT || input.LA(1) == LTE ) 
@@ -18037,7 +18033,7 @@ public class AS3_exParser : Parser
 
             			    	}
 
-            			    	PushFollow(FOLLOW_shiftExpression_in_relationalExpression11223);
+            			    	PushFollow(FOLLOW_shiftExpression_in_relationalExpression11228);
             			    	shiftExpression286 = shiftExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -18097,7 +18093,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "relationalExpressionNoIn"
-    // AS3_ex.g3:2322:1: relationalExpressionNoIn : shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )* ;
+    // AS3_ex.g3:2327:1: relationalExpressionNoIn : shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )* ;
     public AS3_exParser.relationalExpressionNoIn_return relationalExpressionNoIn() // throws RecognitionException [1]
     {   
         AS3_exParser.relationalExpressionNoIn_return retval = new AS3_exParser.relationalExpressionNoIn_return();
@@ -18123,17 +18119,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2323:5: ( shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )* )
-            // AS3_ex.g3:2323:9: shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*
+            // AS3_ex.g3:2328:5: ( shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )* )
+            // AS3_ex.g3:2328:9: shiftExpression ( (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_shiftExpression_in_relationalExpressionNoIn11259);
+            	PushFollow(FOLLOW_shiftExpression_in_relationalExpressionNoIn11264);
             	shiftExpression287 = shiftExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, shiftExpression287.Tree);
-            	// AS3_ex.g3:2324:6: ( (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*
+            	// AS3_ex.g3:2329:6: ( (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*
             	do 
             	{
             	    int alt136 = 2;
@@ -18148,9 +18144,9 @@ public class AS3_exParser : Parser
             	    switch (alt136) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2325:7: (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression
+            			    // AS3_ex.g3:2330:7: (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression
             			    {
-            			    	// AS3_ex.g3:2325:7: (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) )
+            			    	// AS3_ex.g3:2330:7: (g= GT (assign= ASSIGN )? | eq= ( LT | LTE | INSTANCEOF | IS | AS ) )
             			    	int alt135 = 2;
             			    	int LA135_0 = input.LA(1);
 
@@ -18173,14 +18169,14 @@ public class AS3_exParser : Parser
             			    	switch (alt135) 
             			    	{
             			    	    case 1 :
-            			    	        // AS3_ex.g3:2325:9: g= GT (assign= ASSIGN )?
+            			    	        // AS3_ex.g3:2330:9: g= GT (assign= ASSIGN )?
             			    	        {
-            			    	        	g=(IToken)Match(input,GT,FOLLOW_GT_in_relationalExpressionNoIn11279); if (state.failed) return retval;
+            			    	        	g=(IToken)Match(input,GT,FOLLOW_GT_in_relationalExpressionNoIn11284); if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 )
             			    	        	{g_tree = (object)adaptor.Create(g);
             			    	        		adaptor.AddChild(root_0, g_tree);
             			    	        	}
-            			    	        	// AS3_ex.g3:2325:14: (assign= ASSIGN )?
+            			    	        	// AS3_ex.g3:2330:14: (assign= ASSIGN )?
             			    	        	int alt134 = 2;
             			    	        	int LA134_0 = input.LA(1);
 
@@ -18191,9 +18187,9 @@ public class AS3_exParser : Parser
             			    	        	switch (alt134) 
             			    	        	{
             			    	        	    case 1 :
-            			    	        	        // AS3_ex.g3:2325:15: assign= ASSIGN
+            			    	        	        // AS3_ex.g3:2330:15: assign= ASSIGN
             			    	        	        {
-            			    	        	        	assign=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_relationalExpressionNoIn11284); if (state.failed) return retval;
+            			    	        	        	assign=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_relationalExpressionNoIn11289); if (state.failed) return retval;
             			    	        	        	if ( state.backtracking == 0 )
             			    	        	        	{assign_tree = (object)adaptor.Create(assign);
             			    	        	        		adaptor.AddChild(root_0, assign_tree);
@@ -18218,7 +18214,7 @@ public class AS3_exParser : Parser
             			    	        }
             			    	        break;
             			    	    case 2 :
-            			    	        // AS3_ex.g3:2333:14: eq= ( LT | LTE | INSTANCEOF | IS | AS )
+            			    	        // AS3_ex.g3:2338:14: eq= ( LT | LTE | INSTANCEOF | IS | AS )
             			    	        {
             			    	        	eq = (IToken)input.LT(1);
             			    	        	if ( input.LA(1) == AS || input.LA(1) == INSTANCEOF || input.LA(1) == IS || input.LA(1) == LT || input.LA(1) == LTE ) 
@@ -18244,7 +18240,7 @@ public class AS3_exParser : Parser
 
             			    	}
 
-            			    	PushFollow(FOLLOW_shiftExpression_in_relationalExpressionNoIn11353);
+            			    	PushFollow(FOLLOW_shiftExpression_in_relationalExpressionNoIn11358);
             			    	shiftExpression288 = shiftExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -18304,7 +18300,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "shiftExpression"
-    // AS3_ex.g3:2340:1: shiftExpression : additiveExpression ( (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression )* ;
+    // AS3_ex.g3:2345:1: shiftExpression : additiveExpression ( (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression )* ;
     public AS3_exParser.shiftExpression_return shiftExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.shiftExpression_return retval = new AS3_exParser.shiftExpression_return();
@@ -18332,15 +18328,15 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2341:5: ( additiveExpression ( (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression )* )
-            // AS3_ex.g3:2341:9: additiveExpression ( (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression )*
+            // AS3_ex.g3:2346:5: ( additiveExpression ( (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression )* )
+            // AS3_ex.g3:2346:9: additiveExpression ( (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression )*
             {
-            	PushFollow(FOLLOW_additiveExpression_in_shiftExpression11386);
+            	PushFollow(FOLLOW_additiveExpression_in_shiftExpression11391);
             	additiveExpression289 = additiveExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) stream_additiveExpression.Add(additiveExpression289.Tree);
-            	// AS3_ex.g3:2341:28: ( (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression )*
+            	// AS3_ex.g3:2346:28: ( (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression )*
             	do 
             	{
             	    int alt138 = 2;
@@ -18366,9 +18362,9 @@ public class AS3_exParser : Parser
             	    switch (alt138) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2342:7: (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression
+            			    // AS3_ex.g3:2347:7: (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) ) additiveExpression
             			    {
-            			    	// AS3_ex.g3:2342:7: (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) )
+            			    	// AS3_ex.g3:2347:7: (t1= SHL | ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR ) | ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU ) )
             			    	int alt137 = 3;
             			    	int LA137_0 = input.LA(1);
 
@@ -18384,7 +18380,7 @@ public class AS3_exParser : Parser
             			    	    {
             			    	        int LA137_3 = input.LA(3);
 
-            			    	        if ( (LA137_3 == GT) && (synpred285_AS3_ex()) )
+            			    	        if ( (LA137_3 == GT) && (synpred283_AS3_ex()) )
             			    	        {
             			    	            alt137 = 3;
             			    	        }
@@ -18421,24 +18417,24 @@ public class AS3_exParser : Parser
             			    	switch (alt137) 
             			    	{
             			    	    case 1 :
-            			    	        // AS3_ex.g3:2343:8: t1= SHL
+            			    	        // AS3_ex.g3:2348:8: t1= SHL
             			    	        {
-            			    	        	t1=(IToken)Match(input,SHL,FOLLOW_SHL_in_shiftExpression11408); if (state.failed) return retval; 
+            			    	        	t1=(IToken)Match(input,SHL,FOLLOW_SHL_in_shiftExpression11413); if (state.failed) return retval; 
             			    	        	if ( state.backtracking==0 ) stream_SHL.Add(t1);
 
 
             			    	        }
             			    	        break;
             			    	    case 2 :
-            			    	        // AS3_ex.g3:2344:11: ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR )
+            			    	        // AS3_ex.g3:2349:11: ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR )
             			    	        {
-            			    	        	// AS3_ex.g3:2344:11: ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR )
-            			    	        	// AS3_ex.g3:2344:12: ( '>' '>' )=>t1= '>' t2= '>' {...}?
+            			    	        	// AS3_ex.g3:2349:11: ( ( '>' '>' )=>t1= '>' t2= '>' {...}? -> SHR )
+            			    	        	// AS3_ex.g3:2349:12: ( '>' '>' )=>t1= '>' t2= '>' {...}?
             			    	        	{
-            			    	        		t1=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11430); if (state.failed) return retval; 
+            			    	        		t1=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11435); if (state.failed) return retval; 
             			    	        		if ( state.backtracking==0 ) stream_GT.Add(t1);
 
-            			    	        		t2=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11434); if (state.failed) return retval; 
+            			    	        		t2=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11439); if (state.failed) return retval; 
             			    	        		if ( state.backtracking==0 ) stream_GT.Add(t2);
 
             			    	        		if ( !(( t1.Line == t2.Line && 
@@ -18460,7 +18456,7 @@ public class AS3_exParser : Parser
             			    	        		RewriteRuleSubtreeStream stream_retval = new RewriteRuleSubtreeStream(adaptor, "token retval", (retval!=null ? retval.Tree : null));
 
             			    	        		root_0 = (object)adaptor.GetNilNode();
-            			    	        		// 2347:10: -> SHR
+            			    	        		// 2352:10: -> SHR
             			    	        		{
             			    	        		    adaptor.AddChild(root_0, (object)adaptor.Create(SHR, "SHR"));
 
@@ -18477,18 +18473,18 @@ public class AS3_exParser : Parser
             			    	        }
             			    	        break;
             			    	    case 3 :
-            			    	        // AS3_ex.g3:2348:10: ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU )
+            			    	        // AS3_ex.g3:2353:10: ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU )
             			    	        {
-            			    	        	// AS3_ex.g3:2348:10: ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU )
-            			    	        	// AS3_ex.g3:2348:11: ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}?
+            			    	        	// AS3_ex.g3:2353:10: ( ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}? -> SHU )
+            			    	        	// AS3_ex.g3:2353:11: ( '>' '>' '>' )=>t1= '>' t2= '>' t3= '>' {...}?
             			    	        	{
-            			    	        		t1=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11485); if (state.failed) return retval; 
+            			    	        		t1=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11490); if (state.failed) return retval; 
             			    	        		if ( state.backtracking==0 ) stream_GT.Add(t1);
 
-            			    	        		t2=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11489); if (state.failed) return retval; 
+            			    	        		t2=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11494); if (state.failed) return retval; 
             			    	        		if ( state.backtracking==0 ) stream_GT.Add(t2);
 
-            			    	        		t3=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11493); if (state.failed) return retval; 
+            			    	        		t3=(IToken)Match(input,GT,FOLLOW_GT_in_shiftExpression11498); if (state.failed) return retval; 
             			    	        		if ( state.backtracking==0 ) stream_GT.Add(t3);
 
             			    	        		if ( !(( t1.Line == t2.Line && 
@@ -18512,7 +18508,7 @@ public class AS3_exParser : Parser
             			    	        		RewriteRuleSubtreeStream stream_retval = new RewriteRuleSubtreeStream(adaptor, "token retval", (retval!=null ? retval.Tree : null));
 
             			    	        		root_0 = (object)adaptor.GetNilNode();
-            			    	        		// 2353:10: -> SHU
+            			    	        		// 2358:10: -> SHU
             			    	        		{
             			    	        		    adaptor.AddChild(root_0, (object)adaptor.Create(SHU, "SHU"));
 
@@ -18535,7 +18531,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)t1);
             			    	}
-            			    	PushFollow(FOLLOW_additiveExpression_in_shiftExpression11540);
+            			    	PushFollow(FOLLOW_additiveExpression_in_shiftExpression11545);
             			    	additiveExpression290 = additiveExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -18595,7 +18591,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "additiveExpression"
-    // AS3_ex.g3:2360:1: additiveExpression : multiplicativeExpression (op= ( PLUS | SUB ) multiplicativeExpression )* ;
+    // AS3_ex.g3:2365:1: additiveExpression : multiplicativeExpression (op= ( PLUS | SUB ) multiplicativeExpression )* ;
     public AS3_exParser.additiveExpression_return additiveExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.additiveExpression_return retval = new AS3_exParser.additiveExpression_return();
@@ -18617,17 +18613,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2361:5: ( multiplicativeExpression (op= ( PLUS | SUB ) multiplicativeExpression )* )
-            // AS3_ex.g3:2361:9: multiplicativeExpression (op= ( PLUS | SUB ) multiplicativeExpression )*
+            // AS3_ex.g3:2366:5: ( multiplicativeExpression (op= ( PLUS | SUB ) multiplicativeExpression )* )
+            // AS3_ex.g3:2366:9: multiplicativeExpression (op= ( PLUS | SUB ) multiplicativeExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_multiplicativeExpression_in_additiveExpression11570);
+            	PushFollow(FOLLOW_multiplicativeExpression_in_additiveExpression11575);
             	multiplicativeExpression291 = multiplicativeExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, multiplicativeExpression291.Tree);
-            	// AS3_ex.g3:2361:34: (op= ( PLUS | SUB ) multiplicativeExpression )*
+            	// AS3_ex.g3:2366:34: (op= ( PLUS | SUB ) multiplicativeExpression )*
             	do 
             	{
             	    int alt139 = 2;
@@ -18635,7 +18631,7 @@ public class AS3_exParser : Parser
             	    switch (alt139) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2361:36: op= ( PLUS | SUB ) multiplicativeExpression
+            			    // AS3_ex.g3:2366:36: op= ( PLUS | SUB ) multiplicativeExpression
             			    {
             			    	op = (IToken)input.LT(1);
             			    	if ( (input.LA(1) >= PLUS && input.LA(1) <= SUB) ) 
@@ -18655,7 +18651,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)op);
             			    	}
-            			    	PushFollow(FOLLOW_multiplicativeExpression_in_additiveExpression11584);
+            			    	PushFollow(FOLLOW_multiplicativeExpression_in_additiveExpression11589);
             			    	multiplicativeExpression292 = multiplicativeExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -18715,7 +18711,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "multiplicativeExpression"
-    // AS3_ex.g3:2365:1: multiplicativeExpression : unaryExpression (op= ( STAR | DIV | MOD ) unaryExpression )* ;
+    // AS3_ex.g3:2370:1: multiplicativeExpression : unaryExpression (op= ( STAR | DIV | MOD ) unaryExpression )* ;
     public AS3_exParser.multiplicativeExpression_return multiplicativeExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.multiplicativeExpression_return retval = new AS3_exParser.multiplicativeExpression_return();
@@ -18737,17 +18733,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2366:5: ( unaryExpression (op= ( STAR | DIV | MOD ) unaryExpression )* )
-            // AS3_ex.g3:2366:9: unaryExpression (op= ( STAR | DIV | MOD ) unaryExpression )*
+            // AS3_ex.g3:2371:5: ( unaryExpression (op= ( STAR | DIV | MOD ) unaryExpression )* )
+            // AS3_ex.g3:2371:9: unaryExpression (op= ( STAR | DIV | MOD ) unaryExpression )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_unaryExpression_in_multiplicativeExpression11608);
+            	PushFollow(FOLLOW_unaryExpression_in_multiplicativeExpression11613);
             	unaryExpression293 = unaryExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, unaryExpression293.Tree);
-            	// AS3_ex.g3:2366:25: (op= ( STAR | DIV | MOD ) unaryExpression )*
+            	// AS3_ex.g3:2371:25: (op= ( STAR | DIV | MOD ) unaryExpression )*
             	do 
             	{
             	    int alt140 = 2;
@@ -18755,7 +18751,7 @@ public class AS3_exParser : Parser
             	    switch (alt140) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2366:27: op= ( STAR | DIV | MOD ) unaryExpression
+            			    // AS3_ex.g3:2371:27: op= ( STAR | DIV | MOD ) unaryExpression
             			    {
             			    	op = (IToken)input.LT(1);
             			    	if ( (input.LA(1) >= STAR && input.LA(1) <= MOD) ) 
@@ -18775,7 +18771,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  IndentEmit((CommonToken)op);
             			    	}
-            			    	PushFollow(FOLLOW_unaryExpression_in_multiplicativeExpression11623);
+            			    	PushFollow(FOLLOW_unaryExpression_in_multiplicativeExpression11628);
             			    	unaryExpression294 = unaryExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -18835,7 +18831,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "unaryExpression"
-    // AS3_ex.g3:2370:1: unaryExpression : ( postfixExpression | op= ( NOT | INV ) unaryExpression | unaryOp postfixExpression );
+    // AS3_ex.g3:2375:1: unaryExpression : ( postfixExpression | op= ( NOT | INV ) unaryExpression | unaryOp postfixExpression );
     public AS3_exParser.unaryExpression_return unaryExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.unaryExpression_return retval = new AS3_exParser.unaryExpression_return();
@@ -18861,17 +18857,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2371:5: ( postfixExpression | op= ( NOT | INV ) unaryExpression | unaryOp postfixExpression )
+            // AS3_ex.g3:2376:5: ( postfixExpression | op= ( NOT | INV ) unaryExpression | unaryOp postfixExpression )
             int alt141 = 3;
             alt141 = dfa141.Predict(input);
             switch (alt141) 
             {
                 case 1 :
-                    // AS3_ex.g3:2371:9: postfixExpression
+                    // AS3_ex.g3:2376:9: postfixExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_postfixExpression_in_unaryExpression11647);
+                    	PushFollow(FOLLOW_postfixExpression_in_unaryExpression11652);
                     	postfixExpression295 = postfixExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -18880,7 +18876,7 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2372:8: op= ( NOT | INV ) unaryExpression
+                    // AS3_ex.g3:2377:8: op= ( NOT | INV ) unaryExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
@@ -18902,7 +18898,7 @@ public class AS3_exParser : Parser
                     	{
                     	  Emit((CommonToken)op);
                     	}
-                    	PushFollow(FOLLOW_unaryExpression_in_unaryExpression11668);
+                    	PushFollow(FOLLOW_unaryExpression_in_unaryExpression11673);
                     	unaryExpression296 = unaryExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -18911,16 +18907,16 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2373:9: unaryOp postfixExpression
+                    // AS3_ex.g3:2378:9: unaryOp postfixExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_unaryOp_in_unaryExpression11678);
+                    	PushFollow(FOLLOW_unaryOp_in_unaryExpression11683);
                     	unaryOp297 = unaryOp();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, unaryOp297.Tree);
-                    	PushFollow(FOLLOW_postfixExpression_in_unaryExpression11680);
+                    	PushFollow(FOLLOW_postfixExpression_in_unaryExpression11685);
                     	postfixExpression298 = postfixExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -18966,7 +18962,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "unaryOp"
-    // AS3_ex.g3:2378:1: unaryOp : op= ( DELETE | VOID | TYPEOF | INC | DEC | PLUS | SUB | INV | NOT ) ;
+    // AS3_ex.g3:2383:1: unaryOp : op= ( DELETE | VOID | TYPEOF | INC | DEC | PLUS | SUB | INV | NOT ) ;
     public AS3_exParser.unaryOp_return unaryOp() // throws RecognitionException [1]
     {   
         AS3_exParser.unaryOp_return retval = new AS3_exParser.unaryOp_return();
@@ -18984,8 +18980,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2379:5: (op= ( DELETE | VOID | TYPEOF | INC | DEC | PLUS | SUB | INV | NOT ) )
-            // AS3_ex.g3:2379:9: op= ( DELETE | VOID | TYPEOF | INC | DEC | PLUS | SUB | INV | NOT )
+            // AS3_ex.g3:2384:5: (op= ( DELETE | VOID | TYPEOF | INC | DEC | PLUS | SUB | INV | NOT ) )
+            // AS3_ex.g3:2384:9: op= ( DELETE | VOID | TYPEOF | INC | DEC | PLUS | SUB | INV | NOT )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -19046,7 +19042,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "postfixExpression"
-    // AS3_ex.g3:2384:1: postfixExpression : leftHandSideExpression ( postfixOp )? ;
+    // AS3_ex.g3:2389:1: postfixExpression : leftHandSideExpression ( postfixOp )? ;
     public AS3_exParser.postfixExpression_return postfixExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.postfixExpression_return retval = new AS3_exParser.postfixExpression_return();
@@ -19066,17 +19062,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2385:5: ( leftHandSideExpression ( postfixOp )? )
-            // AS3_ex.g3:2385:9: leftHandSideExpression ( postfixOp )?
+            // AS3_ex.g3:2390:5: ( leftHandSideExpression ( postfixOp )? )
+            // AS3_ex.g3:2390:9: leftHandSideExpression ( postfixOp )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_leftHandSideExpression_in_postfixExpression11768);
+            	PushFollow(FOLLOW_leftHandSideExpression_in_postfixExpression11773);
             	leftHandSideExpression299 = leftHandSideExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, leftHandSideExpression299.Tree);
-            	// AS3_ex.g3:2385:32: ( postfixOp )?
+            	// AS3_ex.g3:2390:32: ( postfixOp )?
             	int alt142 = 2;
             	alt142 = dfa142.Predict(input);
             	switch (alt142) 
@@ -19084,7 +19080,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: postfixOp
             	        {
-            	        	PushFollow(FOLLOW_postfixOp_in_postfixExpression11770);
+            	        	PushFollow(FOLLOW_postfixOp_in_postfixExpression11775);
             	        	postfixOp300 = postfixOp();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -19134,7 +19130,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "postfixOp"
-    // AS3_ex.g3:2388:1: postfixOp : op= ( INC | DEC ) ;
+    // AS3_ex.g3:2393:1: postfixOp : op= ( INC | DEC ) ;
     public AS3_exParser.postfixOp_return postfixOp() // throws RecognitionException [1]
     {   
         AS3_exParser.postfixOp_return retval = new AS3_exParser.postfixOp_return();
@@ -19152,8 +19148,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2389:5: (op= ( INC | DEC ) )
-            // AS3_ex.g3:2389:9: op= ( INC | DEC )
+            // AS3_ex.g3:2394:5: (op= ( INC | DEC ) )
+            // AS3_ex.g3:2394:9: op= ( INC | DEC )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -19214,7 +19210,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "memberExpression"
-    // AS3_ex.g3:2393:1: memberExpression : ( primaryExpression | functionExpression | newExpression );
+    // AS3_ex.g3:2398:1: memberExpression : ( primaryExpression | functionExpression | newExpression );
     public AS3_exParser.memberExpression_return memberExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.memberExpression_return retval = new AS3_exParser.memberExpression_return();
@@ -19236,7 +19232,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2394:2: ( primaryExpression | functionExpression | newExpression )
+            // AS3_ex.g3:2399:2: ( primaryExpression | functionExpression | newExpression )
             int alt143 = 3;
             switch ( input.LA(1) ) 
             {
@@ -19338,13 +19334,13 @@ public class AS3_exParser : Parser
             	{
                 int LA143_3 = input.LA(2);
 
-                if ( ((LA143_3 >= AS && LA143_3 <= STATIC) || LA143_3 == LCURLY || LA143_3 == LPAREN || LA143_3 == LBRACK || LA143_3 == LT || LA143_3 == STAR || (LA143_3 >= XML_AT && LA143_3 <= XML_LS_STD) || (LA143_3 >= SINGLE_QUOTE_LITERAL && LA143_3 <= DOUBLE_QUOTE_LITERAL) || LA143_3 == REGULAR_EXPR_LITERAL || LA143_3 == HEX_NUMBER_LITERAL || LA143_3 == DEC_NUMBER_LITERAL || LA143_3 == IDENTIFIER || (LA143_3 >= XML_COMMENT && LA143_3 <= XML_PI)) )
-                {
-                    alt143 = 3;
-                }
-                else if ( (LA143_3 == DOT || LA143_3 == SUB || LA143_3 == COLON || LA143_3 == XML_NS_OP) )
+                if ( (LA143_3 == DOT || LA143_3 == SUB || LA143_3 == COLON || LA143_3 == XML_NS_OP) )
                 {
                     alt143 = 1;
+                }
+                else if ( ((LA143_3 >= AS && LA143_3 <= STATIC) || LA143_3 == LCURLY || LA143_3 == LPAREN || LA143_3 == LBRACK || LA143_3 == LT || LA143_3 == STAR || (LA143_3 >= XML_AT && LA143_3 <= XML_LS_STD) || (LA143_3 >= SINGLE_QUOTE_LITERAL && LA143_3 <= DOUBLE_QUOTE_LITERAL) || LA143_3 == REGULAR_EXPR_LITERAL || LA143_3 == HEX_NUMBER_LITERAL || LA143_3 == DEC_NUMBER_LITERAL || LA143_3 == IDENTIFIER || (LA143_3 >= XML_COMMENT && LA143_3 <= XML_PI)) )
+                {
+                    alt143 = 3;
                 }
                 else 
                 {
@@ -19367,11 +19363,11 @@ public class AS3_exParser : Parser
             switch (alt143) 
             {
                 case 1 :
-                    // AS3_ex.g3:2394:4: primaryExpression
+                    // AS3_ex.g3:2399:4: primaryExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_primaryExpression_in_memberExpression11818);
+                    	PushFollow(FOLLOW_primaryExpression_in_memberExpression11823);
                     	primaryExpression301 = primaryExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -19380,11 +19376,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2395:4: functionExpression
+                    // AS3_ex.g3:2400:4: functionExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_functionExpression_in_memberExpression11823);
+                    	PushFollow(FOLLOW_functionExpression_in_memberExpression11828);
                     	functionExpression302 = functionExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -19393,11 +19389,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2396:4: newExpression
+                    // AS3_ex.g3:2401:4: newExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_newExpression_in_memberExpression11828);
+                    	PushFollow(FOLLOW_newExpression_in_memberExpression11833);
                     	newExpression303 = newExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -19443,7 +19439,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "newExpression"
-    // AS3_ex.g3:2399:1: newExpression : N= NEW primaryExpression ;
+    // AS3_ex.g3:2404:1: newExpression : N= NEW primaryExpression ;
     public AS3_exParser.newExpression_return newExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.newExpression_return retval = new AS3_exParser.newExpression_return();
@@ -19463,12 +19459,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2400:2: (N= NEW primaryExpression )
-            // AS3_ex.g3:2400:4: N= NEW primaryExpression
+            // AS3_ex.g3:2405:2: (N= NEW primaryExpression )
+            // AS3_ex.g3:2405:4: N= NEW primaryExpression
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	N=(IToken)Match(input,NEW,FOLLOW_NEW_in_newExpression11841); if (state.failed) return retval;
+            	N=(IToken)Match(input,NEW,FOLLOW_NEW_in_newExpression11846); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{N_tree = (object)adaptor.Create(N);
             		adaptor.AddChild(root_0, N_tree);
@@ -19477,7 +19473,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)N);InsertWS(1);
             	}
-            	PushFollow(FOLLOW_primaryExpression_in_newExpression11846);
+            	PushFollow(FOLLOW_primaryExpression_in_newExpression11851);
             	primaryExpression304 = primaryExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -19521,7 +19517,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "leftHandSideExpression"
-    // AS3_ex.g3:2404:1: leftHandSideExpression : memberExpression ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )* ;
+    // AS3_ex.g3:2409:1: leftHandSideExpression : memberExpression ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )* ;
     public AS3_exParser.leftHandSideExpression_return leftHandSideExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.leftHandSideExpression_return retval = new AS3_exParser.leftHandSideExpression_return();
@@ -19565,17 +19561,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2405:5: ( memberExpression ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )* )
-            // AS3_ex.g3:2405:9: memberExpression ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )*
+            // AS3_ex.g3:2410:5: ( memberExpression ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )* )
+            // AS3_ex.g3:2410:9: memberExpression ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_memberExpression_in_leftHandSideExpression11863);
+            	PushFollow(FOLLOW_memberExpression_in_leftHandSideExpression11868);
             	memberExpression305 = memberExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, memberExpression305.Tree);
-            	// AS3_ex.g3:2406:5: ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )*
+            	// AS3_ex.g3:2411:5: ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )*
             	do 
             	{
             	    int alt146 = 7;
@@ -19583,9 +19579,9 @@ public class AS3_exParser : Parser
             	    switch (alt146) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2407:7: arguments
+            			    // AS3_ex.g3:2412:7: arguments
             			    {
-            			    	PushFollow(FOLLOW_arguments_in_leftHandSideExpression11878);
+            			    	PushFollow(FOLLOW_arguments_in_leftHandSideExpression11883);
             			    	arguments306 = arguments();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -19594,9 +19590,9 @@ public class AS3_exParser : Parser
             			    }
             			    break;
             			case 2 :
-            			    // AS3_ex.g3:2408:9: L= LBRACK expression R= RBRACK
+            			    // AS3_ex.g3:2413:9: L= LBRACK expression R= RBRACK
             			    {
-            			    	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_leftHandSideExpression11890); if (state.failed) return retval;
+            			    	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_leftHandSideExpression11895); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{L_tree = (object)adaptor.Create(L);
             			    		adaptor.AddChild(root_0, L_tree);
@@ -19605,12 +19601,12 @@ public class AS3_exParser : Parser
             			    	{
             			    	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideArrayReferenceBrackets());
             			    	}
-            			    	PushFollow(FOLLOW_expression_in_leftHandSideExpression11894);
+            			    	PushFollow(FOLLOW_expression_in_leftHandSideExpression11899);
             			    	expression307 = expression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
             			    	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, expression307.Tree);
-            			    	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_leftHandSideExpression11898); if (state.failed) return retval;
+            			    	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_leftHandSideExpression11903); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{R_tree = (object)adaptor.Create(R);
             			    		adaptor.AddChild(root_0, R_tree);
@@ -19623,9 +19619,9 @@ public class AS3_exParser : Parser
             			    }
             			    break;
             			case 3 :
-            			    // AS3_ex.g3:2410:9: D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier
+            			    // AS3_ex.g3:2415:9: D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier
             			    {
-            			    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_leftHandSideExpression11913); if (state.failed) return retval;
+            			    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_leftHandSideExpression11918); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{D_tree = (object)adaptor.Create(D);
             			    		adaptor.AddChild(root_0, D_tree);
@@ -19634,7 +19630,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  Emit((CommonToken)D);
             			    	}
-            			    	// AS3_ex.g3:2410:40: ( eitherIdentifier op= XML_NS_OP )?
+            			    	// AS3_ex.g3:2415:40: ( eitherIdentifier op= XML_NS_OP )?
             			    	int alt144 = 2;
             			    	switch ( input.LA(1) ) 
             			    	{
@@ -19642,7 +19638,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA144_1 = input.LA(2);
 
-            			    	        if ( (synpred309_AS3_ex()) )
+            			    	        if ( (synpred307_AS3_ex()) )
             			    	        {
             			    	            alt144 = 1;
             			    	        }
@@ -19652,7 +19648,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA144_2 = input.LA(2);
 
-            			    	        if ( (synpred309_AS3_ex()) )
+            			    	        if ( (synpred307_AS3_ex()) )
             			    	        {
             			    	            alt144 = 1;
             			    	        }
@@ -19705,7 +19701,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA144_3 = input.LA(2);
 
-            			    	        if ( (synpred309_AS3_ex()) )
+            			    	        if ( (synpred307_AS3_ex()) )
             			    	        {
             			    	            alt144 = 1;
             			    	        }
@@ -19724,7 +19720,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA144_4 = input.LA(2);
 
-            			    	        if ( (synpred309_AS3_ex()) )
+            			    	        if ( (synpred307_AS3_ex()) )
             			    	        {
             			    	            alt144 = 1;
             			    	        }
@@ -19734,7 +19730,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA144_5 = input.LA(2);
 
-            			    	        if ( (synpred309_AS3_ex()) )
+            			    	        if ( (synpred307_AS3_ex()) )
             			    	        {
             			    	            alt144 = 1;
             			    	        }
@@ -19745,14 +19741,14 @@ public class AS3_exParser : Parser
             			    	switch (alt144) 
             			    	{
             			    	    case 1 :
-            			    	        // AS3_ex.g3:2410:41: eitherIdentifier op= XML_NS_OP
+            			    	        // AS3_ex.g3:2415:41: eitherIdentifier op= XML_NS_OP
             			    	        {
-            			    	        	PushFollow(FOLLOW_eitherIdentifier_in_leftHandSideExpression11918);
+            			    	        	PushFollow(FOLLOW_eitherIdentifier_in_leftHandSideExpression11923);
             			    	        	eitherIdentifier308 = eitherIdentifier();
             			    	        	state.followingStackPointer--;
             			    	        	if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, eitherIdentifier308.Tree);
-            			    	        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_leftHandSideExpression11922); if (state.failed) return retval;
+            			    	        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_leftHandSideExpression11927); if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 )
             			    	        	{op_tree = (object)adaptor.Create(op);
             			    	        		adaptor.AddChild(root_0, op_tree);
@@ -19767,7 +19763,7 @@ public class AS3_exParser : Parser
 
             			    	}
 
-            			    	PushFollow(FOLLOW_eitherIdentifier_in_leftHandSideExpression11929);
+            			    	PushFollow(FOLLOW_eitherIdentifier_in_leftHandSideExpression11934);
             			    	eitherIdentifier309 = eitherIdentifier();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -19776,9 +19772,9 @@ public class AS3_exParser : Parser
             			    }
             			    break;
             			case 4 :
-            			    // AS3_ex.g3:2411:9: E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier
+            			    // AS3_ex.g3:2416:9: E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier
             			    {
-            			    	E=(IToken)Match(input,XML_ELLIPSIS,FOLLOW_XML_ELLIPSIS_in_leftHandSideExpression11941); if (state.failed) return retval;
+            			    	E=(IToken)Match(input,XML_ELLIPSIS,FOLLOW_XML_ELLIPSIS_in_leftHandSideExpression11946); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{E_tree = (object)adaptor.Create(E);
             			    		adaptor.AddChild(root_0, E_tree);
@@ -19787,7 +19783,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  Emit((CommonToken)E);
             			    	}
-            			    	// AS3_ex.g3:2411:48: ( eitherIdentifier op= XML_NS_OP )?
+            			    	// AS3_ex.g3:2416:48: ( eitherIdentifier op= XML_NS_OP )?
             			    	int alt145 = 2;
             			    	switch ( input.LA(1) ) 
             			    	{
@@ -19795,7 +19791,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA145_1 = input.LA(2);
 
-            			    	        if ( (synpred311_AS3_ex()) )
+            			    	        if ( (synpred309_AS3_ex()) )
             			    	        {
             			    	            alt145 = 1;
             			    	        }
@@ -19805,7 +19801,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA145_2 = input.LA(2);
 
-            			    	        if ( (synpred311_AS3_ex()) )
+            			    	        if ( (synpred309_AS3_ex()) )
             			    	        {
             			    	            alt145 = 1;
             			    	        }
@@ -19858,7 +19854,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA145_3 = input.LA(2);
 
-            			    	        if ( (synpred311_AS3_ex()) )
+            			    	        if ( (synpred309_AS3_ex()) )
             			    	        {
             			    	            alt145 = 1;
             			    	        }
@@ -19877,7 +19873,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA145_4 = input.LA(2);
 
-            			    	        if ( (synpred311_AS3_ex()) )
+            			    	        if ( (synpred309_AS3_ex()) )
             			    	        {
             			    	            alt145 = 1;
             			    	        }
@@ -19887,7 +19883,7 @@ public class AS3_exParser : Parser
             			    	    	{
             			    	        int LA145_5 = input.LA(2);
 
-            			    	        if ( (synpred311_AS3_ex()) )
+            			    	        if ( (synpred309_AS3_ex()) )
             			    	        {
             			    	            alt145 = 1;
             			    	        }
@@ -19898,14 +19894,14 @@ public class AS3_exParser : Parser
             			    	switch (alt145) 
             			    	{
             			    	    case 1 :
-            			    	        // AS3_ex.g3:2411:49: eitherIdentifier op= XML_NS_OP
+            			    	        // AS3_ex.g3:2416:49: eitherIdentifier op= XML_NS_OP
             			    	        {
-            			    	        	PushFollow(FOLLOW_eitherIdentifier_in_leftHandSideExpression11945);
+            			    	        	PushFollow(FOLLOW_eitherIdentifier_in_leftHandSideExpression11950);
             			    	        	eitherIdentifier310 = eitherIdentifier();
             			    	        	state.followingStackPointer--;
             			    	        	if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, eitherIdentifier310.Tree);
-            			    	        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_leftHandSideExpression11949); if (state.failed) return retval;
+            			    	        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_leftHandSideExpression11954); if (state.failed) return retval;
             			    	        	if ( state.backtracking == 0 )
             			    	        	{op_tree = (object)adaptor.Create(op);
             			    	        		adaptor.AddChild(root_0, op_tree);
@@ -19920,7 +19916,7 @@ public class AS3_exParser : Parser
 
             			    	}
 
-            			    	PushFollow(FOLLOW_eitherIdentifier_in_leftHandSideExpression11956);
+            			    	PushFollow(FOLLOW_eitherIdentifier_in_leftHandSideExpression11961);
             			    	eitherIdentifier311 = eitherIdentifier();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -19929,9 +19925,9 @@ public class AS3_exParser : Parser
             			    }
             			    break;
             			case 5 :
-            			    // AS3_ex.g3:2412:9: D= DOT parExpression
+            			    // AS3_ex.g3:2417:9: D= DOT parExpression
             			    {
-            			    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_leftHandSideExpression11968); if (state.failed) return retval;
+            			    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_leftHandSideExpression11973); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{D_tree = (object)adaptor.Create(D);
             			    		adaptor.AddChild(root_0, D_tree);
@@ -19940,7 +19936,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  Emit((CommonToken)D);
             			    	}
-            			    	PushFollow(FOLLOW_parExpression_in_leftHandSideExpression11972);
+            			    	PushFollow(FOLLOW_parExpression_in_leftHandSideExpression11977);
             			    	parExpression312 = parExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -19949,9 +19945,9 @@ public class AS3_exParser : Parser
             			    }
             			    break;
             			case 6 :
-            			    // AS3_ex.g3:2413:9: typePostfixSyntax
+            			    // AS3_ex.g3:2418:9: typePostfixSyntax
             			    {
-            			    	PushFollow(FOLLOW_typePostfixSyntax_in_leftHandSideExpression11982);
+            			    	PushFollow(FOLLOW_typePostfixSyntax_in_leftHandSideExpression11987);
             			    	typePostfixSyntax313 = typePostfixSyntax();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -20007,7 +20003,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "eitherIdentifier"
-    // AS3_ex.g3:2417:1: eitherIdentifier : (I= IDENTIFIER | xmlPropertyIdentifier | allKeywords );
+    // AS3_ex.g3:2422:1: eitherIdentifier : (I= IDENTIFIER | xmlPropertyIdentifier | allKeywords );
     public AS3_exParser.eitherIdentifier_return eitherIdentifier() // throws RecognitionException [1]
     {   
         AS3_exParser.eitherIdentifier_return retval = new AS3_exParser.eitherIdentifier_return();
@@ -20029,7 +20025,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2418:2: (I= IDENTIFIER | xmlPropertyIdentifier | allKeywords )
+            // AS3_ex.g3:2423:2: (I= IDENTIFIER | xmlPropertyIdentifier | allKeywords )
             int alt147 = 3;
             switch ( input.LA(1) ) 
             {
@@ -20037,11 +20033,11 @@ public class AS3_exParser : Parser
             	{
                 int LA147_1 = input.LA(2);
 
-                if ( (synpred315_AS3_ex()) )
+                if ( (synpred313_AS3_ex()) )
                 {
                     alt147 = 1;
                 }
-                else if ( (synpred316_AS3_ex()) )
+                else if ( (synpred314_AS3_ex()) )
                 {
                     alt147 = 2;
                 }
@@ -20108,7 +20104,7 @@ public class AS3_exParser : Parser
             	{
                 int LA147_3 = input.LA(2);
 
-                if ( (synpred316_AS3_ex()) )
+                if ( (synpred314_AS3_ex()) )
                 {
                     alt147 = 2;
                 }
@@ -20139,7 +20135,7 @@ public class AS3_exParser : Parser
             	{
                 int LA147_4 = input.LA(2);
 
-                if ( (synpred316_AS3_ex()) )
+                if ( (synpred314_AS3_ex()) )
                 {
                     alt147 = 2;
                 }
@@ -20168,11 +20164,11 @@ public class AS3_exParser : Parser
             switch (alt147) 
             {
                 case 1 :
-                    // AS3_ex.g3:2418:4: I= IDENTIFIER
+                    // AS3_ex.g3:2423:4: I= IDENTIFIER
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_eitherIdentifier12012); if (state.failed) return retval;
+                    	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_eitherIdentifier12017); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{I_tree = (object)adaptor.Create(I);
                     		adaptor.AddChild(root_0, I_tree);
@@ -20185,11 +20181,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2419:5: xmlPropertyIdentifier
+                    // AS3_ex.g3:2424:5: xmlPropertyIdentifier
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlPropertyIdentifier_in_eitherIdentifier12022);
+                    	PushFollow(FOLLOW_xmlPropertyIdentifier_in_eitherIdentifier12027);
                     	xmlPropertyIdentifier314 = xmlPropertyIdentifier();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -20198,11 +20194,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2420:5: allKeywords
+                    // AS3_ex.g3:2425:5: allKeywords
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_allKeywords_in_eitherIdentifier12028);
+                    	PushFollow(FOLLOW_allKeywords_in_eitherIdentifier12033);
                     	allKeywords315 = allKeywords();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -20248,7 +20244,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "typeSpecifier"
-    // AS3_ex.g3:2423:1: typeSpecifier : (I= IDENTIFIER | notQuiteReservedWord | I= INTERNAL | D= DEFAULT );
+    // AS3_ex.g3:2428:1: typeSpecifier : (I= IDENTIFIER | notQuiteReservedWord | I= INTERNAL | D= DEFAULT );
     public AS3_exParser.typeSpecifier_return typeSpecifier() // throws RecognitionException [1]
     {   
         AS3_exParser.typeSpecifier_return retval = new AS3_exParser.typeSpecifier_return();
@@ -20270,7 +20266,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2423:14: (I= IDENTIFIER | notQuiteReservedWord | I= INTERNAL | D= DEFAULT )
+            // AS3_ex.g3:2428:14: (I= IDENTIFIER | notQuiteReservedWord | I= INTERNAL | D= DEFAULT )
             int alt148 = 4;
             switch ( input.LA(1) ) 
             {
@@ -20314,11 +20310,11 @@ public class AS3_exParser : Parser
             switch (alt148) 
             {
                 case 1 :
-                    // AS3_ex.g3:2424:2: I= IDENTIFIER
+                    // AS3_ex.g3:2429:2: I= IDENTIFIER
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_typeSpecifier12041); if (state.failed) return retval;
+                    	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_typeSpecifier12046); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{I_tree = (object)adaptor.Create(I);
                     		adaptor.AddChild(root_0, I_tree);
@@ -20331,11 +20327,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2424:42: notQuiteReservedWord
+                    // AS3_ex.g3:2429:42: notQuiteReservedWord
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_notQuiteReservedWord_in_typeSpecifier12047);
+                    	PushFollow(FOLLOW_notQuiteReservedWord_in_typeSpecifier12052);
                     	notQuiteReservedWord316 = notQuiteReservedWord();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -20344,11 +20340,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2424:65: I= INTERNAL
+                    // AS3_ex.g3:2429:65: I= INTERNAL
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	I=(IToken)Match(input,INTERNAL,FOLLOW_INTERNAL_in_typeSpecifier12053); if (state.failed) return retval;
+                    	I=(IToken)Match(input,INTERNAL,FOLLOW_INTERNAL_in_typeSpecifier12058); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{I_tree = (object)adaptor.Create(I);
                     		adaptor.AddChild(root_0, I_tree);
@@ -20361,11 +20357,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:2424:103: D= DEFAULT
+                    // AS3_ex.g3:2429:103: D= DEFAULT
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	D=(IToken)Match(input,DEFAULT,FOLLOW_DEFAULT_in_typeSpecifier12061); if (state.failed) return retval;
+                    	D=(IToken)Match(input,DEFAULT,FOLLOW_DEFAULT_in_typeSpecifier12066); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{D_tree = (object)adaptor.Create(D);
                     		adaptor.AddChild(root_0, D_tree);
@@ -20415,7 +20411,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "notQuiteReservedWord"
-    // AS3_ex.g3:2427:1: notQuiteReservedWord : word= ( TO | NATIVE | EACH | GET | SET | NAMESPACE | DYNAMIC | FINAL | OVERRIDE | STATIC ) ;
+    // AS3_ex.g3:2432:1: notQuiteReservedWord : word= ( TO | NATIVE | EACH | GET | SET | NAMESPACE | DYNAMIC | FINAL | OVERRIDE | STATIC ) ;
     public AS3_exParser.notQuiteReservedWord_return notQuiteReservedWord() // throws RecognitionException [1]
     {   
         AS3_exParser.notQuiteReservedWord_return retval = new AS3_exParser.notQuiteReservedWord_return();
@@ -20433,8 +20429,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2428:2: (word= ( TO | NATIVE | EACH | GET | SET | NAMESPACE | DYNAMIC | FINAL | OVERRIDE | STATIC ) )
-            // AS3_ex.g3:2429:2: word= ( TO | NATIVE | EACH | GET | SET | NAMESPACE | DYNAMIC | FINAL | OVERRIDE | STATIC )
+            // AS3_ex.g3:2433:2: (word= ( TO | NATIVE | EACH | GET | SET | NAMESPACE | DYNAMIC | FINAL | OVERRIDE | STATIC ) )
+            // AS3_ex.g3:2434:2: word= ( TO | NATIVE | EACH | GET | SET | NAMESPACE | DYNAMIC | FINAL | OVERRIDE | STATIC )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -20495,7 +20491,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "allKeywords"
-    // AS3_ex.g3:2432:1: allKeywords : ( reservedWord | notQuiteReservedWord ) ;
+    // AS3_ex.g3:2437:1: allKeywords : ( reservedWord | notQuiteReservedWord ) ;
     public AS3_exParser.allKeywords_return allKeywords() // throws RecognitionException [1]
     {   
         AS3_exParser.allKeywords_return retval = new AS3_exParser.allKeywords_return();
@@ -20515,12 +20511,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2433:2: ( ( reservedWord | notQuiteReservedWord ) )
-            // AS3_ex.g3:2433:4: ( reservedWord | notQuiteReservedWord )
+            // AS3_ex.g3:2438:2: ( ( reservedWord | notQuiteReservedWord ) )
+            // AS3_ex.g3:2438:4: ( reservedWord | notQuiteReservedWord )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	// AS3_ex.g3:2433:4: ( reservedWord | notQuiteReservedWord )
+            	// AS3_ex.g3:2438:4: ( reservedWord | notQuiteReservedWord )
             	int alt149 = 2;
             	int LA149_0 = input.LA(1);
 
@@ -20543,9 +20539,9 @@ public class AS3_exParser : Parser
             	switch (alt149) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2433:5: reservedWord
+            	        // AS3_ex.g3:2438:5: reservedWord
             	        {
-            	        	PushFollow(FOLLOW_reservedWord_in_allKeywords12132);
+            	        	PushFollow(FOLLOW_reservedWord_in_allKeywords12137);
             	        	reservedWord317 = reservedWord();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -20554,9 +20550,9 @@ public class AS3_exParser : Parser
             	        }
             	        break;
             	    case 2 :
-            	        // AS3_ex.g3:2433:20: notQuiteReservedWord
+            	        // AS3_ex.g3:2438:20: notQuiteReservedWord
             	        {
-            	        	PushFollow(FOLLOW_notQuiteReservedWord_in_allKeywords12136);
+            	        	PushFollow(FOLLOW_notQuiteReservedWord_in_allKeywords12141);
             	        	notQuiteReservedWord318 = notQuiteReservedWord();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -20606,7 +20602,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "reservedWord"
-    // AS3_ex.g3:2435:1: reservedWord : word= ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | INCLUDE ) ;
+    // AS3_ex.g3:2440:1: reservedWord : word= ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | INCLUDE ) ;
     public AS3_exParser.reservedWord_return reservedWord() // throws RecognitionException [1]
     {   
         AS3_exParser.reservedWord_return retval = new AS3_exParser.reservedWord_return();
@@ -20624,8 +20620,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2436:2: (word= ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | INCLUDE ) )
-            // AS3_ex.g3:2437:5: word= ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | INCLUDE )
+            // AS3_ex.g3:2441:2: (word= ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | INCLUDE ) )
+            // AS3_ex.g3:2442:5: word= ( AS | BREAK | CASE | CATCH | CLASS | CONST | CONTINUE | DEFAULT | DELETE | DO | ELSE | EXTENDS | FALSE | FINALLY | FOR | FUNCTION | IF | IMPLEMENTS | IMPORT | IN | INSTANCEOF | INTERFACE | INTERNAL | IS | NEW | NULL | PACKAGE | PRIVATE | PROTECTED | PUBLIC | RETURN | SUPER | SWITCH | THIS | THROW | TRUE | TRY | TYPEOF | USE | VAR | VOID | WHILE | WITH | INCLUDE )
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -20686,7 +20682,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "arguments"
-    // AS3_ex.g3:2494:1: arguments : L= LPAREN ( assignmentExpression (C= COMMA assignmentExpression )* )? R= RPAREN ;
+    // AS3_ex.g3:2499:1: arguments : L= LPAREN ( assignmentExpression (C= COMMA assignmentExpression )* )? R= RPAREN ;
     public AS3_exParser.arguments_return arguments() // throws RecognitionException [1]
     {   
         AS3_exParser.arguments_return retval = new AS3_exParser.arguments_return();
@@ -20717,8 +20713,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2501:2: (L= LPAREN ( assignmentExpression (C= COMMA assignmentExpression )* )? R= RPAREN )
-            // AS3_ex.g3:2502:4: L= LPAREN ( assignmentExpression (C= COMMA assignmentExpression )* )? R= RPAREN
+            // AS3_ex.g3:2506:2: (L= LPAREN ( assignmentExpression (C= COMMA assignmentExpression )* )? R= RPAREN )
+            // AS3_ex.g3:2507:4: L= LPAREN ( assignmentExpression (C= COMMA assignmentExpression )* )? R= RPAREN
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -20726,7 +20722,7 @@ public class AS3_exParser : Parser
             	{
             	  pushedFormat=PushFormatType(options, false);
             	}
-            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_arguments12717); if (state.failed) return retval;
+            	L=(IToken)Match(input,LPAREN,FOLLOW_LPAREN_in_arguments12722); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -20735,7 +20731,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideParens());
             	}
-            	// AS3_ex.g3:2504:4: ( assignmentExpression (C= COMMA assignmentExpression )* )?
+            	// AS3_ex.g3:2509:4: ( assignmentExpression (C= COMMA assignmentExpression )* )?
             	int alt151 = 2;
             	int LA151_0 = input.LA(1);
 
@@ -20746,18 +20742,18 @@ public class AS3_exParser : Parser
             	switch (alt151) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2504:6: assignmentExpression (C= COMMA assignmentExpression )*
+            	        // AS3_ex.g3:2509:6: assignmentExpression (C= COMMA assignmentExpression )*
             	        {
             	        	if ( state.backtracking == 0 ) 
             	        	{
             	        	  pushedIndent=PushLazyParmIndent(pushedIndent, options.IndentStyle);
             	        	}
-            	        	PushFollow(FOLLOW_assignmentExpression_in_arguments12729);
+            	        	PushFollow(FOLLOW_assignmentExpression_in_arguments12734);
             	        	assignmentExpression319 = assignmentExpression();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
             	        	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpression319.Tree);
-            	        	// AS3_ex.g3:2505:10: (C= COMMA assignmentExpression )*
+            	        	// AS3_ex.g3:2510:10: (C= COMMA assignmentExpression )*
             	        	do 
             	        	{
             	        	    int alt150 = 2;
@@ -20772,9 +20768,9 @@ public class AS3_exParser : Parser
             	        	    switch (alt150) 
             	        		{
             	        			case 1 :
-            	        			    // AS3_ex.g3:2506:11: C= COMMA assignmentExpression
+            	        			    // AS3_ex.g3:2511:11: C= COMMA assignmentExpression
             	        			    {
-            	        			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_arguments12757); if (state.failed) return retval;
+            	        			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_arguments12762); if (state.failed) return retval;
             	        			    	if ( state.backtracking == 0 )
             	        			    	{C_tree = (object)adaptor.Create(C);
             	        			    		adaptor.AddChild(root_0, C_tree);
@@ -20783,7 +20779,7 @@ public class AS3_exParser : Parser
             	        			    	{
             	        			    	  pushedIndent=EmitCommaWithSpacingAndCRs(options, (CommonToken) C, pushedIndent);
             	        			    	}
-            	        			    	PushFollow(FOLLOW_assignmentExpression_in_arguments12782);
+            	        			    	PushFollow(FOLLOW_assignmentExpression_in_arguments12787);
             	        			    	assignmentExpression320 = assignmentExpression();
             	        			    	state.followingStackPointer--;
             	        			    	if (state.failed) return retval;
@@ -20806,7 +20802,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_arguments12810); if (state.failed) return retval;
+            	R=(IToken)Match(input,RPAREN,FOLLOW_RPAREN_in_arguments12815); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -20863,7 +20859,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "suffix"
-    // AS3_ex.g3:2523:1: suffix : ( indexSuffix | propertyReferenceSuffix );
+    // AS3_ex.g3:2528:1: suffix : ( indexSuffix | propertyReferenceSuffix );
     public AS3_exParser.suffix_return suffix() // throws RecognitionException [1]
     {   
         AS3_exParser.suffix_return retval = new AS3_exParser.suffix_return();
@@ -20883,7 +20879,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2524:5: ( indexSuffix | propertyReferenceSuffix )
+            // AS3_ex.g3:2529:5: ( indexSuffix | propertyReferenceSuffix )
             int alt152 = 2;
             int LA152_0 = input.LA(1);
 
@@ -20906,11 +20902,11 @@ public class AS3_exParser : Parser
             switch (alt152) 
             {
                 case 1 :
-                    // AS3_ex.g3:2524:10: indexSuffix
+                    // AS3_ex.g3:2529:10: indexSuffix
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_indexSuffix_in_suffix12849);
+                    	PushFollow(FOLLOW_indexSuffix_in_suffix12854);
                     	indexSuffix321 = indexSuffix();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -20919,11 +20915,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2524:24: propertyReferenceSuffix
+                    // AS3_ex.g3:2529:24: propertyReferenceSuffix
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_propertyReferenceSuffix_in_suffix12853);
+                    	PushFollow(FOLLOW_propertyReferenceSuffix_in_suffix12858);
                     	propertyReferenceSuffix322 = propertyReferenceSuffix();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -20969,7 +20965,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "indexSuffix"
-    // AS3_ex.g3:2527:1: indexSuffix : L= LBRACK expression R= RBRACK ;
+    // AS3_ex.g3:2532:1: indexSuffix : L= LBRACK expression R= RBRACK ;
     public AS3_exParser.indexSuffix_return indexSuffix() // throws RecognitionException [1]
     {   
         AS3_exParser.indexSuffix_return retval = new AS3_exParser.indexSuffix_return();
@@ -20991,12 +20987,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2528:5: (L= LBRACK expression R= RBRACK )
-            // AS3_ex.g3:2528:10: L= LBRACK expression R= RBRACK
+            // AS3_ex.g3:2533:5: (L= LBRACK expression R= RBRACK )
+            // AS3_ex.g3:2533:10: L= LBRACK expression R= RBRACK
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_indexSuffix12894); if (state.failed) return retval;
+            	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_indexSuffix12899); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -21005,12 +21001,12 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideArrayReferenceBrackets());
             	}
-            	PushFollow(FOLLOW_expression_in_indexSuffix12899);
+            	PushFollow(FOLLOW_expression_in_indexSuffix12904);
             	expression323 = expression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, expression323.Tree);
-            	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_indexSuffix12904); if (state.failed) return retval;
+            	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_indexSuffix12909); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -21058,7 +21054,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "propertyReferenceSuffix"
-    // AS3_ex.g3:2531:1: propertyReferenceSuffix : (D= DOT I= IDENTIFIER | D= DOT xmlPropertyIdentifier | D= DOT );
+    // AS3_ex.g3:2536:1: propertyReferenceSuffix : (D= DOT I= IDENTIFIER | D= DOT xmlPropertyIdentifier | D= DOT );
     public AS3_exParser.propertyReferenceSuffix_return propertyReferenceSuffix() // throws RecognitionException [1]
     {   
         AS3_exParser.propertyReferenceSuffix_return retval = new AS3_exParser.propertyReferenceSuffix_return();
@@ -21080,7 +21076,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2532:5: (D= DOT I= IDENTIFIER | D= DOT xmlPropertyIdentifier | D= DOT )
+            // AS3_ex.g3:2537:5: (D= DOT I= IDENTIFIER | D= DOT xmlPropertyIdentifier | D= DOT )
             int alt153 = 3;
             int LA153_0 = input.LA(1);
 
@@ -21195,11 +21191,11 @@ public class AS3_exParser : Parser
             switch (alt153) 
             {
                 case 1 :
-                    // AS3_ex.g3:2532:10: D= DOT I= IDENTIFIER
+                    // AS3_ex.g3:2537:10: D= DOT I= IDENTIFIER
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_propertyReferenceSuffix12932); if (state.failed) return retval;
+                    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_propertyReferenceSuffix12937); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{D_tree = (object)adaptor.Create(D);
                     		adaptor.AddChild(root_0, D_tree);
@@ -21208,7 +21204,7 @@ public class AS3_exParser : Parser
                     	{
                     	  Emit((CommonToken)D);
                     	}
-                    	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_propertyReferenceSuffix12939); if (state.failed) return retval;
+                    	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_propertyReferenceSuffix12944); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{I_tree = (object)adaptor.Create(I);
                     		adaptor.AddChild(root_0, I_tree);
@@ -21221,11 +21217,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2533:10: D= DOT xmlPropertyIdentifier
+                    // AS3_ex.g3:2538:10: D= DOT xmlPropertyIdentifier
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_propertyReferenceSuffix12954); if (state.failed) return retval;
+                    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_propertyReferenceSuffix12959); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{D_tree = (object)adaptor.Create(D);
                     		adaptor.AddChild(root_0, D_tree);
@@ -21234,7 +21230,7 @@ public class AS3_exParser : Parser
                     	{
                     	  Emit((CommonToken)D);
                     	}
-                    	PushFollow(FOLLOW_xmlPropertyIdentifier_in_propertyReferenceSuffix12959);
+                    	PushFollow(FOLLOW_xmlPropertyIdentifier_in_propertyReferenceSuffix12964);
                     	xmlPropertyIdentifier324 = xmlPropertyIdentifier();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -21243,11 +21239,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2534:10: D= DOT
+                    // AS3_ex.g3:2539:10: D= DOT
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_propertyReferenceSuffix12972); if (state.failed) return retval;
+                    	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_propertyReferenceSuffix12977); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{D_tree = (object)adaptor.Create(D);
                     		adaptor.AddChild(root_0, D_tree);
@@ -21297,7 +21293,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "primaryExpression"
-    // AS3_ex.g3:2538:1: primaryExpression : primaryExpressionHelper ;
+    // AS3_ex.g3:2543:1: primaryExpression : primaryExpressionHelper ;
     public AS3_exParser.primaryExpression_return primaryExpression() // throws RecognitionException [1]
     {   
         AS3_exParser.primaryExpression_return retval = new AS3_exParser.primaryExpression_return();
@@ -21315,12 +21311,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2539:5: ( primaryExpressionHelper )
-            // AS3_ex.g3:2539:10: primaryExpressionHelper
+            // AS3_ex.g3:2544:5: ( primaryExpressionHelper )
+            // AS3_ex.g3:2544:10: primaryExpressionHelper
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_primaryExpressionHelper_in_primaryExpression13005);
+            	PushFollow(FOLLOW_primaryExpressionHelper_in_primaryExpression13010);
             	primaryExpressionHelper325 = primaryExpressionHelper();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -21364,7 +21360,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "primaryExpressionHelper"
-    // AS3_ex.g3:2543:1: primaryExpressionHelper : (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption | l= LT type g= GT ( arrayLiteral )? );
+    // AS3_ex.g3:2548:1: primaryExpressionHelper : (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption | l= LT type g= GT ( arrayLiteral )? );
     public AS3_exParser.primaryExpressionHelper_return primaryExpressionHelper() // throws RecognitionException [1]
     {   
         AS3_exParser.primaryExpressionHelper_return retval = new AS3_exParser.primaryExpressionHelper_return();
@@ -21406,17 +21402,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2544:5: (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption | l= LT type g= GT ( arrayLiteral )? )
+            // AS3_ex.g3:2549:5: (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption | l= LT type g= GT ( arrayLiteral )? )
             int alt155 = 10;
             alt155 = dfa155.Predict(input);
             switch (alt155) 
             {
                 case 1 :
-                    // AS3_ex.g3:2544:9: T= THIS
+                    // AS3_ex.g3:2549:9: T= THIS
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	T=(IToken)Match(input,THIS,FOLLOW_THIS_in_primaryExpressionHelper13032); if (state.failed) return retval;
+                    	T=(IToken)Match(input,THIS,FOLLOW_THIS_in_primaryExpressionHelper13037); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{T_tree = (object)adaptor.Create(T);
                     		adaptor.AddChild(root_0, T_tree);
@@ -21429,11 +21425,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2545:9: S= SUPER
+                    // AS3_ex.g3:2550:9: S= SUPER
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	S=(IToken)Match(input,SUPER,FOLLOW_SUPER_in_primaryExpressionHelper13046); if (state.failed) return retval;
+                    	S=(IToken)Match(input,SUPER,FOLLOW_SUPER_in_primaryExpressionHelper13051); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{S_tree = (object)adaptor.Create(S);
                     		adaptor.AddChild(root_0, S_tree);
@@ -21446,11 +21442,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2546:9: literal
+                    // AS3_ex.g3:2551:9: literal
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_literal_in_primaryExpressionHelper13058);
+                    	PushFollow(FOLLOW_literal_in_primaryExpressionHelper13063);
                     	literal326 = literal();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -21459,11 +21455,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 4 :
-                    // AS3_ex.g3:2547:9: arrayLiteral
+                    // AS3_ex.g3:2552:9: arrayLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_arrayLiteral_in_primaryExpressionHelper13070);
+                    	PushFollow(FOLLOW_arrayLiteral_in_primaryExpressionHelper13075);
                     	arrayLiteral327 = arrayLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -21472,11 +21468,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 5 :
-                    // AS3_ex.g3:2548:9: objectLiteral
+                    // AS3_ex.g3:2553:9: objectLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_objectLiteral_in_primaryExpressionHelper13081);
+                    	PushFollow(FOLLOW_objectLiteral_in_primaryExpressionHelper13086);
                     	objectLiteral328 = objectLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -21485,11 +21481,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 6 :
-                    // AS3_ex.g3:2549:9: identifierLiteral
+                    // AS3_ex.g3:2554:9: identifierLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_identifierLiteral_in_primaryExpressionHelper13093);
+                    	PushFollow(FOLLOW_identifierLiteral_in_primaryExpressionHelper13098);
                     	identifierLiteral329 = identifierLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -21498,11 +21494,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 7 :
-                    // AS3_ex.g3:2550:9: xmlPrimaryExpression
+                    // AS3_ex.g3:2555:9: xmlPrimaryExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_xmlPrimaryExpression_in_primaryExpressionHelper13104);
+                    	PushFollow(FOLLOW_xmlPrimaryExpression_in_primaryExpressionHelper13109);
                     	xmlPrimaryExpression330 = xmlPrimaryExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -21511,11 +21507,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 8 :
-                    // AS3_ex.g3:2551:9: parExpression
+                    // AS3_ex.g3:2556:9: parExpression
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_parExpression_in_primaryExpressionHelper13114);
+                    	PushFollow(FOLLOW_parExpression_in_primaryExpressionHelper13119);
                     	parExpression331 = parExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -21524,11 +21520,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 9 :
-                    // AS3_ex.g3:2552:9: conditionalCompilerOption
+                    // AS3_ex.g3:2557:9: conditionalCompilerOption
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_conditionalCompilerOption_in_primaryExpressionHelper13125);
+                    	PushFollow(FOLLOW_conditionalCompilerOption_in_primaryExpressionHelper13130);
                     	conditionalCompilerOption332 = conditionalCompilerOption();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -21537,11 +21533,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 10 :
-                    // AS3_ex.g3:2553:6: l= LT type g= GT ( arrayLiteral )?
+                    // AS3_ex.g3:2558:6: l= LT type g= GT ( arrayLiteral )?
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	l=(IToken)Match(input,LT,FOLLOW_LT_in_primaryExpressionHelper13134); if (state.failed) return retval;
+                    	l=(IToken)Match(input,LT,FOLLOW_LT_in_primaryExpressionHelper13139); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{l_tree = (object)adaptor.Create(l);
                     		adaptor.AddChild(root_0, l_tree);
@@ -21550,12 +21546,12 @@ public class AS3_exParser : Parser
                     	{
                     	  Emit((CommonToken)l);
                     	}
-                    	PushFollow(FOLLOW_type_in_primaryExpressionHelper13138);
+                    	PushFollow(FOLLOW_type_in_primaryExpressionHelper13143);
                     	type333 = type();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, type333.Tree);
-                    	g=(IToken)Match(input,GT,FOLLOW_GT_in_primaryExpressionHelper13142); if (state.failed) return retval;
+                    	g=(IToken)Match(input,GT,FOLLOW_GT_in_primaryExpressionHelper13147); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
                     	{g_tree = (object)adaptor.Create(g);
                     		adaptor.AddChild(root_0, g_tree);
@@ -21564,15 +21560,15 @@ public class AS3_exParser : Parser
                     	{
                     	  Emit((CommonToken)g);
                     	}
-                    	// AS3_ex.g3:2553:71: ( arrayLiteral )?
+                    	// AS3_ex.g3:2558:71: ( arrayLiteral )?
                     	int alt154 = 2;
                     	alt154 = dfa154.Predict(input);
                     	switch (alt154) 
                     	{
                     	    case 1 :
-                    	        // AS3_ex.g3:2553:72: arrayLiteral
+                    	        // AS3_ex.g3:2558:72: arrayLiteral
                     	        {
-                    	        	PushFollow(FOLLOW_arrayLiteral_in_primaryExpressionHelper13147);
+                    	        	PushFollow(FOLLOW_arrayLiteral_in_primaryExpressionHelper13152);
                     	        	arrayLiteral334 = arrayLiteral();
                     	        	state.followingStackPointer--;
                     	        	if (state.failed) return retval;
@@ -21624,7 +21620,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "objectLiteral"
-    // AS3_ex.g3:2557:1: objectLiteral : L= LCURLY ( propertyNameAndValueList )? R= RCURLY ;
+    // AS3_ex.g3:2562:1: objectLiteral : L= LCURLY ( propertyNameAndValueList )? R= RCURLY ;
     public AS3_exParser.objectLiteral_return objectLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.objectLiteral_return retval = new AS3_exParser.objectLiteral_return();
@@ -21646,12 +21642,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2558:5: (L= LCURLY ( propertyNameAndValueList )? R= RCURLY )
-            // AS3_ex.g3:2558:9: L= LCURLY ( propertyNameAndValueList )? R= RCURLY
+            // AS3_ex.g3:2563:5: (L= LCURLY ( propertyNameAndValueList )? R= RCURLY )
+            // AS3_ex.g3:2563:9: L= LCURLY ( propertyNameAndValueList )? R= RCURLY
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral13172); if (state.failed) return retval;
+            	L=(IToken)Match(input,LCURLY,FOLLOW_LCURLY_in_objectLiteral13177); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -21660,7 +21656,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideObjectBraces());PushIndent(true);
             	}
-            	// AS3_ex.g3:2558:117: ( propertyNameAndValueList )?
+            	// AS3_ex.g3:2563:117: ( propertyNameAndValueList )?
             	int alt156 = 2;
             	int LA156_0 = input.LA(1);
 
@@ -21673,7 +21669,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: propertyNameAndValueList
             	        {
-            	        	PushFollow(FOLLOW_propertyNameAndValueList_in_objectLiteral13176);
+            	        	PushFollow(FOLLOW_propertyNameAndValueList_in_objectLiteral13181);
             	        	propertyNameAndValueList335 = propertyNameAndValueList();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -21684,7 +21680,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral13181); if (state.failed) return retval;
+            	R=(IToken)Match(input,RCURLY,FOLLOW_RCURLY_in_objectLiteral13186); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -21732,7 +21728,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "propertyNameAndValueList"
-    // AS3_ex.g3:2561:1: propertyNameAndValueList : propertyNameAndValue (C= COMMA propertyNameAndValue )* ;
+    // AS3_ex.g3:2566:1: propertyNameAndValueList : propertyNameAndValue (C= COMMA propertyNameAndValue )* ;
     public AS3_exParser.propertyNameAndValueList_return propertyNameAndValueList() // throws RecognitionException [1]
     {   
         AS3_exParser.propertyNameAndValueList_return retval = new AS3_exParser.propertyNameAndValueList_return();
@@ -21754,17 +21750,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2562:5: ( propertyNameAndValue (C= COMMA propertyNameAndValue )* )
-            // AS3_ex.g3:2562:9: propertyNameAndValue (C= COMMA propertyNameAndValue )*
+            // AS3_ex.g3:2567:5: ( propertyNameAndValue (C= COMMA propertyNameAndValue )* )
+            // AS3_ex.g3:2567:9: propertyNameAndValue (C= COMMA propertyNameAndValue )*
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13203);
+            	PushFollow(FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13208);
             	propertyNameAndValue336 = propertyNameAndValue();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyNameAndValue336.Tree);
-            	// AS3_ex.g3:2562:30: (C= COMMA propertyNameAndValue )*
+            	// AS3_ex.g3:2567:30: (C= COMMA propertyNameAndValue )*
             	do 
             	{
             	    int alt157 = 2;
@@ -21779,13 +21775,13 @@ public class AS3_exParser : Parser
             	    switch (alt157) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2562:31: C= COMMA propertyNameAndValue
+            			    // AS3_ex.g3:2567:31: C= COMMA propertyNameAndValue
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesBeforeComma());
             			    	}
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_propertyNameAndValueList13209); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_propertyNameAndValueList13214); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -21798,7 +21794,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  InsertWS(mPrinter.GetSpacesAfterComma());
             			    	}
-            			    	PushFollow(FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13214);
+            			    	PushFollow(FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13219);
             			    	propertyNameAndValue337 = propertyNameAndValue();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -21854,7 +21850,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "propertyNameAndValue"
-    // AS3_ex.g3:2565:1: propertyNameAndValue : propertyName C= COLON assignmentExpression ;
+    // AS3_ex.g3:2570:1: propertyNameAndValue : propertyName C= COLON assignmentExpression ;
     public AS3_exParser.propertyNameAndValue_return propertyNameAndValue() // throws RecognitionException [1]
     {   
         AS3_exParser.propertyNameAndValue_return retval = new AS3_exParser.propertyNameAndValue_return();
@@ -21876,17 +21872,17 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2566:5: ( propertyName C= COLON assignmentExpression )
-            // AS3_ex.g3:2566:9: propertyName C= COLON assignmentExpression
+            // AS3_ex.g3:2571:5: ( propertyName C= COLON assignmentExpression )
+            // AS3_ex.g3:2571:9: propertyName C= COLON assignmentExpression
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_propertyName_in_propertyNameAndValue13235);
+            	PushFollow(FOLLOW_propertyName_in_propertyNameAndValue13240);
             	propertyName338 = propertyName();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, propertyName338.Tree);
-            	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_propertyNameAndValue13239); if (state.failed) return retval;
+            	C=(IToken)Match(input,COLON,FOLLOW_COLON_in_propertyNameAndValue13244); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{C_tree = (object)adaptor.Create(C);
             		adaptor.AddChild(root_0, C_tree);
@@ -21898,7 +21894,7 @@ public class AS3_exParser : Parser
             	      		InsertWS(mPrinter.GetSpacesAfterLabel());
             	      		
             	}
-            	PushFollow(FOLLOW_assignmentExpression_in_propertyNameAndValue13257);
+            	PushFollow(FOLLOW_assignmentExpression_in_propertyNameAndValue13262);
             	assignmentExpression339 = assignmentExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -21942,7 +21938,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "propertyName"
-    // AS3_ex.g3:2574:1: propertyName : ( identifierLiteral | stringLiteral | numericLiteral );
+    // AS3_ex.g3:2579:1: propertyName : ( identifierLiteral | stringLiteral | numericLiteral );
     public AS3_exParser.propertyName_return propertyName() // throws RecognitionException [1]
     {   
         AS3_exParser.propertyName_return retval = new AS3_exParser.propertyName_return();
@@ -21964,7 +21960,7 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2575:5: ( identifierLiteral | stringLiteral | numericLiteral )
+            // AS3_ex.g3:2580:5: ( identifierLiteral | stringLiteral | numericLiteral )
             int alt158 = 3;
             switch ( input.LA(1) ) 
             {
@@ -22006,11 +22002,11 @@ public class AS3_exParser : Parser
             switch (alt158) 
             {
                 case 1 :
-                    // AS3_ex.g3:2575:9: identifierLiteral
+                    // AS3_ex.g3:2580:9: identifierLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_identifierLiteral_in_propertyName13276);
+                    	PushFollow(FOLLOW_identifierLiteral_in_propertyName13281);
                     	identifierLiteral340 = identifierLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -22019,11 +22015,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 2 :
-                    // AS3_ex.g3:2576:9: stringLiteral
+                    // AS3_ex.g3:2581:9: stringLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_stringLiteral_in_propertyName13287);
+                    	PushFollow(FOLLOW_stringLiteral_in_propertyName13292);
                     	stringLiteral341 = stringLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -22032,11 +22028,11 @@ public class AS3_exParser : Parser
                     }
                     break;
                 case 3 :
-                    // AS3_ex.g3:2577:9: numericLiteral
+                    // AS3_ex.g3:2582:9: numericLiteral
                     {
                     	root_0 = (object)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_numericLiteral_in_propertyName13298);
+                    	PushFollow(FOLLOW_numericLiteral_in_propertyName13303);
                     	numericLiteral342 = numericLiteral();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -22082,7 +22078,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "arrayLiteral"
-    // AS3_ex.g3:2581:1: arrayLiteral : L= LBRACK ( elementList )? R= RBRACK ;
+    // AS3_ex.g3:2586:1: arrayLiteral : L= LBRACK ( elementList )? R= RBRACK ;
     public AS3_exParser.arrayLiteral_return arrayLiteral() // throws RecognitionException [1]
     {   
         AS3_exParser.arrayLiteral_return retval = new AS3_exParser.arrayLiteral_return();
@@ -22104,12 +22100,12 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2582:5: (L= LBRACK ( elementList )? R= RBRACK )
-            // AS3_ex.g3:2582:9: L= LBRACK ( elementList )? R= RBRACK
+            // AS3_ex.g3:2587:5: (L= LBRACK ( elementList )? R= RBRACK )
+            // AS3_ex.g3:2587:9: L= LBRACK ( elementList )? R= RBRACK
             {
             	root_0 = (object)adaptor.GetNilNode();
 
-            	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_arrayLiteral13321); if (state.failed) return retval;
+            	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_arrayLiteral13326); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{L_tree = (object)adaptor.Create(L);
             		adaptor.AddChild(root_0, L_tree);
@@ -22118,7 +22114,7 @@ public class AS3_exParser : Parser
             	{
             	  Emit((CommonToken)L);InsertWS(mPrinter.GetAdvancedSpacesInsideArrayDeclBrackets());
             	}
-            	// AS3_ex.g3:2582:105: ( elementList )?
+            	// AS3_ex.g3:2587:105: ( elementList )?
             	int alt159 = 2;
             	int LA159_0 = input.LA(1);
 
@@ -22131,7 +22127,7 @@ public class AS3_exParser : Parser
             	    case 1 :
             	        // AS3_ex.g3:0:0: elementList
             	        {
-            	        	PushFollow(FOLLOW_elementList_in_arrayLiteral13325);
+            	        	PushFollow(FOLLOW_elementList_in_arrayLiteral13330);
             	        	elementList343 = elementList();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -22142,7 +22138,7 @@ public class AS3_exParser : Parser
 
             	}
 
-            	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_arrayLiteral13330); if (state.failed) return retval;
+            	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_arrayLiteral13335); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
             	{R_tree = (object)adaptor.Create(R);
             		adaptor.AddChild(root_0, R_tree);
@@ -22190,7 +22186,7 @@ public class AS3_exParser : Parser
     };
 
     // $ANTLR start "elementList"
-    // AS3_ex.g3:2585:1: elementList : assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )? ;
+    // AS3_ex.g3:2590:1: elementList : assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )? ;
     public AS3_exParser.elementList_return elementList() // throws RecognitionException [1]
     {   
         AS3_exParser.elementList_return retval = new AS3_exParser.elementList_return();
@@ -22217,8 +22213,8 @@ public class AS3_exParser : Parser
     	    {
     	    	return retval; 
     	    }
-            // AS3_ex.g3:2592:5: ( assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )? )
-            // AS3_ex.g3:2593:6: assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )?
+            // AS3_ex.g3:2597:5: ( assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )? )
+            // AS3_ex.g3:2598:6: assignmentExpression (C= COMMA assignmentExpression )* (C= COMMA )?
             {
             	root_0 = (object)adaptor.GetNilNode();
 
@@ -22230,12 +22226,12 @@ public class AS3_exParser : Parser
             	{
             	  pushedIndent=PushLazyParmIndent(pushedIndent, options.IndentStyle);
             	}
-            	PushFollow(FOLLOW_assignmentExpression_in_elementList13376);
+            	PushFollow(FOLLOW_assignmentExpression_in_elementList13381);
             	assignmentExpression344 = assignmentExpression();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking == 0 ) adaptor.AddChild(root_0, assignmentExpression344.Tree);
-            	// AS3_ex.g3:2596:6: (C= COMMA assignmentExpression )*
+            	// AS3_ex.g3:2601:6: (C= COMMA assignmentExpression )*
             	do 
             	{
             	    int alt160 = 2;
@@ -22257,9 +22253,9 @@ public class AS3_exParser : Parser
             	    switch (alt160) 
             		{
             			case 1 :
-            			    // AS3_ex.g3:2597:7: C= COMMA assignmentExpression
+            			    // AS3_ex.g3:2602:7: C= COMMA assignmentExpression
             			    {
-            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_elementList13394); if (state.failed) return retval;
+            			    	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_elementList13399); if (state.failed) return retval;
             			    	if ( state.backtracking == 0 )
             			    	{C_tree = (object)adaptor.Create(C);
             			    		adaptor.AddChild(root_0, C_tree);
@@ -22268,7 +22264,7 @@ public class AS3_exParser : Parser
             			    	{
             			    	  pushedIndent=EmitCommaWithSpacingAndCRs(options,(CommonToken) C, pushedIndent);
             			    	}
-            			    	PushFollow(FOLLOW_assignmentExpression_in_elementList13411);
+            			    	PushFollow(FOLLOW_assignmentExpression_in_elementList13416);
             			    	assignmentExpression345 = assignmentExpression();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -22285,7 +22281,7 @@ public class AS3_exParser : Parser
             	loop160:
             		;	// Stops C# compiler whining that label 'loop160' has no statements
 
-            	// AS3_ex.g3:2600:9: (C= COMMA )?
+            	// AS3_ex.g3:2605:9: (C= COMMA )?
             	int alt161 = 2;
             	int LA161_0 = input.LA(1);
 
@@ -22296,9 +22292,9 @@ public class AS3_exParser : Parser
             	switch (alt161) 
             	{
             	    case 1 :
-            	        // AS3_ex.g3:2600:10: C= COMMA
+            	        // AS3_ex.g3:2605:10: C= COMMA
             	        {
-            	        	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_elementList13424); if (state.failed) return retval;
+            	        	C=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_elementList13429); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
             	        	{C_tree = (object)adaptor.Create(C);
             	        		adaptor.AddChild(root_0, C_tree);
@@ -22357,15 +22353,15 @@ public class AS3_exParser : Parser
         IToken c = null;
         IToken I2 = null;
 
-        // AS3_ex.g3:1247:95: ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )
-        // AS3_ex.g3:1247:95: {...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords )
+        // AS3_ex.g3:1252:95: ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )
+        // AS3_ex.g3:1252:95: {...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords )
         {
         	if ( !((!PromoteWhitespace())) ) 
         	{
         	    if ( state.backtracking > 0 ) {state.failed = true; return ;}
         	    throw new FailedPredicateException(input, "synpred9_AS3_ex", "!PromoteWhitespace()");
         	}
-        	// AS3_ex.g3:1247:121: (s= SUB | d= DOT | c= COLON )
+        	// AS3_ex.g3:1252:121: (s= SUB | d= DOT | c= COLON )
         	int alt162 = 3;
         	switch ( input.LA(1) ) 
         	{
@@ -22395,23 +22391,23 @@ public class AS3_exParser : Parser
         	switch (alt162) 
         	{
         	    case 1 :
-        	        // AS3_ex.g3:1247:122: s= SUB
+        	        // AS3_ex.g3:1252:122: s= SUB
         	        {
-        	        	s=(IToken)Match(input,SUB,FOLLOW_SUB_in_synpred9_AS3_ex3793); if (state.failed) return ;
+        	        	s=(IToken)Match(input,SUB,FOLLOW_SUB_in_synpred9_AS3_ex3820); if (state.failed) return ;
 
         	        }
         	        break;
         	    case 2 :
-        	        // AS3_ex.g3:1247:155: d= DOT
+        	        // AS3_ex.g3:1252:155: d= DOT
         	        {
-        	        	d=(IToken)Match(input,DOT,FOLLOW_DOT_in_synpred9_AS3_ex3801); if (state.failed) return ;
+        	        	d=(IToken)Match(input,DOT,FOLLOW_DOT_in_synpred9_AS3_ex3828); if (state.failed) return ;
 
         	        }
         	        break;
         	    case 3 :
-        	        // AS3_ex.g3:1247:188: c= COLON
+        	        // AS3_ex.g3:1252:188: c= COLON
         	        {
-        	        	c=(IToken)Match(input,COLON,FOLLOW_COLON_in_synpred9_AS3_ex3809); if (state.failed) return ;
+        	        	c=(IToken)Match(input,COLON,FOLLOW_COLON_in_synpred9_AS3_ex3836); if (state.failed) return ;
 
         	        }
         	        break;
@@ -22423,7 +22419,7 @@ public class AS3_exParser : Parser
         	    if ( state.backtracking > 0 ) {state.failed = true; return ;}
         	    throw new FailedPredicateException(input, "synpred9_AS3_ex", "!PromoteWhitespace()");
         	}
-        	// AS3_ex.g3:1247:248: (I2= IDENTIFIER | allKeywords )
+        	// AS3_ex.g3:1252:248: (I2= IDENTIFIER | allKeywords )
         	int alt163 = 2;
         	int LA163_0 = input.LA(1);
 
@@ -22446,16 +22442,16 @@ public class AS3_exParser : Parser
         	switch (alt163) 
         	{
         	    case 1 :
-        	        // AS3_ex.g3:1247:249: I2= IDENTIFIER
+        	        // AS3_ex.g3:1252:249: I2= IDENTIFIER
         	        {
-        	        	I2=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_synpred9_AS3_ex3820); if (state.failed) return ;
+        	        	I2=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_synpred9_AS3_ex3847); if (state.failed) return ;
 
         	        }
         	        break;
         	    case 2 :
-        	        // AS3_ex.g3:1247:291: allKeywords
+        	        // AS3_ex.g3:1252:291: allKeywords
         	        {
-        	        	PushFollow(FOLLOW_allKeywords_in_synpred9_AS3_ex3826);
+        	        	PushFollow(FOLLOW_allKeywords_in_synpred9_AS3_ex3853);
         	        	allKeywords();
         	        	state.followingStackPointer--;
         	        	if (state.failed) return ;
@@ -22470,40 +22466,68 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred9_AS3_ex"
 
-    // $ANTLR start "synpred70_AS3_ex"
-    public void synpred70_AS3_ex_fragment() {
+    // $ANTLR start "synpred68_AS3_ex"
+    public void synpred68_AS3_ex_fragment() {
         IToken x = null;
 
-        // AS3_ex.g3:1345:6: (x= XML_TEXT )
-        // AS3_ex.g3:1345:6: x= XML_TEXT
+        // AS3_ex.g3:1350:6: (x= XML_TEXT )
+        // AS3_ex.g3:1350:6: x= XML_TEXT
         {
-        	x=(IToken)Match(input,XML_TEXT,FOLLOW_XML_TEXT_in_synpred70_AS3_ex4890); if (state.failed) return ;
+        	x=(IToken)Match(input,XML_TEXT,FOLLOW_XML_TEXT_in_synpred68_AS3_ex4895); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred70_AS3_ex"
+    // $ANTLR end "synpred68_AS3_ex"
 
-    // $ANTLR start "synpred71_AS3_ex"
-    public void synpred71_AS3_ex_fragment() {
-        // AS3_ex.g3:1345:44: ( xmlTextElement )
-        // AS3_ex.g3:1345:44: xmlTextElement
+    // $ANTLR start "synpred69_AS3_ex"
+    public void synpred69_AS3_ex_fragment() {
+        // AS3_ex.g3:1350:44: ( xmlTextElement )
+        // AS3_ex.g3:1350:44: xmlTextElement
         {
-        	PushFollow(FOLLOW_xmlTextElement_in_synpred71_AS3_ex4896);
+        	PushFollow(FOLLOW_xmlTextElement_in_synpred69_AS3_ex4901);
         	xmlTextElement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred71_AS3_ex"
+    // $ANTLR end "synpred69_AS3_ex"
+
+    // $ANTLR start "synpred73_AS3_ex"
+    public void synpred73_AS3_ex_fragment() {
+        // AS3_ex.g3:1373:11: ( xmlQualifiedIdentifier )
+        // AS3_ex.g3:1373:11: xmlQualifiedIdentifier
+        {
+        	PushFollow(FOLLOW_xmlQualifiedIdentifier_in_synpred73_AS3_ex5128);
+        	xmlQualifiedIdentifier();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred73_AS3_ex"
+
+    // $ANTLR start "synpred74_AS3_ex"
+    public void synpred74_AS3_ex_fragment() {
+        // AS3_ex.g3:1380:12: ( xmlQualifiedIdentifier )
+        // AS3_ex.g3:1380:12: xmlQualifiedIdentifier
+        {
+        	PushFollow(FOLLOW_xmlQualifiedIdentifier_in_synpred74_AS3_ex5233);
+        	xmlQualifiedIdentifier();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred74_AS3_ex"
 
     // $ANTLR start "synpred75_AS3_ex"
     public void synpred75_AS3_ex_fragment() {
-        // AS3_ex.g3:1368:11: ( xmlQualifiedIdentifier )
-        // AS3_ex.g3:1368:11: xmlQualifiedIdentifier
+        // AS3_ex.g3:1381:14: ( xmlPropertySelector )
+        // AS3_ex.g3:1381:14: xmlPropertySelector
         {
-        	PushFollow(FOLLOW_xmlQualifiedIdentifier_in_synpred75_AS3_ex5123);
-        	xmlQualifiedIdentifier();
+        	PushFollow(FOLLOW_xmlPropertySelector_in_synpred75_AS3_ex5248);
+        	xmlPropertySelector();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22511,41 +22535,41 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred75_AS3_ex"
 
-    // $ANTLR start "synpred76_AS3_ex"
-    public void synpred76_AS3_ex_fragment() {
-        // AS3_ex.g3:1375:12: ( xmlQualifiedIdentifier )
-        // AS3_ex.g3:1375:12: xmlQualifiedIdentifier
+    // $ANTLR start "synpred97_AS3_ex"
+    public void synpred97_AS3_ex_fragment() {
+        // AS3_ex.g3:1529:7: ( propertyDeclaration )
+        // AS3_ex.g3:1529:7: propertyDeclaration
         {
-        	PushFollow(FOLLOW_xmlQualifiedIdentifier_in_synpred76_AS3_ex5228);
-        	xmlQualifiedIdentifier();
+        	PushFollow(FOLLOW_propertyDeclaration_in_synpred97_AS3_ex6067);
+        	propertyDeclaration();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred76_AS3_ex"
+    // $ANTLR end "synpred97_AS3_ex"
 
-    // $ANTLR start "synpred77_AS3_ex"
-    public void synpred77_AS3_ex_fragment() {
-        // AS3_ex.g3:1376:14: ( xmlPropertySelector )
-        // AS3_ex.g3:1376:14: xmlPropertySelector
+    // $ANTLR start "synpred98_AS3_ex"
+    public void synpred98_AS3_ex_fragment() {
+        // AS3_ex.g3:1529:29: ( functionDeclaration )
+        // AS3_ex.g3:1529:29: functionDeclaration
         {
-        	PushFollow(FOLLOW_xmlPropertySelector_in_synpred77_AS3_ex5243);
-        	xmlPropertySelector();
+        	PushFollow(FOLLOW_functionDeclaration_in_synpred98_AS3_ex6071);
+        	functionDeclaration();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred77_AS3_ex"
+    // $ANTLR end "synpred98_AS3_ex"
 
     // $ANTLR start "synpred99_AS3_ex"
     public void synpred99_AS3_ex_fragment() {
-        // AS3_ex.g3:1524:7: ( propertyDeclaration )
-        // AS3_ex.g3:1524:7: propertyDeclaration
+        // AS3_ex.g3:1529:51: ( statement )
+        // AS3_ex.g3:1529:51: statement
         {
-        	PushFollow(FOLLOW_propertyDeclaration_in_synpred99_AS3_ex6062);
-        	propertyDeclaration();
+        	PushFollow(FOLLOW_statement_in_synpred99_AS3_ex6075);
+        	statement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22555,11 +22579,11 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred100_AS3_ex"
     public void synpred100_AS3_ex_fragment() {
-        // AS3_ex.g3:1524:29: ( functionDeclaration )
-        // AS3_ex.g3:1524:29: functionDeclaration
+        // AS3_ex.g3:1529:63: ( directive )
+        // AS3_ex.g3:1529:63: directive
         {
-        	PushFollow(FOLLOW_functionDeclaration_in_synpred100_AS3_ex6066);
-        	functionDeclaration();
+        	PushFollow(FOLLOW_directive_in_synpred100_AS3_ex6079);
+        	directive();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22569,11 +22593,11 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred101_AS3_ex"
     public void synpred101_AS3_ex_fragment() {
-        // AS3_ex.g3:1524:51: ( statement )
-        // AS3_ex.g3:1524:51: statement
+        // AS3_ex.g3:1529:75: ( interfaceFunctionDeclaration )
+        // AS3_ex.g3:1529:75: interfaceFunctionDeclaration
         {
-        	PushFollow(FOLLOW_statement_in_synpred101_AS3_ex6070);
-        	statement();
+        	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_synpred101_AS3_ex6083);
+        	interfaceFunctionDeclaration();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22581,27 +22605,13 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred101_AS3_ex"
 
-    // $ANTLR start "synpred102_AS3_ex"
-    public void synpred102_AS3_ex_fragment() {
-        // AS3_ex.g3:1524:63: ( directive )
-        // AS3_ex.g3:1524:63: directive
-        {
-        	PushFollow(FOLLOW_directive_in_synpred102_AS3_ex6074);
-        	directive();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred102_AS3_ex"
-
     // $ANTLR start "synpred103_AS3_ex"
     public void synpred103_AS3_ex_fragment() {
-        // AS3_ex.g3:1524:75: ( interfaceFunctionDeclaration )
-        // AS3_ex.g3:1524:75: interfaceFunctionDeclaration
+        // AS3_ex.g3:1533:9: ( classOrInterfaceDecl )
+        // AS3_ex.g3:1533:9: classOrInterfaceDecl
         {
-        	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_synpred103_AS3_ex6078);
-        	interfaceFunctionDeclaration();
+        	PushFollow(FOLLOW_classOrInterfaceDecl_in_synpred103_AS3_ex6109);
+        	classOrInterfaceDecl();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22609,13 +22619,27 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred103_AS3_ex"
 
+    // $ANTLR start "synpred104_AS3_ex"
+    public void synpred104_AS3_ex_fragment() {
+        // AS3_ex.g3:1533:32: ( propertyDeclaration )
+        // AS3_ex.g3:1533:32: propertyDeclaration
+        {
+        	PushFollow(FOLLOW_propertyDeclaration_in_synpred104_AS3_ex6113);
+        	propertyDeclaration();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred104_AS3_ex"
+
     // $ANTLR start "synpred105_AS3_ex"
     public void synpred105_AS3_ex_fragment() {
-        // AS3_ex.g3:1528:9: ( classOrInterfaceDecl )
-        // AS3_ex.g3:1528:9: classOrInterfaceDecl
+        // AS3_ex.g3:1533:54: ( functionDeclaration )
+        // AS3_ex.g3:1533:54: functionDeclaration
         {
-        	PushFollow(FOLLOW_classOrInterfaceDecl_in_synpred105_AS3_ex6104);
-        	classOrInterfaceDecl();
+        	PushFollow(FOLLOW_functionDeclaration_in_synpred105_AS3_ex6117);
+        	functionDeclaration();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22625,11 +22649,11 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred106_AS3_ex"
     public void synpred106_AS3_ex_fragment() {
-        // AS3_ex.g3:1528:32: ( propertyDeclaration )
-        // AS3_ex.g3:1528:32: propertyDeclaration
+        // AS3_ex.g3:1533:76: ( interfaceFunctionDeclaration )
+        // AS3_ex.g3:1533:76: interfaceFunctionDeclaration
         {
-        	PushFollow(FOLLOW_propertyDeclaration_in_synpred106_AS3_ex6108);
-        	propertyDeclaration();
+        	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_synpred106_AS3_ex6121);
+        	interfaceFunctionDeclaration();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22639,11 +22663,11 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred107_AS3_ex"
     public void synpred107_AS3_ex_fragment() {
-        // AS3_ex.g3:1528:54: ( functionDeclaration )
-        // AS3_ex.g3:1528:54: functionDeclaration
+        // AS3_ex.g3:1533:107: ( statement )
+        // AS3_ex.g3:1533:107: statement
         {
-        	PushFollow(FOLLOW_functionDeclaration_in_synpred107_AS3_ex6112);
-        	functionDeclaration();
+        	PushFollow(FOLLOW_statement_in_synpred107_AS3_ex6125);
+        	statement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22651,54 +22675,54 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred107_AS3_ex"
 
-    // $ANTLR start "synpred108_AS3_ex"
-    public void synpred108_AS3_ex_fragment() {
-        // AS3_ex.g3:1528:76: ( interfaceFunctionDeclaration )
-        // AS3_ex.g3:1528:76: interfaceFunctionDeclaration
-        {
-        	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_synpred108_AS3_ex6116);
-        	interfaceFunctionDeclaration();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred108_AS3_ex"
-
-    // $ANTLR start "synpred109_AS3_ex"
-    public void synpred109_AS3_ex_fragment() {
-        // AS3_ex.g3:1528:107: ( statement )
-        // AS3_ex.g3:1528:107: statement
-        {
-        	PushFollow(FOLLOW_statement_in_synpred109_AS3_ex6120);
-        	statement();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred109_AS3_ex"
-
-    // $ANTLR start "synpred122_AS3_ex"
-    public void synpred122_AS3_ex_fragment() {
+    // $ANTLR start "synpred120_AS3_ex"
+    public void synpred120_AS3_ex_fragment() {
         IToken s = null;
 
-        // AS3_ex.g3:1582:39: (s= SEMI )
-        // AS3_ex.g3:1582:39: s= SEMI
+        // AS3_ex.g3:1587:39: (s= SEMI )
+        // AS3_ex.g3:1587:39: s= SEMI
         {
-        	s=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_synpred122_AS3_ex6479); if (state.failed) return ;
+        	s=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_synpred120_AS3_ex6484); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred122_AS3_ex"
+    // $ANTLR end "synpred120_AS3_ex"
+
+    // $ANTLR start "synpred129_AS3_ex"
+    public void synpred129_AS3_ex_fragment() {
+        // AS3_ex.g3:1656:9: ( propertyDeclaration )
+        // AS3_ex.g3:1656:9: propertyDeclaration
+        {
+        	PushFollow(FOLLOW_propertyDeclaration_in_synpred129_AS3_ex6806);
+        	propertyDeclaration();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred129_AS3_ex"
+
+    // $ANTLR start "synpred130_AS3_ex"
+    public void synpred130_AS3_ex_fragment() {
+        // AS3_ex.g3:1656:31: ( functionDeclaration )
+        // AS3_ex.g3:1656:31: functionDeclaration
+        {
+        	PushFollow(FOLLOW_functionDeclaration_in_synpred130_AS3_ex6810);
+        	functionDeclaration();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred130_AS3_ex"
 
     // $ANTLR start "synpred131_AS3_ex"
     public void synpred131_AS3_ex_fragment() {
-        // AS3_ex.g3:1651:9: ( propertyDeclaration )
-        // AS3_ex.g3:1651:9: propertyDeclaration
+        // AS3_ex.g3:1656:53: ( statement )
+        // AS3_ex.g3:1656:53: statement
         {
-        	PushFollow(FOLLOW_propertyDeclaration_in_synpred131_AS3_ex6801);
-        	propertyDeclaration();
+        	PushFollow(FOLLOW_statement_in_synpred131_AS3_ex6814);
+        	statement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22708,11 +22732,11 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred132_AS3_ex"
     public void synpred132_AS3_ex_fragment() {
-        // AS3_ex.g3:1651:31: ( functionDeclaration )
-        // AS3_ex.g3:1651:31: functionDeclaration
+        // AS3_ex.g3:1660:9: ( propertyDeclaration )
+        // AS3_ex.g3:1660:9: propertyDeclaration
         {
-        	PushFollow(FOLLOW_functionDeclaration_in_synpred132_AS3_ex6805);
-        	functionDeclaration();
+        	PushFollow(FOLLOW_propertyDeclaration_in_synpred132_AS3_ex6835);
+        	propertyDeclaration();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22722,11 +22746,11 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred133_AS3_ex"
     public void synpred133_AS3_ex_fragment() {
-        // AS3_ex.g3:1651:53: ( statement )
-        // AS3_ex.g3:1651:53: statement
+        // AS3_ex.g3:1660:31: ( interfaceFunctionDeclaration )
+        // AS3_ex.g3:1660:31: interfaceFunctionDeclaration
         {
-        	PushFollow(FOLLOW_statement_in_synpred133_AS3_ex6809);
-        	statement();
+        	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_synpred133_AS3_ex6839);
+        	interfaceFunctionDeclaration();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22736,11 +22760,11 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred134_AS3_ex"
     public void synpred134_AS3_ex_fragment() {
-        // AS3_ex.g3:1655:9: ( propertyDeclaration )
-        // AS3_ex.g3:1655:9: propertyDeclaration
+        // AS3_ex.g3:1660:62: ( statement )
+        // AS3_ex.g3:1660:62: statement
         {
-        	PushFollow(FOLLOW_propertyDeclaration_in_synpred134_AS3_ex6830);
-        	propertyDeclaration();
+        	PushFollow(FOLLOW_statement_in_synpred134_AS3_ex6843);
+        	statement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22748,55 +22772,55 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred134_AS3_ex"
 
-    // $ANTLR start "synpred135_AS3_ex"
-    public void synpred135_AS3_ex_fragment() {
-        // AS3_ex.g3:1655:31: ( interfaceFunctionDeclaration )
-        // AS3_ex.g3:1655:31: interfaceFunctionDeclaration
+    // $ANTLR start "synpred142_AS3_ex"
+    public void synpred142_AS3_ex_fragment() {
+        // AS3_ex.g3:1681:135: ( memberModifiers )
+        // AS3_ex.g3:1681:135: memberModifiers
         {
-        	PushFollow(FOLLOW_interfaceFunctionDeclaration_in_synpred135_AS3_ex6834);
-        	interfaceFunctionDeclaration();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred135_AS3_ex"
-
-    // $ANTLR start "synpred136_AS3_ex"
-    public void synpred136_AS3_ex_fragment() {
-        // AS3_ex.g3:1655:62: ( statement )
-        // AS3_ex.g3:1655:62: statement
-        {
-        	PushFollow(FOLLOW_statement_in_synpred136_AS3_ex6838);
-        	statement();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred136_AS3_ex"
-
-    // $ANTLR start "synpred144_AS3_ex"
-    public void synpred144_AS3_ex_fragment() {
-        // AS3_ex.g3:1676:135: ( memberModifiers )
-        // AS3_ex.g3:1676:135: memberModifiers
-        {
-        	PushFollow(FOLLOW_memberModifiers_in_synpred144_AS3_ex6975);
+        	PushFollow(FOLLOW_memberModifiers_in_synpred142_AS3_ex6980);
         	memberModifiers();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred144_AS3_ex"
+    // $ANTLR end "synpred142_AS3_ex"
+
+    // $ANTLR start "synpred157_AS3_ex"
+    public void synpred157_AS3_ex_fragment() {
+        // AS3_ex.g3:1745:8: ( statement )
+        // AS3_ex.g3:1745:8: statement
+        {
+        	PushFollow(FOLLOW_statement_in_synpred157_AS3_ex7462);
+        	statement();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred157_AS3_ex"
+
+    // $ANTLR start "synpred158_AS3_ex"
+    public void synpred158_AS3_ex_fragment() {
+        // AS3_ex.g3:1745:18: ( functionDeclaration )
+        // AS3_ex.g3:1745:18: functionDeclaration
+        {
+        	PushFollow(FOLLOW_functionDeclaration_in_synpred158_AS3_ex7464);
+        	functionDeclaration();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred158_AS3_ex"
 
     // $ANTLR start "synpred159_AS3_ex"
     public void synpred159_AS3_ex_fragment() {
-        // AS3_ex.g3:1740:8: ( statement )
-        // AS3_ex.g3:1740:8: statement
+        // AS3_ex.g3:1754:9: ( memberModifier )
+        // AS3_ex.g3:1754:9: memberModifier
         {
-        	PushFollow(FOLLOW_statement_in_synpred159_AS3_ex7457);
-        	statement();
+        	PushFollow(FOLLOW_memberModifier_in_synpred159_AS3_ex7506);
+        	memberModifier();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22804,45 +22828,53 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred159_AS3_ex"
 
-    // $ANTLR start "synpred160_AS3_ex"
-    public void synpred160_AS3_ex_fragment() {
-        // AS3_ex.g3:1740:18: ( functionDeclaration )
-        // AS3_ex.g3:1740:18: functionDeclaration
-        {
-        	PushFollow(FOLLOW_functionDeclaration_in_synpred160_AS3_ex7459);
-        	functionDeclaration();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred160_AS3_ex"
-
-    // $ANTLR start "synpred161_AS3_ex"
-    public void synpred161_AS3_ex_fragment() {
-        // AS3_ex.g3:1749:9: ( memberModifier )
-        // AS3_ex.g3:1749:9: memberModifier
-        {
-        	PushFollow(FOLLOW_memberModifier_in_synpred161_AS3_ex7501);
-        	memberModifier();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred161_AS3_ex"
-
-    // $ANTLR start "synpred171_AS3_ex"
-    public void synpred171_AS3_ex_fragment() {
-        // AS3_ex.g3:1780:6: ( blockStatement )
-        // AS3_ex.g3:1780:6: blockStatement
+    // $ANTLR start "synpred169_AS3_ex"
+    public void synpred169_AS3_ex_fragment() {
+        // AS3_ex.g3:1785:6: ( blockStatement )
+        // AS3_ex.g3:1785:6: blockStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
         	  SetBlockFlag(true);
         	}
-        	PushFollow(FOLLOW_blockStatement_in_synpred171_AS3_ex7668);
+        	PushFollow(FOLLOW_blockStatement_in_synpred169_AS3_ex7673);
         	blockStatement();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred169_AS3_ex"
+
+    // $ANTLR start "synpred170_AS3_ex"
+    public void synpred170_AS3_ex_fragment() {
+        // AS3_ex.g3:1786:9: ( directive )
+        // AS3_ex.g3:1786:9: directive
+        {
+        	if ( state.backtracking == 0 ) 
+        	{
+        	  InsertStatementCR();
+        	}
+        	PushFollow(FOLLOW_directive_in_synpred170_AS3_ex7684);
+        	directive();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred170_AS3_ex"
+
+    // $ANTLR start "synpred171_AS3_ex"
+    public void synpred171_AS3_ex_fragment() {
+        // AS3_ex.g3:1787:9: ( namespaceDirective )
+        // AS3_ex.g3:1787:9: namespaceDirective
+        {
+        	if ( state.backtracking == 0 ) 
+        	{
+        	  InsertStatementCR();
+        	}
+        	PushFollow(FOLLOW_namespaceDirective_in_synpred171_AS3_ex7695);
+        	namespaceDirective();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22852,15 +22884,19 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred172_AS3_ex"
     public void synpred172_AS3_ex_fragment() {
-        // AS3_ex.g3:1781:9: ( directive )
-        // AS3_ex.g3:1781:9: directive
+        // AS3_ex.g3:1788:9: ( expression semic )
+        // AS3_ex.g3:1788:9: expression semic
         {
         	if ( state.backtracking == 0 ) 
         	{
         	  InsertStatementCR();
         	}
-        	PushFollow(FOLLOW_directive_in_synpred172_AS3_ex7679);
-        	directive();
+        	PushFollow(FOLLOW_expression_in_synpred172_AS3_ex7708);
+        	expression();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+        	PushFollow(FOLLOW_semic_in_synpred172_AS3_ex7710);
+        	semic();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22870,15 +22906,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred173_AS3_ex"
     public void synpred173_AS3_ex_fragment() {
-        // AS3_ex.g3:1782:9: ( namespaceDirective )
-        // AS3_ex.g3:1782:9: namespaceDirective
+        // AS3_ex.g3:1789:9: ( constantVarStatement )
+        // AS3_ex.g3:1789:9: constantVarStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
         	  InsertStatementCR();
         	}
-        	PushFollow(FOLLOW_namespaceDirective_in_synpred173_AS3_ex7690);
-        	namespaceDirective();
+        	PushFollow(FOLLOW_constantVarStatement_in_synpred173_AS3_ex7725);
+        	constantVarStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22888,19 +22924,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred174_AS3_ex"
     public void synpred174_AS3_ex_fragment() {
-        // AS3_ex.g3:1783:9: ( expression semic )
-        // AS3_ex.g3:1783:9: expression semic
+        // AS3_ex.g3:1790:9: ( tryStatement )
+        // AS3_ex.g3:1790:9: tryStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  InsertStatementCR();
+        	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
         	}
-        	PushFollow(FOLLOW_expression_in_synpred174_AS3_ex7703);
-        	expression();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-        	PushFollow(FOLLOW_semic_in_synpred174_AS3_ex7705);
-        	semic();
+        	PushFollow(FOLLOW_tryStatement_in_synpred174_AS3_ex7738);
+        	tryStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22910,15 +22942,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred175_AS3_ex"
     public void synpred175_AS3_ex_fragment() {
-        // AS3_ex.g3:1784:9: ( constantVarStatement )
-        // AS3_ex.g3:1784:9: constantVarStatement
+        // AS3_ex.g3:1791:9: ( labelledStatement )
+        // AS3_ex.g3:1791:9: labelledStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  InsertStatementCR();
+        	  InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
         	}
-        	PushFollow(FOLLOW_constantVarStatement_in_synpred175_AS3_ex7720);
-        	constantVarStatement();
+        	PushFollow(FOLLOW_labelledStatement_in_synpred175_AS3_ex7750);
+        	labelledStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22928,15 +22960,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred176_AS3_ex"
     public void synpred176_AS3_ex_fragment() {
-        // AS3_ex.g3:1785:9: ( tryStatement )
-        // AS3_ex.g3:1785:9: tryStatement
+        // AS3_ex.g3:1792:9: ( switchStatement )
+        // AS3_ex.g3:1792:9: switchStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
+        	  MarkBlockFlag();
         	}
-        	PushFollow(FOLLOW_tryStatement_in_synpred176_AS3_ex7733);
-        	tryStatement();
+        	PushFollow(FOLLOW_switchStatement_in_synpred176_AS3_ex7763);
+        	switchStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22946,15 +22978,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred177_AS3_ex"
     public void synpred177_AS3_ex_fragment() {
-        // AS3_ex.g3:1786:9: ( labelledStatement )
-        // AS3_ex.g3:1786:9: labelledStatement
+        // AS3_ex.g3:1793:9: ( withStatement )
+        // AS3_ex.g3:1793:9: withStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
+        	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
         	}
-        	PushFollow(FOLLOW_labelledStatement_in_synpred177_AS3_ex7745);
-        	labelledStatement();
+        	PushFollow(FOLLOW_withStatement_in_synpred177_AS3_ex7775);
+        	withStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22964,15 +22996,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred178_AS3_ex"
     public void synpred178_AS3_ex_fragment() {
-        // AS3_ex.g3:1787:9: ( switchStatement )
-        // AS3_ex.g3:1787:9: switchStatement
+        // AS3_ex.g3:1794:9: ( returnStatement )
+        // AS3_ex.g3:1794:9: returnStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  MarkBlockFlag();
+        	  InsertStatementCR();
         	}
-        	PushFollow(FOLLOW_switchStatement_in_synpred178_AS3_ex7758);
-        	switchStatement();
+        	PushFollow(FOLLOW_returnStatement_in_synpred178_AS3_ex7789);
+        	returnStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -22982,15 +23014,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred179_AS3_ex"
     public void synpred179_AS3_ex_fragment() {
-        // AS3_ex.g3:1788:9: ( withStatement )
-        // AS3_ex.g3:1788:9: withStatement
+        // AS3_ex.g3:1795:9: ( breakStatement )
+        // AS3_ex.g3:1795:9: breakStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
+        	  InsertStatementCR();
         	}
-        	PushFollow(FOLLOW_withStatement_in_synpred179_AS3_ex7770);
-        	withStatement();
+        	PushFollow(FOLLOW_breakStatement_in_synpred179_AS3_ex7805);
+        	breakStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23000,15 +23032,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred180_AS3_ex"
     public void synpred180_AS3_ex_fragment() {
-        // AS3_ex.g3:1789:9: ( returnStatement )
-        // AS3_ex.g3:1789:9: returnStatement
+        // AS3_ex.g3:1796:9: ( continueStatement )
+        // AS3_ex.g3:1796:9: continueStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
         	  InsertStatementCR();
         	}
-        	PushFollow(FOLLOW_returnStatement_in_synpred180_AS3_ex7784);
-        	returnStatement();
+        	PushFollow(FOLLOW_continueStatement_in_synpred180_AS3_ex7821);
+        	continueStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23018,15 +23050,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred181_AS3_ex"
     public void synpred181_AS3_ex_fragment() {
-        // AS3_ex.g3:1790:9: ( breakStatement )
-        // AS3_ex.g3:1790:9: breakStatement
+        // AS3_ex.g3:1797:9: ( forStatement )
+        // AS3_ex.g3:1797:9: forStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  InsertStatementCR();
+        	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
         	}
-        	PushFollow(FOLLOW_breakStatement_in_synpred181_AS3_ex7800);
-        	breakStatement();
+        	PushFollow(FOLLOW_forStatement_in_synpred181_AS3_ex7835);
+        	forStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23036,15 +23068,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred182_AS3_ex"
     public void synpred182_AS3_ex_fragment() {
-        // AS3_ex.g3:1791:9: ( continueStatement )
-        // AS3_ex.g3:1791:9: continueStatement
+        // AS3_ex.g3:1798:9: ( forInStatement )
+        // AS3_ex.g3:1798:9: forInStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  InsertStatementCR();
+        	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
         	}
-        	PushFollow(FOLLOW_continueStatement_in_synpred182_AS3_ex7816);
-        	continueStatement();
+        	PushFollow(FOLLOW_forInStatement_in_synpred182_AS3_ex7847);
+        	forInStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23054,15 +23086,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred183_AS3_ex"
     public void synpred183_AS3_ex_fragment() {
-        // AS3_ex.g3:1792:9: ( forStatement )
-        // AS3_ex.g3:1792:9: forStatement
+        // AS3_ex.g3:1799:9: ( forEachInStatement )
+        // AS3_ex.g3:1799:9: forEachInStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
         	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
         	}
-        	PushFollow(FOLLOW_forStatement_in_synpred183_AS3_ex7830);
-        	forStatement();
+        	PushFollow(FOLLOW_forEachInStatement_in_synpred183_AS3_ex7859);
+        	forEachInStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23072,15 +23104,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred184_AS3_ex"
     public void synpred184_AS3_ex_fragment() {
-        // AS3_ex.g3:1793:9: ( forInStatement )
-        // AS3_ex.g3:1793:9: forInStatement
+        // AS3_ex.g3:1800:9: ( doWhileStatement )
+        // AS3_ex.g3:1800:9: doWhileStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
         	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
         	}
-        	PushFollow(FOLLOW_forInStatement_in_synpred184_AS3_ex7842);
-        	forInStatement();
+        	PushFollow(FOLLOW_doWhileStatement_in_synpred184_AS3_ex7871);
+        	doWhileStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23090,15 +23122,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred185_AS3_ex"
     public void synpred185_AS3_ex_fragment() {
-        // AS3_ex.g3:1794:9: ( forEachInStatement )
-        // AS3_ex.g3:1794:9: forEachInStatement
+        // AS3_ex.g3:1801:9: ( whileStatement )
+        // AS3_ex.g3:1801:9: whileStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
         	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
         	}
-        	PushFollow(FOLLOW_forEachInStatement_in_synpred185_AS3_ex7854);
-        	forEachInStatement();
+        	PushFollow(FOLLOW_whileStatement_in_synpred185_AS3_ex7883);
+        	whileStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23108,15 +23140,15 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred186_AS3_ex"
     public void synpred186_AS3_ex_fragment() {
-        // AS3_ex.g3:1795:9: ( doWhileStatement )
-        // AS3_ex.g3:1795:9: doWhileStatement
+        // AS3_ex.g3:1802:9: ( ifStatement )
+        // AS3_ex.g3:1802:9: ifStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
+        	  InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
         	}
-        	PushFollow(FOLLOW_doWhileStatement_in_synpred186_AS3_ex7866);
-        	doWhileStatement();
+        	PushFollow(FOLLOW_ifStatement_in_synpred186_AS3_ex7894);
+        	ifStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23124,35 +23156,17 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred186_AS3_ex"
 
-    // $ANTLR start "synpred187_AS3_ex"
-    public void synpred187_AS3_ex_fragment() {
-        // AS3_ex.g3:1796:9: ( whileStatement )
-        // AS3_ex.g3:1796:9: whileStatement
-        {
-        	if ( state.backtracking == 0 ) 
-        	{
-        	  MarkBlockFlag();InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
-        	}
-        	PushFollow(FOLLOW_whileStatement_in_synpred187_AS3_ex7878);
-        	whileStatement();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred187_AS3_ex"
-
     // $ANTLR start "synpred188_AS3_ex"
     public void synpred188_AS3_ex_fragment() {
-        // AS3_ex.g3:1797:9: ( ifStatement )
-        // AS3_ex.g3:1797:9: ifStatement
+        // AS3_ex.g3:1804:9: ( variableStatement )
+        // AS3_ex.g3:1804:9: variableStatement
         {
         	if ( state.backtracking == 0 ) 
         	{
-        	  InsertLines(mPrinter.GetBlankLinesBeforeControlStatement());
+        	  InsertStatementCR();
         	}
-        	PushFollow(FOLLOW_ifStatement_in_synpred188_AS3_ex7889);
-        	ifStatement();
+        	PushFollow(FOLLOW_variableStatement_in_synpred188_AS3_ex7919);
+        	variableStatement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23160,43 +23174,25 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred188_AS3_ex"
 
-    // $ANTLR start "synpred190_AS3_ex"
-    public void synpred190_AS3_ex_fragment() {
-        // AS3_ex.g3:1799:9: ( variableStatement )
-        // AS3_ex.g3:1799:9: variableStatement
-        {
-        	if ( state.backtracking == 0 ) 
-        	{
-        	  InsertStatementCR();
-        	}
-        	PushFollow(FOLLOW_variableStatement_in_synpred190_AS3_ex7914);
-        	variableStatement();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred190_AS3_ex"
-
-    // $ANTLR start "synpred193_AS3_ex"
-    public void synpred193_AS3_ex_fragment() {
+    // $ANTLR start "synpred191_AS3_ex"
+    public void synpred191_AS3_ex_fragment() {
         IToken S = null;
 
-        // AS3_ex.g3:1827:68: (S= SEMI )
-        // AS3_ex.g3:1827:68: S= SEMI
+        // AS3_ex.g3:1832:68: (S= SEMI )
+        // AS3_ex.g3:1832:68: S= SEMI
         {
-        	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_synpred193_AS3_ex8054); if (state.failed) return ;
+        	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_synpred191_AS3_ex8059); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred193_AS3_ex"
+    // $ANTLR end "synpred191_AS3_ex"
 
-    // $ANTLR start "synpred197_AS3_ex"
-    public void synpred197_AS3_ex_fragment() {
-        // AS3_ex.g3:1855:11: ( ( catchClause )+ finallyClause )
-        // AS3_ex.g3:1855:11: ( catchClause )+ finallyClause
+    // $ANTLR start "synpred195_AS3_ex"
+    public void synpred195_AS3_ex_fragment() {
+        // AS3_ex.g3:1860:11: ( ( catchClause )+ finallyClause )
+        // AS3_ex.g3:1860:11: ( catchClause )+ finallyClause
         {
-        	// AS3_ex.g3:1855:11: ( catchClause )+
+        	// AS3_ex.g3:1860:11: ( catchClause )+
         	int cnt172 = 0;
         	do 
         	{
@@ -23214,7 +23210,7 @@ public class AS3_exParser : Parser
         			case 1 :
         			    // AS3_ex.g3:0:0: catchClause
         			    {
-        			    	PushFollow(FOLLOW_catchClause_in_synpred197_AS3_ex8290);
+        			    	PushFollow(FOLLOW_catchClause_in_synpred195_AS3_ex8295);
         			    	catchClause();
         			    	state.followingStackPointer--;
         			    	if (state.failed) return ;
@@ -23235,21 +23231,21 @@ public class AS3_exParser : Parser
         	loop172:
         		;	// Stops C# compiler whinging that label 'loop172' has no statements
 
-        	PushFollow(FOLLOW_finallyClause_in_synpred197_AS3_ex8293);
+        	PushFollow(FOLLOW_finallyClause_in_synpred195_AS3_ex8298);
         	finallyClause();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred197_AS3_ex"
+    // $ANTLR end "synpred195_AS3_ex"
 
-    // $ANTLR start "synpred199_AS3_ex"
-    public void synpred199_AS3_ex_fragment() {
-        // AS3_ex.g3:1856:11: ( ( catchClause )+ )
-        // AS3_ex.g3:1856:11: ( catchClause )+
+    // $ANTLR start "synpred197_AS3_ex"
+    public void synpred197_AS3_ex_fragment() {
+        // AS3_ex.g3:1861:11: ( ( catchClause )+ )
+        // AS3_ex.g3:1861:11: ( catchClause )+
         {
-        	// AS3_ex.g3:1856:11: ( catchClause )+
+        	// AS3_ex.g3:1861:11: ( catchClause )+
         	int cnt173 = 0;
         	do 
         	{
@@ -23267,7 +23263,7 @@ public class AS3_exParser : Parser
         			case 1 :
         			    // AS3_ex.g3:0:0: catchClause
         			    {
-        			    	PushFollow(FOLLOW_catchClause_in_synpred199_AS3_ex8305);
+        			    	PushFollow(FOLLOW_catchClause_in_synpred197_AS3_ex8310);
         			    	catchClause();
         			    	state.followingStackPointer--;
         			    	if (state.failed) return ;
@@ -23291,29 +23287,59 @@ public class AS3_exParser : Parser
 
         }
     }
-    // $ANTLR end "synpred199_AS3_ex"
+    // $ANTLR end "synpred197_AS3_ex"
 
-    // $ANTLR start "synpred201_AS3_ex"
-    public void synpred201_AS3_ex_fragment() {
-        // AS3_ex.g3:1904:61: ( statement )
-        // AS3_ex.g3:1904:61: statement
+    // $ANTLR start "synpred199_AS3_ex"
+    public void synpred199_AS3_ex_fragment() {
+        // AS3_ex.g3:1909:61: ( statement )
+        // AS3_ex.g3:1909:61: statement
         {
-        	PushFollow(FOLLOW_statement_in_synpred201_AS3_ex8571);
+        	PushFollow(FOLLOW_statement_in_synpred199_AS3_ex8576);
         	statement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred201_AS3_ex"
+    // $ANTLR end "synpred199_AS3_ex"
+
+    // $ANTLR start "synpred209_AS3_ex"
+    public void synpred209_AS3_ex_fragment() {
+        // AS3_ex.g3:1994:9: ( variableDeclarationNoInList )
+        // AS3_ex.g3:1994:9: variableDeclarationNoInList
+        {
+        	PushFollow(FOLLOW_variableDeclarationNoInList_in_synpred209_AS3_ex9131);
+        	variableDeclarationNoInList();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred209_AS3_ex"
+
+    // $ANTLR start "synpred210_AS3_ex"
+    public void synpred210_AS3_ex_fragment() {
+        IToken S = null;
+
+        // AS3_ex.g3:2008:241: (S= SEMI )
+        // AS3_ex.g3:2008:241: S= SEMI
+        {
+        	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_synpred210_AS3_ex9212); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred210_AS3_ex"
 
     // $ANTLR start "synpred211_AS3_ex"
     public void synpred211_AS3_ex_fragment() {
-        // AS3_ex.g3:1989:9: ( variableDeclarationNoInList )
-        // AS3_ex.g3:1989:9: variableDeclarationNoInList
+        IToken E = null;
+
+        // AS3_ex.g3:2063:26: (E= ELSE statement )
+        // AS3_ex.g3:2063:26: E= ELSE statement
         {
-        	PushFollow(FOLLOW_variableDeclarationNoInList_in_synpred211_AS3_ex9126);
-        	variableDeclarationNoInList();
+        	E=(IToken)Match(input,ELSE,FOLLOW_ELSE_in_synpred211_AS3_ex9451); if (state.failed) return ;
+        	PushFollow(FOLLOW_statement_in_synpred211_AS3_ex9492);
+        	statement();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23321,82 +23347,52 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred211_AS3_ex"
 
-    // $ANTLR start "synpred212_AS3_ex"
-    public void synpred212_AS3_ex_fragment() {
-        IToken S = null;
-
-        // AS3_ex.g3:2003:241: (S= SEMI )
-        // AS3_ex.g3:2003:241: S= SEMI
+    // $ANTLR start "synpred228_AS3_ex"
+    public void synpred228_AS3_ex_fragment() {
+        // AS3_ex.g3:2198:7: ( leftHandSideExpression assignmentOperator assignmentExpression )
+        // AS3_ex.g3:2198:7: leftHandSideExpression assignmentOperator assignmentExpression
         {
-        	S=(IToken)Match(input,SEMI,FOLLOW_SEMI_in_synpred212_AS3_ex9207); if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred212_AS3_ex"
-
-    // $ANTLR start "synpred213_AS3_ex"
-    public void synpred213_AS3_ex_fragment() {
-        IToken E = null;
-
-        // AS3_ex.g3:2058:26: (E= ELSE statement )
-        // AS3_ex.g3:2058:26: E= ELSE statement
-        {
-        	E=(IToken)Match(input,ELSE,FOLLOW_ELSE_in_synpred213_AS3_ex9446); if (state.failed) return ;
-        	PushFollow(FOLLOW_statement_in_synpred213_AS3_ex9487);
-        	statement();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred213_AS3_ex"
-
-    // $ANTLR start "synpred230_AS3_ex"
-    public void synpred230_AS3_ex_fragment() {
-        // AS3_ex.g3:2193:7: ( leftHandSideExpression assignmentOperator assignmentExpression )
-        // AS3_ex.g3:2193:7: leftHandSideExpression assignmentOperator assignmentExpression
-        {
-        	PushFollow(FOLLOW_leftHandSideExpression_in_synpred230_AS3_ex10219);
+        	PushFollow(FOLLOW_leftHandSideExpression_in_synpred228_AS3_ex10224);
         	leftHandSideExpression();
         	state.followingStackPointer--;
         	if (state.failed) return ;
-        	PushFollow(FOLLOW_assignmentOperator_in_synpred230_AS3_ex10222);
+        	PushFollow(FOLLOW_assignmentOperator_in_synpred228_AS3_ex10227);
         	assignmentOperator();
         	state.followingStackPointer--;
         	if (state.failed) return ;
-        	PushFollow(FOLLOW_assignmentExpression_in_synpred230_AS3_ex10225);
+        	PushFollow(FOLLOW_assignmentExpression_in_synpred228_AS3_ex10230);
         	assignmentExpression();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred230_AS3_ex"
+    // $ANTLR end "synpred228_AS3_ex"
 
-    // $ANTLR start "synpred231_AS3_ex"
-    public void synpred231_AS3_ex_fragment() {
-        // AS3_ex.g3:2199:9: ( conditionalExpressionNoIn )
-        // AS3_ex.g3:2199:9: conditionalExpressionNoIn
+    // $ANTLR start "synpred229_AS3_ex"
+    public void synpred229_AS3_ex_fragment() {
+        // AS3_ex.g3:2204:9: ( conditionalExpressionNoIn )
+        // AS3_ex.g3:2204:9: conditionalExpressionNoIn
         {
-        	PushFollow(FOLLOW_conditionalExpressionNoIn_in_synpred231_AS3_ex10253);
+        	PushFollow(FOLLOW_conditionalExpressionNoIn_in_synpred229_AS3_ex10258);
         	conditionalExpressionNoIn();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred231_AS3_ex"
+    // $ANTLR end "synpred229_AS3_ex"
 
-    // $ANTLR start "synpred274_AS3_ex"
-    public void synpred274_AS3_ex_fragment() {
+    // $ANTLR start "synpred272_AS3_ex"
+    public void synpred272_AS3_ex_fragment() {
         IToken g = null;
         IToken assign = null;
         IToken eq = null;
 
-        // AS3_ex.g3:2308:7: ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )
-        // AS3_ex.g3:2308:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression
+        // AS3_ex.g3:2313:7: ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )
+        // AS3_ex.g3:2313:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression
         {
-        	// AS3_ex.g3:2308:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) )
+        	// AS3_ex.g3:2313:7: (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) )
         	int alt176 = 2;
         	int LA176_0 = input.LA(1);
 
@@ -23419,10 +23415,10 @@ public class AS3_exParser : Parser
         	switch (alt176) 
         	{
         	    case 1 :
-        	        // AS3_ex.g3:2308:9: g= GT (assign= ASSIGN )?
+        	        // AS3_ex.g3:2313:9: g= GT (assign= ASSIGN )?
         	        {
-        	        	g=(IToken)Match(input,GT,FOLLOW_GT_in_synpred274_AS3_ex11147); if (state.failed) return ;
-        	        	// AS3_ex.g3:2308:14: (assign= ASSIGN )?
+        	        	g=(IToken)Match(input,GT,FOLLOW_GT_in_synpred272_AS3_ex11152); if (state.failed) return ;
+        	        	// AS3_ex.g3:2313:14: (assign= ASSIGN )?
         	        	int alt175 = 2;
         	        	int LA175_0 = input.LA(1);
 
@@ -23433,9 +23429,9 @@ public class AS3_exParser : Parser
         	        	switch (alt175) 
         	        	{
         	        	    case 1 :
-        	        	        // AS3_ex.g3:2308:15: assign= ASSIGN
+        	        	        // AS3_ex.g3:2313:15: assign= ASSIGN
         	        	        {
-        	        	        	assign=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_synpred274_AS3_ex11152); if (state.failed) return ;
+        	        	        	assign=(IToken)Match(input,ASSIGN,FOLLOW_ASSIGN_in_synpred272_AS3_ex11157); if (state.failed) return ;
 
         	        	        }
         	        	        break;
@@ -23446,7 +23442,7 @@ public class AS3_exParser : Parser
         	        }
         	        break;
         	    case 2 :
-        	        // AS3_ex.g3:2316:14: eq= ( IN | LT | LTE | INSTANCEOF | IS | AS )
+        	        // AS3_ex.g3:2321:14: eq= ( IN | LT | LTE | INSTANCEOF | IS | AS )
         	        {
         	        	eq = (IToken)input.LT(1);
         	        	if ( input.LA(1) == AS || (input.LA(1) >= IN && input.LA(1) <= INSTANCEOF) || input.LA(1) == IS || input.LA(1) == LT || input.LA(1) == LTE ) 
@@ -23467,34 +23463,34 @@ public class AS3_exParser : Parser
 
         	}
 
-        	PushFollow(FOLLOW_shiftExpression_in_synpred274_AS3_ex11223);
+        	PushFollow(FOLLOW_shiftExpression_in_synpred272_AS3_ex11228);
         	shiftExpression();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred274_AS3_ex"
+    // $ANTLR end "synpred272_AS3_ex"
 
-    // $ANTLR start "synpred285_AS3_ex"
-    public void synpred285_AS3_ex_fragment() {
-        // AS3_ex.g3:2348:11: ( '>' '>' '>' )
-        // AS3_ex.g3:2348:12: '>' '>' '>'
+    // $ANTLR start "synpred283_AS3_ex"
+    public void synpred283_AS3_ex_fragment() {
+        // AS3_ex.g3:2353:11: ( '>' '>' '>' )
+        // AS3_ex.g3:2353:12: '>' '>' '>'
         {
-        	Match(input,GT,FOLLOW_GT_in_synpred285_AS3_ex11475); if (state.failed) return ;
-        	Match(input,GT,FOLLOW_GT_in_synpred285_AS3_ex11477); if (state.failed) return ;
-        	Match(input,GT,FOLLOW_GT_in_synpred285_AS3_ex11479); if (state.failed) return ;
+        	Match(input,GT,FOLLOW_GT_in_synpred283_AS3_ex11480); if (state.failed) return ;
+        	Match(input,GT,FOLLOW_GT_in_synpred283_AS3_ex11482); if (state.failed) return ;
+        	Match(input,GT,FOLLOW_GT_in_synpred283_AS3_ex11484); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred285_AS3_ex"
+    // $ANTLR end "synpred283_AS3_ex"
 
-    // $ANTLR start "synpred288_AS3_ex"
-    public void synpred288_AS3_ex_fragment() {
+    // $ANTLR start "synpred286_AS3_ex"
+    public void synpred286_AS3_ex_fragment() {
         IToken op = null;
 
-        // AS3_ex.g3:2361:36: (op= ( PLUS | SUB ) multiplicativeExpression )
-        // AS3_ex.g3:2361:36: op= ( PLUS | SUB ) multiplicativeExpression
+        // AS3_ex.g3:2366:36: (op= ( PLUS | SUB ) multiplicativeExpression )
+        // AS3_ex.g3:2366:36: op= ( PLUS | SUB ) multiplicativeExpression
         {
         	op = (IToken)input.LT(1);
         	if ( (input.LA(1) >= PLUS && input.LA(1) <= SUB) ) 
@@ -23509,21 +23505,21 @@ public class AS3_exParser : Parser
         	    throw mse;
         	}
 
-        	PushFollow(FOLLOW_multiplicativeExpression_in_synpred288_AS3_ex11584);
+        	PushFollow(FOLLOW_multiplicativeExpression_in_synpred286_AS3_ex11589);
         	multiplicativeExpression();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred288_AS3_ex"
+    // $ANTLR end "synpred286_AS3_ex"
 
-    // $ANTLR start "synpred291_AS3_ex"
-    public void synpred291_AS3_ex_fragment() {
+    // $ANTLR start "synpred289_AS3_ex"
+    public void synpred289_AS3_ex_fragment() {
         IToken op = null;
 
-        // AS3_ex.g3:2366:27: (op= ( STAR | DIV | MOD ) unaryExpression )
-        // AS3_ex.g3:2366:27: op= ( STAR | DIV | MOD ) unaryExpression
+        // AS3_ex.g3:2371:27: (op= ( STAR | DIV | MOD ) unaryExpression )
+        // AS3_ex.g3:2371:27: op= ( STAR | DIV | MOD ) unaryExpression
         {
         	op = (IToken)input.LT(1);
         	if ( (input.LA(1) >= STAR && input.LA(1) <= MOD) ) 
@@ -23538,35 +23534,35 @@ public class AS3_exParser : Parser
         	    throw mse;
         	}
 
-        	PushFollow(FOLLOW_unaryExpression_in_synpred291_AS3_ex11623);
+        	PushFollow(FOLLOW_unaryExpression_in_synpred289_AS3_ex11628);
         	unaryExpression();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred291_AS3_ex"
+    // $ANTLR end "synpred289_AS3_ex"
 
-    // $ANTLR start "synpred292_AS3_ex"
-    public void synpred292_AS3_ex_fragment() {
-        // AS3_ex.g3:2371:9: ( postfixExpression )
-        // AS3_ex.g3:2371:9: postfixExpression
+    // $ANTLR start "synpred290_AS3_ex"
+    public void synpred290_AS3_ex_fragment() {
+        // AS3_ex.g3:2376:9: ( postfixExpression )
+        // AS3_ex.g3:2376:9: postfixExpression
         {
-        	PushFollow(FOLLOW_postfixExpression_in_synpred292_AS3_ex11647);
+        	PushFollow(FOLLOW_postfixExpression_in_synpred290_AS3_ex11652);
         	postfixExpression();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred292_AS3_ex"
+    // $ANTLR end "synpred290_AS3_ex"
 
-    // $ANTLR start "synpred294_AS3_ex"
-    public void synpred294_AS3_ex_fragment() {
+    // $ANTLR start "synpred292_AS3_ex"
+    public void synpred292_AS3_ex_fragment() {
         IToken op = null;
 
-        // AS3_ex.g3:2372:8: (op= ( NOT | INV ) unaryExpression )
-        // AS3_ex.g3:2372:8: op= ( NOT | INV ) unaryExpression
+        // AS3_ex.g3:2377:8: (op= ( NOT | INV ) unaryExpression )
+        // AS3_ex.g3:2377:8: op= ( NOT | INV ) unaryExpression
         {
         	op = (IToken)input.LT(1);
         	if ( (input.LA(1) >= NOT && input.LA(1) <= INV) ) 
@@ -23581,38 +23577,74 @@ public class AS3_exParser : Parser
         	    throw mse;
         	}
 
-        	PushFollow(FOLLOW_unaryExpression_in_synpred294_AS3_ex11668);
+        	PushFollow(FOLLOW_unaryExpression_in_synpred292_AS3_ex11673);
         	unaryExpression();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred294_AS3_ex"
+    // $ANTLR end "synpred292_AS3_ex"
 
-    // $ANTLR start "synpred303_AS3_ex"
-    public void synpred303_AS3_ex_fragment() {
-        // AS3_ex.g3:2385:32: ( postfixOp )
-        // AS3_ex.g3:2385:32: postfixOp
+    // $ANTLR start "synpred301_AS3_ex"
+    public void synpred301_AS3_ex_fragment() {
+        // AS3_ex.g3:2390:32: ( postfixOp )
+        // AS3_ex.g3:2390:32: postfixOp
         {
-        	PushFollow(FOLLOW_postfixOp_in_synpred303_AS3_ex11770);
+        	PushFollow(FOLLOW_postfixOp_in_synpred301_AS3_ex11775);
         	postfixOp();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred303_AS3_ex"
+    // $ANTLR end "synpred301_AS3_ex"
 
-    // $ANTLR start "synpred307_AS3_ex"
-    public void synpred307_AS3_ex_fragment() {
-        // AS3_ex.g3:2407:7: ( arguments )
-        // AS3_ex.g3:2407:7: arguments
+    // $ANTLR start "synpred305_AS3_ex"
+    public void synpred305_AS3_ex_fragment() {
+        // AS3_ex.g3:2412:7: ( arguments )
+        // AS3_ex.g3:2412:7: arguments
         {
-        	PushFollow(FOLLOW_arguments_in_synpred307_AS3_ex11878);
+        	PushFollow(FOLLOW_arguments_in_synpred305_AS3_ex11883);
         	arguments();
         	state.followingStackPointer--;
         	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred305_AS3_ex"
+
+    // $ANTLR start "synpred306_AS3_ex"
+    public void synpred306_AS3_ex_fragment() {
+        IToken L = null;
+        IToken R = null;
+
+        // AS3_ex.g3:2413:9: (L= LBRACK expression R= RBRACK )
+        // AS3_ex.g3:2413:9: L= LBRACK expression R= RBRACK
+        {
+        	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_synpred306_AS3_ex11895); if (state.failed) return ;
+        	PushFollow(FOLLOW_expression_in_synpred306_AS3_ex11899);
+        	expression();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+        	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_synpred306_AS3_ex11903); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred306_AS3_ex"
+
+    // $ANTLR start "synpred307_AS3_ex"
+    public void synpred307_AS3_ex_fragment() {
+        IToken op = null;
+
+        // AS3_ex.g3:2415:41: ( eitherIdentifier op= XML_NS_OP )
+        // AS3_ex.g3:2415:41: eitherIdentifier op= XML_NS_OP
+        {
+        	PushFollow(FOLLOW_eitherIdentifier_in_synpred307_AS3_ex11923);
+        	eitherIdentifier();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_synpred307_AS3_ex11927); if (state.failed) return ;
 
         }
     }
@@ -23620,50 +23652,14 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred308_AS3_ex"
     public void synpred308_AS3_ex_fragment() {
-        IToken L = null;
-        IToken R = null;
-
-        // AS3_ex.g3:2408:9: (L= LBRACK expression R= RBRACK )
-        // AS3_ex.g3:2408:9: L= LBRACK expression R= RBRACK
-        {
-        	L=(IToken)Match(input,LBRACK,FOLLOW_LBRACK_in_synpred308_AS3_ex11890); if (state.failed) return ;
-        	PushFollow(FOLLOW_expression_in_synpred308_AS3_ex11894);
-        	expression();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-        	R=(IToken)Match(input,RBRACK,FOLLOW_RBRACK_in_synpred308_AS3_ex11898); if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred308_AS3_ex"
-
-    // $ANTLR start "synpred309_AS3_ex"
-    public void synpred309_AS3_ex_fragment() {
-        IToken op = null;
-
-        // AS3_ex.g3:2410:41: ( eitherIdentifier op= XML_NS_OP )
-        // AS3_ex.g3:2410:41: eitherIdentifier op= XML_NS_OP
-        {
-        	PushFollow(FOLLOW_eitherIdentifier_in_synpred309_AS3_ex11918);
-        	eitherIdentifier();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_synpred309_AS3_ex11922); if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred309_AS3_ex"
-
-    // $ANTLR start "synpred310_AS3_ex"
-    public void synpred310_AS3_ex_fragment() {
         IToken D = null;
         IToken op = null;
 
-        // AS3_ex.g3:2410:9: (D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier )
-        // AS3_ex.g3:2410:9: D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier
+        // AS3_ex.g3:2415:9: (D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier )
+        // AS3_ex.g3:2415:9: D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier
         {
-        	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_synpred310_AS3_ex11913); if (state.failed) return ;
-        	// AS3_ex.g3:2410:40: ( eitherIdentifier op= XML_NS_OP )?
+        	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_synpred308_AS3_ex11918); if (state.failed) return ;
+        	// AS3_ex.g3:2415:40: ( eitherIdentifier op= XML_NS_OP )?
         	int alt181 = 2;
         	switch ( input.LA(1) ) 
         	{
@@ -23671,7 +23667,7 @@ public class AS3_exParser : Parser
         	    	{
         	        int LA181_1 = input.LA(2);
 
-        	        if ( (synpred309_AS3_ex()) )
+        	        if ( (synpred307_AS3_ex()) )
         	        {
         	            alt181 = 1;
         	        }
@@ -23681,7 +23677,7 @@ public class AS3_exParser : Parser
         	    	{
         	        int LA181_2 = input.LA(2);
 
-        	        if ( (synpred309_AS3_ex()) )
+        	        if ( (synpred307_AS3_ex()) )
         	        {
         	            alt181 = 1;
         	        }
@@ -23734,7 +23730,7 @@ public class AS3_exParser : Parser
         	    	{
         	        int LA181_3 = input.LA(2);
 
-        	        if ( (synpred309_AS3_ex()) )
+        	        if ( (synpred307_AS3_ex()) )
         	        {
         	            alt181 = 1;
         	        }
@@ -23753,7 +23749,7 @@ public class AS3_exParser : Parser
         	    	{
         	        int LA181_4 = input.LA(2);
 
-        	        if ( (synpred309_AS3_ex()) )
+        	        if ( (synpred307_AS3_ex()) )
         	        {
         	            alt181 = 1;
         	        }
@@ -23763,7 +23759,7 @@ public class AS3_exParser : Parser
         	    	{
         	        int LA181_5 = input.LA(2);
 
-        	        if ( (synpred309_AS3_ex()) )
+        	        if ( (synpred307_AS3_ex()) )
         	        {
         	            alt181 = 1;
         	        }
@@ -23774,57 +23770,84 @@ public class AS3_exParser : Parser
         	switch (alt181) 
         	{
         	    case 1 :
-        	        // AS3_ex.g3:2410:41: eitherIdentifier op= XML_NS_OP
+        	        // AS3_ex.g3:2415:41: eitherIdentifier op= XML_NS_OP
         	        {
-        	        	PushFollow(FOLLOW_eitherIdentifier_in_synpred310_AS3_ex11918);
+        	        	PushFollow(FOLLOW_eitherIdentifier_in_synpred308_AS3_ex11923);
         	        	eitherIdentifier();
         	        	state.followingStackPointer--;
         	        	if (state.failed) return ;
-        	        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_synpred310_AS3_ex11922); if (state.failed) return ;
+        	        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_synpred308_AS3_ex11927); if (state.failed) return ;
 
         	        }
         	        break;
 
         	}
 
-        	PushFollow(FOLLOW_eitherIdentifier_in_synpred310_AS3_ex11929);
+        	PushFollow(FOLLOW_eitherIdentifier_in_synpred308_AS3_ex11934);
         	eitherIdentifier();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred310_AS3_ex"
+    // $ANTLR end "synpred308_AS3_ex"
 
-    // $ANTLR start "synpred311_AS3_ex"
-    public void synpred311_AS3_ex_fragment() {
+    // $ANTLR start "synpred309_AS3_ex"
+    public void synpred309_AS3_ex_fragment() {
         IToken op = null;
 
-        // AS3_ex.g3:2411:49: ( eitherIdentifier op= XML_NS_OP )
-        // AS3_ex.g3:2411:49: eitherIdentifier op= XML_NS_OP
+        // AS3_ex.g3:2416:49: ( eitherIdentifier op= XML_NS_OP )
+        // AS3_ex.g3:2416:49: eitherIdentifier op= XML_NS_OP
         {
-        	PushFollow(FOLLOW_eitherIdentifier_in_synpred311_AS3_ex11945);
+        	PushFollow(FOLLOW_eitherIdentifier_in_synpred309_AS3_ex11950);
         	eitherIdentifier();
         	state.followingStackPointer--;
         	if (state.failed) return ;
-        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_synpred311_AS3_ex11949); if (state.failed) return ;
+        	op=(IToken)Match(input,XML_NS_OP,FOLLOW_XML_NS_OP_in_synpred309_AS3_ex11954); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred309_AS3_ex"
+
+    // $ANTLR start "synpred311_AS3_ex"
+    public void synpred311_AS3_ex_fragment() {
+        IToken D = null;
+
+        // AS3_ex.g3:2417:9: (D= DOT parExpression )
+        // AS3_ex.g3:2417:9: D= DOT parExpression
+        {
+        	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_synpred311_AS3_ex11973); if (state.failed) return ;
+        	PushFollow(FOLLOW_parExpression_in_synpred311_AS3_ex11977);
+        	parExpression();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
 
         }
     }
     // $ANTLR end "synpred311_AS3_ex"
 
-    // $ANTLR start "synpred313_AS3_ex"
-    public void synpred313_AS3_ex_fragment() {
-        IToken D = null;
-
-        // AS3_ex.g3:2412:9: (D= DOT parExpression )
-        // AS3_ex.g3:2412:9: D= DOT parExpression
+    // $ANTLR start "synpred312_AS3_ex"
+    public void synpred312_AS3_ex_fragment() {
+        // AS3_ex.g3:2418:9: ( typePostfixSyntax )
+        // AS3_ex.g3:2418:9: typePostfixSyntax
         {
-        	D=(IToken)Match(input,DOT,FOLLOW_DOT_in_synpred313_AS3_ex11968); if (state.failed) return ;
-        	PushFollow(FOLLOW_parExpression_in_synpred313_AS3_ex11972);
-        	parExpression();
+        	PushFollow(FOLLOW_typePostfixSyntax_in_synpred312_AS3_ex11987);
+        	typePostfixSyntax();
         	state.followingStackPointer--;
         	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred312_AS3_ex"
+
+    // $ANTLR start "synpred313_AS3_ex"
+    public void synpred313_AS3_ex_fragment() {
+        IToken I = null;
+
+        // AS3_ex.g3:2423:4: (I= IDENTIFIER )
+        // AS3_ex.g3:2423:4: I= IDENTIFIER
+        {
+        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_synpred313_AS3_ex12017); if (state.failed) return ;
 
         }
     }
@@ -23832,11 +23855,11 @@ public class AS3_exParser : Parser
 
     // $ANTLR start "synpred314_AS3_ex"
     public void synpred314_AS3_ex_fragment() {
-        // AS3_ex.g3:2413:9: ( typePostfixSyntax )
-        // AS3_ex.g3:2413:9: typePostfixSyntax
+        // AS3_ex.g3:2424:5: ( xmlPropertyIdentifier )
+        // AS3_ex.g3:2424:5: xmlPropertyIdentifier
         {
-        	PushFollow(FOLLOW_typePostfixSyntax_in_synpred314_AS3_ex11982);
-        	typePostfixSyntax();
+        	PushFollow(FOLLOW_xmlPropertyIdentifier_in_synpred314_AS3_ex12027);
+        	xmlPropertyIdentifier();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23844,94 +23867,81 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred314_AS3_ex"
 
-    // $ANTLR start "synpred315_AS3_ex"
-    public void synpred315_AS3_ex_fragment() {
-        IToken I = null;
+    // $ANTLR start "synpred376_AS3_ex"
+    public void synpred376_AS3_ex_fragment() {
+        IToken T = null;
 
-        // AS3_ex.g3:2418:4: (I= IDENTIFIER )
-        // AS3_ex.g3:2418:4: I= IDENTIFIER
+        // AS3_ex.g3:2549:9: (T= THIS )
+        // AS3_ex.g3:2549:9: T= THIS
         {
-        	I=(IToken)Match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_synpred315_AS3_ex12012); if (state.failed) return ;
+        	T=(IToken)Match(input,THIS,FOLLOW_THIS_in_synpred376_AS3_ex13037); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred315_AS3_ex"
+    // $ANTLR end "synpred376_AS3_ex"
 
-    // $ANTLR start "synpred316_AS3_ex"
-    public void synpred316_AS3_ex_fragment() {
-        // AS3_ex.g3:2419:5: ( xmlPropertyIdentifier )
-        // AS3_ex.g3:2419:5: xmlPropertyIdentifier
+    // $ANTLR start "synpred377_AS3_ex"
+    public void synpred377_AS3_ex_fragment() {
+        IToken S = null;
+
+        // AS3_ex.g3:2550:9: (S= SUPER )
+        // AS3_ex.g3:2550:9: S= SUPER
         {
-        	PushFollow(FOLLOW_xmlPropertyIdentifier_in_synpred316_AS3_ex12022);
-        	xmlPropertyIdentifier();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
+        	S=(IToken)Match(input,SUPER,FOLLOW_SUPER_in_synpred377_AS3_ex13051); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred316_AS3_ex"
+    // $ANTLR end "synpred377_AS3_ex"
 
     // $ANTLR start "synpred378_AS3_ex"
     public void synpred378_AS3_ex_fragment() {
-        IToken T = null;
-
-        // AS3_ex.g3:2544:9: (T= THIS )
-        // AS3_ex.g3:2544:9: T= THIS
+        // AS3_ex.g3:2551:9: ( literal )
+        // AS3_ex.g3:2551:9: literal
         {
-        	T=(IToken)Match(input,THIS,FOLLOW_THIS_in_synpred378_AS3_ex13032); if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred378_AS3_ex"
-
-    // $ANTLR start "synpred379_AS3_ex"
-    public void synpred379_AS3_ex_fragment() {
-        IToken S = null;
-
-        // AS3_ex.g3:2545:9: (S= SUPER )
-        // AS3_ex.g3:2545:9: S= SUPER
-        {
-        	S=(IToken)Match(input,SUPER,FOLLOW_SUPER_in_synpred379_AS3_ex13046); if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred379_AS3_ex"
-
-    // $ANTLR start "synpred380_AS3_ex"
-    public void synpred380_AS3_ex_fragment() {
-        // AS3_ex.g3:2546:9: ( literal )
-        // AS3_ex.g3:2546:9: literal
-        {
-        	PushFollow(FOLLOW_literal_in_synpred380_AS3_ex13058);
+        	PushFollow(FOLLOW_literal_in_synpred378_AS3_ex13063);
         	literal();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred380_AS3_ex"
+    // $ANTLR end "synpred378_AS3_ex"
 
-    // $ANTLR start "synpred383_AS3_ex"
-    public void synpred383_AS3_ex_fragment() {
-        // AS3_ex.g3:2549:9: ( identifierLiteral )
-        // AS3_ex.g3:2549:9: identifierLiteral
+    // $ANTLR start "synpred381_AS3_ex"
+    public void synpred381_AS3_ex_fragment() {
+        // AS3_ex.g3:2554:9: ( identifierLiteral )
+        // AS3_ex.g3:2554:9: identifierLiteral
         {
-        	PushFollow(FOLLOW_identifierLiteral_in_synpred383_AS3_ex13093);
+        	PushFollow(FOLLOW_identifierLiteral_in_synpred381_AS3_ex13098);
         	identifierLiteral();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred383_AS3_ex"
+    // $ANTLR end "synpred381_AS3_ex"
+
+    // $ANTLR start "synpred382_AS3_ex"
+    public void synpred382_AS3_ex_fragment() {
+        // AS3_ex.g3:2555:9: ( xmlPrimaryExpression )
+        // AS3_ex.g3:2555:9: xmlPrimaryExpression
+        {
+        	PushFollow(FOLLOW_xmlPrimaryExpression_in_synpred382_AS3_ex13109);
+        	xmlPrimaryExpression();
+        	state.followingStackPointer--;
+        	if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end "synpred382_AS3_ex"
 
     // $ANTLR start "synpred384_AS3_ex"
     public void synpred384_AS3_ex_fragment() {
-        // AS3_ex.g3:2550:9: ( xmlPrimaryExpression )
-        // AS3_ex.g3:2550:9: xmlPrimaryExpression
+        // AS3_ex.g3:2557:9: ( conditionalCompilerOption )
+        // AS3_ex.g3:2557:9: conditionalCompilerOption
         {
-        	PushFollow(FOLLOW_xmlPrimaryExpression_in_synpred384_AS3_ex13104);
-        	xmlPrimaryExpression();
+        	PushFollow(FOLLOW_conditionalCompilerOption_in_synpred384_AS3_ex13130);
+        	conditionalCompilerOption();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
@@ -23939,61 +23949,29 @@ public class AS3_exParser : Parser
     }
     // $ANTLR end "synpred384_AS3_ex"
 
-    // $ANTLR start "synpred386_AS3_ex"
-    public void synpred386_AS3_ex_fragment() {
-        // AS3_ex.g3:2552:9: ( conditionalCompilerOption )
-        // AS3_ex.g3:2552:9: conditionalCompilerOption
+    // $ANTLR start "synpred385_AS3_ex"
+    public void synpred385_AS3_ex_fragment() {
+        // AS3_ex.g3:2558:72: ( arrayLiteral )
+        // AS3_ex.g3:2558:72: arrayLiteral
         {
-        	PushFollow(FOLLOW_conditionalCompilerOption_in_synpred386_AS3_ex13125);
-        	conditionalCompilerOption();
-        	state.followingStackPointer--;
-        	if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end "synpred386_AS3_ex"
-
-    // $ANTLR start "synpred387_AS3_ex"
-    public void synpred387_AS3_ex_fragment() {
-        // AS3_ex.g3:2553:72: ( arrayLiteral )
-        // AS3_ex.g3:2553:72: arrayLiteral
-        {
-        	PushFollow(FOLLOW_arrayLiteral_in_synpred387_AS3_ex13147);
+        	PushFollow(FOLLOW_arrayLiteral_in_synpred385_AS3_ex13152);
         	arrayLiteral();
         	state.followingStackPointer--;
         	if (state.failed) return ;
 
         }
     }
-    // $ANTLR end "synpred387_AS3_ex"
+    // $ANTLR end "synpred385_AS3_ex"
 
     // Delegated rules
 
-   	public bool synpred303_AS3_ex() 
+   	public bool synpred382_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred303_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred201_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred201_AS3_ex_fragment(); // can never throw exception
+   	        synpred382_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24023,13 +24001,31 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred70_AS3_ex() 
+   	public bool synpred272_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred70_AS3_ex_fragment(); // can never throw exception
+   	        synpred272_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred283_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred283_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24059,24 +24055,6 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred144_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred144_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
    	public bool synpred99_AS3_ex() 
    	{
    	    state.backtracking++;
@@ -24095,24 +24073,6 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred288_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred288_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
    	public bool synpred134_AS3_ex() 
    	{
    	    state.backtracking++;
@@ -24120,24 +24080,6 @@ public class AS3_exParser : Parser
    	    try 
    	    {
    	        synpred134_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred108_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred108_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24203,49 +24145,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred310_AS3_ex() 
+   	public bool synpred286_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred310_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred76_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred76_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred190_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred190_AS3_ex_fragment(); // can never throw exception
+   	        synpred286_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24293,6 +24199,42 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
+   	public bool synpred305_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred305_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred130_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred130_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
    	public bool synpred133_AS3_ex() 
    	{
    	    state.backtracking++;
@@ -24300,6 +24242,60 @@ public class AS3_exParser : Parser
    	    try 
    	    {
    	        synpred133_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred191_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred191_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred306_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred306_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred210_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred210_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24329,13 +24325,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred9_AS3_ex() 
+   	public bool synpred98_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred9_AS3_ex_fragment(); // can never throw exception
+   	        synpred98_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24347,13 +24343,49 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred71_AS3_ex() 
+   	public bool synpred290_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred71_AS3_ex_fragment(); // can never throw exception
+   	        synpred290_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred142_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred142_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred9_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred9_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24401,6 +24433,24 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
+   	public bool synpred129_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred129_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
    	public bool synpred211_AS3_ex() 
    	{
    	    state.backtracking++;
@@ -24408,42 +24458,6 @@ public class AS3_exParser : Parser
    	    try 
    	    {
    	        synpred211_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred135_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred135_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred379_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred379_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24473,13 +24487,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred285_AS3_ex() 
+   	public bool synpred377_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred285_AS3_ex_fragment(); // can never throw exception
+   	        synpred377_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24491,13 +24505,49 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred77_AS3_ex() 
+   	public bool synpred376_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred77_AS3_ex_fragment(); // can never throw exception
+   	        synpred376_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred301_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred301_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred120_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred120_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24527,13 +24577,31 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred136_AS3_ex() 
+   	public bool synpred170_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred136_AS3_ex_fragment(); // can never throw exception
+   	        synpred170_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred195_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred195_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24563,13 +24631,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred182_AS3_ex() 
+   	public bool synpred199_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred182_AS3_ex_fragment(); // can never throw exception
+   	        synpred199_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24581,13 +24649,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred199_AS3_ex() 
+   	public bool synpred182_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred199_AS3_ex_fragment(); // can never throw exception
+   	        synpred182_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24617,49 +24685,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred291_AS3_ex() 
+   	public bool synpred381_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred291_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred187_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred187_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred231_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred231_AS3_ex_fragment(); // can never throw exception
+   	        synpred381_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24689,13 +24721,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred193_AS3_ex() 
+   	public bool synpred74_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred193_AS3_ex_fragment(); // can never throw exception
+   	        synpred74_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24725,13 +24757,49 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred383_AS3_ex() 
+   	public bool synpred289_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred383_AS3_ex_fragment(); // can never throw exception
+   	        synpred289_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred68_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred68_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred385_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred385_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24750,42 +24818,6 @@ public class AS3_exParser : Parser
    	    try 
    	    {
    	        synpred307_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred274_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred274_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred315_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred315_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24833,31 +24865,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred109_AS3_ex() 
+   	public bool synpred97_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred109_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred159_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred159_AS3_ex_fragment(); // can never throw exception
+   	        synpred97_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24887,13 +24901,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred212_AS3_ex() 
+   	public bool synpred159_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred212_AS3_ex_fragment(); // can never throw exception
+   	        synpred159_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24905,13 +24919,49 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred213_AS3_ex() 
+   	public bool synpred69_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred213_AS3_ex_fragment(); // can never throw exception
+   	        synpred69_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred228_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred228_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
+   	public bool synpred158_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred158_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24941,13 +24991,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred316_AS3_ex() 
+   	public bool synpred169_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred316_AS3_ex_fragment(); // can never throw exception
+   	        synpred169_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -24977,24 +25027,6 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred161_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred161_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
    	public bool synpred106_AS3_ex() 
    	{
    	    state.backtracking++;
@@ -25013,13 +25045,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred230_AS3_ex() 
+   	public bool synpred73_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred230_AS3_ex_fragment(); // can never throw exception
+   	        synpred73_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -25049,13 +25081,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred177_AS3_ex() 
+   	public bool synpred173_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred177_AS3_ex_fragment(); // can never throw exception
+   	        synpred173_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -25067,13 +25099,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred173_AS3_ex() 
+   	public bool synpred177_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred173_AS3_ex_fragment(); // can never throw exception
+   	        synpred177_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -25157,13 +25189,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred386_AS3_ex() 
+   	public bool synpred312_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred386_AS3_ex_fragment(); // can never throw exception
+   	        synpred312_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -25175,31 +25207,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred122_AS3_ex() 
+   	public bool synpred157_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred122_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred380_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred380_AS3_ex_fragment(); // can never throw exception
+   	        synpred157_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -25229,13 +25243,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred160_AS3_ex() 
+   	public bool synpred209_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred160_AS3_ex_fragment(); // can never throw exception
+   	        synpred209_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -25283,6 +25297,24 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
+   	public bool synpred104_AS3_ex() 
+   	{
+   	    state.backtracking++;
+   	    int start = input.Mark();
+   	    try 
+   	    {
+   	        synpred104_AS3_ex_fragment(); // can never throw exception
+   	    }
+   	    catch (RecognitionException re) 
+   	    {
+   	        Console.Error.WriteLine("impossible: "+re);
+   	    }
+   	    bool success = !state.failed;
+   	    input.Rewind(start);
+   	    state.backtracking--;
+   	    state.failed = false;
+   	    return success;
+   	}
    	public bool synpred172_AS3_ex() 
    	{
    	    state.backtracking++;
@@ -25301,49 +25333,13 @@ public class AS3_exParser : Parser
    	    state.failed = false;
    	    return success;
    	}
-   	public bool synpred294_AS3_ex() 
+   	public bool synpred229_AS3_ex() 
    	{
    	    state.backtracking++;
    	    int start = input.Mark();
    	    try 
    	    {
-   	        synpred294_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred387_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred387_AS3_ex_fragment(); // can never throw exception
-   	    }
-   	    catch (RecognitionException re) 
-   	    {
-   	        Console.Error.WriteLine("impossible: "+re);
-   	    }
-   	    bool success = !state.failed;
-   	    input.Rewind(start);
-   	    state.backtracking--;
-   	    state.failed = false;
-   	    return success;
-   	}
-   	public bool synpred102_AS3_ex() 
-   	{
-   	    state.backtracking++;
-   	    int start = input.Mark();
-   	    try 
-   	    {
-   	        synpred102_AS3_ex_fragment(); // can never throw exception
+   	        synpred229_AS3_ex_fragment(); // can never throw exception
    	    }
    	    catch (RecognitionException re) 
    	    {
@@ -25450,12 +25446,12 @@ public class AS3_exParser : Parser
     const string DFA8_acceptS =
         "\x01\uffff\x01\x02\x2f\uffff\x01\x01";
     const string DFA8_specialS =
-        "\x05\uffff\x01\x0b\x01\x20\x01\x24\x01\x08\x01\x19\x01\x1c\x01"+
-        "\x27\x01\x15\x01\x23\x01\x12\x01\x14\x01\x1f\x01\x07\x01\x05\x01"+
-        "\x13\x01\x25\x01\x03\x01\x0a\x01\x18\x01\x0e\x01\x28\x01\x26\x01"+
-        "\x1e\x01\x1a\x01\x0d\x01\x04\x01\x10\x01\x01\x01\x21\x01\x2b\x01"+
-        "\x02\x01\x0c\x01\x1b\x01\x0f\x01\x29\x01\x1d\x01\x16\x01\x06\x01"+
-        "\x2a\x01\x17\x01\x00\x01\x09\x01\x22\x01\x11\x01\uffff}>";
+        "\x05\uffff\x01\x18\x01\x07\x01\x22\x01\x1e\x01\x15\x01\x28\x01"+
+        "\x09\x01\x12\x01\x2b\x01\x0d\x01\x20\x01\x26\x01\x05\x01\x2a\x01"+
+        "\x13\x01\x1c\x01\x0c\x01\x0a\x01\x10\x01\x1a\x01\x00\x01\x06\x01"+
+        "\x1b\x01\x0e\x01\x27\x01\x0b\x01\x14\x01\x25\x01\x11\x01\x03\x01"+
+        "\x24\x01\x21\x01\x29\x01\x17\x01\x01\x01\x0f\x01\x16\x01\x08\x01"+
+        "\x04\x01\x1d\x01\x02\x01\x23\x01\x19\x01\x1f\x01\uffff}>";
     static readonly string[] DFA8_transitionS = {
             "\x3d\x01\x01\x02\x04\x01\x01\uffff\x05\x01\x01\x03\x06\x01"+
             "\x02\uffff\x08\x01\x01\x04\x01\x01\x02\uffff\x05\x01\x02\uffff"+
@@ -25475,14 +25471,14 @@ public class AS3_exParser : Parser
             "\x02\uffff\x01\x01\x04\uffff\x01\x01\x02\uffff\x01\x01\x01\uffff"+
             "\x01\x0d\x01\uffff\x03\x01",
             "\x01\x30\x01\x27\x01\x2f\x02\x30\x01\x21\x01\x28\x01\x20\x01"+
-            "\x1c\x01\x2a\x02\x30\x01\x19\x01\x30\x01\x29\x01\x1a\x01\x2c"+
-            "\x01\x30\x01\x1f\x05\x30\x01\x22\x01\x1b\x01\x17\x04\x30\x01"+
-            "\x26\x01\x16\x01\x24\x01\x14\x01\x2e\x01\x22\x01\x18\x01\x23"+
+            "\x1c\x01\x2a\x02\x30\x01\x17\x01\x30\x01\x29\x01\x1a\x01\x2c"+
+            "\x01\x30\x01\x1f\x05\x30\x01\x22\x01\x1b\x01\x15\x04\x30\x01"+
+            "\x26\x01\x14\x01\x24\x01\x13\x01\x2e\x01\x22\x01\x16\x01\x23"+
             "\x01\x1c\x01\x1e\x01\x2d\x01\x1c\x01\x2b\x01\x25\x03\x22\x01"+
-            "\x15\x01\x1d\x04\x22\x04\x01\x01\uffff\x01\x01\x03\uffff\x01"+
+            "\x19\x01\x1d\x04\x22\x04\x01\x01\uffff\x01\x01\x03\uffff\x01"+
             "\x01\x07\uffff\x03\x01\x02\uffff\x02\x01\x06\uffff\x02\x01\x18"+
             "\uffff\x02\x01\x0c\uffff\x02\x01\x02\uffff\x01\x01\x04\uffff"+
-            "\x01\x01\x02\uffff\x01\x01\x01\uffff\x01\x13\x01\uffff\x03\x01",
+            "\x01\x01\x02\uffff\x01\x01\x01\uffff\x01\x18\x01\uffff\x03\x01",
             "\x01\uffff",
             "\x01\uffff",
             "\x01\uffff",
@@ -25556,7 +25552,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "()* loopback of 1247:93: ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )*"; }
+            get { return "()* loopback of 1252:93: ({...}? => (s= SUB | d= DOT | c= COLON ) {...}? => (I2= IDENTIFIER | allKeywords ) )*"; }
         }
 
     }
@@ -25569,6 +25565,36 @@ public class AS3_exParser : Parser
         switch ( s )
         {
                	case 0 : 
+                   	int LA8_25 = input.LA(1);
+
+                   	 
+                   	int index8_25 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_25);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 1 : 
+                   	int LA8_39 = input.LA(1);
+
+                   	 
+                   	int index8_39 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_39);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 2 : 
                    	int LA8_45 = input.LA(1);
 
                    	 
@@ -25583,41 +25609,11 @@ public class AS3_exParser : Parser
                    	input.Seek(index8_45);
                    	if ( s >= 0 ) return s;
                    	break;
-               	case 1 : 
-                   	int LA8_32 = input.LA(1);
-
-                   	 
-                   	int index8_32 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_32);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 2 : 
-                   	int LA8_35 = input.LA(1);
-
-                   	 
-                   	int index8_35 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_35);
-                   	if ( s >= 0 ) return s;
-                   	break;
                	case 3 : 
-                   	int LA8_21 = input.LA(1);
+                   	int LA8_34 = input.LA(1);
 
                    	 
-                   	int index8_21 = input.Index();
+                   	int index8_34 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25625,14 +25621,14 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_21);
+                   	input.Seek(index8_34);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 4 : 
-                   	int LA8_30 = input.LA(1);
+                   	int LA8_43 = input.LA(1);
 
                    	 
-                   	int index8_30 = input.Index();
+                   	int index8_43 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25640,40 +25636,10 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_30);
+                   	input.Seek(index8_43);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 5 : 
-                   	int LA8_18 = input.LA(1);
-
-                   	 
-                   	int index8_18 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_18);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 6 : 
-                   	int LA8_42 = input.LA(1);
-
-                   	 
-                   	int index8_42 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_42);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 7 : 
                    	int LA8_17 = input.LA(1);
 
                    	 
@@ -25688,11 +25654,11 @@ public class AS3_exParser : Parser
                    	input.Seek(index8_17);
                    	if ( s >= 0 ) return s;
                    	break;
-               	case 8 : 
-                   	int LA8_8 = input.LA(1);
+               	case 6 : 
+                   	int LA8_26 = input.LA(1);
 
                    	 
-                   	int index8_8 = input.Index();
+                   	int index8_26 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25700,14 +25666,44 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_8);
+                   	input.Seek(index8_26);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 7 : 
+                   	int LA8_6 = input.LA(1);
+
+                   	 
+                   	int index8_6 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_6);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 8 : 
+                   	int LA8_42 = input.LA(1);
+
+                   	 
+                   	int index8_42 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_42);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 9 : 
-                   	int LA8_46 = input.LA(1);
+                   	int LA8_11 = input.LA(1);
 
                    	 
-                   	int index8_46 = input.Index();
+                   	int index8_11 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25715,7 +25711,7 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_46);
+                   	input.Seek(index8_11);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 10 : 
@@ -25734,10 +25730,10 @@ public class AS3_exParser : Parser
                    	if ( s >= 0 ) return s;
                    	break;
                	case 11 : 
-                   	int LA8_5 = input.LA(1);
+                   	int LA8_30 = input.LA(1);
 
                    	 
-                   	int index8_5 = input.Index();
+                   	int index8_30 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25745,14 +25741,14 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_5);
+                   	input.Seek(index8_30);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 12 : 
-                   	int LA8_36 = input.LA(1);
+                   	int LA8_21 = input.LA(1);
 
                    	 
-                   	int index8_36 = input.Index();
+                   	int index8_21 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25760,85 +25756,10 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_36);
+                   	input.Seek(index8_21);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 13 : 
-                   	int LA8_29 = input.LA(1);
-
-                   	 
-                   	int index8_29 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_29);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 14 : 
-                   	int LA8_24 = input.LA(1);
-
-                   	 
-                   	int index8_24 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_24);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 15 : 
-                   	int LA8_38 = input.LA(1);
-
-                   	 
-                   	int index8_38 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_38);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 16 : 
-                   	int LA8_31 = input.LA(1);
-
-                   	 
-                   	int index8_31 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_31);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 17 : 
-                   	int LA8_48 = input.LA(1);
-
-                   	 
-                   	int index8_48 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_48);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 18 : 
                    	int LA8_14 = input.LA(1);
 
                    	 
@@ -25851,6 +25772,81 @@ public class AS3_exParser : Parser
 
                    	 
                    	input.Seek(index8_14);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 14 : 
+                   	int LA8_28 = input.LA(1);
+
+                   	 
+                   	int index8_28 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_28);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 15 : 
+                   	int LA8_40 = input.LA(1);
+
+                   	 
+                   	int index8_40 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_40);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 16 : 
+                   	int LA8_23 = input.LA(1);
+
+                   	 
+                   	int index8_23 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_23);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 17 : 
+                   	int LA8_33 = input.LA(1);
+
+                   	 
+                   	int index8_33 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_33);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 18 : 
+                   	int LA8_12 = input.LA(1);
+
+                   	 
+                   	int index8_12 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_12);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 19 : 
@@ -25869,10 +25865,10 @@ public class AS3_exParser : Parser
                    	if ( s >= 0 ) return s;
                    	break;
                	case 20 : 
-                   	int LA8_15 = input.LA(1);
+                   	int LA8_31 = input.LA(1);
 
                    	 
-                   	int index8_15 = input.Index();
+                   	int index8_31 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25880,14 +25876,14 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_15);
+                   	input.Seek(index8_31);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 21 : 
-                   	int LA8_12 = input.LA(1);
+                   	int LA8_9 = input.LA(1);
 
                    	 
-                   	int index8_12 = input.Index();
+                   	int index8_9 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25895,7 +25891,7 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_12);
+                   	input.Seek(index8_9);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 22 : 
@@ -25914,10 +25910,10 @@ public class AS3_exParser : Parser
                    	if ( s >= 0 ) return s;
                    	break;
                	case 23 : 
-                   	int LA8_44 = input.LA(1);
+                   	int LA8_38 = input.LA(1);
 
                    	 
-                   	int index8_44 = input.Index();
+                   	int index8_38 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25925,14 +25921,14 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_44);
+                   	input.Seek(index8_38);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 24 : 
-                   	int LA8_23 = input.LA(1);
+                   	int LA8_5 = input.LA(1);
 
                    	 
-                   	int index8_23 = input.Index();
+                   	int index8_5 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -25940,145 +25936,10 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_23);
+                   	input.Seek(index8_5);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 25 : 
-                   	int LA8_9 = input.LA(1);
-
-                   	 
-                   	int index8_9 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_9);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 26 : 
-                   	int LA8_28 = input.LA(1);
-
-                   	 
-                   	int index8_28 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_28);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 27 : 
-                   	int LA8_37 = input.LA(1);
-
-                   	 
-                   	int index8_37 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_37);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 28 : 
-                   	int LA8_10 = input.LA(1);
-
-                   	 
-                   	int index8_10 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_10);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 29 : 
-                   	int LA8_40 = input.LA(1);
-
-                   	 
-                   	int index8_40 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_40);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 30 : 
-                   	int LA8_27 = input.LA(1);
-
-                   	 
-                   	int index8_27 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_27);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 31 : 
-                   	int LA8_16 = input.LA(1);
-
-                   	 
-                   	int index8_16 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_16);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 32 : 
-                   	int LA8_6 = input.LA(1);
-
-                   	 
-                   	int index8_6 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_6);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 33 : 
-                   	int LA8_33 = input.LA(1);
-
-                   	 
-                   	int index8_33 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
-
-                   	else if ( (true) ) { s = 1; }
-
-                   	 
-                   	input.Seek(index8_33);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 34 : 
                    	int LA8_47 = input.LA(1);
 
                    	 
@@ -26093,11 +25954,11 @@ public class AS3_exParser : Parser
                    	input.Seek(index8_47);
                    	if ( s >= 0 ) return s;
                    	break;
-               	case 35 : 
-                   	int LA8_13 = input.LA(1);
+               	case 26 : 
+                   	int LA8_24 = input.LA(1);
 
                    	 
-                   	int index8_13 = input.Index();
+                   	int index8_24 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -26105,14 +25966,14 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_13);
+                   	input.Seek(index8_24);
                    	if ( s >= 0 ) return s;
                    	break;
-               	case 36 : 
-                   	int LA8_7 = input.LA(1);
+               	case 27 : 
+                   	int LA8_27 = input.LA(1);
 
                    	 
-                   	int index8_7 = input.Index();
+                   	int index8_27 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -26120,10 +25981,10 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_7);
+                   	input.Seek(index8_27);
                    	if ( s >= 0 ) return s;
                    	break;
-               	case 37 : 
+               	case 28 : 
                    	int LA8_20 = input.LA(1);
 
                    	 
@@ -26138,11 +25999,11 @@ public class AS3_exParser : Parser
                    	input.Seek(index8_20);
                    	if ( s >= 0 ) return s;
                    	break;
-               	case 38 : 
-                   	int LA8_26 = input.LA(1);
+               	case 29 : 
+                   	int LA8_44 = input.LA(1);
 
                    	 
-                   	int index8_26 = input.Index();
+                   	int index8_44 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -26150,14 +26011,149 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_26);
+                   	input.Seek(index8_44);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 30 : 
+                   	int LA8_8 = input.LA(1);
+
+                   	 
+                   	int index8_8 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_8);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 31 : 
+                   	int LA8_48 = input.LA(1);
+
+                   	 
+                   	int index8_48 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_48);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 32 : 
+                   	int LA8_15 = input.LA(1);
+
+                   	 
+                   	int index8_15 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_15);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 33 : 
+                   	int LA8_36 = input.LA(1);
+
+                   	 
+                   	int index8_36 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_36);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 34 : 
+                   	int LA8_7 = input.LA(1);
+
+                   	 
+                   	int index8_7 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_7);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 35 : 
+                   	int LA8_46 = input.LA(1);
+
+                   	 
+                   	int index8_46 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_46);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 36 : 
+                   	int LA8_35 = input.LA(1);
+
+                   	 
+                   	int index8_35 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_35);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 37 : 
+                   	int LA8_32 = input.LA(1);
+
+                   	 
+                   	int index8_32 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_32);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 38 : 
+                   	int LA8_16 = input.LA(1);
+
+                   	 
+                   	int index8_16 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
+
+                   	else if ( (true) ) { s = 1; }
+
+                   	 
+                   	input.Seek(index8_16);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 39 : 
-                   	int LA8_11 = input.LA(1);
+                   	int LA8_29 = input.LA(1);
 
                    	 
-                   	int index8_11 = input.Index();
+                   	int index8_29 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -26165,14 +26161,14 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_11);
+                   	input.Seek(index8_29);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 40 : 
-                   	int LA8_25 = input.LA(1);
+                   	int LA8_10 = input.LA(1);
 
                    	 
-                   	int index8_25 = input.Index();
+                   	int index8_10 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -26180,14 +26176,14 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_25);
+                   	input.Seek(index8_10);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 41 : 
-                   	int LA8_39 = input.LA(1);
+                   	int LA8_37 = input.LA(1);
 
                    	 
-                   	int index8_39 = input.Index();
+                   	int index8_37 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -26195,14 +26191,14 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_39);
+                   	input.Seek(index8_37);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 42 : 
-                   	int LA8_43 = input.LA(1);
+                   	int LA8_18 = input.LA(1);
 
                    	 
-                   	int index8_43 = input.Index();
+                   	int index8_18 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -26210,14 +26206,14 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_43);
+                   	input.Seek(index8_18);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 43 : 
-                   	int LA8_34 = input.LA(1);
+                   	int LA8_13 = input.LA(1);
 
                    	 
-                   	int index8_34 = input.Index();
+                   	int index8_13 = input.Index();
                    	input.Rewind();
                    	s = -1;
                    	if ( ((synpred9_AS3_ex() && (!PromoteWhitespace()))) ) { s = 49; }
@@ -26225,7 +26221,7 @@ public class AS3_exParser : Parser
                    	else if ( (true) ) { s = 1; }
 
                    	 
-                   	input.Seek(index8_34);
+                   	input.Seek(index8_13);
                    	if ( s >= 0 ) return s;
                    	break;
         }
@@ -26246,7 +26242,7 @@ public class AS3_exParser : Parser
     const string DFA14_acceptS =
         "\x01\uffff\x01\x01\x01\x02\x02\uffff\x01\x03\x04\uffff";
     const string DFA14_specialS =
-        "\x06\uffff\x01\x03\x01\x01\x01\x02\x01\x00}>";
+        "\x06\uffff\x01\x01\x01\x00\x01\x02\x01\x03}>";
     static readonly string[] DFA14_transitionS = {
             "\x36\x02\x13\uffff\x01\x03\x24\uffff\x01\x01\x1b\uffff\x01"+
             "\x02",
@@ -26292,7 +26288,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "1366:1: xmlPropertyIdentifier : ( xmlAttributeIdentifier | xmlQualifiedIdentifier | s= STAR );"; }
+            get { return "1371:1: xmlPropertyIdentifier : ( xmlAttributeIdentifier | xmlQualifiedIdentifier | s= STAR );"; }
         }
 
     }
@@ -26305,33 +26301,33 @@ public class AS3_exParser : Parser
         switch ( s )
         {
                	case 0 : 
-                   	int LA14_9 = input.LA(1);
-
-                   	 
-                   	int index14_9 = input.Index();
-                   	input.Rewind();
-                   	s = -1;
-                   	if ( (synpred75_AS3_ex()) ) { s = 2; }
-
-                   	else if ( (true) ) { s = 5; }
-
-                   	 
-                   	input.Seek(index14_9);
-                   	if ( s >= 0 ) return s;
-                   	break;
-               	case 1 : 
                    	int LA14_7 = input.LA(1);
 
                    	 
                    	int index14_7 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred75_AS3_ex()) ) { s = 2; }
+                   	if ( (synpred73_AS3_ex()) ) { s = 2; }
 
                    	else if ( (true) ) { s = 5; }
 
                    	 
                    	input.Seek(index14_7);
+                   	if ( s >= 0 ) return s;
+                   	break;
+               	case 1 : 
+                   	int LA14_6 = input.LA(1);
+
+                   	 
+                   	int index14_6 = input.Index();
+                   	input.Rewind();
+                   	s = -1;
+                   	if ( (synpred73_AS3_ex()) ) { s = 2; }
+
+                   	else if ( (true) ) { s = 5; }
+
+                   	 
+                   	input.Seek(index14_6);
                    	if ( s >= 0 ) return s;
                    	break;
                	case 2 : 
@@ -26341,7 +26337,7 @@ public class AS3_exParser : Parser
                    	int index14_8 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred75_AS3_ex()) ) { s = 2; }
+                   	if ( (synpred73_AS3_ex()) ) { s = 2; }
 
                    	else if ( (true) ) { s = 5; }
 
@@ -26350,18 +26346,18 @@ public class AS3_exParser : Parser
                    	if ( s >= 0 ) return s;
                    	break;
                	case 3 : 
-                   	int LA14_6 = input.LA(1);
+                   	int LA14_9 = input.LA(1);
 
                    	 
-                   	int index14_6 = input.Index();
+                   	int index14_9 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred75_AS3_ex()) ) { s = 2; }
+                   	if ( (synpred73_AS3_ex()) ) { s = 2; }
 
                    	else if ( (true) ) { s = 5; }
 
                    	 
-                   	input.Seek(index14_6);
+                   	input.Seek(index14_9);
                    	if ( s >= 0 ) return s;
                    	break;
         }
@@ -26477,7 +26473,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "()* loopback of 1524:6: ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )*"; }
+            get { return "()* loopback of 1529:6: ( propertyDeclaration | functionDeclaration | statement | directive | interfaceFunctionDeclaration )*"; }
         }
 
     }
@@ -26496,13 +26492,13 @@ public class AS3_exParser : Parser
                    	int index34_2 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred99_AS3_ex()) ) { s = 51; }
+                   	if ( (synpred97_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred100_AS3_ex()) ) { s = 52; }
+                   	else if ( (synpred98_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred103_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred101_AS3_ex()) ) { s = 53; }
 
                    	 
                    	input.Seek(index34_2);
@@ -26515,13 +26511,13 @@ public class AS3_exParser : Parser
                    	int index34_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred99_AS3_ex()) ) { s = 51; }
+                   	if ( (synpred97_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred100_AS3_ex()) ) { s = 52; }
+                   	else if ( (synpred98_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred103_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred101_AS3_ex()) ) { s = 53; }
 
                    	 
                    	input.Seek(index34_3);
@@ -26534,13 +26530,13 @@ public class AS3_exParser : Parser
                    	int index34_4 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred99_AS3_ex()) ) { s = 51; }
+                   	if ( (synpred97_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred100_AS3_ex()) ) { s = 52; }
+                   	else if ( (synpred98_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred103_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred101_AS3_ex()) ) { s = 53; }
 
                    	 
                    	input.Seek(index34_4);
@@ -26553,13 +26549,13 @@ public class AS3_exParser : Parser
                    	int index34_5 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred99_AS3_ex()) ) { s = 51; }
+                   	if ( (synpred97_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred100_AS3_ex()) ) { s = 52; }
+                   	else if ( (synpred98_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred103_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred101_AS3_ex()) ) { s = 53; }
 
                    	 
                    	input.Seek(index34_5);
@@ -26572,9 +26568,9 @@ public class AS3_exParser : Parser
                    	int index34_6 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred99_AS3_ex()) ) { s = 51; }
+                   	if ( (synpred97_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred99_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index34_6);
@@ -26587,9 +26583,9 @@ public class AS3_exParser : Parser
                    	int index34_7 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred99_AS3_ex()) ) { s = 51; }
+                   	if ( (synpred97_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred99_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index34_7);
@@ -26602,13 +26598,13 @@ public class AS3_exParser : Parser
                    	int index34_8 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred99_AS3_ex()) ) { s = 51; }
+                   	if ( (synpred97_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred100_AS3_ex()) ) { s = 52; }
+                   	else if ( (synpred98_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred103_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred101_AS3_ex()) ) { s = 53; }
 
                    	 
                    	input.Seek(index34_8);
@@ -26621,11 +26617,11 @@ public class AS3_exParser : Parser
                    	int index34_9 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred100_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred98_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred103_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred101_AS3_ex()) ) { s = 53; }
 
                    	 
                    	input.Seek(index34_9);
@@ -26638,9 +26634,9 @@ public class AS3_exParser : Parser
                    	int index34_11 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred102_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred100_AS3_ex()) ) { s = 54; }
 
                    	 
                    	input.Seek(index34_11);
@@ -26653,9 +26649,9 @@ public class AS3_exParser : Parser
                    	int index34_12 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred102_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred100_AS3_ex()) ) { s = 54; }
 
                    	 
                    	input.Seek(index34_12);
@@ -26668,9 +26664,9 @@ public class AS3_exParser : Parser
                    	int index34_13 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred102_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred100_AS3_ex()) ) { s = 54; }
 
                    	 
                    	input.Seek(index34_13);
@@ -26683,9 +26679,9 @@ public class AS3_exParser : Parser
                    	int index34_14 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred102_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred100_AS3_ex()) ) { s = 54; }
 
                    	 
                    	input.Seek(index34_14);
@@ -26698,9 +26694,9 @@ public class AS3_exParser : Parser
                    	int index34_15 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred101_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred99_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred102_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred100_AS3_ex()) ) { s = 54; }
 
                    	 
                    	input.Seek(index34_15);
@@ -26821,7 +26817,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "1527:1: packageElement : ( classOrInterfaceDecl | propertyDeclaration | functionDeclaration | interfaceFunctionDeclaration | statement | directive );"; }
+            get { return "1532:1: packageElement : ( classOrInterfaceDecl | propertyDeclaration | functionDeclaration | interfaceFunctionDeclaration | statement | directive );"; }
         }
 
     }
@@ -26840,15 +26836,15 @@ public class AS3_exParser : Parser
                    	int index36_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred105_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred103_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred106_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred104_AS3_ex()) ) { s = 53; }
 
-                   	else if ( (synpred107_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred105_AS3_ex()) ) { s = 54; }
 
-                   	else if ( (synpred108_AS3_ex()) ) { s = 55; }
+                   	else if ( (synpred106_AS3_ex()) ) { s = 55; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_1);
@@ -26861,15 +26857,15 @@ public class AS3_exParser : Parser
                    	int index36_2 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred105_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred103_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred106_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred104_AS3_ex()) ) { s = 53; }
 
-                   	else if ( (synpred107_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred105_AS3_ex()) ) { s = 54; }
 
-                   	else if ( (synpred108_AS3_ex()) ) { s = 55; }
+                   	else if ( (synpred106_AS3_ex()) ) { s = 55; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_2);
@@ -26882,15 +26878,15 @@ public class AS3_exParser : Parser
                    	int index36_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred105_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred103_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred106_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred104_AS3_ex()) ) { s = 53; }
 
-                   	else if ( (synpred107_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred105_AS3_ex()) ) { s = 54; }
 
-                   	else if ( (synpred108_AS3_ex()) ) { s = 55; }
+                   	else if ( (synpred106_AS3_ex()) ) { s = 55; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_3);
@@ -26903,15 +26899,15 @@ public class AS3_exParser : Parser
                    	int index36_4 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred105_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred103_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred106_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred104_AS3_ex()) ) { s = 53; }
 
-                   	else if ( (synpred107_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred105_AS3_ex()) ) { s = 54; }
 
-                   	else if ( (synpred108_AS3_ex()) ) { s = 55; }
+                   	else if ( (synpred106_AS3_ex()) ) { s = 55; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_4);
@@ -26924,9 +26920,9 @@ public class AS3_exParser : Parser
                    	int index36_5 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred105_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred103_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_5);
@@ -26939,9 +26935,9 @@ public class AS3_exParser : Parser
                    	int index36_6 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred105_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred103_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_6);
@@ -26954,9 +26950,9 @@ public class AS3_exParser : Parser
                    	int index36_7 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred106_AS3_ex()) ) { s = 53; }
+                   	if ( (synpred104_AS3_ex()) ) { s = 53; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_7);
@@ -26969,9 +26965,9 @@ public class AS3_exParser : Parser
                    	int index36_8 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred106_AS3_ex()) ) { s = 53; }
+                   	if ( (synpred104_AS3_ex()) ) { s = 53; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_8);
@@ -26984,15 +26980,15 @@ public class AS3_exParser : Parser
                    	int index36_9 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred105_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred103_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred106_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred104_AS3_ex()) ) { s = 53; }
 
-                   	else if ( (synpred107_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred105_AS3_ex()) ) { s = 54; }
 
-                   	else if ( (synpred108_AS3_ex()) ) { s = 55; }
+                   	else if ( (synpred106_AS3_ex()) ) { s = 55; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_9);
@@ -27005,11 +27001,11 @@ public class AS3_exParser : Parser
                    	int index36_10 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred107_AS3_ex()) ) { s = 54; }
+                   	if ( (synpred105_AS3_ex()) ) { s = 54; }
 
-                   	else if ( (synpred108_AS3_ex()) ) { s = 55; }
+                   	else if ( (synpred106_AS3_ex()) ) { s = 55; }
 
-                   	else if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	else if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	 
                    	input.Seek(index36_10);
@@ -27022,7 +27018,7 @@ public class AS3_exParser : Parser
                    	int index36_12 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	else if ( (true) ) { s = 56; }
 
@@ -27037,7 +27033,7 @@ public class AS3_exParser : Parser
                    	int index36_13 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	else if ( (true) ) { s = 56; }
 
@@ -27052,7 +27048,7 @@ public class AS3_exParser : Parser
                    	int index36_14 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	else if ( (true) ) { s = 56; }
 
@@ -27067,7 +27063,7 @@ public class AS3_exParser : Parser
                    	int index36_15 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	else if ( (true) ) { s = 56; }
 
@@ -27082,7 +27078,7 @@ public class AS3_exParser : Parser
                    	int index36_16 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred109_AS3_ex()) ) { s = 11; }
+                   	if ( (synpred107_AS3_ex()) ) { s = 11; }
 
                    	else if ( (true) ) { s = 56; }
 
@@ -27200,7 +27196,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "1650:1: classBodyElement : ( propertyDeclaration | functionDeclaration | statement | directive );"; }
+            get { return "1655:1: classBodyElement : ( propertyDeclaration | functionDeclaration | statement | directive );"; }
         }
 
     }
@@ -27219,11 +27215,11 @@ public class AS3_exParser : Parser
                    	int index54_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred131_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred129_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred132_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred130_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index54_1);
@@ -27236,11 +27232,11 @@ public class AS3_exParser : Parser
                    	int index54_2 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred131_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred129_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred132_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred130_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index54_2);
@@ -27253,11 +27249,11 @@ public class AS3_exParser : Parser
                    	int index54_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred131_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred129_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred132_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred130_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index54_3);
@@ -27270,11 +27266,11 @@ public class AS3_exParser : Parser
                    	int index54_4 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred131_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred129_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred132_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred130_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index54_4);
@@ -27287,9 +27283,9 @@ public class AS3_exParser : Parser
                    	int index54_5 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred131_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred129_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index54_5);
@@ -27302,9 +27298,9 @@ public class AS3_exParser : Parser
                    	int index54_6 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred131_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred129_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index54_6);
@@ -27317,11 +27313,11 @@ public class AS3_exParser : Parser
                    	int index54_7 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred131_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred129_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred132_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred130_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index54_7);
@@ -27334,9 +27330,9 @@ public class AS3_exParser : Parser
                    	int index54_8 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred132_AS3_ex()) ) { s = 51; }
+                   	if ( (synpred130_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index54_8);
@@ -27349,7 +27345,7 @@ public class AS3_exParser : Parser
                    	int index54_10 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27364,7 +27360,7 @@ public class AS3_exParser : Parser
                    	int index54_11 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27379,7 +27375,7 @@ public class AS3_exParser : Parser
                    	int index54_12 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27394,7 +27390,7 @@ public class AS3_exParser : Parser
                    	int index54_13 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27409,7 +27405,7 @@ public class AS3_exParser : Parser
                    	int index54_14 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred133_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred131_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27527,7 +27523,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "1654:1: interfaceElement : ( propertyDeclaration | interfaceFunctionDeclaration | statement | directive );"; }
+            get { return "1659:1: interfaceElement : ( propertyDeclaration | interfaceFunctionDeclaration | statement | directive );"; }
         }
 
     }
@@ -27546,11 +27542,11 @@ public class AS3_exParser : Parser
                    	int index55_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred134_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred132_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred135_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred133_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index55_1);
@@ -27563,11 +27559,11 @@ public class AS3_exParser : Parser
                    	int index55_2 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred134_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred132_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred135_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred133_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index55_2);
@@ -27580,11 +27576,11 @@ public class AS3_exParser : Parser
                    	int index55_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred134_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred132_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred135_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred133_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index55_3);
@@ -27597,11 +27593,11 @@ public class AS3_exParser : Parser
                    	int index55_4 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred134_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred132_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred135_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred133_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index55_4);
@@ -27614,9 +27610,9 @@ public class AS3_exParser : Parser
                    	int index55_5 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred134_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred132_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index55_5);
@@ -27629,9 +27625,9 @@ public class AS3_exParser : Parser
                    	int index55_6 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred134_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred132_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index55_6);
@@ -27644,11 +27640,11 @@ public class AS3_exParser : Parser
                    	int index55_7 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred134_AS3_ex()) ) { s = 50; }
+                   	if ( (synpred132_AS3_ex()) ) { s = 50; }
 
-                   	else if ( (synpred135_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred133_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index55_7);
@@ -27661,9 +27657,9 @@ public class AS3_exParser : Parser
                    	int index55_8 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred135_AS3_ex()) ) { s = 51; }
+                   	if ( (synpred133_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	else if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	 
                    	input.Seek(index55_8);
@@ -27676,7 +27672,7 @@ public class AS3_exParser : Parser
                    	int index55_10 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27691,7 +27687,7 @@ public class AS3_exParser : Parser
                    	int index55_11 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27706,7 +27702,7 @@ public class AS3_exParser : Parser
                    	int index55_12 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27721,7 +27717,7 @@ public class AS3_exParser : Parser
                    	int index55_13 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27736,7 +27732,7 @@ public class AS3_exParser : Parser
                    	int index55_14 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred136_AS3_ex()) ) { s = 9; }
+                   	if ( (synpred134_AS3_ex()) ) { s = 9; }
 
                    	else if ( (true) ) { s = 52; }
 
@@ -27852,7 +27848,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "()* loopback of 1740:7: ( statement | functionDeclaration )*"; }
+            get { return "()* loopback of 1745:7: ( statement | functionDeclaration )*"; }
         }
 
     }
@@ -27871,9 +27867,9 @@ public class AS3_exParser : Parser
                    	int index74_2 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred159_AS3_ex()) ) { s = 4; }
+                   	if ( (synpred157_AS3_ex()) ) { s = 4; }
 
-                   	else if ( (synpred160_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred158_AS3_ex()) ) { s = 51; }
 
                    	 
                    	input.Seek(index74_2);
@@ -27886,9 +27882,9 @@ public class AS3_exParser : Parser
                    	int index74_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred159_AS3_ex()) ) { s = 4; }
+                   	if ( (synpred157_AS3_ex()) ) { s = 4; }
 
-                   	else if ( (synpred160_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred158_AS3_ex()) ) { s = 51; }
 
                    	 
                    	input.Seek(index74_3);
@@ -27901,9 +27897,9 @@ public class AS3_exParser : Parser
                    	int index74_10 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred159_AS3_ex()) ) { s = 4; }
+                   	if ( (synpred157_AS3_ex()) ) { s = 4; }
 
-                   	else if ( (synpred160_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred158_AS3_ex()) ) { s = 51; }
 
                    	 
                    	input.Seek(index74_10);
@@ -27916,9 +27912,9 @@ public class AS3_exParser : Parser
                    	int index74_22 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred159_AS3_ex()) ) { s = 4; }
+                   	if ( (synpred157_AS3_ex()) ) { s = 4; }
 
-                   	else if ( (synpred160_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred158_AS3_ex()) ) { s = 51; }
 
                    	 
                    	input.Seek(index74_22);
@@ -27931,9 +27927,9 @@ public class AS3_exParser : Parser
                    	int index74_48 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred159_AS3_ex()) ) { s = 4; }
+                   	if ( (synpred157_AS3_ex()) ) { s = 4; }
 
-                   	else if ( (synpred160_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred158_AS3_ex()) ) { s = 51; }
 
                    	 
                    	input.Seek(index74_48);
@@ -27946,9 +27942,9 @@ public class AS3_exParser : Parser
                    	int index74_49 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred159_AS3_ex()) ) { s = 4; }
+                   	if ( (synpred157_AS3_ex()) ) { s = 4; }
 
-                   	else if ( (synpred160_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred158_AS3_ex()) ) { s = 51; }
 
                    	 
                    	input.Seek(index74_49);
@@ -28085,7 +28081,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "1778:1: statement : ( blockStatement | directive | namespaceDirective | expression semic | constantVarStatement | tryStatement | labelledStatement | switchStatement | withStatement | returnStatement | breakStatement | continueStatement | forStatement | forInStatement | forEachInStatement | doWhileStatement | whileStatement | ifStatement | emptyStatement | variableStatement | throwStatement );"; }
+            get { return "1783:1: statement : ( blockStatement | directive | namespaceDirective | expression semic | constantVarStatement | tryStatement | labelledStatement | switchStatement | withStatement | returnStatement | breakStatement | continueStatement | forStatement | forInStatement | forEachInStatement | doWhileStatement | whileStatement | ifStatement | emptyStatement | variableStatement | throwStatement );"; }
         }
 
     }
@@ -28104,13 +28100,13 @@ public class AS3_exParser : Parser
                    	int index76_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred171_AS3_ex()) ) { s = 48; }
+                   	if ( (synpred169_AS3_ex()) ) { s = 48; }
 
-                   	else if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred177_AS3_ex()) ) { s = 49; }
+                   	else if ( (synpred175_AS3_ex()) ) { s = 49; }
 
-                   	else if ( (synpred190_AS3_ex()) ) { s = 50; }
+                   	else if ( (synpred188_AS3_ex()) ) { s = 50; }
 
                    	 
                    	input.Seek(index76_1);
@@ -28123,11 +28119,11 @@ public class AS3_exParser : Parser
                    	int index76_2 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred171_AS3_ex()) ) { s = 48; }
+                   	if ( (synpred169_AS3_ex()) ) { s = 48; }
 
-                   	else if ( (synpred173_AS3_ex()) ) { s = 51; }
+                   	else if ( (synpred171_AS3_ex()) ) { s = 51; }
 
-                   	else if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred172_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index76_2);
@@ -28140,9 +28136,9 @@ public class AS3_exParser : Parser
                    	int index76_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred171_AS3_ex()) ) { s = 48; }
+                   	if ( (synpred169_AS3_ex()) ) { s = 48; }
 
-                   	else if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred172_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index76_3);
@@ -28155,9 +28151,9 @@ public class AS3_exParser : Parser
                    	int index76_4 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred172_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred170_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred172_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index76_4);
@@ -28170,9 +28166,9 @@ public class AS3_exParser : Parser
                    	int index76_5 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred172_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred170_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred172_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index76_5);
@@ -28185,9 +28181,9 @@ public class AS3_exParser : Parser
                    	int index76_6 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred172_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred170_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred172_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index76_6);
@@ -28200,9 +28196,9 @@ public class AS3_exParser : Parser
                    	int index76_7 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred172_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred170_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred172_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index76_7);
@@ -28215,9 +28211,9 @@ public class AS3_exParser : Parser
                    	int index76_8 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred172_AS3_ex()) ) { s = 52; }
+                   	if ( (synpred170_AS3_ex()) ) { s = 52; }
 
-                   	else if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred172_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index76_8);
@@ -28230,9 +28226,9 @@ public class AS3_exParser : Parser
                    	int index76_9 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred171_AS3_ex()) ) { s = 48; }
+                   	if ( (synpred169_AS3_ex()) ) { s = 48; }
 
-                   	else if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	else if ( (synpred172_AS3_ex()) ) { s = 10; }
 
                    	 
                    	input.Seek(index76_9);
@@ -28245,9 +28241,9 @@ public class AS3_exParser : Parser
                    	int index76_32 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred175_AS3_ex()) ) { s = 53; }
+                   	else if ( (synpred173_AS3_ex()) ) { s = 53; }
 
                    	 
                    	input.Seek(index76_32);
@@ -28260,9 +28256,9 @@ public class AS3_exParser : Parser
                    	int index76_34 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred176_AS3_ex()) ) { s = 54; }
+                   	else if ( (synpred174_AS3_ex()) ) { s = 54; }
 
                    	 
                    	input.Seek(index76_34);
@@ -28275,9 +28271,9 @@ public class AS3_exParser : Parser
                    	int index76_35 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred178_AS3_ex()) ) { s = 55; }
+                   	else if ( (synpred176_AS3_ex()) ) { s = 55; }
 
                    	 
                    	input.Seek(index76_35);
@@ -28290,9 +28286,9 @@ public class AS3_exParser : Parser
                    	int index76_36 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred179_AS3_ex()) ) { s = 56; }
+                   	else if ( (synpred177_AS3_ex()) ) { s = 56; }
 
                    	 
                    	input.Seek(index76_36);
@@ -28305,9 +28301,9 @@ public class AS3_exParser : Parser
                    	int index76_37 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred180_AS3_ex()) ) { s = 57; }
+                   	else if ( (synpred178_AS3_ex()) ) { s = 57; }
 
                    	 
                    	input.Seek(index76_37);
@@ -28320,9 +28316,9 @@ public class AS3_exParser : Parser
                    	int index76_38 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred181_AS3_ex()) ) { s = 58; }
+                   	else if ( (synpred179_AS3_ex()) ) { s = 58; }
 
                    	 
                    	input.Seek(index76_38);
@@ -28335,9 +28331,9 @@ public class AS3_exParser : Parser
                    	int index76_39 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred182_AS3_ex()) ) { s = 59; }
+                   	else if ( (synpred180_AS3_ex()) ) { s = 59; }
 
                    	 
                    	input.Seek(index76_39);
@@ -28350,13 +28346,13 @@ public class AS3_exParser : Parser
                    	int index76_40 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred183_AS3_ex()) ) { s = 60; }
+                   	else if ( (synpred181_AS3_ex()) ) { s = 60; }
 
-                   	else if ( (synpred184_AS3_ex()) ) { s = 61; }
+                   	else if ( (synpred182_AS3_ex()) ) { s = 61; }
 
-                   	else if ( (synpred185_AS3_ex()) ) { s = 62; }
+                   	else if ( (synpred183_AS3_ex()) ) { s = 62; }
 
                    	 
                    	input.Seek(index76_40);
@@ -28369,9 +28365,9 @@ public class AS3_exParser : Parser
                    	int index76_41 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred186_AS3_ex()) ) { s = 63; }
+                   	else if ( (synpred184_AS3_ex()) ) { s = 63; }
 
                    	 
                    	input.Seek(index76_41);
@@ -28384,9 +28380,9 @@ public class AS3_exParser : Parser
                    	int index76_42 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred187_AS3_ex()) ) { s = 64; }
+                   	else if ( (synpred185_AS3_ex()) ) { s = 64; }
 
                    	 
                    	input.Seek(index76_42);
@@ -28399,9 +28395,9 @@ public class AS3_exParser : Parser
                    	int index76_43 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred188_AS3_ex()) ) { s = 65; }
+                   	else if ( (synpred186_AS3_ex()) ) { s = 65; }
 
                    	 
                    	input.Seek(index76_43);
@@ -28414,9 +28410,9 @@ public class AS3_exParser : Parser
                    	int index76_44 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
-                   	else if ( (synpred190_AS3_ex()) ) { s = 50; }
+                   	else if ( (synpred188_AS3_ex()) ) { s = 50; }
 
                    	 
                    	input.Seek(index76_44);
@@ -28429,7 +28425,7 @@ public class AS3_exParser : Parser
                    	int index76_46 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred174_AS3_ex()) ) { s = 10; }
+                   	if ( (synpred172_AS3_ex()) ) { s = 10; }
 
                    	else if ( (true) ) { s = 66; }
 
@@ -28540,7 +28536,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "()* loopback of 1904:61: ( statement )*"; }
+            get { return "()* loopback of 1909:61: ( statement )*"; }
         }
 
     }
@@ -28559,7 +28555,7 @@ public class AS3_exParser : Parser
                    	int index86_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred201_AS3_ex()) ) { s = 6; }
+                   	if ( (synpred199_AS3_ex()) ) { s = 6; }
 
                    	else if ( (true) ) { s = 2; }
 
@@ -28574,7 +28570,7 @@ public class AS3_exParser : Parser
                    	int index86_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred201_AS3_ex()) ) { s = 6; }
+                   	if ( (synpred199_AS3_ex()) ) { s = 6; }
 
                    	else if ( (true) ) { s = 2; }
 
@@ -28589,7 +28585,7 @@ public class AS3_exParser : Parser
                    	int index86_4 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred201_AS3_ex()) ) { s = 6; }
+                   	if ( (synpred199_AS3_ex()) ) { s = 6; }
 
                    	else if ( (true) ) { s = 2; }
 
@@ -28686,7 +28682,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "2191:1: assignmentExpression : ( leftHandSideExpression assignmentOperator assignmentExpression | conditionalExpression );"; }
+            get { return "2196:1: assignmentExpression : ( leftHandSideExpression assignmentOperator assignmentExpression | conditionalExpression );"; }
         }
 
     }
@@ -28705,7 +28701,7 @@ public class AS3_exParser : Parser
                    	int index114_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28720,7 +28716,7 @@ public class AS3_exParser : Parser
                    	int index114_2 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28735,7 +28731,7 @@ public class AS3_exParser : Parser
                    	int index114_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28750,7 +28746,7 @@ public class AS3_exParser : Parser
                    	int index114_4 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28765,7 +28761,7 @@ public class AS3_exParser : Parser
                    	int index114_5 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28780,7 +28776,7 @@ public class AS3_exParser : Parser
                    	int index114_6 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28795,7 +28791,7 @@ public class AS3_exParser : Parser
                    	int index114_7 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28810,7 +28806,7 @@ public class AS3_exParser : Parser
                    	int index114_8 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28825,7 +28821,7 @@ public class AS3_exParser : Parser
                    	int index114_9 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28840,7 +28836,7 @@ public class AS3_exParser : Parser
                    	int index114_10 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28855,7 +28851,7 @@ public class AS3_exParser : Parser
                    	int index114_11 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28870,7 +28866,7 @@ public class AS3_exParser : Parser
                    	int index114_12 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28885,7 +28881,7 @@ public class AS3_exParser : Parser
                    	int index114_13 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28900,7 +28896,7 @@ public class AS3_exParser : Parser
                    	int index114_14 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28915,7 +28911,7 @@ public class AS3_exParser : Parser
                    	int index114_15 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28930,7 +28926,7 @@ public class AS3_exParser : Parser
                    	int index114_16 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28945,7 +28941,7 @@ public class AS3_exParser : Parser
                    	int index114_17 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28960,7 +28956,7 @@ public class AS3_exParser : Parser
                    	int index114_18 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28975,7 +28971,7 @@ public class AS3_exParser : Parser
                    	int index114_19 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -28990,7 +28986,7 @@ public class AS3_exParser : Parser
                    	int index114_20 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -29005,7 +29001,7 @@ public class AS3_exParser : Parser
                    	int index114_21 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -29020,7 +29016,7 @@ public class AS3_exParser : Parser
                    	int index114_22 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -29035,7 +29031,7 @@ public class AS3_exParser : Parser
                    	int index114_23 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -29050,7 +29046,7 @@ public class AS3_exParser : Parser
                    	int index114_24 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -29065,7 +29061,7 @@ public class AS3_exParser : Parser
                    	int index114_25 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -29080,7 +29076,7 @@ public class AS3_exParser : Parser
                    	int index114_27 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred230_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred228_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 26; }
 
@@ -29177,7 +29173,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "2198:1: assignmentExpressionNoIn : ( conditionalExpressionNoIn | leftHandSideExpression assignmentOperator assignmentExpressionNoIn );"; }
+            get { return "2203:1: assignmentExpressionNoIn : ( conditionalExpressionNoIn | leftHandSideExpression assignmentOperator assignmentExpressionNoIn );"; }
         }
 
     }
@@ -29196,7 +29192,7 @@ public class AS3_exParser : Parser
                    	int index115_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29211,7 +29207,7 @@ public class AS3_exParser : Parser
                    	int index115_2 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29226,7 +29222,7 @@ public class AS3_exParser : Parser
                    	int index115_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29241,7 +29237,7 @@ public class AS3_exParser : Parser
                    	int index115_4 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29256,7 +29252,7 @@ public class AS3_exParser : Parser
                    	int index115_5 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29271,7 +29267,7 @@ public class AS3_exParser : Parser
                    	int index115_6 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29286,7 +29282,7 @@ public class AS3_exParser : Parser
                    	int index115_7 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29301,7 +29297,7 @@ public class AS3_exParser : Parser
                    	int index115_8 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29316,7 +29312,7 @@ public class AS3_exParser : Parser
                    	int index115_9 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29331,7 +29327,7 @@ public class AS3_exParser : Parser
                    	int index115_10 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29346,7 +29342,7 @@ public class AS3_exParser : Parser
                    	int index115_11 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29361,7 +29357,7 @@ public class AS3_exParser : Parser
                    	int index115_12 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29376,7 +29372,7 @@ public class AS3_exParser : Parser
                    	int index115_13 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29391,7 +29387,7 @@ public class AS3_exParser : Parser
                    	int index115_14 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29406,7 +29402,7 @@ public class AS3_exParser : Parser
                    	int index115_15 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29421,7 +29417,7 @@ public class AS3_exParser : Parser
                    	int index115_16 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29436,7 +29432,7 @@ public class AS3_exParser : Parser
                    	int index115_17 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29451,7 +29447,7 @@ public class AS3_exParser : Parser
                    	int index115_18 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29466,7 +29462,7 @@ public class AS3_exParser : Parser
                    	int index115_19 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29481,7 +29477,7 @@ public class AS3_exParser : Parser
                    	int index115_20 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29496,7 +29492,7 @@ public class AS3_exParser : Parser
                    	int index115_21 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29511,7 +29507,7 @@ public class AS3_exParser : Parser
                    	int index115_22 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29526,7 +29522,7 @@ public class AS3_exParser : Parser
                    	int index115_23 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29541,7 +29537,7 @@ public class AS3_exParser : Parser
                    	int index115_24 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29556,7 +29552,7 @@ public class AS3_exParser : Parser
                    	int index115_25 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29571,7 +29567,7 @@ public class AS3_exParser : Parser
                    	int index115_27 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred231_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred229_AS3_ex()) ) { s = 26; }
 
                    	else if ( (true) ) { s = 29; }
 
@@ -29648,7 +29644,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "2211:1: assignmentOperator_int : ( ASSIGN | s= STAR a= ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN ) | ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN ) | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN );"; }
+            get { return "2216:1: assignmentOperator_int : ( ASSIGN | s= STAR a= ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | SHL_ASSIGN | ( ( '>' '>' '=' )=>t1= '>' t2= '>' t3= '=' {...}? -> SHR_ASSIGN ) | ( ( '>' '>' '>' '=' )=>t1= '>' t2= '>' t3= '>' t4= '=' {...}? -> SHU_ASSIGN ) | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN | LOR_ASSIGN | LAND_ASSIGN );"; }
         }
 
     }
@@ -29771,7 +29767,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "()* loopback of 2307:6: ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*"; }
+            get { return "()* loopback of 2312:6: ( (g= GT (assign= ASSIGN )? | eq= ( IN | LT | LTE | INSTANCEOF | IS | AS ) ) shiftExpression )*"; }
         }
 
     }
@@ -29790,7 +29786,7 @@ public class AS3_exParser : Parser
                    	int index133_43 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred274_AS3_ex()) ) { s = 68; }
+                   	if ( (synpred272_AS3_ex()) ) { s = 68; }
 
                    	else if ( (true) ) { s = 1; }
 
@@ -29805,7 +29801,7 @@ public class AS3_exParser : Parser
                    	int index133_64 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred274_AS3_ex()) ) { s = 68; }
+                   	if ( (synpred272_AS3_ex()) ) { s = 68; }
 
                    	else if ( (true) ) { s = 1; }
 
@@ -29820,7 +29816,7 @@ public class AS3_exParser : Parser
                    	int index133_67 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred274_AS3_ex()) ) { s = 68; }
+                   	if ( (synpred272_AS3_ex()) ) { s = 68; }
 
                    	else if ( (true) ) { s = 1; }
 
@@ -29953,7 +29949,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "()* loopback of 2361:34: (op= ( PLUS | SUB ) multiplicativeExpression )*"; }
+            get { return "()* loopback of 2366:34: (op= ( PLUS | SUB ) multiplicativeExpression )*"; }
         }
 
     }
@@ -29972,7 +29968,7 @@ public class AS3_exParser : Parser
                    	int index139_53 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred288_AS3_ex()) ) { s = 73; }
+                   	if ( (synpred286_AS3_ex()) ) { s = 73; }
 
                    	else if ( (true) ) { s = 1; }
 
@@ -30105,7 +30101,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "()* loopback of 2366:25: (op= ( STAR | DIV | MOD ) unaryExpression )*"; }
+            get { return "()* loopback of 2371:25: (op= ( STAR | DIV | MOD ) unaryExpression )*"; }
         }
 
     }
@@ -30124,7 +30120,7 @@ public class AS3_exParser : Parser
                    	int index140_44 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred291_AS3_ex()) ) { s = 73; }
+                   	if ( (synpred289_AS3_ex()) ) { s = 73; }
 
                    	else if ( (true) ) { s = 1; }
 
@@ -30215,7 +30211,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "2370:1: unaryExpression : ( postfixExpression | op= ( NOT | INV ) unaryExpression | unaryOp postfixExpression );"; }
+            get { return "2375:1: unaryExpression : ( postfixExpression | op= ( NOT | INV ) unaryExpression | unaryOp postfixExpression );"; }
         }
 
     }
@@ -30234,7 +30230,7 @@ public class AS3_exParser : Parser
                    	int index141_25 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred292_AS3_ex()) ) { s = 1; }
+                   	if ( (synpred290_AS3_ex()) ) { s = 1; }
 
                    	else if ( (true) ) { s = 28; }
 
@@ -30249,7 +30245,7 @@ public class AS3_exParser : Parser
                    	int index141_26 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred294_AS3_ex()) ) { s = 29; }
+                   	if ( (synpred292_AS3_ex()) ) { s = 29; }
 
                    	else if ( (true) ) { s = 28; }
 
@@ -30383,7 +30379,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "2385:32: ( postfixOp )?"; }
+            get { return "2390:32: ( postfixOp )?"; }
         }
 
     }
@@ -30402,7 +30398,7 @@ public class AS3_exParser : Parser
                    	int index142_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred303_AS3_ex()) ) { s = 74; }
+                   	if ( (synpred301_AS3_ex()) ) { s = 74; }
 
                    	else if ( (true) ) { s = 2; }
 
@@ -30557,7 +30553,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "()* loopback of 2406:5: ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )*"; }
+            get { return "()* loopback of 2411:5: ( arguments | L= LBRACK expression R= RBRACK | D= DOT ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | E= XML_ELLIPSIS ( eitherIdentifier op= XML_NS_OP )? eitherIdentifier | D= DOT parExpression | typePostfixSyntax )*"; }
         }
 
     }
@@ -30576,7 +30572,7 @@ public class AS3_exParser : Parser
                    	int index146_41 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred308_AS3_ex()) ) { s = 87; }
+                   	if ( (synpred306_AS3_ex()) ) { s = 87; }
 
                    	else if ( (true) ) { s = 1; }
 
@@ -30591,7 +30587,7 @@ public class AS3_exParser : Parser
                    	int index146_64 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred307_AS3_ex()) ) { s = 88; }
+                   	if ( (synpred305_AS3_ex()) ) { s = 88; }
 
                    	else if ( (true) ) { s = 1; }
 
@@ -30606,11 +30602,11 @@ public class AS3_exParser : Parser
                    	int index146_85 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred310_AS3_ex()) ) { s = 89; }
+                   	if ( (synpred308_AS3_ex()) ) { s = 89; }
 
-                   	else if ( (synpred313_AS3_ex()) ) { s = 90; }
+                   	else if ( (synpred311_AS3_ex()) ) { s = 90; }
 
-                   	else if ( (synpred314_AS3_ex()) ) { s = 91; }
+                   	else if ( (synpred312_AS3_ex()) ) { s = 91; }
 
                    	 
                    	input.Seek(index146_85);
@@ -30700,7 +30696,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "2543:1: primaryExpressionHelper : (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption | l= LT type g= GT ( arrayLiteral )? );"; }
+            get { return "2548:1: primaryExpressionHelper : (T= THIS | S= SUPER | literal | arrayLiteral | objectLiteral | identifierLiteral | xmlPrimaryExpression | parExpression | conditionalCompilerOption | l= LT type g= GT ( arrayLiteral )? );"; }
         }
 
     }
@@ -30719,9 +30715,9 @@ public class AS3_exParser : Parser
                    	int index155_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred378_AS3_ex()) ) { s = 24; }
+                   	if ( (synpred376_AS3_ex()) ) { s = 24; }
 
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+                   	else if ( (synpred382_AS3_ex()) ) { s = 15; }
 
                    	 
                    	input.Seek(index155_1);
@@ -30734,9 +30730,9 @@ public class AS3_exParser : Parser
                    	int index155_2 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred379_AS3_ex()) ) { s = 25; }
+                   	if ( (synpred377_AS3_ex()) ) { s = 25; }
 
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+                   	else if ( (synpred382_AS3_ex()) ) { s = 15; }
 
                    	 
                    	input.Seek(index155_2);
@@ -30749,9 +30745,9 @@ public class AS3_exParser : Parser
                    	int index155_3 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred380_AS3_ex()) ) { s = 6; }
+                   	if ( (synpred378_AS3_ex()) ) { s = 6; }
 
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+                   	else if ( (synpred382_AS3_ex()) ) { s = 15; }
 
                    	 
                    	input.Seek(index155_3);
@@ -30764,9 +30760,9 @@ public class AS3_exParser : Parser
                    	int index155_4 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred380_AS3_ex()) ) { s = 6; }
+                   	if ( (synpred378_AS3_ex()) ) { s = 6; }
 
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+                   	else if ( (synpred382_AS3_ex()) ) { s = 15; }
 
                    	 
                    	input.Seek(index155_4);
@@ -30779,9 +30775,9 @@ public class AS3_exParser : Parser
                    	int index155_5 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred380_AS3_ex()) ) { s = 6; }
+                   	if ( (synpred378_AS3_ex()) ) { s = 6; }
 
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+                   	else if ( (synpred382_AS3_ex()) ) { s = 15; }
 
                    	 
                    	input.Seek(index155_5);
@@ -30794,11 +30790,11 @@ public class AS3_exParser : Parser
                    	int index155_13 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred383_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred381_AS3_ex()) ) { s = 26; }
 
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+                   	else if ( (synpred382_AS3_ex()) ) { s = 15; }
 
-                   	else if ( (synpred386_AS3_ex()) ) { s = 27; }
+                   	else if ( (synpred384_AS3_ex()) ) { s = 27; }
 
                    	 
                    	input.Seek(index155_13);
@@ -30811,11 +30807,11 @@ public class AS3_exParser : Parser
                    	int index155_14 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred383_AS3_ex()) ) { s = 26; }
+                   	if ( (synpred381_AS3_ex()) ) { s = 26; }
 
-                   	else if ( (synpred384_AS3_ex()) ) { s = 15; }
+                   	else if ( (synpred382_AS3_ex()) ) { s = 15; }
 
-                   	else if ( (synpred386_AS3_ex()) ) { s = 27; }
+                   	else if ( (synpred384_AS3_ex()) ) { s = 27; }
 
                    	 
                    	input.Seek(index155_14);
@@ -30828,7 +30824,7 @@ public class AS3_exParser : Parser
                    	int index155_21 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred384_AS3_ex()) ) { s = 15; }
+                   	if ( (synpred382_AS3_ex()) ) { s = 15; }
 
                    	else if ( (true) ) { s = 28; }
 
@@ -30975,7 +30971,7 @@ public class AS3_exParser : Parser
 
         override public string Description
         {
-            get { return "2553:71: ( arrayLiteral )?"; }
+            get { return "2558:71: ( arrayLiteral )?"; }
         }
 
     }
@@ -30994,7 +30990,7 @@ public class AS3_exParser : Parser
                    	int index154_1 = input.Index();
                    	input.Rewind();
                    	s = -1;
-                   	if ( (synpred387_AS3_ex()) ) { s = 87; }
+                   	if ( (synpred385_AS3_ex()) ) { s = 87; }
 
                    	else if ( (true) ) { s = 2; }
 
@@ -31011,691 +31007,691 @@ public class AS3_exParser : Parser
     }
  
 
-    public static readonly BitSet FOLLOW_TRUE_in_booleanLiteral3587 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FALSE_in_booleanLiteral3595 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DEC_NUMBER_LITERAL_in_numericLiteral3629 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_HEX_NUMBER_LITERAL_in_numericLiteral3637 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SINGLE_QUOTE_LITERAL_in_stringLiteral3672 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOUBLE_QUOTE_LITERAL_in_stringLiteral3679 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_REGULAR_EXPR_LITERAL_in_regularExpresionLiteral3704 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_identifierLiteral3737 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_identifierLiteral3742 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_xmlNameLiteral3777 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020001002UL});
-    public static readonly BitSet FOLLOW_allKeywords_in_xmlNameLiteral3782 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020001002UL});
-    public static readonly BitSet FOLLOW_SUB_in_xmlNameLiteral3793 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_DOT_in_xmlNameLiteral3801 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_COLON_in_xmlNameLiteral3809 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_xmlNameLiteral3820 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020001002UL});
-    public static readonly BitSet FOLLOW_allKeywords_in_xmlNameLiteral3826 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020001002UL});
-    public static readonly BitSet FOLLOW_NULL_in_literal3879 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_booleanLiteral_in_literal3885 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_numericLiteral_in_literal3889 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_stringLiteral_in_literal3893 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_regularExpresionLiteral_in_literal3897 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlComment_in_xmlMarkup3933 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlCDATA_in_xmlMarkup3937 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlPI_in_xmlMarkup3941 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_XML_COMMENT_in_xmlComment3976 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_XML_CDATA_in_xmlCDATA4018 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_XML_PI_in_xmlPI4061 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LCURLY_in_xmlExprEval4099 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_xmlExprEval4103 = new BitSet(new ulong[]{0x1000000000000000UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_xmlExprEval4107 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_allKeywords_in_xmlTextElement4125 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_xmlTextElement4138 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_XML_TEXT_in_xmlText4890 = new BitSet(new ulong[]{0xF7FFFFFFFFFFFFF2UL,0x00067F3FFFE7FFB7UL,0x0000000000085203UL});
-    public static readonly BitSet FOLLOW_xmlTextElement_in_xmlText4896 = new BitSet(new ulong[]{0xF7FFFFFFFFFFFFF2UL,0x00067F3FFFE7FFB7UL,0x0000000000085203UL});
-    public static readonly BitSet FOLLOW_xmlPropertyIdentifier_in_xmlPrimaryExpression4998 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlInitialiser_in_xmlPrimaryExpression5008 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlListInitialiser_in_xmlPrimaryExpression5018 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlAttributeIdentifier_in_xmlPropertyIdentifier5111 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlQualifiedIdentifier_in_xmlPropertyIdentifier5123 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_STAR_in_xmlPropertyIdentifier5137 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_XML_AT_in_xmlAttributeIdentifier5202 = new BitSet(new ulong[]{0x83FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_xmlQualifiedIdentifier_in_xmlAttributeIdentifier5228 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlPropertySelector_in_xmlAttributeIdentifier5243 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_indexSuffix_in_xmlAttributeIdentifier5258 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlNameLiteral_in_xmlPropertySelector5348 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_STAR_in_xmlPropertySelector5361 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlPropertySelector_in_xmlQualifiedIdentifier5382 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
-    public static readonly BitSet FOLLOW_XML_NS_OP_in_xmlQualifiedIdentifier5387 = new BitSet(new ulong[]{0x83FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_xmlPropertySelector_in_xmlQualifiedIdentifier5422 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_indexSuffix_in_xmlQualifiedIdentifier5434 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlMarkup_in_xmlInitialiser5459 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlElement_in_xmlInitialiser5469 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LT_in_xmlElement5513 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_xmlTagName_in_xmlElement5518 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000800000000010UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_xmlAttributes_in_xmlElement5520 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000800000000010UL});
-    public static readonly BitSet FOLLOW_XML_TEND_in_xmlElement5540 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_GT_in_xmlElement5585 = new BitSet(new ulong[]{0xFFFFFFFFFFFFFFF0UL,0x00077F3FFFE7FFBFUL,0x00000000000F5203UL});
-    public static readonly BitSet FOLLOW_xmlElementContent_in_xmlElement5589 = new BitSet(new ulong[]{0x0000000000000000UL,0x0001000000000000UL});
-    public static readonly BitSet FOLLOW_XML_E_TEND_in_xmlElement5603 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_xmlTagName_in_xmlElement5617 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_xmlElement5621 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlAttribute_in_xmlAttributes5660 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF2UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_xmlExprEval_in_xmlTagName5690 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlNameLiteral_in_xmlTagName5695 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlNameLiteral_in_xmlAttribute5718 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_xmlAttribute5722 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000000000000UL,0x0000000000000003UL});
-    public static readonly BitSet FOLLOW_xmlExprEval_in_xmlAttribute5741 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_stringLiteral_in_xmlAttribute5753 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlElementContentHelper_in_xmlElementContent5784 = new BitSet(new ulong[]{0xFFFFFFFFFFFFFFF2UL,0x00067F3FFFE7FFBFUL,0x00000000000F5203UL});
-    public static readonly BitSet FOLLOW_xmlExprEval_in_xmlElementContentHelper5802 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlMarkup_in_xmlElementContentHelper5811 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlElement_in_xmlElementContentHelper5820 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlText_in_xmlElementContentHelper5830 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_XML_LS_STD_in_xmlListInitialiser5851 = new BitSet(new ulong[]{0xFFFFFFFFFFFFFFF0UL,0x00167F3FFFE7FFBFUL,0x00000000000F5203UL});
-    public static readonly BitSet FOLLOW_xmlElementContent_in_xmlListInitialiser5866 = new BitSet(new ulong[]{0x0000000000000000UL,0x0010000000000000UL});
-    public static readonly BitSet FOLLOW_XML_LS_END_in_xmlListInitialiser5878 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SEMI_in_semic5909 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_EOF_in_semic5923 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_semic5937 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_packageDeclaration_in_fileContents5957 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_packageElement_in_fileContents5960 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_EOF_in_fileContents5966 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_PACKAGE_in_packageDeclaration5983 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_packageDeclaration5988 = new BitSet(new ulong[]{0x0800000000000000UL});
-    public static readonly BitSet FOLLOW_LCURLY_in_packageDeclaration6002 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_packageElement_in_packageDeclaration6018 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_packageDeclaration6037 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyDeclaration_in_mxmlEmbedded6062 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_functionDeclaration_in_mxmlEmbedded6066 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_mxmlEmbedded6070 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_directive_in_mxmlEmbedded6074 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_mxmlEmbedded6078 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_EOF_in_mxmlEmbedded6084 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_classOrInterfaceDecl_in_packageElement6104 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyDeclaration_in_packageElement6108 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_functionDeclaration_in_packageElement6112 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_packageElement6116 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_statement_in_packageElement6120 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_directive_in_packageElement6124 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IMPORT_in_importDeclaration6144 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_importDeclaration6148 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_importDeclaration6153 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000002000UL});
-    public static readonly BitSet FOLLOW_STAR_in_importDeclaration6159 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_importDeclaration6165 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_classOrInterfaceDecl6180 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_memberModifiers_in_classOrInterfaceDecl6188 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_interfaceDeclaration_in_classOrInterfaceDecl6192 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_classDeclaration_in_classOrInterfaceDecl6196 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_bindingDecl_in_directive6212 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_includeDirective_in_directive6216 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_useNamespaceDirective_in_directive6220 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_importDeclaration_in_directive6224 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_defaultXMLNamespaceDirective_in_directive6230 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalCompilerOption_in_conditionalDirAndBindingDecls6256 = new BitSet(new ulong[]{0x8000000000000002UL});
-    public static readonly BitSet FOLLOW_bindingDecl_in_conditionalDirAndBindingDecls6273 = new BitSet(new ulong[]{0x8000000000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_xmlKeyword6291 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifierLiteral_in_conditionalCompilerOption6307 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
-    public static readonly BitSet FOLLOW_XML_NS_OP_in_conditionalCompilerOption6311 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_identifierLiteral_in_conditionalCompilerOption6315 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DEFAULT_in_defaultXMLNamespaceDirective6329 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_xmlKeyword_in_defaultXMLNamespaceDirective6333 = new BitSet(new ulong[]{0x0010000000000000UL});
-    public static readonly BitSet FOLLOW_NAMESPACE_in_defaultXMLNamespaceDirective6341 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_defaultXMLNamespaceDirective6349 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_defaultXMLNamespaceDirective6355 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_defaultXMLNamespaceDirective6359 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LBRACK_in_bindingDecl6379 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_bindingDecl6389 = new BitSet(new ulong[]{0x2000000000000000UL,0x0000000000000001UL});
-    public static readonly BitSet FOLLOW_LPAREN_in_bindingDecl6415 = new BitSet(new ulong[]{0x43FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_bindingDeclArg_in_bindingDecl6428 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_bindingDecl6433 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_bindingDeclArg_in_bindingDecl6437 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_bindingDecl6451 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
-    public static readonly BitSet FOLLOW_RBRACK_in_bindingDecl6473 = new BitSet(new ulong[]{0x0400000000000002UL});
-    public static readonly BitSet FOLLOW_SEMI_in_bindingDecl6479 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_INCLUDE_in_includeDirective6504 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000000003UL});
-    public static readonly BitSet FOLLOW_stringLiteral_in_includeDirective6507 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_includeDirective6509 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_bindingDeclArg6540 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_bindingDeclArg6546 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_stringLiteral_in_bindingDeclArg6559 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_numericLiteral_in_bindingDeclArg6563 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_eitherIdentifier_in_bindingDeclArg6567 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_INTERFACE_in_interfaceDeclaration6589 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_interfaceDeclaration6593 = new BitSet(new ulong[]{0x0800000000008000UL});
-    public static readonly BitSet FOLLOW_EXTENDS_in_interfaceDeclaration6598 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_typeList_in_interfaceDeclaration6602 = new BitSet(new ulong[]{0x0800000000008000UL});
-    public static readonly BitSet FOLLOW_interfaceBody_in_interfaceDeclaration6616 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LCURLY_in_interfaceBody6632 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_interfaceElement_in_interfaceBody6648 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_interfaceBody6667 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_CLASS_in_classDeclaration6685 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_classDeclaration6689 = new BitSet(new ulong[]{0x0800000000208000UL});
-    public static readonly BitSet FOLLOW_EXTENDS_in_classDeclaration6695 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_classDeclaration6699 = new BitSet(new ulong[]{0x0800000000208000UL});
-    public static readonly BitSet FOLLOW_IMPLEMENTS_in_classDeclaration6707 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_typeList_in_classDeclaration6711 = new BitSet(new ulong[]{0x0800000000208000UL});
-    public static readonly BitSet FOLLOW_classBody_in_classDeclaration6725 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LCURLY_in_classBody6754 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_classBodyElement_in_classBody6764 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_classBody6777 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyDeclaration_in_classBodyElement6801 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_functionDeclaration_in_classBodyElement6805 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_statement_in_classBodyElement6809 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_directive_in_classBodyElement6813 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyDeclaration_in_interfaceElement6830 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_interfaceElement6834 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_statement_in_interfaceElement6838 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_directive_in_interfaceElement6841 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_interfaceFunctionDeclaration6871 = new BitSet(new ulong[]{0x03C0000714080000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_memberModifiers_in_interfaceFunctionDeclaration6877 = new BitSet(new ulong[]{0x0000000000080000UL});
-    public static readonly BitSet FOLLOW_FUNCTION_in_interfaceFunctionDeclaration6882 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_SET_in_interfaceFunctionDeclaration6901 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_GET_in_interfaceFunctionDeclaration6908 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_interfaceFunctionDeclaration6922 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_interfaceFunctionDeclaration6928 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_formalParameterList_in_interfaceFunctionDeclaration6931 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000020000002UL});
-    public static readonly BitSet FOLLOW_COLON_in_interfaceFunctionDeclaration6936 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_interfaceFunctionDeclaration6940 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_interfaceFunctionDeclaration6944 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_propertyDeclaration6968 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_memberModifiers_in_propertyDeclaration6975 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableStatement_in_propertyDeclaration6979 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_constantVarStatement_in_propertyDeclaration6983 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_namespaceDirective_in_propertyDeclaration6987 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_functionDeclaration7012 = new BitSet(new ulong[]{0x03C0000714080000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_memberModifiers_in_functionDeclaration7019 = new BitSet(new ulong[]{0x0000000000080000UL});
-    public static readonly BitSet FOLLOW_FUNCTION_in_functionDeclaration7024 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_set_in_functionDeclaration7036 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_functionDeclaration7053 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_functionDeclaration7059 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_formalParameterList_in_functionDeclaration7062 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_functionDeclaration7067 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_functionDeclaration7071 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_functionBody_in_functionDeclaration7077 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FUNCTION_in_functionExpression7105 = new BitSet(new ulong[]{0x2000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_functionExpression7112 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_formalParameterList_in_functionExpression7117 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_functionExpression7122 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_functionExpression7126 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_functionBody_in_functionExpression7132 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LPAREN_in_formalParameterList7175 = new BitSet(new ulong[]{0x43FFFFFFFFFFFFF0UL,0x0000200000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableDeclaration_in_formalParameterList7194 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_formalParameterList7229 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableDeclaration_in_formalParameterList7264 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_formalParameterList7301 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000200000000000UL});
-    public static readonly BitSet FOLLOW_formalEllipsisParameter_in_formalParameterList7307 = new BitSet(new ulong[]{0x4000000000000000UL});
-    public static readonly BitSet FOLLOW_formalEllipsisParameter_in_formalParameterList7339 = new BitSet(new ulong[]{0x4000000000000000UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_formalParameterList7363 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ELLIPSIS_in_formalEllipsisParameter7410 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableIdentifierDecl_in_formalEllipsisParameter7415 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LCURLY_in_functionBody7439 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_functionBody7457 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_functionDeclaration_in_functionBody7459 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_functionBody7473 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_memberModifier_in_memberModifiers7501 = new BitSet(new ulong[]{0x03C0000714000002UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_set_in_memberModifier7528 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_blockStatement_in_statement7668 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_directive_in_statement7679 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_namespaceDirective_in_statement7690 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_expression_in_statement7703 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_statement7705 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_constantVarStatement_in_statement7720 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_tryStatement_in_statement7733 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_labelledStatement_in_statement7745 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_switchStatement_in_statement7758 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_withStatement_in_statement7770 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_returnStatement_in_statement7784 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_breakStatement_in_statement7800 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_continueStatement_in_statement7816 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_forStatement_in_statement7830 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_forInStatement_in_statement7842 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_forEachInStatement_in_statement7854 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_doWhileStatement_in_statement7866 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_whileStatement_in_statement7878 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ifStatement_in_statement7889 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_emptyStatement_in_statement7900 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_variableStatement_in_statement7914 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_throwStatement_in_statement7930 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalCompilerOption_in_blockStatement7961 = new BitSet(new ulong[]{0x0800000000000000UL});
-    public static readonly BitSet FOLLOW_LCURLY_in_blockStatement7967 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_blockStatement7984 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_blockStatement7997 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_THROW_in_throwStatement8018 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_throwStatement8022 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_throwStatement8024 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_CONST_in_constantVarStatement8044 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableDeclarationList_in_constantVarStatement8049 = new BitSet(new ulong[]{0x0400000000000002UL});
-    public static readonly BitSet FOLLOW_SEMI_in_constantVarStatement8054 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_USE_in_useNamespaceDirective8156 = new BitSet(new ulong[]{0x0010000000000000UL});
-    public static readonly BitSet FOLLOW_NAMESPACE_in_useNamespaceDirective8165 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_qualifiedIdentifier_in_useNamespaceDirective8172 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000006UL});
-    public static readonly BitSet FOLLOW_COMMA_in_useNamespaceDirective8177 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_qualifiedIdentifier_in_useNamespaceDirective8181 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000006UL});
-    public static readonly BitSet FOLLOW_semic_in_useNamespaceDirective8185 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_NAMESPACE_in_namespaceDirective8215 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_qualifiedIdentifier_in_namespaceDirective8226 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000040000002UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_namespaceDirective8232 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000000003UL});
-    public static readonly BitSet FOLLOW_stringLiteral_in_namespaceDirective8237 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_namespaceDirective8242 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_TRY_in_tryStatement8270 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_blockStatement_in_tryStatement8276 = new BitSet(new ulong[]{0x0000000000020080UL});
-    public static readonly BitSet FOLLOW_catchClause_in_tryStatement8290 = new BitSet(new ulong[]{0x0000000000020080UL});
-    public static readonly BitSet FOLLOW_finallyClause_in_tryStatement8293 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_catchClause_in_tryStatement8305 = new BitSet(new ulong[]{0x0000000000000082UL});
-    public static readonly BitSet FOLLOW_finallyClause_in_tryStatement8318 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_CATCH_in_catchClause8350 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_LPAREN_in_catchClause8357 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableIdentifierDecl_in_catchClause8361 = new BitSet(new ulong[]{0x4000000000000000UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_catchClause8365 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_blockStatement_in_catchClause8369 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FINALLY_in_finallyClause8393 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_blockStatement_in_finallyClause8398 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_labelledStatement8424 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_labelledStatement8437 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_labelledStatement8453 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SWITCH_in_switchStatement8488 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_parExpression_in_switchStatement8493 = new BitSet(new ulong[]{0x0800000000000000UL});
-    public static readonly BitSet FOLLOW_LCURLY_in_switchStatement8505 = new BitSet(new ulong[]{0x1000000000000840UL});
-    public static readonly BitSet FOLLOW_switchBlockStatementGroup_in_switchStatement8521 = new BitSet(new ulong[]{0x1000000000000840UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_switchStatement8534 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_switchLabel_in_switchBlockStatementGroup8567 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_switchBlockStatementGroup8571 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_breakStatement_in_switchBlockStatementGroup8577 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_CASE_in_switchLabel8603 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_switchLabel8607 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_switchLabel8611 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DEFAULT_in_switchLabel8632 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_switchLabel8638 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_WITH_in_withStatement8672 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_LPAREN_in_withStatement8680 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_withStatement8685 = new BitSet(new ulong[]{0x4000000000000000UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_withStatement8690 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_withStatement8698 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_RETURN_in_returnStatement8725 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C00000303380AUL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_returnStatement8733 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_returnStatement8737 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_BREAK_in_breakStatement8764 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_breakStatement8774 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_breakStatement8779 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_CONTINUE_in_continueStatement8805 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_continueStatement8812 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_continueStatement8817 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FOR_in_forStatement8843 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_LPAREN_in_forStatement8851 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C00000303380AUL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_forControl_in_forStatement8855 = new BitSet(new ulong[]{0x4000000000000000UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_forStatement8859 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_forStatement8865 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FOR_in_forInStatement8892 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_LPAREN_in_forInStatement8900 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_forInControl_in_forInStatement8904 = new BitSet(new ulong[]{0x4000000000000000UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_forInStatement8908 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_forInStatement8916 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FOR_in_forEachInStatement8945 = new BitSet(new ulong[]{0x0002000000000000UL});
-    public static readonly BitSet FOLLOW_EACH_in_forEachInStatement8963 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_LPAREN_in_forEachInStatement8974 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_forInControl_in_forEachInStatement8978 = new BitSet(new ulong[]{0x4000000000000000UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_forEachInStatement8982 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_forEachInStatement8988 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_forInit_in_forControl9018 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_forControl9023 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C00000303380AUL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_forControl9028 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_forControl9032 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_forUpdate_in_forControl9036 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_forInDecl_in_forInControl9064 = new BitSet(new ulong[]{0x0000000000800000UL});
-    public static readonly BitSet FOLLOW_IN_in_forInControl9068 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_forInControl9072 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_leftHandSideExpression_in_forInDecl9091 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_VAR_in_forInDecl9103 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableDeclarationNoIn_in_forInDecl9107 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_variableDeclarationNoInList_in_forInit9126 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_expressionNoIn_in_forInit9136 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_expression_in_forUpdate9155 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DO_in_doWhileStatement9181 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_doWhileStatement9187 = new BitSet(new ulong[]{0x0000800000000000UL});
-    public static readonly BitSet FOLLOW_WHILE_in_doWhileStatement9196 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_parExpression_in_doWhileStatement9200 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_doWhileStatement9202 = new BitSet(new ulong[]{0x0400000000000002UL});
-    public static readonly BitSet FOLLOW_SEMI_in_doWhileStatement9207 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_WHILE_in_whileStatement9237 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_parExpression_in_whileStatement9242 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_whileStatement9248 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IF_in_ifStatement9311 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_parExpression_in_ifStatement9346 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_ifStatement9391 = new BitSet(new ulong[]{0x0000000000004002UL});
-    public static readonly BitSet FOLLOW_ELSE_in_ifStatement9446 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_ifStatement9487 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SEMI_in_emptyStatement9545 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_variableStatement9592 = new BitSet(new ulong[]{0x0000200000000000UL});
-    public static readonly BitSet FOLLOW_VAR_in_variableStatement9600 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableDeclaration_in_variableStatement9604 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000006UL});
-    public static readonly BitSet FOLLOW_COMMA_in_variableStatement9611 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableDeclaration_in_variableStatement9616 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000006UL});
-    public static readonly BitSet FOLLOW_semic_in_variableStatement9621 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_variableDeclaration_in_variableDeclarationList9663 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_variableDeclarationList9671 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableDeclaration_in_variableDeclarationList9676 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_VAR_in_variableDeclarationNoInList9705 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableDeclarationNoIn_in_variableDeclarationNoInList9711 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_variableDeclarationNoInList9719 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_variableDeclarationNoIn_in_variableDeclarationNoInList9724 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_variableIdentifierDecl_in_variableDeclaration9749 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000040000000UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_variableDeclaration9755 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_variableDeclaration9771 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_variableIdentifierDecl_in_variableDeclarationNoIn9794 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000040000000UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_variableDeclarationNoIn9800 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpressionNoIn_in_variableDeclarationNoIn9824 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifierLiteral_in_variableIdentifierDecl9851 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_variableIdentifierDecl9857 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_variableIdentifierDecl9861 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_qualifiedName_in_type9885 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_STAR_in_type9891 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_VOID_in_type9899 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_type_in_typeList9916 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_typeList9922 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_typeList9927 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_typeSpecifier_in_standardQualifiedName9951 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_standardQualifiedName9956 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_typeSpecifier_in_standardQualifiedName9960 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_standardQualifiedName_in_qualifiedName9988 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_typePostfixSyntax_in_qualifiedName9991 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_typePostfixSyntax10013 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_LT_in_typePostfixSyntax10019 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_standardQualifiedName_in_typePostfixSyntax10023 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000012UL});
-    public static readonly BitSet FOLLOW_typePostfixSyntax_in_typePostfixSyntax10026 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_typePostfixSyntax10032 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_qualifiedIdentifier10056 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LPAREN_in_parExpression10081 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_parExpression10088 = new BitSet(new ulong[]{0x4000000000000000UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_parExpression10093 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_expression10134 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_expression10142 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_expression10148 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_assignmentExpressionNoIn_in_expressionNoIn10176 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_expressionNoIn10184 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpressionNoIn_in_expressionNoIn10190 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_leftHandSideExpression_in_assignmentExpression10219 = new BitSet(new ulong[]{0x0000000000000000UL,0x00001F3E40002010UL});
-    public static readonly BitSet FOLLOW_assignmentOperator_in_assignmentExpression10222 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_assignmentExpression10225 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalExpression_in_assignmentExpression10233 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalExpressionNoIn_in_assignmentExpressionNoIn10253 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_leftHandSideExpression_in_assignmentExpressionNoIn10263 = new BitSet(new ulong[]{0x0000000000000000UL,0x00001F3E40002010UL});
-    public static readonly BitSet FOLLOW_assignmentOperator_in_assignmentExpressionNoIn10266 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpressionNoIn_in_assignmentExpressionNoIn10269 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_assignmentOperator_int_in_assignmentOperator10285 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_assignmentOperator_int10311 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_STAR_in_assignmentOperator_int10320 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_assignmentOperator_int10324 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DIV_ASSIGN_in_assignmentOperator_int10335 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_MOD_ASSIGN_in_assignmentOperator_int10344 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ADD_ASSIGN_in_assignmentOperator_int10353 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SUB_ASSIGN_in_assignmentOperator_int10362 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SHL_ASSIGN_in_assignmentOperator_int10370 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10394 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10398 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_assignmentOperator_int10402 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10448 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10452 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10456 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_assignmentOperator_int10460 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_AND_ASSIGN_in_assignmentOperator_int10491 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_XOR_ASSIGN_in_assignmentOperator_int10500 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_OR_ASSIGN_in_assignmentOperator_int10509 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LOR_ASSIGN_in_assignmentOperator_int10517 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LAND_ASSIGN_in_assignmentOperator_int10525 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_logicalORExpression_in_conditionalExpression10545 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000010000000UL});
-    public static readonly BitSet FOLLOW_QUE_in_conditionalExpression10551 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_conditionalExpression10556 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_conditionalExpression10563 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_conditionalExpression10568 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_logicalORExpressionNoIn_in_conditionalExpressionNoIn10595 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000010000000UL});
-    public static readonly BitSet FOLLOW_QUE_in_conditionalExpressionNoIn10601 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_conditionalExpressionNoIn10605 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_conditionalExpressionNoIn10612 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_conditionalExpressionNoIn10617 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_logicalANDExpression_in_logicalORExpression10649 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000008000000UL});
-    public static readonly BitSet FOLLOW_LOR_in_logicalORExpression10655 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_logicalANDExpression_in_logicalORExpression10659 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000008000000UL});
-    public static readonly BitSet FOLLOW_logicalANDExpressionNoIn_in_logicalORExpressionNoIn10687 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000008000000UL});
-    public static readonly BitSet FOLLOW_LOR_in_logicalORExpressionNoIn10693 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_logicalANDExpressionNoIn_in_logicalORExpressionNoIn10697 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000008000000UL});
-    public static readonly BitSet FOLLOW_bitwiseORExpression_in_logicalANDExpression10729 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000004000000UL});
-    public static readonly BitSet FOLLOW_LAND_in_logicalANDExpression10735 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_bitwiseORExpression_in_logicalANDExpression10739 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000004000000UL});
-    public static readonly BitSet FOLLOW_bitwiseORExpressionNoIn_in_logicalANDExpressionNoIn10766 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000004000000UL});
-    public static readonly BitSet FOLLOW_LAND_in_logicalANDExpressionNoIn10772 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_bitwiseORExpressionNoIn_in_logicalANDExpressionNoIn10776 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000004000000UL});
-    public static readonly BitSet FOLLOW_bitwiseXORExpression_in_bitwiseORExpression10808 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000400000UL});
-    public static readonly BitSet FOLLOW_OR_in_bitwiseORExpression10814 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_bitwiseXORExpression_in_bitwiseORExpression10818 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000400000UL});
-    public static readonly BitSet FOLLOW_bitwiseXORExpressionNoIn_in_bitwiseORExpressionNoIn10845 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000400000UL});
-    public static readonly BitSet FOLLOW_OR_in_bitwiseORExpressionNoIn10851 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_bitwiseXORExpressionNoIn_in_bitwiseORExpressionNoIn10855 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000400000UL});
-    public static readonly BitSet FOLLOW_bitwiseANDExpression_in_bitwiseXORExpression10886 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000800000UL});
-    public static readonly BitSet FOLLOW_XOR_in_bitwiseXORExpression10892 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_bitwiseANDExpression_in_bitwiseXORExpression10896 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000800000UL});
-    public static readonly BitSet FOLLOW_bitwiseANDExpressionNoIn_in_bitwiseXORExpressionNoIn10923 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000800000UL});
-    public static readonly BitSet FOLLOW_XOR_in_bitwiseXORExpressionNoIn10929 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_bitwiseANDExpressionNoIn_in_bitwiseXORExpressionNoIn10933 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000800000UL});
-    public static readonly BitSet FOLLOW_equalityExpression_in_bitwiseANDExpression10960 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000200000UL});
-    public static readonly BitSet FOLLOW_AND_in_bitwiseANDExpression10966 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_equalityExpression_in_bitwiseANDExpression10970 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000200000UL});
-    public static readonly BitSet FOLLOW_equalityExpressionNoIn_in_bitwiseANDExpressionNoIn10997 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000200000UL});
-    public static readonly BitSet FOLLOW_AND_in_bitwiseANDExpressionNoIn11003 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_equalityExpressionNoIn_in_bitwiseANDExpressionNoIn11007 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000200000UL});
-    public static readonly BitSet FOLLOW_relationalExpression_in_equalityExpression11035 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000780UL});
-    public static readonly BitSet FOLLOW_set_in_equalityExpression11041 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_relationalExpression_in_equalityExpression11053 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000780UL});
-    public static readonly BitSet FOLLOW_relationalExpressionNoIn_in_equalityExpressionNoIn11080 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000780UL});
-    public static readonly BitSet FOLLOW_set_in_equalityExpressionNoIn11086 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_relationalExpressionNoIn_in_equalityExpressionNoIn11099 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000780UL});
-    public static readonly BitSet FOLLOW_shiftExpression_in_relationalExpression11127 = new BitSet(new ulong[]{0x0000000009800012UL,0x0000000000000038UL});
-    public static readonly BitSet FOLLOW_GT_in_relationalExpression11147 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000043033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_relationalExpression11152 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_set_in_relationalExpression11185 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_shiftExpression_in_relationalExpression11223 = new BitSet(new ulong[]{0x0000000009800012UL,0x0000000000000038UL});
-    public static readonly BitSet FOLLOW_shiftExpression_in_relationalExpressionNoIn11259 = new BitSet(new ulong[]{0x0000000009000012UL,0x0000000000000038UL});
-    public static readonly BitSet FOLLOW_GT_in_relationalExpressionNoIn11279 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000043033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_relationalExpressionNoIn11284 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_set_in_relationalExpressionNoIn11317 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_shiftExpression_in_relationalExpressionNoIn11353 = new BitSet(new ulong[]{0x0000000009000012UL,0x0000000000000038UL});
-    public static readonly BitSet FOLLOW_additiveExpression_in_shiftExpression11386 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000040010UL});
-    public static readonly BitSet FOLLOW_SHL_in_shiftExpression11408 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_GT_in_shiftExpression11430 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_shiftExpression11434 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_GT_in_shiftExpression11485 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_shiftExpression11489 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_shiftExpression11493 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_additiveExpression_in_shiftExpression11540 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000040010UL});
-    public static readonly BitSet FOLLOW_multiplicativeExpression_in_additiveExpression11570 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000001800UL});
-    public static readonly BitSet FOLLOW_set_in_additiveExpression11576 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_multiplicativeExpression_in_additiveExpression11584 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000001800UL});
-    public static readonly BitSet FOLLOW_unaryExpression_in_multiplicativeExpression11608 = new BitSet(new ulong[]{0x0000000000000002UL,0x000000000000E000UL});
-    public static readonly BitSet FOLLOW_set_in_multiplicativeExpression11614 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_unaryExpression_in_multiplicativeExpression11623 = new BitSet(new ulong[]{0x0000000000000002UL,0x000000000000E000UL});
-    public static readonly BitSet FOLLOW_postfixExpression_in_unaryExpression11647 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_unaryExpression11658 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_unaryExpression_in_unaryExpression11668 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_unaryOp_in_unaryExpression11678 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_postfixExpression_in_unaryExpression11680 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_unaryOp11711 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_leftHandSideExpression_in_postfixExpression11768 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000030000UL});
-    public static readonly BitSet FOLLOW_postfixOp_in_postfixExpression11770 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_postfixOp11796 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_primaryExpression_in_memberExpression11818 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_functionExpression_in_memberExpression11823 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_newExpression_in_memberExpression11828 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_NEW_in_newExpression11841 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_primaryExpression_in_newExpression11846 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_memberExpression_in_leftHandSideExpression11863 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
-    public static readonly BitSet FOLLOW_arguments_in_leftHandSideExpression11878 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
-    public static readonly BitSet FOLLOW_LBRACK_in_leftHandSideExpression11890 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_leftHandSideExpression11894 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
-    public static readonly BitSet FOLLOW_RBRACK_in_leftHandSideExpression11898 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_leftHandSideExpression11913 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_eitherIdentifier_in_leftHandSideExpression11918 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
-    public static readonly BitSet FOLLOW_XML_NS_OP_in_leftHandSideExpression11922 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_eitherIdentifier_in_leftHandSideExpression11929 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
-    public static readonly BitSet FOLLOW_XML_ELLIPSIS_in_leftHandSideExpression11941 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_eitherIdentifier_in_leftHandSideExpression11945 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
-    public static readonly BitSet FOLLOW_XML_NS_OP_in_leftHandSideExpression11949 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_eitherIdentifier_in_leftHandSideExpression11956 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_leftHandSideExpression11968 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_parExpression_in_leftHandSideExpression11972 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
-    public static readonly BitSet FOLLOW_typePostfixSyntax_in_leftHandSideExpression11982 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_eitherIdentifier12012 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlPropertyIdentifier_in_eitherIdentifier12022 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_allKeywords_in_eitherIdentifier12028 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_typeSpecifier12041 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_typeSpecifier12047 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_INTERNAL_in_typeSpecifier12053 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DEFAULT_in_typeSpecifier12061 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_notQuiteReservedWord12079 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_reservedWord_in_allKeywords12132 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_allKeywords12136 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_reservedWord12153 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LPAREN_in_arguments12717 = new BitSet(new ulong[]{0xEBFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_arguments12729 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_arguments12757 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_arguments12782 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_RPAREN_in_arguments12810 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_indexSuffix_in_suffix12849 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyReferenceSuffix_in_suffix12853 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LBRACK_in_indexSuffix12894 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_indexSuffix12899 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
-    public static readonly BitSet FOLLOW_RBRACK_in_indexSuffix12904 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_propertyReferenceSuffix12932 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_propertyReferenceSuffix12939 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_propertyReferenceSuffix12954 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_xmlPropertyIdentifier_in_propertyReferenceSuffix12959 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_propertyReferenceSuffix12972 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_primaryExpressionHelper_in_primaryExpression13005 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_THIS_in_primaryExpressionHelper13032 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SUPER_in_primaryExpressionHelper13046 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_literal_in_primaryExpressionHelper13058 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_arrayLiteral_in_primaryExpressionHelper13070 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_objectLiteral_in_primaryExpressionHelper13081 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifierLiteral_in_primaryExpressionHelper13093 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlPrimaryExpression_in_primaryExpressionHelper13104 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_parExpression_in_primaryExpressionHelper13114 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalCompilerOption_in_primaryExpressionHelper13125 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LT_in_primaryExpressionHelper13134 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_type_in_primaryExpressionHelper13138 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_primaryExpressionHelper13142 = new BitSet(new ulong[]{0x8000000000000002UL});
-    public static readonly BitSet FOLLOW_arrayLiteral_in_primaryExpressionHelper13147 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LCURLY_in_objectLiteral13172 = new BitSet(new ulong[]{0x13FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_propertyNameAndValueList_in_objectLiteral13176 = new BitSet(new ulong[]{0x1000000000000000UL});
-    public static readonly BitSet FOLLOW_RCURLY_in_objectLiteral13181 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13203 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_propertyNameAndValueList13209 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13214 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_propertyName_in_propertyNameAndValue13235 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
-    public static readonly BitSet FOLLOW_COLON_in_propertyNameAndValue13239 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_propertyNameAndValue13257 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifierLiteral_in_propertyName13276 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_stringLiteral_in_propertyName13287 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_numericLiteral_in_propertyName13298 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LBRACK_in_arrayLiteral13321 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033809UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_elementList_in_arrayLiteral13325 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
-    public static readonly BitSet FOLLOW_RBRACK_in_arrayLiteral13330 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_elementList13376 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_elementList13394 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_elementList13411 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_COMMA_in_elementList13424 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SUB_in_synpred9_AS3_ex3793 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_DOT_in_synpred9_AS3_ex3801 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_COLON_in_synpred9_AS3_ex3809 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_synpred9_AS3_ex3820 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_allKeywords_in_synpred9_AS3_ex3826 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_XML_TEXT_in_synpred70_AS3_ex4890 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlTextElement_in_synpred71_AS3_ex4896 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlQualifiedIdentifier_in_synpred75_AS3_ex5123 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlQualifiedIdentifier_in_synpred76_AS3_ex5228 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlPropertySelector_in_synpred77_AS3_ex5243 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyDeclaration_in_synpred99_AS3_ex6062 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_functionDeclaration_in_synpred100_AS3_ex6066 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_statement_in_synpred101_AS3_ex6070 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_directive_in_synpred102_AS3_ex6074 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_synpred103_AS3_ex6078 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_classOrInterfaceDecl_in_synpred105_AS3_ex6104 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyDeclaration_in_synpred106_AS3_ex6108 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_functionDeclaration_in_synpred107_AS3_ex6112 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_synpred108_AS3_ex6116 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_statement_in_synpred109_AS3_ex6120 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SEMI_in_synpred122_AS3_ex6479 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyDeclaration_in_synpred131_AS3_ex6801 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_functionDeclaration_in_synpred132_AS3_ex6805 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_statement_in_synpred133_AS3_ex6809 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyDeclaration_in_synpred134_AS3_ex6830 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_synpred135_AS3_ex6834 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_statement_in_synpred136_AS3_ex6838 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_memberModifiers_in_synpred144_AS3_ex6975 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_statement_in_synpred159_AS3_ex7457 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_functionDeclaration_in_synpred160_AS3_ex7459 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_memberModifier_in_synpred161_AS3_ex7501 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_blockStatement_in_synpred171_AS3_ex7668 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_directive_in_synpred172_AS3_ex7679 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_namespaceDirective_in_synpred173_AS3_ex7690 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_expression_in_synpred174_AS3_ex7703 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_semic_in_synpred174_AS3_ex7705 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_constantVarStatement_in_synpred175_AS3_ex7720 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_tryStatement_in_synpred176_AS3_ex7733 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_labelledStatement_in_synpred177_AS3_ex7745 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_switchStatement_in_synpred178_AS3_ex7758 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_withStatement_in_synpred179_AS3_ex7770 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_returnStatement_in_synpred180_AS3_ex7784 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_breakStatement_in_synpred181_AS3_ex7800 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_continueStatement_in_synpred182_AS3_ex7816 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_forStatement_in_synpred183_AS3_ex7830 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_forInStatement_in_synpred184_AS3_ex7842 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_forEachInStatement_in_synpred185_AS3_ex7854 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_doWhileStatement_in_synpred186_AS3_ex7866 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_whileStatement_in_synpred187_AS3_ex7878 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ifStatement_in_synpred188_AS3_ex7889 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_variableStatement_in_synpred190_AS3_ex7914 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SEMI_in_synpred193_AS3_ex8054 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_catchClause_in_synpred197_AS3_ex8290 = new BitSet(new ulong[]{0x0000000000020080UL});
-    public static readonly BitSet FOLLOW_finallyClause_in_synpred197_AS3_ex8293 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_catchClause_in_synpred199_AS3_ex8305 = new BitSet(new ulong[]{0x0000000000000082UL});
-    public static readonly BitSet FOLLOW_statement_in_synpred201_AS3_ex8571 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_variableDeclarationNoInList_in_synpred211_AS3_ex9126 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SEMI_in_synpred212_AS3_ex9207 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ELSE_in_synpred213_AS3_ex9446 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_statement_in_synpred213_AS3_ex9487 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_leftHandSideExpression_in_synpred230_AS3_ex10219 = new BitSet(new ulong[]{0x0000000000000000UL,0x00001F3E40002010UL});
-    public static readonly BitSet FOLLOW_assignmentOperator_in_synpred230_AS3_ex10222 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_assignmentExpression_in_synpred230_AS3_ex10225 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalExpressionNoIn_in_synpred231_AS3_ex10253 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_GT_in_synpred274_AS3_ex11147 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000043033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_ASSIGN_in_synpred274_AS3_ex11152 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_set_in_synpred274_AS3_ex11185 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_shiftExpression_in_synpred274_AS3_ex11223 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_GT_in_synpred285_AS3_ex11475 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_synpred285_AS3_ex11477 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
-    public static readonly BitSet FOLLOW_GT_in_synpred285_AS3_ex11479 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_synpred288_AS3_ex11576 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_multiplicativeExpression_in_synpred288_AS3_ex11584 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_synpred291_AS3_ex11614 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_unaryExpression_in_synpred291_AS3_ex11623 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_postfixExpression_in_synpred292_AS3_ex11647 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_synpred294_AS3_ex11658 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_unaryExpression_in_synpred294_AS3_ex11668 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_postfixOp_in_synpred303_AS3_ex11770 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_arguments_in_synpred307_AS3_ex11878 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_LBRACK_in_synpred308_AS3_ex11890 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
-    public static readonly BitSet FOLLOW_expression_in_synpred308_AS3_ex11894 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
-    public static readonly BitSet FOLLOW_RBRACK_in_synpred308_AS3_ex11898 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_eitherIdentifier_in_synpred309_AS3_ex11918 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
-    public static readonly BitSet FOLLOW_XML_NS_OP_in_synpred309_AS3_ex11922 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_synpred310_AS3_ex11913 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_eitherIdentifier_in_synpred310_AS3_ex11918 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
-    public static readonly BitSet FOLLOW_XML_NS_OP_in_synpred310_AS3_ex11922 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
-    public static readonly BitSet FOLLOW_eitherIdentifier_in_synpred310_AS3_ex11929 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_eitherIdentifier_in_synpred311_AS3_ex11945 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
-    public static readonly BitSet FOLLOW_XML_NS_OP_in_synpred311_AS3_ex11949 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_synpred313_AS3_ex11968 = new BitSet(new ulong[]{0x2000000000000000UL});
-    public static readonly BitSet FOLLOW_parExpression_in_synpred313_AS3_ex11972 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_typePostfixSyntax_in_synpred314_AS3_ex11982 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_IDENTIFIER_in_synpred315_AS3_ex12012 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlPropertyIdentifier_in_synpred316_AS3_ex12022 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_THIS_in_synpred378_AS3_ex13032 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SUPER_in_synpred379_AS3_ex13046 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_literal_in_synpred380_AS3_ex13058 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifierLiteral_in_synpred383_AS3_ex13093 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_xmlPrimaryExpression_in_synpred384_AS3_ex13104 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_conditionalCompilerOption_in_synpred386_AS3_ex13125 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_arrayLiteral_in_synpred387_AS3_ex13147 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_TRUE_in_booleanLiteral3614 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FALSE_in_booleanLiteral3622 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DEC_NUMBER_LITERAL_in_numericLiteral3656 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_HEX_NUMBER_LITERAL_in_numericLiteral3664 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SINGLE_QUOTE_LITERAL_in_stringLiteral3699 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOUBLE_QUOTE_LITERAL_in_stringLiteral3706 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_REGULAR_EXPR_LITERAL_in_regularExpresionLiteral3731 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_identifierLiteral3764 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_identifierLiteral3769 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_xmlNameLiteral3804 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020001002UL});
+    public static readonly BitSet FOLLOW_allKeywords_in_xmlNameLiteral3809 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020001002UL});
+    public static readonly BitSet FOLLOW_SUB_in_xmlNameLiteral3820 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_DOT_in_xmlNameLiteral3828 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_COLON_in_xmlNameLiteral3836 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_xmlNameLiteral3847 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020001002UL});
+    public static readonly BitSet FOLLOW_allKeywords_in_xmlNameLiteral3853 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020001002UL});
+    public static readonly BitSet FOLLOW_NULL_in_literal3906 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_booleanLiteral_in_literal3912 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_numericLiteral_in_literal3916 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_stringLiteral_in_literal3920 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_regularExpresionLiteral_in_literal3924 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlComment_in_xmlMarkup3960 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlCDATA_in_xmlMarkup3964 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlPI_in_xmlMarkup3968 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_XML_COMMENT_in_xmlComment4003 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_XML_CDATA_in_xmlCDATA4045 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_XML_PI_in_xmlPI4088 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LCURLY_in_xmlExprEval4126 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_xmlExprEval4130 = new BitSet(new ulong[]{0x1000000000000000UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_xmlExprEval4134 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_allKeywords_in_xmlTextElement4152 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_xmlTextElement4165 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_XML_TEXT_in_xmlText4895 = new BitSet(new ulong[]{0xF7FFFFFFFFFFFFF2UL,0x00067F3E7FE7FFB7UL,0x0000000000085203UL});
+    public static readonly BitSet FOLLOW_xmlTextElement_in_xmlText4901 = new BitSet(new ulong[]{0xF7FFFFFFFFFFFFF2UL,0x00067F3E7FE7FFB7UL,0x0000000000085203UL});
+    public static readonly BitSet FOLLOW_xmlPropertyIdentifier_in_xmlPrimaryExpression5003 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlInitialiser_in_xmlPrimaryExpression5013 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlListInitialiser_in_xmlPrimaryExpression5023 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlAttributeIdentifier_in_xmlPropertyIdentifier5116 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlQualifiedIdentifier_in_xmlPropertyIdentifier5128 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_STAR_in_xmlPropertyIdentifier5142 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_XML_AT_in_xmlAttributeIdentifier5207 = new BitSet(new ulong[]{0x83FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_xmlQualifiedIdentifier_in_xmlAttributeIdentifier5233 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlPropertySelector_in_xmlAttributeIdentifier5248 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_indexSuffix_in_xmlAttributeIdentifier5263 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlNameLiteral_in_xmlPropertySelector5353 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_STAR_in_xmlPropertySelector5366 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlPropertySelector_in_xmlQualifiedIdentifier5387 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
+    public static readonly BitSet FOLLOW_XML_NS_OP_in_xmlQualifiedIdentifier5392 = new BitSet(new ulong[]{0x83FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_xmlPropertySelector_in_xmlQualifiedIdentifier5427 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_indexSuffix_in_xmlQualifiedIdentifier5439 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlMarkup_in_xmlInitialiser5464 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlElement_in_xmlInitialiser5474 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LT_in_xmlElement5518 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_xmlTagName_in_xmlElement5523 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000800000000010UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_xmlAttributes_in_xmlElement5525 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000800000000010UL});
+    public static readonly BitSet FOLLOW_XML_TEND_in_xmlElement5545 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_GT_in_xmlElement5590 = new BitSet(new ulong[]{0xFFFFFFFFFFFFFFF0UL,0x00077F3E7FE7FFBFUL,0x00000000000F5203UL});
+    public static readonly BitSet FOLLOW_xmlElementContent_in_xmlElement5594 = new BitSet(new ulong[]{0x0000000000000000UL,0x0001000000000000UL});
+    public static readonly BitSet FOLLOW_XML_E_TEND_in_xmlElement5608 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_xmlTagName_in_xmlElement5622 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_xmlElement5626 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlAttribute_in_xmlAttributes5665 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF2UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_xmlExprEval_in_xmlTagName5695 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlNameLiteral_in_xmlTagName5700 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlNameLiteral_in_xmlAttribute5723 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_xmlAttribute5727 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000000000000UL,0x0000000000000003UL});
+    public static readonly BitSet FOLLOW_xmlExprEval_in_xmlAttribute5746 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_stringLiteral_in_xmlAttribute5758 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlElementContentHelper_in_xmlElementContent5789 = new BitSet(new ulong[]{0xFFFFFFFFFFFFFFF2UL,0x00067F3E7FE7FFBFUL,0x00000000000F5203UL});
+    public static readonly BitSet FOLLOW_xmlExprEval_in_xmlElementContentHelper5807 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlMarkup_in_xmlElementContentHelper5816 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlElement_in_xmlElementContentHelper5825 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlText_in_xmlElementContentHelper5835 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_XML_LS_STD_in_xmlListInitialiser5856 = new BitSet(new ulong[]{0xFFFFFFFFFFFFFFF0UL,0x00167F3E7FE7FFBFUL,0x00000000000F5203UL});
+    public static readonly BitSet FOLLOW_xmlElementContent_in_xmlListInitialiser5871 = new BitSet(new ulong[]{0x0000000000000000UL,0x0010000000000000UL});
+    public static readonly BitSet FOLLOW_XML_LS_END_in_xmlListInitialiser5883 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SEMI_in_semic5914 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_EOF_in_semic5928 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_semic5942 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_packageDeclaration_in_fileContents5962 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_packageElement_in_fileContents5965 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_EOF_in_fileContents5971 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_PACKAGE_in_packageDeclaration5988 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_packageDeclaration5993 = new BitSet(new ulong[]{0x0800000000000000UL});
+    public static readonly BitSet FOLLOW_LCURLY_in_packageDeclaration6007 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_packageElement_in_packageDeclaration6023 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_packageDeclaration6042 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyDeclaration_in_mxmlEmbedded6067 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_functionDeclaration_in_mxmlEmbedded6071 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_mxmlEmbedded6075 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_directive_in_mxmlEmbedded6079 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_mxmlEmbedded6083 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_EOF_in_mxmlEmbedded6089 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_classOrInterfaceDecl_in_packageElement6109 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyDeclaration_in_packageElement6113 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_functionDeclaration_in_packageElement6117 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_packageElement6121 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_statement_in_packageElement6125 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_directive_in_packageElement6129 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IMPORT_in_importDeclaration6149 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_importDeclaration6153 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_importDeclaration6158 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000002000UL});
+    public static readonly BitSet FOLLOW_STAR_in_importDeclaration6164 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_importDeclaration6170 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_classOrInterfaceDecl6185 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_memberModifiers_in_classOrInterfaceDecl6193 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_interfaceDeclaration_in_classOrInterfaceDecl6197 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_classDeclaration_in_classOrInterfaceDecl6201 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_bindingDecl_in_directive6217 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_includeDirective_in_directive6221 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_useNamespaceDirective_in_directive6225 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_importDeclaration_in_directive6229 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_defaultXMLNamespaceDirective_in_directive6235 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalCompilerOption_in_conditionalDirAndBindingDecls6261 = new BitSet(new ulong[]{0x8000000000000002UL});
+    public static readonly BitSet FOLLOW_bindingDecl_in_conditionalDirAndBindingDecls6278 = new BitSet(new ulong[]{0x8000000000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_xmlKeyword6296 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifierLiteral_in_conditionalCompilerOption6312 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
+    public static readonly BitSet FOLLOW_XML_NS_OP_in_conditionalCompilerOption6316 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_identifierLiteral_in_conditionalCompilerOption6320 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DEFAULT_in_defaultXMLNamespaceDirective6334 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_xmlKeyword_in_defaultXMLNamespaceDirective6338 = new BitSet(new ulong[]{0x0010000000000000UL});
+    public static readonly BitSet FOLLOW_NAMESPACE_in_defaultXMLNamespaceDirective6346 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_defaultXMLNamespaceDirective6354 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_defaultXMLNamespaceDirective6360 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_defaultXMLNamespaceDirective6364 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LBRACK_in_bindingDecl6384 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_bindingDecl6394 = new BitSet(new ulong[]{0x2000000000000000UL,0x0000000000000001UL});
+    public static readonly BitSet FOLLOW_LPAREN_in_bindingDecl6420 = new BitSet(new ulong[]{0x43FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_bindingDeclArg_in_bindingDecl6433 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_bindingDecl6438 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_bindingDeclArg_in_bindingDecl6442 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_bindingDecl6456 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
+    public static readonly BitSet FOLLOW_RBRACK_in_bindingDecl6478 = new BitSet(new ulong[]{0x0400000000000002UL});
+    public static readonly BitSet FOLLOW_SEMI_in_bindingDecl6484 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_INCLUDE_in_includeDirective6509 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000000003UL});
+    public static readonly BitSet FOLLOW_stringLiteral_in_includeDirective6512 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_includeDirective6514 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_bindingDeclArg6545 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_bindingDeclArg6551 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_stringLiteral_in_bindingDeclArg6564 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_numericLiteral_in_bindingDeclArg6568 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_eitherIdentifier_in_bindingDeclArg6572 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_INTERFACE_in_interfaceDeclaration6594 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_interfaceDeclaration6598 = new BitSet(new ulong[]{0x0800000000008000UL});
+    public static readonly BitSet FOLLOW_EXTENDS_in_interfaceDeclaration6603 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_typeList_in_interfaceDeclaration6607 = new BitSet(new ulong[]{0x0800000000008000UL});
+    public static readonly BitSet FOLLOW_interfaceBody_in_interfaceDeclaration6621 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LCURLY_in_interfaceBody6637 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_interfaceElement_in_interfaceBody6653 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_interfaceBody6672 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_CLASS_in_classDeclaration6690 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_classDeclaration6694 = new BitSet(new ulong[]{0x0800000000208000UL});
+    public static readonly BitSet FOLLOW_EXTENDS_in_classDeclaration6700 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_classDeclaration6704 = new BitSet(new ulong[]{0x0800000000208000UL});
+    public static readonly BitSet FOLLOW_IMPLEMENTS_in_classDeclaration6712 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_typeList_in_classDeclaration6716 = new BitSet(new ulong[]{0x0800000000208000UL});
+    public static readonly BitSet FOLLOW_classBody_in_classDeclaration6730 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LCURLY_in_classBody6759 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_classBodyElement_in_classBody6769 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_classBody6782 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyDeclaration_in_classBodyElement6806 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_functionDeclaration_in_classBodyElement6810 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_statement_in_classBodyElement6814 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_directive_in_classBodyElement6818 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyDeclaration_in_interfaceElement6835 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_interfaceElement6839 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_statement_in_interfaceElement6843 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_directive_in_interfaceElement6846 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_interfaceFunctionDeclaration6876 = new BitSet(new ulong[]{0x03C0000714080000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_memberModifiers_in_interfaceFunctionDeclaration6882 = new BitSet(new ulong[]{0x0000000000080000UL});
+    public static readonly BitSet FOLLOW_FUNCTION_in_interfaceFunctionDeclaration6887 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_SET_in_interfaceFunctionDeclaration6906 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_GET_in_interfaceFunctionDeclaration6913 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_interfaceFunctionDeclaration6927 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_interfaceFunctionDeclaration6933 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_formalParameterList_in_interfaceFunctionDeclaration6936 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000020000002UL});
+    public static readonly BitSet FOLLOW_COLON_in_interfaceFunctionDeclaration6941 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_interfaceFunctionDeclaration6945 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_interfaceFunctionDeclaration6949 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_propertyDeclaration6973 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_memberModifiers_in_propertyDeclaration6980 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableStatement_in_propertyDeclaration6984 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_constantVarStatement_in_propertyDeclaration6988 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_namespaceDirective_in_propertyDeclaration6992 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalDirAndBindingDecls_in_functionDeclaration7017 = new BitSet(new ulong[]{0x03C0000714080000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_memberModifiers_in_functionDeclaration7024 = new BitSet(new ulong[]{0x0000000000080000UL});
+    public static readonly BitSet FOLLOW_FUNCTION_in_functionDeclaration7029 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_set_in_functionDeclaration7041 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_functionDeclaration7058 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_functionDeclaration7064 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_formalParameterList_in_functionDeclaration7067 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_functionDeclaration7072 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_functionDeclaration7076 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_functionBody_in_functionDeclaration7082 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FUNCTION_in_functionExpression7110 = new BitSet(new ulong[]{0x2000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_functionExpression7117 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_formalParameterList_in_functionExpression7122 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_functionExpression7127 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_functionExpression7131 = new BitSet(new ulong[]{0x0800000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_functionBody_in_functionExpression7137 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LPAREN_in_formalParameterList7180 = new BitSet(new ulong[]{0x43FFFFFFFFFFFFF0UL,0x0000200000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableDeclaration_in_formalParameterList7199 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_formalParameterList7234 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableDeclaration_in_formalParameterList7269 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_formalParameterList7306 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000200000000000UL});
+    public static readonly BitSet FOLLOW_formalEllipsisParameter_in_formalParameterList7312 = new BitSet(new ulong[]{0x4000000000000000UL});
+    public static readonly BitSet FOLLOW_formalEllipsisParameter_in_formalParameterList7344 = new BitSet(new ulong[]{0x4000000000000000UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_formalParameterList7368 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ELLIPSIS_in_formalEllipsisParameter7415 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableIdentifierDecl_in_formalEllipsisParameter7420 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LCURLY_in_functionBody7444 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_functionBody7462 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_functionDeclaration_in_functionBody7464 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_functionBody7478 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_memberModifier_in_memberModifiers7506 = new BitSet(new ulong[]{0x03C0000714000002UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_set_in_memberModifier7533 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_blockStatement_in_statement7673 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_directive_in_statement7684 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_namespaceDirective_in_statement7695 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_expression_in_statement7708 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_statement7710 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_constantVarStatement_in_statement7725 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_tryStatement_in_statement7738 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_labelledStatement_in_statement7750 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_switchStatement_in_statement7763 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_withStatement_in_statement7775 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_returnStatement_in_statement7789 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_breakStatement_in_statement7805 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_continueStatement_in_statement7821 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_forStatement_in_statement7835 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_forInStatement_in_statement7847 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_forEachInStatement_in_statement7859 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_doWhileStatement_in_statement7871 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_whileStatement_in_statement7883 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ifStatement_in_statement7894 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_emptyStatement_in_statement7905 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_variableStatement_in_statement7919 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_throwStatement_in_statement7935 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalCompilerOption_in_blockStatement7966 = new BitSet(new ulong[]{0x0800000000000000UL});
+    public static readonly BitSet FOLLOW_LCURLY_in_blockStatement7972 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_blockStatement7989 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_blockStatement8002 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_THROW_in_throwStatement8023 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_throwStatement8027 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_throwStatement8029 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_CONST_in_constantVarStatement8049 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableDeclarationList_in_constantVarStatement8054 = new BitSet(new ulong[]{0x0400000000000002UL});
+    public static readonly BitSet FOLLOW_SEMI_in_constantVarStatement8059 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_USE_in_useNamespaceDirective8161 = new BitSet(new ulong[]{0x0010000000000000UL});
+    public static readonly BitSet FOLLOW_NAMESPACE_in_useNamespaceDirective8170 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_qualifiedIdentifier_in_useNamespaceDirective8177 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000006UL});
+    public static readonly BitSet FOLLOW_COMMA_in_useNamespaceDirective8182 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_qualifiedIdentifier_in_useNamespaceDirective8186 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000006UL});
+    public static readonly BitSet FOLLOW_semic_in_useNamespaceDirective8190 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_NAMESPACE_in_namespaceDirective8220 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_qualifiedIdentifier_in_namespaceDirective8231 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000040000002UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_namespaceDirective8237 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000000003UL});
+    public static readonly BitSet FOLLOW_stringLiteral_in_namespaceDirective8242 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_namespaceDirective8247 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_TRY_in_tryStatement8275 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_blockStatement_in_tryStatement8281 = new BitSet(new ulong[]{0x0000000000020080UL});
+    public static readonly BitSet FOLLOW_catchClause_in_tryStatement8295 = new BitSet(new ulong[]{0x0000000000020080UL});
+    public static readonly BitSet FOLLOW_finallyClause_in_tryStatement8298 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_catchClause_in_tryStatement8310 = new BitSet(new ulong[]{0x0000000000000082UL});
+    public static readonly BitSet FOLLOW_finallyClause_in_tryStatement8323 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_CATCH_in_catchClause8355 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_LPAREN_in_catchClause8362 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableIdentifierDecl_in_catchClause8366 = new BitSet(new ulong[]{0x4000000000000000UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_catchClause8370 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_blockStatement_in_catchClause8374 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FINALLY_in_finallyClause8398 = new BitSet(new ulong[]{0x0BFFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_blockStatement_in_finallyClause8403 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_labelledStatement8429 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_labelledStatement8442 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_labelledStatement8458 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SWITCH_in_switchStatement8493 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_parExpression_in_switchStatement8498 = new BitSet(new ulong[]{0x0800000000000000UL});
+    public static readonly BitSet FOLLOW_LCURLY_in_switchStatement8510 = new BitSet(new ulong[]{0x1000000000000840UL});
+    public static readonly BitSet FOLLOW_switchBlockStatementGroup_in_switchStatement8526 = new BitSet(new ulong[]{0x1000000000000840UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_switchStatement8539 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_switchLabel_in_switchBlockStatementGroup8572 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_switchBlockStatementGroup8576 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_breakStatement_in_switchBlockStatementGroup8582 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_CASE_in_switchLabel8608 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_switchLabel8612 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_switchLabel8616 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DEFAULT_in_switchLabel8637 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_switchLabel8643 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_WITH_in_withStatement8677 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_LPAREN_in_withStatement8685 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_withStatement8690 = new BitSet(new ulong[]{0x4000000000000000UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_withStatement8695 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_withStatement8703 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_RETURN_in_returnStatement8730 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C00000303380AUL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_returnStatement8738 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_returnStatement8742 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_BREAK_in_breakStatement8769 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_breakStatement8779 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_breakStatement8784 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_CONTINUE_in_continueStatement8810 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_continueStatement8817 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_continueStatement8822 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FOR_in_forStatement8848 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_LPAREN_in_forStatement8856 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C00000303380AUL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_forControl_in_forStatement8860 = new BitSet(new ulong[]{0x4000000000000000UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_forStatement8864 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_forStatement8870 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FOR_in_forInStatement8897 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_LPAREN_in_forInStatement8905 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_forInControl_in_forInStatement8909 = new BitSet(new ulong[]{0x4000000000000000UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_forInStatement8913 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_forInStatement8921 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FOR_in_forEachInStatement8950 = new BitSet(new ulong[]{0x0002000000000000UL});
+    public static readonly BitSet FOLLOW_EACH_in_forEachInStatement8968 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_LPAREN_in_forEachInStatement8979 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_forInControl_in_forEachInStatement8983 = new BitSet(new ulong[]{0x4000000000000000UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_forEachInStatement8987 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_forEachInStatement8993 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_forInit_in_forControl9023 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_forControl9028 = new BitSet(new ulong[]{0xBFFFFFFFFFFFFFF0UL,0x000C00000303380AUL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_forControl9033 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_forControl9037 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF2UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_forUpdate_in_forControl9041 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_forInDecl_in_forInControl9069 = new BitSet(new ulong[]{0x0000000000800000UL});
+    public static readonly BitSet FOLLOW_IN_in_forInControl9073 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_forInControl9077 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_leftHandSideExpression_in_forInDecl9096 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_VAR_in_forInDecl9108 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableDeclarationNoIn_in_forInDecl9112 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_variableDeclarationNoInList_in_forInit9131 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_expressionNoIn_in_forInit9141 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_expression_in_forUpdate9160 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DO_in_doWhileStatement9186 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_doWhileStatement9192 = new BitSet(new ulong[]{0x0000800000000000UL});
+    public static readonly BitSet FOLLOW_WHILE_in_doWhileStatement9201 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_parExpression_in_doWhileStatement9205 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_doWhileStatement9207 = new BitSet(new ulong[]{0x0400000000000002UL});
+    public static readonly BitSet FOLLOW_SEMI_in_doWhileStatement9212 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_WHILE_in_whileStatement9242 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_parExpression_in_whileStatement9247 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_whileStatement9253 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IF_in_ifStatement9316 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_parExpression_in_ifStatement9351 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_ifStatement9396 = new BitSet(new ulong[]{0x0000000000004002UL});
+    public static readonly BitSet FOLLOW_ELSE_in_ifStatement9451 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_ifStatement9492 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SEMI_in_emptyStatement9550 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_variableStatement9597 = new BitSet(new ulong[]{0x0000200000000000UL});
+    public static readonly BitSet FOLLOW_VAR_in_variableStatement9605 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableDeclaration_in_variableStatement9609 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000006UL});
+    public static readonly BitSet FOLLOW_COMMA_in_variableStatement9616 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableDeclaration_in_variableStatement9621 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000006UL});
+    public static readonly BitSet FOLLOW_semic_in_variableStatement9626 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_variableDeclaration_in_variableDeclarationList9668 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_variableDeclarationList9676 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableDeclaration_in_variableDeclarationList9681 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_VAR_in_variableDeclarationNoInList9710 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableDeclarationNoIn_in_variableDeclarationNoInList9716 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_variableDeclarationNoInList9724 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_variableDeclarationNoIn_in_variableDeclarationNoInList9729 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_variableIdentifierDecl_in_variableDeclaration9754 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000040000000UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_variableDeclaration9760 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_variableDeclaration9776 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_variableIdentifierDecl_in_variableDeclarationNoIn9799 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000040000000UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_variableDeclarationNoIn9805 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpressionNoIn_in_variableDeclarationNoIn9829 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifierLiteral_in_variableIdentifierDecl9856 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_variableIdentifierDecl9862 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_variableIdentifierDecl9866 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_qualifiedName_in_type9890 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_STAR_in_type9896 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_VOID_in_type9904 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_type_in_typeList9921 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_typeList9927 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_typeList9932 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_typeSpecifier_in_standardQualifiedName9956 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_standardQualifiedName9961 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_typeSpecifier_in_standardQualifiedName9965 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_standardQualifiedName_in_qualifiedName9993 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_typePostfixSyntax_in_qualifiedName9996 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_typePostfixSyntax10018 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_LT_in_typePostfixSyntax10024 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_standardQualifiedName_in_typePostfixSyntax10028 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000012UL});
+    public static readonly BitSet FOLLOW_typePostfixSyntax_in_typePostfixSyntax10031 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_typePostfixSyntax10037 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_qualifiedIdentifier10061 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LPAREN_in_parExpression10086 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_parExpression10093 = new BitSet(new ulong[]{0x4000000000000000UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_parExpression10098 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_expression10139 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_expression10147 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_expression10153 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_assignmentExpressionNoIn_in_expressionNoIn10181 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_expressionNoIn10189 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpressionNoIn_in_expressionNoIn10195 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_leftHandSideExpression_in_assignmentExpression10224 = new BitSet(new ulong[]{0x0000000000000000UL,0x00001F3E40002010UL});
+    public static readonly BitSet FOLLOW_assignmentOperator_in_assignmentExpression10227 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_assignmentExpression10230 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalExpression_in_assignmentExpression10238 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalExpressionNoIn_in_assignmentExpressionNoIn10258 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_leftHandSideExpression_in_assignmentExpressionNoIn10268 = new BitSet(new ulong[]{0x0000000000000000UL,0x00001F3E40002010UL});
+    public static readonly BitSet FOLLOW_assignmentOperator_in_assignmentExpressionNoIn10271 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpressionNoIn_in_assignmentExpressionNoIn10274 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_assignmentOperator_int_in_assignmentOperator10290 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_assignmentOperator_int10316 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_STAR_in_assignmentOperator_int10325 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_assignmentOperator_int10329 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DIV_ASSIGN_in_assignmentOperator_int10340 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_MOD_ASSIGN_in_assignmentOperator_int10349 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ADD_ASSIGN_in_assignmentOperator_int10358 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SUB_ASSIGN_in_assignmentOperator_int10367 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SHL_ASSIGN_in_assignmentOperator_int10375 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10399 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10403 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_assignmentOperator_int10407 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10453 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10457 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_assignmentOperator_int10461 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000040000000UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_assignmentOperator_int10465 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_AND_ASSIGN_in_assignmentOperator_int10496 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_XOR_ASSIGN_in_assignmentOperator_int10505 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_OR_ASSIGN_in_assignmentOperator_int10514 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LOR_ASSIGN_in_assignmentOperator_int10522 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LAND_ASSIGN_in_assignmentOperator_int10530 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_logicalORExpression_in_conditionalExpression10550 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000010000000UL});
+    public static readonly BitSet FOLLOW_QUE_in_conditionalExpression10556 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_conditionalExpression10561 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_conditionalExpression10568 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_conditionalExpression10573 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_logicalORExpressionNoIn_in_conditionalExpressionNoIn10600 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000010000000UL});
+    public static readonly BitSet FOLLOW_QUE_in_conditionalExpressionNoIn10606 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_conditionalExpressionNoIn10610 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_conditionalExpressionNoIn10617 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_conditionalExpressionNoIn10622 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_logicalANDExpression_in_logicalORExpression10654 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000008000000UL});
+    public static readonly BitSet FOLLOW_LOR_in_logicalORExpression10660 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_logicalANDExpression_in_logicalORExpression10664 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000008000000UL});
+    public static readonly BitSet FOLLOW_logicalANDExpressionNoIn_in_logicalORExpressionNoIn10692 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000008000000UL});
+    public static readonly BitSet FOLLOW_LOR_in_logicalORExpressionNoIn10698 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_logicalANDExpressionNoIn_in_logicalORExpressionNoIn10702 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000008000000UL});
+    public static readonly BitSet FOLLOW_bitwiseORExpression_in_logicalANDExpression10734 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000004000000UL});
+    public static readonly BitSet FOLLOW_LAND_in_logicalANDExpression10740 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_bitwiseORExpression_in_logicalANDExpression10744 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000004000000UL});
+    public static readonly BitSet FOLLOW_bitwiseORExpressionNoIn_in_logicalANDExpressionNoIn10771 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000004000000UL});
+    public static readonly BitSet FOLLOW_LAND_in_logicalANDExpressionNoIn10777 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_bitwiseORExpressionNoIn_in_logicalANDExpressionNoIn10781 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000004000000UL});
+    public static readonly BitSet FOLLOW_bitwiseXORExpression_in_bitwiseORExpression10813 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000400000UL});
+    public static readonly BitSet FOLLOW_OR_in_bitwiseORExpression10819 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_bitwiseXORExpression_in_bitwiseORExpression10823 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000400000UL});
+    public static readonly BitSet FOLLOW_bitwiseXORExpressionNoIn_in_bitwiseORExpressionNoIn10850 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000400000UL});
+    public static readonly BitSet FOLLOW_OR_in_bitwiseORExpressionNoIn10856 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_bitwiseXORExpressionNoIn_in_bitwiseORExpressionNoIn10860 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000400000UL});
+    public static readonly BitSet FOLLOW_bitwiseANDExpression_in_bitwiseXORExpression10891 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000800000UL});
+    public static readonly BitSet FOLLOW_XOR_in_bitwiseXORExpression10897 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_bitwiseANDExpression_in_bitwiseXORExpression10901 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000800000UL});
+    public static readonly BitSet FOLLOW_bitwiseANDExpressionNoIn_in_bitwiseXORExpressionNoIn10928 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000800000UL});
+    public static readonly BitSet FOLLOW_XOR_in_bitwiseXORExpressionNoIn10934 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_bitwiseANDExpressionNoIn_in_bitwiseXORExpressionNoIn10938 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000800000UL});
+    public static readonly BitSet FOLLOW_equalityExpression_in_bitwiseANDExpression10965 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000200000UL});
+    public static readonly BitSet FOLLOW_AND_in_bitwiseANDExpression10971 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_equalityExpression_in_bitwiseANDExpression10975 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000200000UL});
+    public static readonly BitSet FOLLOW_equalityExpressionNoIn_in_bitwiseANDExpressionNoIn11002 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000200000UL});
+    public static readonly BitSet FOLLOW_AND_in_bitwiseANDExpressionNoIn11008 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_equalityExpressionNoIn_in_bitwiseANDExpressionNoIn11012 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000200000UL});
+    public static readonly BitSet FOLLOW_relationalExpression_in_equalityExpression11040 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000780UL});
+    public static readonly BitSet FOLLOW_set_in_equalityExpression11046 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_relationalExpression_in_equalityExpression11058 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000780UL});
+    public static readonly BitSet FOLLOW_relationalExpressionNoIn_in_equalityExpressionNoIn11085 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000780UL});
+    public static readonly BitSet FOLLOW_set_in_equalityExpressionNoIn11091 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_relationalExpressionNoIn_in_equalityExpressionNoIn11104 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000780UL});
+    public static readonly BitSet FOLLOW_shiftExpression_in_relationalExpression11132 = new BitSet(new ulong[]{0x0000000009800012UL,0x0000000000000038UL});
+    public static readonly BitSet FOLLOW_GT_in_relationalExpression11152 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000043033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_relationalExpression11157 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_set_in_relationalExpression11190 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_shiftExpression_in_relationalExpression11228 = new BitSet(new ulong[]{0x0000000009800012UL,0x0000000000000038UL});
+    public static readonly BitSet FOLLOW_shiftExpression_in_relationalExpressionNoIn11264 = new BitSet(new ulong[]{0x0000000009000012UL,0x0000000000000038UL});
+    public static readonly BitSet FOLLOW_GT_in_relationalExpressionNoIn11284 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000043033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_relationalExpressionNoIn11289 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_set_in_relationalExpressionNoIn11322 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_shiftExpression_in_relationalExpressionNoIn11358 = new BitSet(new ulong[]{0x0000000009000012UL,0x0000000000000038UL});
+    public static readonly BitSet FOLLOW_additiveExpression_in_shiftExpression11391 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000040010UL});
+    public static readonly BitSet FOLLOW_SHL_in_shiftExpression11413 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_GT_in_shiftExpression11435 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_shiftExpression11439 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_GT_in_shiftExpression11490 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_shiftExpression11494 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_shiftExpression11498 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_additiveExpression_in_shiftExpression11545 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000040010UL});
+    public static readonly BitSet FOLLOW_multiplicativeExpression_in_additiveExpression11575 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000001800UL});
+    public static readonly BitSet FOLLOW_set_in_additiveExpression11581 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_multiplicativeExpression_in_additiveExpression11589 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000001800UL});
+    public static readonly BitSet FOLLOW_unaryExpression_in_multiplicativeExpression11613 = new BitSet(new ulong[]{0x0000000000000002UL,0x000000000000E000UL});
+    public static readonly BitSet FOLLOW_set_in_multiplicativeExpression11619 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_unaryExpression_in_multiplicativeExpression11628 = new BitSet(new ulong[]{0x0000000000000002UL,0x000000000000E000UL});
+    public static readonly BitSet FOLLOW_postfixExpression_in_unaryExpression11652 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_unaryExpression11663 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_unaryExpression_in_unaryExpression11673 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_unaryOp_in_unaryExpression11683 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_postfixExpression_in_unaryExpression11685 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_unaryOp11716 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_leftHandSideExpression_in_postfixExpression11773 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000030000UL});
+    public static readonly BitSet FOLLOW_postfixOp_in_postfixExpression11775 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_postfixOp11801 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_primaryExpression_in_memberExpression11823 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_functionExpression_in_memberExpression11828 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_newExpression_in_memberExpression11833 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_NEW_in_newExpression11846 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000000002008UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_primaryExpression_in_newExpression11851 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_memberExpression_in_leftHandSideExpression11868 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
+    public static readonly BitSet FOLLOW_arguments_in_leftHandSideExpression11883 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
+    public static readonly BitSet FOLLOW_LBRACK_in_leftHandSideExpression11895 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_leftHandSideExpression11899 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
+    public static readonly BitSet FOLLOW_RBRACK_in_leftHandSideExpression11903 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_leftHandSideExpression11918 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_eitherIdentifier_in_leftHandSideExpression11923 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
+    public static readonly BitSet FOLLOW_XML_NS_OP_in_leftHandSideExpression11927 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_eitherIdentifier_in_leftHandSideExpression11934 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
+    public static readonly BitSet FOLLOW_XML_ELLIPSIS_in_leftHandSideExpression11946 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_eitherIdentifier_in_leftHandSideExpression11950 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
+    public static readonly BitSet FOLLOW_XML_NS_OP_in_leftHandSideExpression11954 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_eitherIdentifier_in_leftHandSideExpression11961 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_leftHandSideExpression11973 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_parExpression_in_leftHandSideExpression11977 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
+    public static readonly BitSet FOLLOW_typePostfixSyntax_in_leftHandSideExpression11987 = new BitSet(new ulong[]{0xA000000000000002UL,0x0000400000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_eitherIdentifier12017 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlPropertyIdentifier_in_eitherIdentifier12027 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_allKeywords_in_eitherIdentifier12033 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_typeSpecifier12046 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_typeSpecifier12052 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_INTERNAL_in_typeSpecifier12058 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DEFAULT_in_typeSpecifier12066 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_notQuiteReservedWord12084 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_reservedWord_in_allKeywords12137 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_notQuiteReservedWord_in_allKeywords12141 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_reservedWord12158 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LPAREN_in_arguments12722 = new BitSet(new ulong[]{0xEBFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_arguments12734 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_arguments12762 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_arguments12787 = new BitSet(new ulong[]{0x4000000000000000UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_RPAREN_in_arguments12815 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_indexSuffix_in_suffix12854 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyReferenceSuffix_in_suffix12858 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LBRACK_in_indexSuffix12899 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_indexSuffix12904 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
+    public static readonly BitSet FOLLOW_RBRACK_in_indexSuffix12909 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_propertyReferenceSuffix12937 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_propertyReferenceSuffix12944 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_propertyReferenceSuffix12959 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_xmlPropertyIdentifier_in_propertyReferenceSuffix12964 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_propertyReferenceSuffix12977 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_primaryExpressionHelper_in_primaryExpression13010 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_THIS_in_primaryExpressionHelper13037 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SUPER_in_primaryExpressionHelper13051 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_literal_in_primaryExpressionHelper13063 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_arrayLiteral_in_primaryExpressionHelper13075 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_objectLiteral_in_primaryExpressionHelper13086 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifierLiteral_in_primaryExpressionHelper13098 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlPrimaryExpression_in_primaryExpressionHelper13109 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_parExpression_in_primaryExpressionHelper13119 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalCompilerOption_in_primaryExpressionHelper13130 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LT_in_primaryExpressionHelper13139 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000002000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_type_in_primaryExpressionHelper13143 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_primaryExpressionHelper13147 = new BitSet(new ulong[]{0x8000000000000002UL});
+    public static readonly BitSet FOLLOW_arrayLiteral_in_primaryExpressionHelper13152 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LCURLY_in_objectLiteral13177 = new BitSet(new ulong[]{0x13FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_propertyNameAndValueList_in_objectLiteral13181 = new BitSet(new ulong[]{0x1000000000000000UL});
+    public static readonly BitSet FOLLOW_RCURLY_in_objectLiteral13186 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13208 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_propertyNameAndValueList13214 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_propertyNameAndValue_in_propertyNameAndValueList13219 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_propertyName_in_propertyNameAndValue13240 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000020000000UL});
+    public static readonly BitSet FOLLOW_COLON_in_propertyNameAndValue13244 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_propertyNameAndValue13262 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifierLiteral_in_propertyName13281 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_stringLiteral_in_propertyName13292 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_numericLiteral_in_propertyName13303 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LBRACK_in_arrayLiteral13326 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033809UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_elementList_in_arrayLiteral13330 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
+    public static readonly BitSet FOLLOW_RBRACK_in_arrayLiteral13335 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_elementList13381 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_elementList13399 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_elementList13416 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_COMMA_in_elementList13429 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SUB_in_synpred9_AS3_ex3820 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_DOT_in_synpred9_AS3_ex3828 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_COLON_in_synpred9_AS3_ex3836 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0000000000000000UL,0x0000000000004000UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_synpred9_AS3_ex3847 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_allKeywords_in_synpred9_AS3_ex3853 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_XML_TEXT_in_synpred68_AS3_ex4895 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlTextElement_in_synpred69_AS3_ex4901 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlQualifiedIdentifier_in_synpred73_AS3_ex5128 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlQualifiedIdentifier_in_synpred74_AS3_ex5233 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlPropertySelector_in_synpred75_AS3_ex5248 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyDeclaration_in_synpred97_AS3_ex6067 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_functionDeclaration_in_synpred98_AS3_ex6071 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_statement_in_synpred99_AS3_ex6075 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_directive_in_synpred100_AS3_ex6079 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_synpred101_AS3_ex6083 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_classOrInterfaceDecl_in_synpred103_AS3_ex6109 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyDeclaration_in_synpred104_AS3_ex6113 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_functionDeclaration_in_synpred105_AS3_ex6117 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_synpred106_AS3_ex6121 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_statement_in_synpred107_AS3_ex6125 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SEMI_in_synpred120_AS3_ex6484 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyDeclaration_in_synpred129_AS3_ex6806 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_functionDeclaration_in_synpred130_AS3_ex6810 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_statement_in_synpred131_AS3_ex6814 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyDeclaration_in_synpred132_AS3_ex6835 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_interfaceFunctionDeclaration_in_synpred133_AS3_ex6839 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_statement_in_synpred134_AS3_ex6843 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_memberModifiers_in_synpred142_AS3_ex6980 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_statement_in_synpred157_AS3_ex7462 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_functionDeclaration_in_synpred158_AS3_ex7464 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_memberModifier_in_synpred159_AS3_ex7506 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_blockStatement_in_synpred169_AS3_ex7673 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_directive_in_synpred170_AS3_ex7684 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_namespaceDirective_in_synpred171_AS3_ex7695 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_expression_in_synpred172_AS3_ex7708 = new BitSet(new ulong[]{0x1400000000000000UL,0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_semic_in_synpred172_AS3_ex7710 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_constantVarStatement_in_synpred173_AS3_ex7725 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_tryStatement_in_synpred174_AS3_ex7738 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_labelledStatement_in_synpred175_AS3_ex7750 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_switchStatement_in_synpred176_AS3_ex7763 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_withStatement_in_synpred177_AS3_ex7775 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_returnStatement_in_synpred178_AS3_ex7789 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_breakStatement_in_synpred179_AS3_ex7805 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_continueStatement_in_synpred180_AS3_ex7821 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_forStatement_in_synpred181_AS3_ex7835 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_forInStatement_in_synpred182_AS3_ex7847 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_forEachInStatement_in_synpred183_AS3_ex7859 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_doWhileStatement_in_synpred184_AS3_ex7871 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_whileStatement_in_synpred185_AS3_ex7883 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ifStatement_in_synpred186_AS3_ex7894 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_variableStatement_in_synpred188_AS3_ex7919 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SEMI_in_synpred191_AS3_ex8059 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_catchClause_in_synpred195_AS3_ex8295 = new BitSet(new ulong[]{0x0000000000020080UL});
+    public static readonly BitSet FOLLOW_finallyClause_in_synpred195_AS3_ex8298 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_catchClause_in_synpred197_AS3_ex8310 = new BitSet(new ulong[]{0x0000000000000082UL});
+    public static readonly BitSet FOLLOW_statement_in_synpred199_AS3_ex8576 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_variableDeclarationNoInList_in_synpred209_AS3_ex9131 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SEMI_in_synpred210_AS3_ex9212 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ELSE_in_synpred211_AS3_ex9451 = new BitSet(new ulong[]{0xAFFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_statement_in_synpred211_AS3_ex9492 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_leftHandSideExpression_in_synpred228_AS3_ex10224 = new BitSet(new ulong[]{0x0000000000000000UL,0x00001F3E40002010UL});
+    public static readonly BitSet FOLLOW_assignmentOperator_in_synpred228_AS3_ex10227 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_assignmentExpression_in_synpred228_AS3_ex10230 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalExpressionNoIn_in_synpred229_AS3_ex10258 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_GT_in_synpred272_AS3_ex11152 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000043033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_ASSIGN_in_synpred272_AS3_ex11157 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_set_in_synpred272_AS3_ex11190 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_shiftExpression_in_synpred272_AS3_ex11228 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_GT_in_synpred283_AS3_ex11480 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_synpred283_AS3_ex11482 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000010UL});
+    public static readonly BitSet FOLLOW_GT_in_synpred283_AS3_ex11484 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_synpred286_AS3_ex11581 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_multiplicativeExpression_in_synpred286_AS3_ex11589 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_synpred289_AS3_ex11619 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_unaryExpression_in_synpred289_AS3_ex11628 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_postfixExpression_in_synpred290_AS3_ex11652 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_synpred292_AS3_ex11663 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_unaryExpression_in_synpred292_AS3_ex11673 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_postfixOp_in_synpred301_AS3_ex11775 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_arguments_in_synpred305_AS3_ex11883 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_LBRACK_in_synpred306_AS3_ex11895 = new BitSet(new ulong[]{0xABFFFFFFFFFFFFF0UL,0x000C000003033808UL,0x0000000000075213UL});
+    public static readonly BitSet FOLLOW_expression_in_synpred306_AS3_ex11899 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000001UL});
+    public static readonly BitSet FOLLOW_RBRACK_in_synpred306_AS3_ex11903 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_eitherIdentifier_in_synpred307_AS3_ex11923 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
+    public static readonly BitSet FOLLOW_XML_NS_OP_in_synpred307_AS3_ex11927 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_synpred308_AS3_ex11918 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_eitherIdentifier_in_synpred308_AS3_ex11923 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
+    public static readonly BitSet FOLLOW_XML_NS_OP_in_synpred308_AS3_ex11927 = new BitSet(new ulong[]{0x03FFFFFFFFFFFFF0UL,0x0004000000002000UL,0x0000000000005203UL});
+    public static readonly BitSet FOLLOW_eitherIdentifier_in_synpred308_AS3_ex11934 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_eitherIdentifier_in_synpred309_AS3_ex11950 = new BitSet(new ulong[]{0x0000000000000000UL,0x0002000000000000UL});
+    public static readonly BitSet FOLLOW_XML_NS_OP_in_synpred309_AS3_ex11954 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_synpred311_AS3_ex11973 = new BitSet(new ulong[]{0x2000000000000000UL});
+    public static readonly BitSet FOLLOW_parExpression_in_synpred311_AS3_ex11977 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_typePostfixSyntax_in_synpred312_AS3_ex11987 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_IDENTIFIER_in_synpred313_AS3_ex12017 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlPropertyIdentifier_in_synpred314_AS3_ex12027 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_THIS_in_synpred376_AS3_ex13037 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SUPER_in_synpred377_AS3_ex13051 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_literal_in_synpred378_AS3_ex13063 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifierLiteral_in_synpred381_AS3_ex13098 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_xmlPrimaryExpression_in_synpred382_AS3_ex13109 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_conditionalCompilerOption_in_synpred384_AS3_ex13130 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_arrayLiteral_in_synpred385_AS3_ex13152 = new BitSet(new ulong[]{0x0000000000000002UL});
 
 }

@@ -1073,6 +1073,11 @@ tokens{
 	}
 }
 // Lexer Helper Rule
+
+fragment UNDERSCORE  : '_';
+
+fragment DOLLAR      : '$';
+
 fragment ALPHABET            :    'a'..'z'|'A'..'Z';
 
 fragment NUMBER              :    '0' .. '9';   
@@ -1303,8 +1308,8 @@ xmlTextElement
     |	QUE         
     |	COLON       
     |	ASSIGN      
-    |	UNDERSCORE  
-    |	DOLLAR      
+//    |	UNDERSCORE  
+//    |	DOLLAR      
 //    |	MUL_ASSIGN
     |	DIV_ASSIGN
     |	MOD_ASSIGN
