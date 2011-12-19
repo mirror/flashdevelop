@@ -278,10 +278,9 @@ namespace CodeFormatter.Handlers
 			if (mTrimTrailingWS && GetFormatMode() != FORMAT_INDENT)
 			{
 				// This is code to trim trailing whitespace on lines.
-                String raw = buffer.ToString();
-				for (int i = raw.Length - 1; i >= 0; i--)
+				for (int i = buffer.Length - 1; i >= 0; i--)
 				{
-					char c = raw[i];
+                    char c = buffer[i];
 					if (c == ' ' || c == '\t') buffer.Remove(i,1);
 					else break;
 				}
@@ -296,11 +295,10 @@ namespace CodeFormatter.Handlers
 
 		public static int DetermineLastLineLength(StringBuilder buffer, int tabSize)
 		{
-            String raw = buffer.ToString();
-			int i = raw.Length - 1;
+            int i = buffer.Length - 1;
 			while (i >= 0)
 			{
-				char c = raw[i];
+                char c = buffer[i];
 				if (c == '\n' || c == '\r')
 				{
 					i++;
@@ -308,8 +306,8 @@ namespace CodeFormatter.Handlers
 				}
 				i--;
 			}
-			if (i < 0 || i >= raw.Length) return 0;
-			String lastLine = raw.Substring(i);
+            if (i < 0 || i >= buffer.Length) return 0;
+			String lastLine = buffer.ToString().Substring(i);
 			int lastLineLength = 0;
 			for (i = 0; i < lastLine.Length; i++)
 			{
@@ -474,21 +472,20 @@ namespace CodeFormatter.Handlers
 			if (!mProcessingBindableTag && mBindableMode && mBindablePos >= 0 && GetFormatMode() == FORMAT_ALL)
 			{
 				//TODO: figure out how a partial range will figure into this.  I may have to shift the position if it's already been set
-                String raw = mOutputBuffer.ToString();
-                while (mBindablePos < raw.Length)
+                while (mBindablePos < mOutputBuffer.Length)
 				{
-                    char c = raw[mBindablePos];
+                    char c = mOutputBuffer[mBindablePos];
 					if (!Char.IsWhiteSpace(c)) break;
 					mBindablePos++;
 				}
 				while (mBindablePos>0)
 				{
-                    char c = raw[mBindablePos - 1];
+                    char c = mOutputBuffer[mBindablePos - 1];
 					if (c == '\n') break;
 					mBindablePos--;
 				}
-                String bindableText = raw.Substring(mBindablePos);
-                mOutputBuffer.Remove(mBindablePos, raw.Length - mBindablePos);
+                String bindableText = mOutputBuffer.ToString().Substring(mBindablePos);
+                mOutputBuffer.Remove(mBindablePos, mOutputBuffer.Length - mBindablePos);
 				// This should spit out the blank lines before function and similar whitespace
 				PrintNecessaryWS(mOutputBuffer);
 				mOutputBuffer.Append(bindableText);
@@ -772,15 +769,15 @@ namespace CodeFormatter.Handlers
 					String indentString = GenerateIndent(indentAmount);
 					mOutputBuffer.Append(indentString);
 				}
-				if (!IsE4XTextContent() && mOutputBuffer.Length > 0 && IsIdentifierPart(LastChar(mOutputBuffer)))
-				{
-					// If the start of the token is a java identifier char (any letter or number or '_')
-					// or if the token doesn't start with whitespace, but isn't an operator either ('+=' is an operator, so we wouldn't add space, but we would add space for a string literal)
-					if ((tok.Text.Length > 0 && IsIdentifierPart(tok.Text[0])) || IsSymbolTokenThatShouldHaveSpaceBeforeIt(tok.Type))
-					{
-						mOutputBuffer.Append(' ');
-					}
-				}
+                if (!IsE4XTextContent() && mOutputBuffer.Length > 0 && IsIdentifierPart(mOutputBuffer[mOutputBuffer.Length - 1]))
+                {
+                    // If the start of the token is a java identifier char (any letter or number or '_')
+                    // or if the token doesn't start with whitespace, but isn't an operator either ('+=' is an operator, so we wouldn't add space, but we would add space for a string literal)
+                    if ((tok.Text.Length > 0 && IsIdentifierPart(tok.Text[0])) || IsSymbolTokenThatShouldHaveSpaceBeforeIt(tok.Type))
+                    {
+                        mOutputBuffer.Append(' ');
+                    }
+                }
 				// Remove extra spaces before token for paren/brace/bracket case (if we're in a format mode)
 				if (GetFormatMode() != FORMAT_INDENT)
 				{
@@ -791,10 +788,9 @@ namespace CodeFormatter.Handlers
 						{
 							int i = mOutputBuffer.Length - 1;
 							int spaceCount = 0;
-                            String raw = mOutputBuffer.ToString();
 							while (i >= 0)
 							{
-								if (raw[i] == ' ')
+                                if (mOutputBuffer[i] == ' ')
 								{
 									spaceCount++;
 									i--;
@@ -803,7 +799,7 @@ namespace CodeFormatter.Handlers
 							}
 							if (i >= 0 && spaceCount > 0) // Only care if there are some spaces
 							{
-								char prevChar = raw[i];
+                                char prevChar = mOutputBuffer[i];
 								int nestingType = DetermineMatchingGroupingCharType(c, prevChar);
 								if (nestingType != Nesting_Unrelated)
 								{
@@ -859,12 +855,6 @@ namespace CodeFormatter.Handlers
 			}
 			mOutputBuffer.Append(tok.Text);
 		}
-
-        private char LastChar(StringBuilder mOutputBuffer)
-        {
-            String raw = mOutputBuffer.ToString();
-            return raw[raw.Length - 1];
-        }
 		
 		public bool IsIdentifierPart(char ch)
 		{
@@ -925,10 +915,10 @@ namespace CodeFormatter.Handlers
 
 		private bool LastCharIsNonWhitespace(StringBuilder buffer)
 		{
-			if (buffer.Length > 0 && !Char.IsWhiteSpace(LastChar(buffer)))
-			{
-				return true;
-			}
+            if (buffer.Length > 0 && !Char.IsWhiteSpace(buffer[buffer.Length - 1]))
+            {
+                return true;
+            }
 			return false;
 		}
 		
