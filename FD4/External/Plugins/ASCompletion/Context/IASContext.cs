@@ -28,6 +28,12 @@ namespace ASCompletion.Context
         void UpdateContext(int line);
 
         /// <summary>
+        /// Refresh the file model
+        /// </summary>
+        /// <param name="updateUI">Update outline view</param>
+        void UpdateCurrentFile(bool updateUI);
+
+        /// <summary>
         /// Resolve the class and member at the provided line number
         /// </summary>
         /// <param name="line"></param>

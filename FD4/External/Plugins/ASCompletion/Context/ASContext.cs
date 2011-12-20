@@ -503,6 +503,7 @@ namespace ASCompletion.Context
             ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
             SetCurrentFile(doc, !doc.IsEditable); 
         }
+
         #endregion
 
         #region classpath management
@@ -1005,6 +1006,8 @@ namespace ASCompletion.Context
                     tPath.AddFile(cFile);
                 }
             }
+
+            if (cFile.OutOfDate) UpdateCurrentFile(true);
 
             ASResult ctx = GetDeclarationAtLine(line);
             if (ctx.InClass != cClass) 
