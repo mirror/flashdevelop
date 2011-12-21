@@ -45,7 +45,7 @@ namespace ProjectManager.Projects.AS3
                 case CUSTOM_PLATFORM: return "0.0";
                 case AIR_PLATFORM: return "2.7";
                 case AIR_MOBILE_PLATFORM: return "2.7";
-                default: return "10.0";
+                default: return "10.1";
             }
         }
 
