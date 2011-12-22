@@ -4827,4 +4827,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>&amp;Source Path</value>
     <comment>Added after 4.0.0 RC1</comment>
   </data>
+  <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
+    <value>Direct</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
 </root>

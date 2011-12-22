@@ -4827,4 +4827,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>&amp;Source Path</value>
     <comment>Added after 4.0.0 RC1</comment>
   </data>
+  <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
+    <value>Direkt</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
 </root>

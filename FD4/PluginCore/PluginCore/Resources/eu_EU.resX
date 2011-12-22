@@ -4820,4 +4820,8 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <value>&amp;Iturburu-bidea</value>
     <comment>Added after 4.0.0 RC1</comment>
   </data>
+  <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
+    <value>Directe</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
 </root>

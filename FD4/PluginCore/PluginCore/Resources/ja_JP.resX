@@ -4884,4 +4884,8 @@ UseData:"</value>
     <value>ソースパス(&amp;S)</value>
     <comment>Added after 4.0.0 RC1</comment>
   </data>
+  <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
+    <value>Direct</value>
+    <comment>Added after 3.3.4</comment>
+  </data>
 </root>
