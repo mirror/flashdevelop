@@ -1698,7 +1698,9 @@ namespace ASCompletion.Completion
             {
                 if (word != null)
                 {
-                    if (word == "class" || word == "package" || word == "interface" || word == "for" || word == "catch")
+                    if (word == "class" || word == "package" || word == "interface" || word == "catch")
+                        return false;
+                    if (features.hasInference && word == "for") // haxe doesn't have 'var' in for()
                         return false;
                     // new/extends/implements
                     if (features.HasTypePreKey(word))
@@ -1748,7 +1750,7 @@ namespace ASCompletion.Completion
             }
             else
             {
-                if (expr.Value.EndsWith("..") || Regex.IsMatch(expr.Value, "[0-9]+\\.")) 
+                if (expr.Value.EndsWith("..") || Regex.IsMatch(expr.Value, "^[0-9]+\\.")) 
                     return false;
             }
 
