@@ -222,7 +222,14 @@ namespace HaXeContext
         public bool ValidateSDK(InstalledSDK sdk)
         {
             sdk.Owner = this;
-            string path = PathHelper.ResolvePath(sdk.Path);
+
+            IProject project = PluginBase.CurrentProject;
+            string path = sdk.Path;
+            if (project != null)
+                path = PathHelper.ResolvePath(path, Path.GetDirectoryName(project.ProjectPath));
+            else
+                path = PathHelper.ResolvePath(path);
+            
             try
             {
                 if (path == null || !Directory.Exists(path))

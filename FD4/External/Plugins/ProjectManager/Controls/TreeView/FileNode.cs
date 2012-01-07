@@ -80,7 +80,7 @@ namespace ProjectManager.Controls.TreeView
 				if (asset != null && asset.HasManualID)
 					Text += " ("+asset.ManualID+")";
 			}
-			else ForeColorRequest = Color.Black;
+			else ForeColorRequest = SystemColors.WindowText;
 
             // hook for plugins
             if (OnFileNodeRefresh != null) OnFileNodeRefresh(this);

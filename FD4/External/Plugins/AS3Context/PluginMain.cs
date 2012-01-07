@@ -530,7 +530,12 @@ namespace AS3Context
             Match mBin = Regex.Match(path, "[/\\\\]bin$", RegexOptions.IgnoreCase);
             if (mBin.Success)
                 sdk.Path = path = path.Substring(0, mBin.Index);
-            path = PathHelper.ResolvePath(path);
+
+            IProject project = PluginBase.CurrentProject;
+            if (project != null)
+                path = PathHelper.ResolvePath(path, Path.GetDirectoryName(project.ProjectPath));
+            else
+                path = PathHelper.ResolvePath(path);
 
             try
             {
