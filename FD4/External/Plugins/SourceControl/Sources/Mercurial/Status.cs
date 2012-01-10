@@ -18,17 +18,29 @@ namespace SourceControl.Sources.Mercurial
         StatusNode temp;
         string dirty;
         string updatingPath;
+        Ignores ignores;
 
         public Status(string path)
         {
             RootPath = path;
+            ignores = new Ignores(path, ".hgignore");
         }
 
         public StatusNode Get(string path)
         {
             StatusNode found = root.FindPath(path);
             if (found == null)
+            {
+                foreach (IgnoreEntry ignore in ignores)
+                {
+                    if (path.StartsWith(ignore.path) && ignore.regex.IsMatch(path))
+                    {
+                        found = root.MapPath(path.Substring(ignore.path.Length), VCItemStatus.Ignored);
+                        return found;
+                    }
+                }
                 found = new StatusNode(Path.GetFileName(path), VCItemStatus.Unknown);
+            }
             return found;
         }
 

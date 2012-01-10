@@ -125,13 +125,16 @@ namespace SourceControl.Actions
                 foreach (string path in paths)
                 {
                     result = fsWatchers.ResolveVC(path, true);
-                    if (result == null || result.Status == VCItemStatus.Unknown) regularRemove.Add(path);
+                    if (result == null || result.Status == VCItemStatus.Unknown || result.Status == VCItemStatus.Ignored)
+                    {
+                        regularRemove.Add(path);
+                    }
                     else
                     {
                         IVCManager manager = result.Manager;
                         string root = result.Watcher.Path;
                         int p = root.Length + 1;
-                        
+
                         if (Directory.Exists(path))
                         {
                             List<string> files = new List<string>();
@@ -139,7 +142,7 @@ namespace SourceControl.Actions
                             foreach (string file in files)
                             {
                                 VCItemStatus status = manager.GetOverlay(file, root);
-                                if (status == VCItemStatus.Unknown)
+                                if (status == VCItemStatus.Unknown || status == VCItemStatus.Ignored)
                                     hasUnknown.Add(file.Substring(p));
                                 else if (status > VCItemStatus.UpToDate)
                                     hasModification.Add(file.Substring(p));
@@ -171,18 +174,24 @@ namespace SourceControl.Actions
             if (hasUnknown.Count > 0 && confirm)
             {
                 string title = TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
-                string msg = TextHelper.GetString("SourceControl.Info.ConfirmUnversionedDelete") + "\n\n" + String.Join("\n", hasUnknown.ToArray());
+                string msg = TextHelper.GetString("SourceControl.Info.ConfirmUnversionedDelete") + "\n\n" + GetSomeFiles(hasUnknown);
                 if (MessageBox.Show(msg, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK) return true;
             }
 
             if (hasModification.Count > 0 && confirm)
             {
                 string title = TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
-                string msg = TextHelper.GetString("SourceControl.Info.ConfirmLocalModsDelete") + "\n\n" + String.Join("\n", hasModification.ToArray());
+                string msg = TextHelper.GetString("SourceControl.Info.ConfirmLocalModsDelete") + "\n\n" + GetSomeFiles(hasModification);
                 if (MessageBox.Show(msg, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK) return true;
             }
 
             return result.Manager.FileActions.FileDelete(paths, confirm);
+        }
+
+        private static string GetSomeFiles(List<string> list)
+        {
+            if (list.Count < 10) return String.Join("\n", list.ToArray());
+            return String.Join("\n", list.GetRange(0, 9).ToArray()) + "\n(...)\n" + list[list.Count - 1];
         }
 
         private static void GetAllFiles(string path, List<string> files)

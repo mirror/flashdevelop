@@ -18,20 +18,29 @@ namespace SourceControl.Sources.Git
         StatusNode temp;
         string dirty;
         string updatingPath;
+        Ignores ignores;
 
         public Status(string path)
         {
             RootPath = path;
+            ignores = new Ignores(path, ".gitignore");
         }
 
         public StatusNode Get(string path)
         {
             StatusNode found = root.FindPath(path);
-            if (path.StartsWith("bin\\items"))
-            {
-            }
             if (found == null)
+            {
+                foreach (IgnoreEntry ignore in ignores)
+                {
+                    if (path.StartsWith(ignore.path) && ignore.regex.IsMatch(path))
+                    {
+                        found = root.MapPath(path.Substring(ignore.path.Length), VCItemStatus.Ignored);
+                        return found;
+                    }
+                }
                 found = new StatusNode(Path.GetFileName(path), VCItemStatus.UpToDate);
+            }
             return found;
         }
 
@@ -50,6 +59,7 @@ namespace SourceControl.Sources.Git
                     updatingPath = dirty;*/
                 dirty = null;
             }
+            ignores.Update();
             Run("status -s", updatingPath);
         }
 
