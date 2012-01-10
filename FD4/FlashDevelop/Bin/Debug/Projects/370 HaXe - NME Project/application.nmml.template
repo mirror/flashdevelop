@@ -5,7 +5,7 @@
 		version="1.0.0" company="$(DefaultUser)" />
 		
 	<!-- output -->
-	<window width="640" height="320" fps="60" orientation="portrait" resizable="true" />
+	<window width="640" height="320" fps="60" orientation="landscape" resizable="true" />
 	<set name="BUILD_DIR" value="bin" />
 	
 	<!-- classpath, haxe libs -->
