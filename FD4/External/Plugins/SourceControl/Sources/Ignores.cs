@@ -31,16 +31,21 @@ namespace SourceControl.Sources
                 return;
             lastWrite = info.LastWriteTime;
             Clear();
-            string[] lines = File.ReadAllLines(info.FullName);
-            foreach (string line in lines)
+
+            try
             {
-                string entry = line.Trim();
-                if (entry.StartsWith("#")) continue;
-                entry = Regex.Escape(entry);
-                entry = entry.Replace("\\*", ".*");
-                entry = entry.Replace("/", "\\");
-                Add(new IgnoreEntry("", new Regex(entry)));
+                string[] lines = File.ReadAllLines(info.FullName);
+                foreach (string line in lines)
+                {
+                    string entry = line.Trim();
+                    if (entry.StartsWith("#")) continue;
+                    entry = Regex.Escape(entry);
+                    entry = entry.Replace("\\*", ".*");
+                    entry = entry.Replace("/", "\\");
+                    Add(new IgnoreEntry("", new Regex(entry)));
+                }
             }
+            catch { }
         }
     }
 
