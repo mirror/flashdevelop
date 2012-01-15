@@ -232,7 +232,7 @@ namespace HaXeContext
             }
             else if (IsNmeTarget)
             {
-                lang = "nme";
+                lang = "cpp";
                 features.Directives.Add(lang);
                 features.Directives.Add("--remap flash:nme");
             }
