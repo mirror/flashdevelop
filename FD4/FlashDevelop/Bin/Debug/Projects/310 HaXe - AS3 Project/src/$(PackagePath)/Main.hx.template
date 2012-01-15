@@ -12,8 +12,9 @@ $(CBI)*/
 class Main $(CSLB){
 	
 	static function main() $(CSLB){
-		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		Lib.current.stage.align = StageAlign.TOP_LEFT;
+		var stage = Lib.current.stage;
+		stage.scaleMode = StageScaleMode.NO_SCALE;
+		stage.align = StageAlign.TOP_LEFT;
 		// entry point
 	}
 	
