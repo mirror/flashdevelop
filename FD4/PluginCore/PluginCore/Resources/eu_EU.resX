@@ -894,7 +894,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Big Endian</value>
   </data>
   <data name="FlashDevelop.Label.BookmarkAll" xml:space="preserve">
-    <value>Laster-marka denei</value>
+    <value>Laster-marka denak</value>
   </data>
   <data name="FlashDevelop.Label.Cancel" xml:space="preserve">
     <value>Ezeztatu</value>
@@ -1812,7 +1812,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>&amp;Kargadore bezala gehigu</value>
   </data>
   <data name="ProjectManager.Label.AddClasspath" xml:space="preserve">
-    <value>&amp;Klase-bidea gehitu...</value>
+    <value>&amp;Bidea gehitu...</value>
   </data>
   <data name="ProjectManager.Label.AddExistingFile" xml:space="preserve">
     <value>Existitzen den fitxategi bat gehitu</value>
@@ -4014,8 +4014,8 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidLocale" xml:space="preserve">
-    <value>Hizkuntza pertsonalizatutzat sartutako balioa ez da egokia.
-Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US.</value>
+    <value>Lokalizazio pertsonalizatutzat sartutako balioa ez da egokia.
+Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidProperty" xml:space="preserve">
@@ -4023,11 +4023,11 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Add" xml:space="preserve">
-    <value>&amp;Gehit</value>
+    <value>&amp;Gehitu</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AddCustomLocale" xml:space="preserve">
-    <value>Hizkuntza pertsonalizatua gehitu</value>
+    <value>Lokalizazio pertsonalizatua gehitu</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Cancel" xml:space="preserve">
@@ -4035,11 +4035,11 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.DefaultLocales" xml:space="preserve">
-    <value>Lehenetsitako Hizkuntzak</value>
+    <value>Lehenetsitako Lokalizazioak</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Locales" xml:space="preserve">
-    <value>Hizkuntzak</value>
+    <value>Lokalizazioak</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Ok" xml:space="preserve">
@@ -4047,7 +4047,7 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.SelectedLocales" xml:space="preserve">
-    <value>Aukeratutako Hizkuntzak</value>
+    <value>Aukeratutako Lokalizazioak</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AndroidAdditions" xml:space="preserve">
@@ -4059,15 +4059,15 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AspectRatio" xml:space="preserve">
-    <value>Aspektu-erlazioa</value>
+    <value>Aspektua</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.AutoOrients" xml:space="preserve">
-    <value>Auto Orientazioa</value>
+    <value>Auto-Orient.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.BrowserInvocation" xml:space="preserve">
-    <value>Arakatzaileari Deitzea Baimendu</value>
+    <value>Arakatzaile-Deiak Baimendu</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Content" xml:space="preserve">
@@ -4083,7 +4083,7 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.CustomUpdateUI" xml:space="preserve">
-    <value>Eguneraketa EI pertsonalizatua</value>
+    <value>Custom Update UI</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Description" xml:space="preserve">
@@ -4135,7 +4135,7 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Icons" xml:space="preserve">
-    <value>Ikonak</value>
+    <value>Ikonoak</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Id" xml:space="preserve">
@@ -4143,11 +4143,11 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.InitialLocation" xml:space="preserve">
-    <value>Hasierako Hizkuntza</value>
+    <value>Hasiera Kokalekua</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.InitialSize" xml:space="preserve">
-    <value>Hasierako Tamaina</value>
+    <value>Hasiera Neurria</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Installation" xml:space="preserve">
@@ -4163,23 +4163,23 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Locale" xml:space="preserve">
-    <value>Hizkuntza</value>
+    <value>Lokalizazioa</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Maximizable" xml:space="preserve">
-    <value>Maximizagarria</value>
+    <value>Handigarria</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MaximumSize" xml:space="preserve">
-    <value>Tamaina Maximoa</value>
+    <value>Neurri Max</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Minimizable" xml:space="preserve">
-    <value>Minimizagarria</value>
+    <value>Txikigarria</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MinimumSize" xml:space="preserve">
-    <value>Tamaina Minimoa</value>
+    <value>Neurri Min</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.MinPatchLevel" xml:space="preserve">
@@ -4203,7 +4203,7 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.ProgramMenuFolder" xml:space="preserve">
-    <value>Programaren Menu Karpeta</value>
+    <value>Programa-menu Karpeta</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.PublisherId" xml:space="preserve">
@@ -4215,11 +4215,11 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.RenderMode" xml:space="preserve">
-    <value>Errandatze Modua</value>
+    <value>Errendatzea</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.Resizable" xml:space="preserve">
-    <value>Tamaina Aldagarria</value>
+    <value>Neurri Aldakorra</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Label.SupportedProfiles" xml:space="preserve">
@@ -4267,7 +4267,7 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Title.LocaleManager" xml:space="preserve">
-    <value>AIR Aplikazio Instalatzailearen Hizkuntzak konfiguratu</value>
+    <value>AIR Aplikazio Instalatzailearen Lokalizazioak konfiguratu</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="SourceControl.Description.EnableHG" xml:space="preserve">
@@ -4379,7 +4379,7 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="FlashDevelop.Category.Locale" xml:space="preserve">
-    <value>Hizkuntza</value>
+    <value>Lokalizazioa</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="BridgeSettings.Description.BridgePort" xml:space="preserve">
@@ -4821,7 +4821,7 @@ Hizkuntza pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-US
     <comment>Added after 4.0.0 RC1</comment>
   </data>
   <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
-    <value>Directe</value>
+    <value>Zuzena</value>
     <comment>Added after 3.3.4</comment>
   </data>
 </root>
