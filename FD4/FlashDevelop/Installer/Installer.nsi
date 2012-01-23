@@ -305,8 +305,8 @@ Function .onInit
 	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Java Runtime 1.6 before installing FlashDevelop."
 	${Else}
 	${VersionCompare} $0 "1.6" $1
-	${If} $1 == 2
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Java Runtime 1.6 before installing FlashDevelop. You have $0."
+	${If} $1 != 0
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Java Runtime 1.6 (Flex SDK requirement) before installing FlashDevelop. You have $0."
 	${EndIf}
 	${EndIf}
 	
