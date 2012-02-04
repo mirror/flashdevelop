@@ -93,21 +93,14 @@ namespace FlashDebugger
         public string findClassName(java.lang.String className)
         {
             string endOfClassName = "." + className;
-            MemberList knownClasses = ASContext.Context.GetAllProjectClasses();
-
-            string prev = null;
-            FlagType mask = FlagType.Class | FlagType.Interface | FlagType.Enum;
-            foreach (MemberModel member in knownClasses)
+            
+            MemberList imports = ASContext.Context.GetVisibleExternalElements(true);
+            foreach (MemberModel member in imports)
             {
-                if ((member.Flags & mask) == 0 || prev == member.Name)
-                    if (member.Type != "Class") continue;
-
-                prev = member.Name;
-
-                if (member.Name.EndsWith(endOfClassName))
+                if (member.Name == className || member.Name.EndsWith(endOfClassName))
                 {
-                    var lastPos = member.Name.LastIndexOf('.');
-                    return member.Name.Substring(0, lastPos) + "::" + className;
+                    var lastPos = member.Type.LastIndexOf('.');
+                    return lastPos > 0 ? member.Type.Substring(0, lastPos) + "::" + className : member.Type;
                 }
             }
             return null;
