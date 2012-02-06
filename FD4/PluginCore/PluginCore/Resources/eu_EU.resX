@@ -3608,7 +3608,7 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <value>Errore lerroa:</value>
   </data>
   <data name="ProjectManager.ToolTip.Synchronize" xml:space="preserve">
-    <value>Synchronize</value>
+    <value>Sinkronizatu</value>
   </data>
   <data name="FlashDevelop.Info.FilterSettings" xml:space="preserve">
     <value>Filtroen ezarpenak:</value>
