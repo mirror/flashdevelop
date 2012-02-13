@@ -205,7 +205,7 @@
     <EmbeddedResource Include="Resources\SnippetVars.de_DE.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\SnippetVars.eu_EU.txt" />
+    <EmbeddedResource Include="Resources\SnippetVars.eu_ES.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
