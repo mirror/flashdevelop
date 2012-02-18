@@ -262,7 +262,6 @@ namespace FlashDevelop.Managers
             sci.CurrentPos = 0;
             sci.CursorType = -1;
             sci.Dock = System.Windows.Forms.DockStyle.Fill;
-            sci.DocPointer = 187541976;
             sci.EndAtLastLine = 1;
             sci.EdgeColumn = 0;
             sci.EdgeMode = 0;

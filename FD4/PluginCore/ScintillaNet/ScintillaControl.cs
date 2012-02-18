@@ -1804,7 +1804,7 @@ namespace ScintillaNet
 			}
 			set
 			{
-				SPerform(2358, (uint)value, 0);
+                SPerform(2358, 0, (uint)value);
 			}
 		}	
 
