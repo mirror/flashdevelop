@@ -29,6 +29,13 @@ namespace FlashDebugger
 
         public void assign(java.lang.Object par0, Value par1)
         {
+            java.lang.Object obj = lookup(par0);
+            if (obj is Variable)
+            {
+                Variable var = (Variable)obj;
+                var.setValue(session, par1.getType(), par1.getValueAsString());
+                return;
+            }
             throw new NotImplementedException();
         }
 
