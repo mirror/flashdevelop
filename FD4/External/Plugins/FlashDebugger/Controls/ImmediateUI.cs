@@ -69,9 +69,13 @@ namespace FlashDebugger.Controls
                     {
                         this.textBox.Text += processExpr(line.Substring(2));
                     }
+                    else if (line.StartsWith("g "))
+                    {
+                        this.textBox.Text += processGlobal(line.Substring(2));
+                    }
                     else
                     {
-                        this.textBox.Text += "Commands: swfs, p <exptr>";
+                        this.textBox.Text += "Commands: swfs, p <exptr>, g <value id>";
                     }
                 }
                 catch (Exception ex)
@@ -83,49 +87,6 @@ namespace FlashDebugger.Controls
                 this.textBox.ScrollToCaret();
             }
         }
-
-        /*
-        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '\r')
-            {
-                e.Handled = true;
-                int line = this.textBox.GetLineFromCharIndex(this.textBox.SelectionStart);
-                if (this.textBox.Lines.Length>0 && !this.textBox.Lines[this.textBox.Lines.Length-1].Trim().Equals("")) this.textBox.Text += "\r\n";
-                if (this.textBox.Lines.Length > line)
-                {
-                    try
-                    {
-                        string cmd = this.textBox.Lines[line];
-                        if (cmd == "swfs")
-                        {
-                            this.textBox.Text += processSwfs();
-                        }
-                        else if (cmd.StartsWith("p "))
-                        {
-                            this.textBox.Text += processExpr(cmd.Substring(2));
-                        }
-                        else
-                        {
-                            this.textBox.Text += "Commands: swfs, p <exptr>";
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        this.textBox.Text += ex.ToString();
-                    }
-                }
-                else
-                {
-                    this.textBox.Text += "Unknown problem";
-                }
-
-                if (this.textBox.Lines.Length > 0 && !this.textBox.Lines[this.textBox.Lines.Length - 1].Trim().Equals("")) this.textBox.Text += "\r\n";
-                this.textBox.Select(this.textBox.Text.Length, 0);
-                this.textBox.ScrollToCaret();
-            }
-        }
-        */
 
         private string processSwfs()
         {
@@ -147,6 +108,14 @@ namespace FlashDebugger.Controls
             if (obj is Variable) return ctx.FormatValue(((Variable)obj).getValue());
             if (obj is Value) return ctx.FormatValue((Value)obj);
             return obj.toString();
+        }
+
+        private string processGlobal(string expr)
+        {
+            var val = PluginMain.debugManager.FlashInterface.Session.getGlobal(expr);
+            //var val = PluginMain.debugManager.FlashInterface.Session.getValue(Convert.ToInt64(expr));
+            var ctx = new ExpressionContext(PluginMain.debugManager.FlashInterface.Session, PluginMain.debugManager.FlashInterface.Session.getFrames()[PluginMain.debugManager.CurrentFrame]);
+            return ctx.FormatValue(val);
         }
 
         private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
