@@ -103,8 +103,13 @@ namespace FlashDebugger.Controls
 					//return "<setter>";
 				}
                 if (temp == null) temp = m_Value.ToString();
-                if (temp.Length > 65535)
-                    temp = temp.Substring(0, 65535 - 5) + "[...]";
+                if (!m_bEditing)
+                {
+                    if (temp.Length > 65535)
+                        temp = temp.Substring(0, 65535 - 5) + "[...]";
+                    temp = temp.Replace("\n", "\\n");
+                    temp = temp.Replace("\r", "\\r");
+                }
                 return temp;
 			}
 			set
