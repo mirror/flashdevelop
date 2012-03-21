@@ -2933,9 +2933,6 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ProjectManager.Info.NewDuplicateName" xml:space="preserve">
     <value>New name:</value>
   </data>
-  <data name="HaXeContext.Description.DisableCompilerCompletion" xml:space="preserve">
-    <value>By default, haXe code completion is populated by calling haXe compiler instead of using FlashDevelop native (but limited) haXe support.</value>
-  </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
     <value>By default haXe completion is alimented both by the haXe compiler and FlashDevelop automatic completion.</value>
   </data>
@@ -4830,5 +4827,13 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
     <value>Direct</value>
     <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="HaXeContext.Description.CompletionMode" xml:space="preserve">
+    <value>The most complete completion will be provided by the haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for haxe completion.</value>
+    <comment>Added after 4.0</comment>
+  </data>
+  <data name="HaXeContext.Description.CompletionServerPort" xml:space="preserve">
+    <value>Define haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
+    <comment>Added after 4.0</comment>
   </data>
 </root>

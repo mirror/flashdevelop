@@ -2928,9 +2928,6 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="ProjectManager.Info.NewDuplicateName" xml:space="preserve">
     <value>Izen berria:</value>
   </data>
-  <data name="HaXeContext.Description.DisableCompilerCompletion" xml:space="preserve">
-    <value>Modu lehenetsian, haXe kode osaketa haXe konpiladoreari deituz betetzen da, FlashDevelop-en jatorrizko haXe (mugatua dena) laguntza erabili beharrean.</value>
-  </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
     <value>Modu lehenetsian haXe osaketa haXe konpiladorearen eta FlashDevelop-en osaketa automatikoen bidez elikatzen da.</value>
   </data>
@@ -4823,5 +4820,13 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
   <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
     <value>Zuzena</value>
     <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="HaXeContext.Description.CompletionMode" xml:space="preserve">
+    <value>The most complete completion will be provided by the haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for haxe completion.</value>
+    <comment>Added after 4.0</comment>
+  </data>
+  <data name="HaXeContext.Description.CompletionServerPort" xml:space="preserve">
+    <value>Define haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
+    <comment>Added after 4.0</comment>
   </data>
 </root>

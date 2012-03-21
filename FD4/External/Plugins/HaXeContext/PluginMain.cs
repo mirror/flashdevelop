@@ -195,7 +195,13 @@ namespace HaXeContext
                 }
             }
             else foreach (InstalledSDK sdk in settingObject.InstalledSDKs) ValidateSDK(sdk);
-            
+
+            if (settingObject.CompletionServerPort == 0)
+            {
+                settingObject.CompletionServerPort = 6000;
+                settingObject.CompletionMode = HaxeCompletionModeEnum.CompletionServer;
+            }
+
             settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 

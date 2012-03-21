@@ -29,7 +29,11 @@ namespace HaXeContext
         static readonly protected Regex re_genericType =
                     new Regex("(?<gen>[^<]+)<(?<type>.+)>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+        static public string FLASH_OLD = "flash";
+        static public string FLASH_NEW = "flash9";
+
         private HaXeSettings hxsettings;
+        private string currentSDK;
         private Dictionary<string, string> haxelibsCache;
         private bool hasAIRSupport;
         private bool hasMobileSupport;
@@ -108,6 +112,11 @@ namespace HaXeContext
             /* INITIALIZATION */
 
             settings = initSettings;
+
+            currentSDK = PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
+            initSettings.CompletionModeChanged += OnCompletionModeChange;
+            OnCompletionModeChange();
+
             haxelibsCache = new Dictionary<string,string>();
             //BuildClassPath(); // defered to first use
         }
@@ -150,9 +159,7 @@ namespace HaXeContext
             {
                 string haxelib = "haxelib";
 
-                string hxPath = PluginBase.CurrentProject != null
-                        ? PluginBase.CurrentProject.CurrentSDK
-                        : PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
+                string hxPath = currentSDK;
                 if (hxPath != null && Path.IsPathRooted(hxPath))
                     haxelib = Path.Combine(hxPath, haxelib);
                 
@@ -207,45 +214,38 @@ namespace HaXeContext
             ParseVersion(contextSetup.Version, ref majorVersion, ref minorVersion);
 
             // NOTE: version > 10 for non-Flash platforms
-            string lang = null;
+            string lang;
             hasAIRSupport = hasMobileSupport = false;
             features.Directives = new List<string>();
-            if (IsJavaScriptTarget) 
+            if (IsJavaScriptTarget)
             {
                 lang = "js";
-                features.Directives.Add(lang);
-            }
-            else if (IsNekoTarget) 
-            {
-                lang = "neko";
-                features.Directives.Add(lang);
             }
             else if (IsPhpTarget)
             {
                 lang = "php";
-                features.Directives.Add(lang);
+            }
+            else if (IsNekoTarget)
+            {
+                lang = "neko";
             }
             else if (IsCppTarget)
             {
                 lang = "cpp";
-                features.Directives.Add(lang);
             }
             else if (IsNmeTarget)
             {
                 lang = "cpp";
-                features.Directives.Add(lang);
                 features.Directives.Add("--remap flash:nme");
             }
-            else
+            else if (IsFlashTarget)
             {
-                features.Directives.Add("flash");
-                features.Directives.Add("flash" + majorVersion);
-                lang = (majorVersion < 6 || majorVersion >= 9) ? "flash9" : "flash";
-
+                lang = "flash";
                 hasAIRSupport = platform == "AIR" || platform == "AIR Mobile";
                 hasMobileSupport = platform == "AIR Mobile";
             }
-            features.Directives.Add("true");
+            else lang = platform;
+            features.Directives.Add(lang);
 
             //
             // Class pathes
@@ -257,14 +257,39 @@ namespace HaXeContext
                     : PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
             if (hxPath != null)
             {
+                if (currentSDK != hxPath)
+                {
+                    currentSDK = hxPath;
+                    haxelibsCache = new Dictionary<string, string>();
+                    OnCompletionModeChange();
+                }
+
                 string haxeCP = Path.Combine(hxPath, "std");
                 if (Directory.Exists(haxeCP))
                 {
+                    if (Directory.Exists(Path.Combine(haxeCP, "flash9")))
+                    {
+                        FLASH_NEW = "flash9";
+                        FLASH_OLD = "flash";
+                    }
+                    else
+                    {
+                        FLASH_NEW = "flash";
+                        FLASH_OLD = "flash8";
+                    }
+                    if (lang == "flash")
+                        lang = (majorVersion >= 6 && majorVersion < 9) ? FLASH_OLD : FLASH_NEW;
+
                     PathModel std = PathModel.GetModel(haxeCP, this);
                     if (!std.WasExplored && !Settings.LazyClasspathExploration)
                     {
                         PathExplorer stdExplorer = new PathExplorer(this, std);
-                        stdExplorer.HideDirectories(new string[] { "flash", "flash9", "js", "neko", "php", "cpp" });
+                        string[] keep = new string[] { "sys", "haxe" };
+                        List<String> hide = new List<string>();
+                        foreach (string dir in Directory.GetDirectories(haxeCP))
+                            if (Array.IndexOf<string>(keep, Path.GetFileName(dir)) < 0)
+                                hide.Add(Path.GetFileName(dir));
+                        stdExplorer.HideDirectories(hide);
                         stdExplorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
                         stdExplorer.Run();
                     }
@@ -697,6 +722,64 @@ namespace HaXeContext
         #endregion
 
         #region Custom code completion
+
+        private IHaxeCompletionHandler completionModeHandler;
+
+        /// <summary>
+        /// Checks completion mode changes to start/restart/stop the haXe completion server if needed.
+        /// </summary>
+        private void OnCompletionModeChange()
+        {
+            if (completionModeHandler != null)
+            {
+                completionModeHandler.Stop();
+                completionModeHandler = null;
+            }
+
+            var haxeSettings = (settings as HaXeSettings);
+            switch (haxeSettings.CompletionMode)
+            {
+                case HaxeCompletionModeEnum.Compiler:
+                    completionModeHandler = new CompilerCompletionHandler(createHaxeProcess(""));
+                    break;
+                case HaxeCompletionModeEnum.CompletionServer:
+                    if (haxeSettings.CompletionServerPort < 1024)
+                        completionModeHandler = new CompilerCompletionHandler(createHaxeProcess(""));
+                    else 
+                        completionModeHandler =
+                            new CompletionServerCompletionHandler(
+                                createHaxeProcess("--wait " + haxeSettings.CompletionServerPort),
+                                haxeSettings.CompletionServerPort);
+                    break;
+            }
+        }
+
+        /**
+         * Starts a haxe.exe process with the given arguments.
+         */
+        private Process createHaxeProcess(string args)
+        {
+            // compiler path
+            var hxPath = currentSDK; 
+            var process = Path.Combine(hxPath, "haxe.exe");
+            if (!File.Exists(process))
+            {
+                ErrorManager.ShowInfo(String.Format(TextHelper.GetString("Info.HaXeExeError"), "\n"));
+                return null;
+            }
+
+            // Run haxe compiler
+            Process proc = new Process();
+            proc.StartInfo.FileName = process;
+            proc.StartInfo.Arguments = args;
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardError = true;
+            proc.StartInfo.CreateNoWindow = true;
+            proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            proc.EnableRaisingEvents = true;
+            return proc;
+        }
+
         /// <summary>
         /// Let contexts handle code completion
         /// </summary>
@@ -706,7 +789,7 @@ namespace HaXeContext
         /// <returns>Null (not handled) or member list</returns>
         public override MemberList ResolveDotContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide)
         {
-            if (hxsettings.DisableCompilerCompletion)
+            if (hxsettings.CompletionMode == HaxeCompletionModeEnum.FlashDevelop)
                 return null;
 
             if (autoHide && !hxsettings.DisableCompletionOnDemand)
@@ -723,7 +806,7 @@ namespace HaXeContext
 
             MemberList list = new MemberList();
            
-            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position);
+            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position, completionModeHandler);
             ArrayList al = hc.getList();
             if (al == null || al.Count == 0) 
                 return null; // haxe.exe not found
@@ -912,7 +995,7 @@ namespace HaXeContext
         /// <returns>Null (not handled) or function signature</returns>
         public override MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide)
         {
-            if (hxsettings.DisableCompilerCompletion)
+            if (hxsettings.CompletionMode == HaxeCompletionModeEnum.FlashDevelop)
                 return null;
 
             if (autoHide && !hxsettings.DisableCompletionOnDemand)
@@ -934,7 +1017,7 @@ namespace HaXeContext
                 val == "trace")
                 return null;
 
-            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position);
+            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position, completionModeHandler);
             ArrayList al = hc.getList();
             if (al == null || al.Count == 0)
                 return null; // haxe.exe not found
@@ -998,8 +1081,8 @@ namespace HaXeContext
         public override void CheckSyntax()
         {
             EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
-            HaXeCompletion hc = new HaXeCompletion(ASContext.CurSciControl, 0);
-            ArrayList result = hc.getList(false);
+            HaXeCompletion hc = new HaXeCompletion(ASContext.CurSciControl, 0, completionModeHandler);
+            ArrayList result = hc.getList();
             if (result.Count == 0 || (string)result[0] != "error")
             {
                 EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(0)"));

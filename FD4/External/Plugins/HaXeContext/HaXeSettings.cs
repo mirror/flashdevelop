@@ -11,6 +11,7 @@ using PluginCore;
 namespace HaXeContext
 {
     public delegate void ClasspathChangedEvent();
+    public delegate void CompletionModeChangedEventHandler();
 
     [Serializable]
     public class HaXeSettings : ASCompletion.Settings.IContextSettings
@@ -190,19 +191,24 @@ namespace HaXeContext
 
         #region haXe specific members
 
+        [field: NonSerialized]
+        public event CompletionModeChangedEventHandler CompletionModeChanged;
+
+        private const int DEFAULT_COMPLETION_SERVER_PORT = 6000;
         const int DEFAULT_FLASHVERSION = 10;
         const string DEFAULT_HAXECHECKPARAMS = "";
-        const bool DEFAULT_DISABLECOMPILERCOMPLETION = false;
+        private const HaxeCompletionModeEnum DEFAULT_HAXECOMPLETIONMODE = HaxeCompletionModeEnum.Compiler;
         const bool DEFAULT_DISABLEMIXEDCOMPLETION = false;
         const bool DEFAULT_DISABLECOMPLETIONONDEMAND = true;
         const bool DEFAULT_EXPORTHXML = false;
 
+        private int completionServerPort = DEFAULT_COMPLETION_SERVER_PORT;
         private int flashVersion = 10;
         private string haXeCheckParameters = DEFAULT_HAXECHECKPARAMS;
-        private bool disableCompilerCompletion = DEFAULT_DISABLECOMPILERCOMPLETION;
         private bool disableMixedCompletion = DEFAULT_DISABLEMIXEDCOMPLETION;
         private bool disableCompletionOnDemand = DEFAULT_DISABLECOMPLETIONONDEMAND;
         private bool exportHXML = DEFAULT_EXPORTHXML;
+        private HaxeCompletionModeEnum _completionMode = DEFAULT_HAXECOMPLETIONMODE;
 
         [DisplayName("Default Flash Version")]
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.DefaultFlashVersion"), DefaultValue(DEFAULT_FLASHVERSION)]
@@ -228,12 +234,27 @@ namespace HaXeContext
             set { haXeCheckParameters = value; }
         }
 
-        [DisplayName("Disable Compiler-based Completion")]
-        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.DisableCompilerCompletion"), DefaultValue(DEFAULT_DISABLECOMPILERCOMPLETION)]
-        public bool DisableCompilerCompletion
+        [DisplayName("Completion Mode")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.CompletionMode"), DefaultValue(DEFAULT_HAXECOMPLETIONMODE)]
+        public HaxeCompletionModeEnum CompletionMode
         {
-            get { return disableCompilerCompletion; }
-            set { disableCompilerCompletion = value; }
+            get { return _completionMode; }
+            set
+            {
+                _completionMode = value;
+                CompletionModeChanged();
+            }
+        }
+
+        [DisplayName("Completion Server Port")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.CompletionServerPort"), DefaultValue(DEFAULT_COMPLETION_SERVER_PORT)]
+        public int CompletionServerPort
+        {
+            get { return completionServerPort; }
+            set {
+                completionServerPort = value;
+                CompletionModeChanged();
+            }
         }
 
         [DisplayName("Disable Mixed Completion")]
@@ -274,5 +295,12 @@ namespace HaXeContext
             HaxeProject.saveHXML = exportHXML;
         }
 
+    }
+
+    public enum HaxeCompletionModeEnum
+    {
+        FlashDevelop,
+        Compiler,
+        CompletionServer
     }
 }

@@ -67,9 +67,11 @@ namespace ASCompletion.Completion
                 return false;
 			try
 			{
-				int eolMode = Sci.EOLMode;
+                if (Sci.IsSelectionRectangle) 
+                    return false;
 				// code auto
-				if (((Value == 10) && (eolMode != 1)) || ((Value == 13) && (eolMode == 1)))
+                int eolMode = Sci.EOLMode;
+                if (((Value == 10) && (eolMode != 1)) || ((Value == 13) && (eolMode == 1)))
 				{
                     if (ASContext.HasContext && ASContext.Context.IsFileValid) HandleStructureCompletion(Sci);
 					return false;
@@ -1766,6 +1768,7 @@ namespace ASCompletion.Completion
                 CompletionList.Show(customList, autoHide, tail);
                 return true;
             }
+            //return true;
 
             // Context
             ASResult result;

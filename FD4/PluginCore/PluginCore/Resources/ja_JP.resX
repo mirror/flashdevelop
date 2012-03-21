@@ -2939,9 +2939,6 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ProjectManager.Info.NewDuplicateName" xml:space="preserve">
     <value>ファイル名:</value>
   </data>
-  <data name="HaXeContext.Description.DisableCompilerCompletion" xml:space="preserve">
-    <value>デフォルトでは、haXe のコード補完は haXe コンパイラーを呼び出すことによる FlashDevelop のネイティブ（制限つき） haXe サポートが使用されます。</value>
-  </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
     <value>デフォルトでは、haXe のコード補完は haXe コンパイラーと FlashDevelop の自動補完の両方を組み合わせて使用されます。</value>
   </data>
@@ -4887,5 +4884,13 @@ UseData:"</value>
   <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
     <value>Direct</value>
     <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="HaXeContext.Description.CompletionMode" xml:space="preserve">
+    <value>The most complete completion will be provided by the haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for haxe completion.</value>
+    <comment>Added after 4.0</comment>
+  </data>
+  <data name="HaXeContext.Description.CompletionServerPort" xml:space="preserve">
+    <value>Define haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
+    <comment>Added after 4.0</comment>
   </data>
 </root>

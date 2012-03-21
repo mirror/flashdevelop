@@ -97,7 +97,7 @@ namespace ASCompletion.Model
             }
         }
 
-        public void HideDirectories(string[] dirs)
+        public void HideDirectories(IEnumerable<String> dirs)
         {
             foreach (string dir in dirs)
             {

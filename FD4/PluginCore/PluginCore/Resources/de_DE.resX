@@ -2939,9 +2939,6 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   <data name="ProjectManager.Info.NewDuplicateName" xml:space="preserve">
     <value>Neuer Name</value>
   </data>
-  <data name="HaXeContext.Description.DisableCompilerCompletion" xml:space="preserve">
-    <value>Deaktiviert die Vervollständigungsunterstützung des haXe Compilers. Die Vervollständigung von FlashDevelop ist dieser jedoch unterlegen.</value>
-  </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
     <value>Deaktiviert die Verschmelzung der Vervollständigung des haXe Compilers und der von FlashDevelop.</value>
   </data>
@@ -4830,5 +4827,13 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
   <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
     <value>Direkt</value>
     <comment>Added after 3.3.4</comment>
+  </data>
+  <data name="HaXeContext.Description.CompletionMode" xml:space="preserve">
+    <value>The most complete completion will be provided by the haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for haxe completion.</value>
+    <comment>Added after 4.0</comment>
+  </data>
+  <data name="HaXeContext.Description.CompletionServerPort" xml:space="preserve">
+    <value>Define haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
+    <comment>Added after 4.0</comment>
   </data>
 </root>
