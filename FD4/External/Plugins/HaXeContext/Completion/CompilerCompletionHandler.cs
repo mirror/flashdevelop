@@ -16,12 +16,10 @@ namespace HaXeContext
         {
             if (args == null)
                 return new string[0];
-            var tm = DateTime.Now;
             haxeProcess.StartInfo.Arguments = String.Join(" ", args);
             haxeProcess.Start();
             var lines = haxeProcess.StandardError.ReadToEnd().Split('\n');
             haxeProcess.Close();
-            //PluginCore.Managers.TraceManager.Add("time " + (DateTime.Now - tm) + "ms");
             return lines;
         }
 

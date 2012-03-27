@@ -745,13 +745,27 @@ namespace HaXeContext
                 case HaxeCompletionModeEnum.CompletionServer:
                     if (haxeSettings.CompletionServerPort < 1024)
                         completionModeHandler = new CompilerCompletionHandler(createHaxeProcess(""));
-                    else 
+                    else
+                    {
                         completionModeHandler =
                             new CompletionServerCompletionHandler(
                                 createHaxeProcess("--wait " + haxeSettings.CompletionServerPort),
                                 haxeSettings.CompletionServerPort);
+                        (completionModeHandler as CompletionServerCompletionHandler).FallbackNeeded += new FallbackNeededHandler(Context_FallbackNeeded);
+                    }
                     break;
             }
+        }
+
+        void Context_FallbackNeeded(bool notSupported)
+        {
+            TraceManager.AddAsync("This SDK does not support server mode");
+            if (completionModeHandler != null)
+            {
+                completionModeHandler.Stop();
+                completionModeHandler = null;
+            }
+            completionModeHandler = new CompilerCompletionHandler(createHaxeProcess(""));
         }
 
         /**

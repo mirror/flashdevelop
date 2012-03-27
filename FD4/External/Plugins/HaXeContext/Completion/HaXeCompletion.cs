@@ -102,6 +102,7 @@ namespace HaXeContext
 
             hxmlArgs.Add("--display \"" + file + "\"@" + pos);
             hxmlArgs.Add("-D use_rtti_doc");
+            if (hp.TraceEnabled) hxmlArgs.Add("-debug");
 
             return hxmlArgs.ToArray();
         }
@@ -117,6 +118,7 @@ namespace HaXeContext
 
                 if (l.Length == 0)
                     continue;
+
                 // Get list of properties
                 switch (l)
                 {
@@ -148,7 +150,9 @@ namespace HaXeContext
                         tips.Add(type);
                         break;
                     default:
-                        if (l.StartsWith("<")) continue;
+                        if (l[0] == '<') continue;
+                        if (l[0] == 1) continue; // ignore log
+                        if (l[0] == 2) l = l.Substring(1);
                         if (nbErrors == 0)
                             error += l;
                         else if (nbErrors < 5)
