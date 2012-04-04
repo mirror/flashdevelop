@@ -205,10 +205,13 @@ namespace ProjectManager.Projects.Haxe
                 string param = null;
                 int majorVersion = MovieOptions.MajorVersion;
                 int minorVersion = MovieOptions.MinorVersion;
-                if (MovieOptions.Platform == "AIR")
+
+                if (MovieOptions.Platform == HaxeMovieOptions.AIR_PLATFORM 
+                    || MovieOptions.Platform == HaxeMovieOptions.AIR_MOBILE_PLATFORM)
                     AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
                 if (movieOptions.Platform == "NME")
                     HaxeProject.GuessFlashPlayerForNME(ref majorVersion, ref minorVersion);
+                
                 if (majorVersion >= 10)
                 {
                     if (minorVersion > 0) param = majorVersion + "." + minorVersion;

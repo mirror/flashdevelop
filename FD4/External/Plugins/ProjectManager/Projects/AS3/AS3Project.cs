@@ -268,7 +268,7 @@ namespace ProjectManager.Projects.AS3
 
         static public void GuessFlashPlayerForAIR(ref int majorVersion, ref int minorVersion)
         {
-            double v = majorVersion + minorVersion / 10;
+            double v = majorVersion + (double)minorVersion / 10;
             if (v < 2) { majorVersion = 9; minorVersion = 0; }
             else if (v < 2.5) { majorVersion = 10; minorVersion = 0; }
             else if (v < 2.6) { majorVersion = 10; minorVersion = 1; }

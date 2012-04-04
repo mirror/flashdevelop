@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Channels.Ipc;
 using System.Text;
 using ProjectManager.Helpers;
 using ProjectManager.Projects.Haxe;

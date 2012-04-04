@@ -116,7 +116,8 @@ namespace FDBuild.Building.AS3
         {
             int majorVersion = project.MovieOptions.MajorVersion;
             int minorVersion = project.MovieOptions.MinorVersion;
-            if (project.MovieOptions.Platform == "AIR" || project.MovieOptions.Platform == "AIR Mobile") 
+            if (project.MovieOptions.Platform == AS3MovieOptions.AIR_PLATFORM 
+                || project.MovieOptions.Platform == AS3MovieOptions.AIR_MOBILE_PLATFORM) 
                 AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
 
             string version;
