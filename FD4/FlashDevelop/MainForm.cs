@@ -484,6 +484,14 @@ namespace FlashDevelop
             get { return Application.ProductName; }
         }
 
+        /// <summary>
+        /// Gets the version of the operating system
+        /// </summary>
+        public new Version OSVersion
+        {
+            get { return Environment.OSVersion.Version; }
+        }
+
         #endregion
 
         #region Component Creation
@@ -1249,7 +1257,8 @@ namespace FlashDevelop
                 Int32 column = sci.Column(sci.CurrentPos) + 1;
                 Int32 line = sci.LineFromPosition(sci.CurrentPos) + 1;
                 String statusText = " " + TextHelper.GetString("Info.StatusText");
-                String file = PathHelper.GetCompactPath(sci.FileName);
+                var oldOS = this.OSVersion.Major < 6; // Vista is 6.0 and ok...
+                String file = oldOS ? PathHelper.GetCompactPath(sci.FileName) : sci.FileName;
                 String eol = (sci.EOLMode == 0) ? "CR+LF" : ((sci.EOLMode == 1) ? "CR" : "LF");
                 String encoding = ButtonManager.GetActiveEncodingName();
                 this.toolStripStatusLabel.Text = String.Format(statusText, line, column, eol, encoding, file);

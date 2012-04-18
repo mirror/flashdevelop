@@ -37,8 +37,10 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
+// HISTORY
+//	2010-05-25	Z-1663	Fixed exception when testing local header compressed size of -1
+
 using System;
-using System.Text;
 using System.IO;
 
 using ICSharpCode.SharpZipLib.Checksums;
@@ -76,21 +78,23 @@ namespace ICSharpCode.SharpZipLib.Zip
 	/// 		using ( ZipInputStream s = new ZipInputStream(File.OpenRead(args[0]))) {
 	///
 	/// 			ZipEntry theEntry;
-	/// 			while ((theEntry = s.GetNextEntry()) != null) {
-	/// 				int size = 2048;
-	/// 				byte[] data = new byte[2048];
-	///
-	/// 				Console.Write("Show contents (y/n) ?");
-	/// 				if (Console.ReadLine() == "y") {
-	/// 					while (true) {
-	/// 						size = s.Read(data, 0, data.Length);
-	/// 						if (size > 0) {
-	/// 							Console.Write(new ASCIIEncoding().GetString(data, 0, size));
-	/// 						} else {
-	/// 							break;
-	/// 						}
-	/// 					}
-	/// 				}
+    /// 			const int size = 2048;
+    /// 			byte[] data = new byte[2048];
+    /// 			
+    /// 			while ((theEntry = s.GetNextEntry()) != null) {
+	///                 if ( entry.IsFile ) {
+	/// 				    Console.Write("Show contents (y/n) ?");
+	/// 				    if (Console.ReadLine() == "y") {
+	/// 				    	while (true) {
+	/// 				    		size = s.Read(data, 0, data.Length);
+	/// 				    		if (size > 0) {
+	/// 				    			Console.Write(new ASCIIEncoding().GetString(data, 0, size));
+	/// 				    		} else {
+	/// 				    			break;
+	/// 				    		}
+	/// 				    	}
+	/// 				    }
+    /// 				}
 	/// 			}
 	/// 		}
 	/// 	}
@@ -130,7 +134,18 @@ namespace ICSharpCode.SharpZipLib.Zip
 		{
 			internalReader = new ReadDataHandler(ReadingNotAvailable);
 		}
-		#endregion
+
+        /// <summary>
+        /// Creates a new Zip input stream, for reading a zip archive.
+        /// </summary>
+        /// <param name="baseInputStream">The underlying <see cref="Stream"/> providing data.</param>
+        /// <param name="bufferSize">Size of the buffer.</param>
+        public ZipInputStream( Stream baseInputStream, int bufferSize )
+            : base(baseInputStream, new Inflater(true), bufferSize)
+        {
+            internalReader = new ReadDataHandler(ReadingNotAvailable);
+        }
+        #endregion
 		
 		/// <summary>
 		/// Optional password used for encryption when non-null
@@ -600,8 +615,10 @@ namespace ICSharpCode.SharpZipLib.Zip
 							throw new ZipException("Inflater not finished!");
 						}
 						inputBuffer.Available = inf.RemainingInput;
-						
-						if ((flags & 8) == 0 && (inf.TotalIn != csize || inf.TotalOut != size)) {
+
+						// A csize of -1 is from an unpatched local header
+						if ((flags & 8) == 0 &&
+							(inf.TotalIn != csize && csize != 0xFFFFFFFF && csize != -1 || inf.TotalOut != size)) {
 							throw new ZipException("Size mismatch: " + csize + ";" + size + " <-> " + inf.TotalIn + ";" + inf.TotalOut);
 						}
 						inf.Reset();

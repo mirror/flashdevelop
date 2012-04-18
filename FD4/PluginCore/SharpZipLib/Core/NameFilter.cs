@@ -33,6 +33,8 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
+// HISTORY
+//	2010-03-03	Z-1654	Fixed bug where escape characters were excluded in SplitQuoted()
 
 using System;
 using System.Collections;
@@ -132,7 +134,7 @@ namespace ICSharpCode.SharpZipLib.Core
 		/// Split a string into its component pieces
 		/// </summary>
 		/// <param name="original">The original string</param>
-		/// <returns>Returns a <see cref="T:System.String[]"/> containing the individual filter elements.</returns>
+		/// <returns>Returns an array of <see cref="T:System.String"/> values containing the individual filter elements.</returns>
 		public static string[] SplitQuoted(string original)
 		{
 			char escape = '\\';
@@ -158,6 +160,9 @@ namespace ICSharpCode.SharpZipLib.Core
 							throw new ArgumentException("Missing terminating escape character", "original");
 #endif
 						}
+						// include escape if this is not an escaped separator
+						if (Array.IndexOf(separators, original[endIndex]) < 0)
+							b.Append(escape);
 
 						b.Append(original[endIndex]);
 					}
@@ -232,7 +237,7 @@ namespace ICSharpCode.SharpZipLib.Core
 		/// <returns>True if the value matches, false otherwise.</returns>
 		public bool IsMatch(string name)
 		{
-			return (IsIncluded(name) == true) && (IsExcluded(name) == false);
+			return (IsIncluded(name) && !IsExcluded(name));
 		}
 		#endregion
 

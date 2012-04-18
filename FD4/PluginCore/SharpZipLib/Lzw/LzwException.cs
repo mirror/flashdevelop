@@ -1,6 +1,6 @@
-// BZip2.cs
+﻿// LzwException.cs
 //
-// Copyright 2004 John Reilly
+// Copyright (C) 2009 Gabriel Burca
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -39,52 +39,50 @@ using System;
 using System.Runtime.Serialization;
 #endif
 
-namespace ICSharpCode.SharpZipLib.BZip2
+namespace ICSharpCode.SharpZipLib.LZW
 {
-	/// <summary>
-	/// BZip2Exception represents exceptions specific to Bzip2 algorithm
-	/// </summary>
-#if !NETCF_1_0 && !NETCF_2_0
-	[Serializable]
-#endif	
-	public class BZip2Exception : SharpZipBaseException
-	{
 
+    /// <summary>
+    /// LzwException represents a LZW specific exception
+    /// </summary>
 #if !NETCF_1_0 && !NETCF_2_0
-		/// <summary>
-		/// Deserialization constructor 
-		/// </summary>
-		/// <param name="info"><see cref="SerializationInfo"/> for this constructor</param>
-		/// <param name="context"><see cref="StreamingContext"/> for this constructor</param>
-		protected BZip2Exception(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-
-		{
-		}
+    [Serializable]
 #endif
-		/// <summary>
-		/// Initialise a new instance of BZip2Exception.
-		/// </summary>
-		public BZip2Exception()
-		{
-		}
-		
-		/// <summary>
-		/// Initialise a new instance of BZip2Exception with its message set to message.
-		/// </summary>
-		/// <param name="message">The message describing the error.</param>
-		public BZip2Exception(string message) : base(message)
-		{
-		}
+    public class LzwException : SharpZipBaseException
+    {
 
-		/// <summary>
-		/// Initialise an instance of BZip2Exception
-		/// </summary>
-		/// <param name="message">A message describing the error.</param>
-		/// <param name="exception">The exception that is the cause of the current exception.</param>
-		public BZip2Exception(string message, Exception exception)
-			: base(message, exception)
-		{
-		}
-	}
+#if !NETCF_1_0 && !NETCF_2_0
+        /// <summary>
+        /// Deserialization constructor 
+        /// </summary>
+        /// <param name="info"><see cref="SerializationInfo"/> for this constructor</param>
+        /// <param name="context"><see cref="StreamingContext"/> for this constructor</param>
+        protected LzwException(SerializationInfo info, StreamingContext context)
+            : base(info, context) {
+        }
+#endif
+
+        /// <summary>
+        /// Initialise a new instance of LzwException
+        /// </summary>
+        public LzwException() {
+        }
+
+        /// <summary>
+        /// Initialise a new instance of LzwException with its message string.
+        /// </summary>
+        /// <param name="message">A <see cref="string"/> that describes the error.</param>
+        public LzwException(string message)
+            : base(message) {
+        }
+
+        /// <summary>
+        /// Initialise a new instance of <see cref="LzwException"></see>.
+        /// </summary>
+        /// <param name="message">A <see cref="string"/> that describes the error.</param>
+        /// <param name="innerException">The <see cref="Exception"/> that caused this exception.</param>
+        public LzwException(string message, Exception innerException)
+            : base(message, innerException) {
+        }
+    }
 }

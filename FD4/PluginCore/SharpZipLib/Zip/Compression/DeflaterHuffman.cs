@@ -785,7 +785,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 				opt_len = static_len;
 			}
 			
-			if (storedOffset >= 0 && storedLength + 4 < opt_len / 8) {
+			if (storedOffset >= 0 && storedLength + 4 < opt_len >> 3) {
 				// Store Block
 
 				//				if (DeflaterConstants.DEBUGGING) {

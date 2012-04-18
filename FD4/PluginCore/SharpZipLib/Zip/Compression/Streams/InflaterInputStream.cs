@@ -37,15 +37,15 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
+// HISTORY
+//	11-08-2009	GeoffHart	T9121	Added Multi-member gzip support
+
 using System;
 using System.IO;
 
 #if !NETCF_1_0
 using System.Security.Cryptography;
 #endif
-
-using ICSharpCode.SharpZipLib.Zip.Compression;
-using ICSharpCode.SharpZipLib.Checksums;
 
 namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams 
 {
@@ -157,9 +157,6 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
 			while (toRead > 0) {
 				int count = inputStream.Read(rawData, rawLength, toRead);
 				if ( count <= 0 ) {
-					if (rawLength == 0) {
-						throw new SharpZipBaseException("Unexpected EOF"); 
-					}
 					break;
 				}
 				rawLength += count;
@@ -246,7 +243,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
 				}
 				
 				int toCopy = Math.Min(currentLength, available);
-				System.Array.Copy(clearText, clearTextLength - (int)available, outBuffer, currentOffset, toCopy);
+				Array.Copy(clearText, clearTextLength - (int)available, outBuffer, currentOffset, toCopy);
 				currentOffset += toCopy;
 				currentLength -= toCopy;
 				available -= toCopy;
@@ -508,7 +505,13 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
 		/// </exception>
 		protected void Fill()
 		{
-			inputBuffer.Fill();
+			// Protect against redundant calls
+			if (inputBuffer.Available <= 0) {
+				inputBuffer.Fill();
+				if (inputBuffer.Available <= 0) {
+					throw new SharpZipBaseException("Unexpected EOF");
+				}
+			}
 			inputBuffer.SetInflaterInput(inf);
 		}
 
@@ -692,6 +695,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
 			return count - remainingBytes;
 		}
 		#endregion
+
 		#region Instance Fields
 		/// <summary>
 		/// Decompressor for this stream
@@ -706,7 +710,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression.Streams
 		/// <summary>
 		/// Base stream the inflater reads from.
 		/// </summary>
-		protected Stream baseInputStream;
+		private Stream baseInputStream;
 		
 		/// <summary>
 		/// The compressed size

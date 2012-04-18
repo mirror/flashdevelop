@@ -37,10 +37,13 @@
 // obligated to do so.  If you do not wish to do so, delete this
 // exception statement from your version.
 
+// HISTORY
+//	22-12-2009	Z-1649	Added AES support
+//	22-02-2010	Z-1648	Zero byte entries would create invalid zip files
+
 using System;
 using System.IO;
 using System.Collections;
-using System.Text;
 
 using ICSharpCode.SharpZipLib.Checksums;
 using ICSharpCode.SharpZipLib.Zip.Compression;
@@ -104,7 +107,17 @@ namespace ICSharpCode.SharpZipLib.Zip
 			: base(baseOutputStream, new Deflater(Deflater.DEFAULT_COMPRESSION, true))
 		{
 		}
-		#endregion
+
+        /// <summary>
+        /// Creates a new Zip output stream, writing a zip archive.
+        /// </summary>
+        /// <param name="baseOutputStream">The output stream to which the archive contents are written.</param>
+        /// <param name="bufferSize">Size of the buffer to use.</param>
+        public ZipOutputStream( Stream baseOutputStream, int bufferSize )
+            : base(baseOutputStream, new Deflater(Deflater.DEFAULT_COMPRESSION, true), bufferSize)
+        {
+        }
+        #endregion
 		
 		/// <summary>
 		/// Gets a flag value of true if the central header has been added for this archive; false if it has not been added.
@@ -326,7 +339,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 			
 			WriteLeShort(entry.Version);
 			WriteLeShort(entry.Flags);
-			WriteLeShort((byte)method);
+			WriteLeShort((byte)entry.CompressionMethodForHeader);
 			WriteLeInt((int)entry.DosTime);
 
 			// TODO: Refactor header writing.  Its done in several places.
@@ -341,7 +354,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 					WriteLeInt((int)entry.Size);
 				}
 			} else {
-				if (patchEntryHeader == true) {
+				if (patchEntryHeader) {
 					crcPatchPos = baseOutputStream_.Position;
 				}
 				WriteLeInt(0);	// Crc
@@ -392,7 +405,12 @@ namespace ICSharpCode.SharpZipLib.Zip
 			else {
 				ed.Delete(1);
 			}
-			
+
+#if !NET_1_1 && !NETCF_2_0
+			if (entry.AESKeySize > 0) {
+				AddExtraDataAES(entry, ed);
+			}
+#endif
 			byte[] extra = ed.GetEntryData();
 
 			WriteLeShort(name.Length);
@@ -411,6 +429,9 @@ namespace ICSharpCode.SharpZipLib.Zip
 			}
 			
 			offset += ZipConstants.LocalHeaderBaseSize + name.Length + extra.Length;
+			// Fix offsetOfCentraldir for AES
+			if (entry.AESKeySize > 0)
+				offset += entry.AESOverheadSize;
 			
 			// Activate the entry.
 			curEntry = entry;
@@ -420,12 +441,19 @@ namespace ICSharpCode.SharpZipLib.Zip
 				deflater_.SetLevel(compressionLevel);
 			}
 			size = 0;
-			
-			if (entry.IsCrypted == true) {
-				if (entry.Crc < 0) {			// so testing Zip will says its ok
-					WriteEncryptionHeader(entry.DosTime << 16);
-				} else {
-					WriteEncryptionHeader(entry.Crc);
+
+			if (entry.IsCrypted) {
+#if !NET_1_1 && !NETCF_2_0
+				if (entry.AESKeySize > 0) {
+					WriteAESHeader(entry);
+				} else
+#endif
+				{
+					if (entry.Crc < 0) {			// so testing Zip will says its ok
+						WriteEncryptionHeader(entry.DosTime << 16);
+					} else {
+						WriteEncryptionHeader(entry.Crc);
+					}
 				}
 			}
 		}
@@ -449,7 +477,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 			
 			// First finish the deflater, if appropriate
 			if (curMethod == CompressionMethod.Deflated) {
-				if (size > 0) {
+				if (size >= 0) {
 					base.Finish();
 					csize = deflater_.TotalOut;
 				}
@@ -457,7 +485,12 @@ namespace ICSharpCode.SharpZipLib.Zip
 					deflater_.Reset();
 				}
 			}
-			
+
+			// Write the AES Authentication Code (a hash of the compressed and encrypted data)
+			if (curEntry.AESKeySize > 0) {
+				baseOutputStream_.Write(AESAuthCode, 0, 10);
+			}
+
 			if (curEntry.Size < 0) {
 				curEntry.Size = size;
 			} else if (curEntry.Size != size) {
@@ -478,12 +511,17 @@ namespace ICSharpCode.SharpZipLib.Zip
 			
 			offset += csize;
 
-			if (curEntry.IsCrypted == true) {
-				curEntry.CompressedSize += ZipConstants.CryptoHeaderSize;
+			if (curEntry.IsCrypted) {
+				if (curEntry.AESKeySize > 0) {
+					curEntry.CompressedSize += curEntry.AESOverheadSize;
+					
+				} else {
+					curEntry.CompressedSize += ZipConstants.CryptoHeaderSize;
+				}
 			}
 				
 			// Patch the header if possible
-			if (patchEntryHeader == true) {
+			if (patchEntryHeader) {
 				patchEntryHeader = false;
 
 				long curPos = baseOutputStream_.Position;
@@ -542,7 +580,46 @@ namespace ICSharpCode.SharpZipLib.Zip
 			EncryptBlock(cryptBuffer, 0, cryptBuffer.Length);
 			baseOutputStream_.Write(cryptBuffer, 0, cryptBuffer.Length);
 		}
-		
+
+#if !NET_1_1 && !NETCF_2_0
+		private static void AddExtraDataAES(ZipEntry entry, ZipExtraData extraData) {
+
+			// Vendor Version: AE-1 IS 1. AE-2 is 2. With AE-2 no CRC is required and 0 is stored.
+			const int VENDOR_VERSION = 2;
+			// Vendor ID is the two ASCII characters "AE".
+			const int VENDOR_ID = 0x4541; //not 6965;
+			extraData.StartNewEntry();
+			// Pack AES extra data field see http://www.winzip.com/aes_info.htm
+			//extraData.AddLeShort(7);							// Data size (currently 7)
+			extraData.AddLeShort(VENDOR_VERSION);				// 2 = AE-2
+			extraData.AddLeShort(VENDOR_ID);					// "AE"
+			extraData.AddData(entry.AESEncryptionStrength);		//  1 = 128, 2 = 192, 3 = 256
+			extraData.AddLeShort((int)entry.CompressionMethod); // The actual compression method used to compress the file
+			extraData.AddNewEntry(0x9901);
+		}
+
+		// Replaces WriteEncryptionHeader for AES
+		//
+		private void WriteAESHeader(ZipEntry entry) {
+			byte[] salt;
+			byte[] pwdVerifier;
+			InitializeAESPassword(entry, Password, out salt, out pwdVerifier);
+			// File format for AES:
+			// Size (bytes)   Content
+			// ------------   -------
+			// Variable       Salt value
+			// 2              Password verification value
+			// Variable       Encrypted file data
+			// 10             Authentication code
+			//
+			// Value in the "compressed size" fields of the local file header and the central directory entry
+			// is the total size of all the items listed above. In other words, it is the total size of the
+			// salt value, password verification value, encrypted data, and authentication code.
+			baseOutputStream_.Write(salt, 0, salt.Length);
+			baseOutputStream_.Write(pwdVerifier, 0, pwdVerifier.Length);
+		}
+#endif
+
 		/// <summary>
 		/// Writes the given buffer to the current entry.
 		/// </summary>
@@ -646,7 +723,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 				WriteLeShort(ZipConstants.VersionMadeBy);
 				WriteLeShort(entry.Version);
 				WriteLeShort(entry.Flags);
-				WriteLeShort((short)entry.CompressionMethod);
+				WriteLeShort((short)entry.CompressionMethodForHeader);
 				WriteLeInt((int)entry.DosTime);
 				WriteLeInt((int)entry.Crc);
 
@@ -701,6 +778,11 @@ namespace ICSharpCode.SharpZipLib.Zip
 					ed.Delete(1);
 				}
 
+#if !NET_1_1 && !NETCF_2_0
+				if (entry.AESKeySize > 0) {
+					AddExtraDataAES(entry, ed);
+				}
+#endif
 				byte[] extra = ed.GetEntryData();
 				
 				byte[] entryComment = 
