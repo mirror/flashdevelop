@@ -19,7 +19,7 @@ namespace ProjectManager.Building.Haxe
         {
             this.project = project;
 
-            string basePath = compilerPath ?? @"C:\Program Files\Motion-Twin\haxe"; // default installation
+            string basePath = compilerPath ?? @"C:\Motion-Twin\haxe"; // default installation
             haxePath = Path.Combine(basePath, "haxe.exe");
             if (!File.Exists(haxePath)) 
                 haxePath = "haxe.exe"; // hope you have it in your environment path!
@@ -63,7 +63,7 @@ namespace ProjectManager.Building.Haxe
 
             string haxeArgs = String.Join(" ", project.BuildHXML(extraClasspaths, output, noTrace));
             
-            string serverPort = Environment.ExpandEnvironmentVariables("%FDBUILD_HAXE_PORT%");
+            string serverPort = Environment.ExpandEnvironmentVariables("%HAXE_SERVER_PORT%");
             if (!serverPort.StartsWith("%") && serverPort != "0")
                 haxeArgs += " --connect " + serverPort;
             

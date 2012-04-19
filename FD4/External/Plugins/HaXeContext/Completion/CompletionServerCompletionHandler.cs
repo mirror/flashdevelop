@@ -25,7 +25,7 @@ namespace HaXeContext
             this.haxeProcess = haxeProcess;
             this.port = port;
             //haxeProcess.Start(); // deferred to first use
-            Environment.SetEnvironmentVariable("FDBUILD_HAXE_PORT", ""+port);
+            Environment.SetEnvironmentVariable("HAXE_SERVER_PORT", "" + port);
         }
 
         public bool IsRunning()
