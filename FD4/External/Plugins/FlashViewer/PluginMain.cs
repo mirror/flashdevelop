@@ -177,7 +177,9 @@ namespace FlashViewer
             {
                 String playerPath11 = Path.Combine(PathHelper.ToolDir, @"flexlibs\runtimes\player\11.0\win\FlashPlayerDebugger.exe");
                 String playerPath111 = Path.Combine(PathHelper.ToolDir, @"flexlibs\runtimes\player\11.1\win\FlashPlayerDebugger.exe");
-                if (File.Exists(playerPath111)) this.settingObject.PlayerPath = playerPath111;
+                String playerPath112 = Path.Combine(PathHelper.ToolDir, @"flexlibs\runtimes\player\11.2\win\FlashPlayerDebugger.exe");
+                if (File.Exists(playerPath112)) this.settingObject.PlayerPath = playerPath112;
+                else if (File.Exists(playerPath111)) this.settingObject.PlayerPath = playerPath111;
                 else if (File.Exists(playerPath11)) this.settingObject.PlayerPath = playerPath11;
             }
             // Try to find player path from: Tools/flexsdk/
