@@ -333,6 +333,8 @@ namespace ASCompletion.Model
 				if ((method.Flags & FlagType.Function) > 0 && (method.Flags & FlagType.Variable) == 0 && (method.Flags & FlagType.Getter) == 0)
                 {
                     decl = MemberDeclaration(method, preventVis);
+                    if (InFile.haXe && (method.Flags & FlagType.Constructor) > 0)
+                        decl = decl.Replace("function " + method.Name, "function new");
                     sb.Append(nl).Append(CommentDeclaration(method.Comments, tab));
                     sb.Append(tab).Append(decl).Append(semi).Append(nl);
                 }

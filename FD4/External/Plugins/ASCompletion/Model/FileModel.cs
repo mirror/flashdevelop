@@ -56,6 +56,8 @@ namespace ASCompletion.Model
                     Params.Add("name", mParams.Groups[1].Value);
                     Params.Add(mParams.Groups[2].Value, mParams.Groups[3].Value);
                 }
+                else if (Kind == ASMetaKind.Event) // invalid Event
+                    Kind = ASMetaKind.Unknown;
             }
         }
 

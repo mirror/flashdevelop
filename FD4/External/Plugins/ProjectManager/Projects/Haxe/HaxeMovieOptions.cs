@@ -47,9 +47,9 @@ namespace ProjectManager.Projects.Haxe
         {
             switch (platform)
             {
-                case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5", "2.6", "2.7", "3.0", "3.1", "3.2" };
-                case AIR_MOBILE_PLATFORM: return new string[] { "2.5", "2.6", "2.7", "3.0" };
-                case FLASHPLAYER_PLATFORM: return new string[] { "6.0", "7.0", "8.0", "9.0", "10.0", "10.1", "10.2", "10.3", "11.0", "11.1", "11.2" };
+                case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5", "2.6", "2.7", "3.0", "3.1", "3.2", "3.3" };
+                case AIR_MOBILE_PLATFORM: return new string[] { "2.5", "2.6", "2.7", "3.0", "3.1", "3.2", "3.3" };
+                case FLASHPLAYER_PLATFORM: return new string[] { "6.0", "7.0", "8.0", "9.0", "10.0", "10.1", "10.2", "10.3", "11.0", "11.1", "11.2", "11.3" };
                 case NME_PLATFORM: return new string[] { "3.0" };
                 default: return new string[] { "1.0" };
             }
@@ -59,8 +59,8 @@ namespace ProjectManager.Projects.Haxe
         {
             switch (platform)
             {
-                case AIR_PLATFORM: return "2.7";
-                case AIR_MOBILE_PLATFORM: return "2.7";
+                case AIR_PLATFORM: return "3.2";
+                case AIR_MOBILE_PLATFORM: return "3.2";
                 case FLASHPLAYER_PLATFORM: return "10.1";
                 case NME_PLATFORM: return "3.0";
                 default: return "1.0";

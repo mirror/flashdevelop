@@ -32,9 +32,9 @@ namespace ProjectManager.Projects.AS3
             switch (platform)
             {
                 case CUSTOM_PLATFORM: return new string[] { "0.0" };
-                case AIR_MOBILE_PLATFORM: return new string[] { "2.5", "2.6", "2.7", "3.0", "3.1", "3.2" };
-                case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5", "2.6", "2.7", "3.0", "3.1", "3.2" };
-                default: return new string[] { "9.0", "10.0", "10.1", "10.2", "10.3", "11.0", "11.1", "11.2" };
+                case AIR_MOBILE_PLATFORM: return new string[] { "2.5", "2.6", "2.7", "3.0", "3.1", "3.2", "3.3" };
+                case AIR_PLATFORM: return new string[] { "1.5", "2.0", "2.5", "2.6", "2.7", "3.0", "3.1", "3.2", "3.3" };
+                default: return new string[] { "9.0", "10.0", "10.1", "10.2", "10.3", "11.0", "11.1", "11.2", "11.3" };
             }
         }
 
@@ -43,8 +43,8 @@ namespace ProjectManager.Projects.AS3
             switch (platform)
             {
                 case CUSTOM_PLATFORM: return "0.0";
-                case AIR_PLATFORM: return "2.7";
-                case AIR_MOBILE_PLATFORM: return "2.7";
+                case AIR_PLATFORM: return "3.2";
+                case AIR_MOBILE_PLATFORM: return "3.2";
                 default: return "10.1";
             }
         }

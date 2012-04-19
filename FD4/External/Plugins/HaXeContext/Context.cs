@@ -469,7 +469,7 @@ namespace HaXeContext
                     // (you don't import classes defined in modules but the module itself)
                     if (needModule)
                     {
-                        item = new MemberModel(qmodule, qmodule, FlagType.Class, Visibility.Public);
+                        item = new MemberModel(qmodule, qmodule, FlagType.Class | FlagType.Module, Visibility.Public);
                         fullList.Add(item);
                     }
                     return true;
@@ -482,7 +482,13 @@ namespace HaXeContext
             {
                 if ((import.Flags & mask) > 0)
                 {
-                    fullList.Add(import);
+                    /*if (import is ClassModel)
+                    {
+                        MemberModel cmodel = (import as ClassModel).ToMemberModel();
+                        cmodel.Name = cmodel.Type;
+                        fullList.Add(cmodel);
+                    }
+                    else*/ fullList.Add(import);
                 }
             }
 

@@ -67,8 +67,9 @@ namespace HaXeContext
             }
         }
 
-        private void StartServer()
+        public void StartServer()
         {
+            if (IsRunning()) return;
             haxeProcess.Start();
             if (!listening)
             {

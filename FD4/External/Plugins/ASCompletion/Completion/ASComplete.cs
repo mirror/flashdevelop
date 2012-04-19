@@ -2116,7 +2116,11 @@ namespace ASCompletion.Completion
                 if ((member.Flags & mask) == 0 || prev == member.Name) 
                     if (!showClassVars || member.Type != "Class") continue;
                 prev = member.Name;
-                list.Add(new MemberItem(member));
+                var item = new MemberItem(member);
+                if (item.Label.EndsWith("BitmapData"))
+                {
+                }
+                list.Add(item);
             }
 
             CompletionList.Show(list, false, tail);
