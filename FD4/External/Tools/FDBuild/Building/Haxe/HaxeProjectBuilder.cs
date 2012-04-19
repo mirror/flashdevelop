@@ -62,6 +62,11 @@ namespace ProjectManager.Building.Haxe
             }
 
             string haxeArgs = String.Join(" ", project.BuildHXML(extraClasspaths, output, noTrace));
+            
+            string serverPort = Environment.ExpandEnvironmentVariables("%FDBUILD_HAXE_PORT%");
+            if (!serverPort.StartsWith("%") && serverPort != "0")
+                haxeArgs += " --connect " + serverPort;
+            
             Console.WriteLine("haxe " + haxeArgs);
 
             if (!ProcessRunner.Run(haxePath, haxeArgs, false))

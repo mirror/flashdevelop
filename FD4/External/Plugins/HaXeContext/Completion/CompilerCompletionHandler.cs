@@ -10,6 +10,7 @@ namespace HaXeContext
         public CompilerCompletionHandler(Process haxeProcess)
         {
             this.haxeProcess = haxeProcess;
+            Environment.SetEnvironmentVariable("FDBUILD_HAXE_PORT", "0");
         }
 
         public string[] GetCompletion(string[] args)
