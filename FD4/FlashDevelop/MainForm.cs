@@ -487,7 +487,7 @@ namespace FlashDevelop
         /// <summary>
         /// Gets the version of the operating system
         /// </summary>
-        public new Version OSVersion
+        public Version OSVersion
         {
             get { return Environment.OSVersion.Version; }
         }
@@ -1795,6 +1795,8 @@ namespace FlashDevelop
                 Encoding encoding = Encoding.GetEncoding((Int32)this.appSettings.DefaultCodePage);
                 String fileName = DocumentManager.GetNewDocumentName(args[0]);
                 String contents = FileHelper.ReadFile(args[1], encoding);
+                String lineEndChar = LineEndDetector.GetNewLineMarker((int)Settings.EOLMode);
+                contents = Regex.Replace(contents, @"\r\n?|\n", lineEndChar);
                 String processed = this.ProcessArgString(contents);
                 ActionPoint actionPoint = SnippetHelper.ProcessActionPoint(processed);
                 if (this.Documents.Length == 1 && this.Documents[0].IsUntitled)
@@ -1827,6 +1829,8 @@ namespace FlashDevelop
                 Encoding encoding = Encoding.GetEncoding((Int32)this.appSettings.DefaultCodePage);
                 String contents = FileHelper.ReadFile(templatePath);
                 String processed = this.ProcessArgString(contents);
+                String lineEndChar = LineEndDetector.GetNewLineMarker((int)Settings.EOLMode);
+                processed = Regex.Replace(processed, @"\r\n?|\n", lineEndChar);
                 ActionPoint actionPoint = SnippetHelper.ProcessActionPoint(processed);
                 FileHelper.WriteFile(newFilePath, actionPoint.Text, encoding, Globals.Settings.SaveUnicodeWithBOM);
                 if (actionPoint.EntryPosition != -1)

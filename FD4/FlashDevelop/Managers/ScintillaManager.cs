@@ -320,8 +320,8 @@ namespace FlashDevelop.Managers
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, ScintillaNet.Enums.MarkerSymbol.BoxPlusConnected);
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, ScintillaNet.Enums.MarkerSymbol.BoxMinusConnected);
             sci.MarkerDefine((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, ScintillaNet.Enums.MarkerSymbol.TCorner);
-            sci.SetXCaretPolicy((Int32)(ScintillaNet.Enums.CaretPolicy.Slop | ScintillaNet.Enums.CaretPolicy.Even), 30);
-            sci.SetYCaretPolicy((Int32)(ScintillaNet.Enums.CaretPolicy.Slop | ScintillaNet.Enums.CaretPolicy.Even), 2);
+            sci.SetXCaretPolicy((Int32)(ScintillaNet.Enums.CaretPolicy.Jumps | ScintillaNet.Enums.CaretPolicy.Even), 30);
+            sci.SetYCaretPolicy((Int32)(ScintillaNet.Enums.CaretPolicy.Jumps | ScintillaNet.Enums.CaretPolicy.Even), 2);
             sci.ScrollWidthTracking = (Globals.Settings.ScrollWidth == 3000);
             sci.CodePage = SelectCodePage(codepage);
             sci.Encoding = Encoding.GetEncoding(codepage);
