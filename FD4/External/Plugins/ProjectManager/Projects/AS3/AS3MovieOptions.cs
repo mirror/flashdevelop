@@ -73,7 +73,7 @@ namespace ProjectManager.Projects.AS3
             if (Platform != FLASHPLAYER_PLATFORM) return null;
             int index = Array.IndexOf(TargetVersions(FLASHPLAYER_PLATFORM), Version);
             if (index < 0) return null;
-            string[] versions = new string[] { "9", "10", "10", "11", "12", "13", "14", "15" };
+            string[] versions = new string[] { "9", "10", "10", "11", "12", "13", "14", "15", "16" };
             return versions[index];
         }
     }
