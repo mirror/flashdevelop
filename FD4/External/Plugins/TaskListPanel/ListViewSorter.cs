@@ -27,10 +27,22 @@ namespace TaskListPanel
             Int32 compareResult;
             ListViewItem listviewX = (ListViewItem)x;
             ListViewItem listviewY = (ListViewItem)y;
-            compareResult = Comparer.Compare(listviewX.SubItems[this.ColumnToSort].Text, listviewY.SubItems[this.ColumnToSort].Text);
-            if (this.OrderOfSort == SortOrder.Ascending) return compareResult;
-            else if (this.OrderOfSort == SortOrder.Descending) return (-compareResult);
-            else return 0;
+            if (this.ColumnToSort == 1)
+            {
+                Int32 xVal = Int32.Parse(listviewX.SubItems[1].Text);
+                Int32 yVal = Int32.Parse(listviewY.SubItems[1].Text);
+                compareResult = xVal.CompareTo(yVal);
+                if (this.OrderOfSort == SortOrder.Ascending) return compareResult;
+                else if (this.OrderOfSort == SortOrder.Descending) return (-compareResult);
+                else return 0;
+            }
+            else
+            {
+                compareResult = Comparer.Compare(listviewX.SubItems[this.ColumnToSort].Text, listviewY.SubItems[this.ColumnToSort].Text);
+                if (this.OrderOfSort == SortOrder.Ascending) return compareResult;
+                else if (this.OrderOfSort == SortOrder.Descending) return (-compareResult);
+                else return 0;
+            }
         }
 
         /// <summary>
