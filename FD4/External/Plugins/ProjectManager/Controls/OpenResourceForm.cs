@@ -66,12 +66,12 @@ namespace ProjectManager.Controls
             this.textBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyDown);
             // 
             // refreshButton
-            // 
-            this.refreshButton.Location = new System.Drawing.Point(464, 24);
+            //
+            this.refreshButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshButton.Location = new System.Drawing.Point(465, 23);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(26, 22);
+            this.refreshButton.Size = new System.Drawing.Size(26, 24);
             this.refreshButton.TabIndex = 2;
-            this.refreshButton.UseVisualStyleBackColor = true;
             // 
             // listBox
             // 
