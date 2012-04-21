@@ -117,18 +117,25 @@ namespace HaXeContext
             {
                 case EventType.Command:
                     DataEvent de = e as DataEvent;
-                    if (de != null && de.Action == "ProjectManager.RunCustomCommand")
+                    if (de == null) return;
+                    if (de.Action == "ProjectManager.RunCustomCommand")
                     {
-                        if ((contextInstance as Context).IsNmeTarget)
+                        if (contextInstance.IsNmeTarget)
                         {
-                            e.Handled = (contextInstance as Context).NmeRun(de.Data as string);
+                            e.Handled = contextInstance.NmeRun(de.Data as string);
                         }
+                    }
+                    else if (de.Action == "ProjectManager.BuildingProject" || de.Action == "ProjectManager.TestingProject")
+                    {
+                        var completionHandler = contextInstance.completionModeHandler as CompletionServerCompletionHandler;
+                        if (completionHandler != null && !completionHandler.IsRunning())
+                            completionHandler.StartServer();
                     }
                     break;
 
                 case EventType.UIStarted:
-                    contextInstance = new Context(settingObject);
                     ValidateSettings();
+                    contextInstance = new Context(settingObject);
                     // Associate this context with haXe language
                     ASCompletion.Context.ASContext.RegisterLanguage(contextInstance, "haxe");
                     break;

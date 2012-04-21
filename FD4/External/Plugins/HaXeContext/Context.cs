@@ -113,7 +113,7 @@ namespace HaXeContext
 
             settings = initSettings;
 
-            currentSDK = PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path);
+            currentSDK = PathHelper.ResolvePath(hxsettings.GetDefaultSDK().Path) ?? "";
             initSettings.CompletionModeChanged += OnCompletionModeChange;
             OnCompletionModeChange();
 
@@ -729,7 +729,7 @@ namespace HaXeContext
 
         #region Custom code completion
 
-        private IHaxeCompletionHandler completionModeHandler;
+        internal IHaxeCompletionHandler completionModeHandler;
 
         /// <summary>
         /// Checks completion mode changes to start/restart/stop the haXe completion server if needed.
@@ -780,7 +780,7 @@ namespace HaXeContext
         private Process createHaxeProcess(string args)
         {
             // compiler path
-            var hxPath = currentSDK; 
+            var hxPath = currentSDK ?? ""; 
             var process = Path.Combine(hxPath, "haxe.exe");
             if (!File.Exists(process))
             {
