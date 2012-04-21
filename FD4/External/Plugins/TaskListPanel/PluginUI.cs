@@ -21,10 +21,7 @@ using System.Threading;
 namespace TaskListPanel
 {
     public class PluginUI : DockPanelControl, IEventHandler
-    {
-        static private Regex reClean = new Regex(@"(\*)?\*/.*", RegexOptions.Compiled);
-            
-        private System.Windows.Forms.Timer parseTimer;
+    {  
         private Int32 totalFiles;
         private Int32 currentPos;
         private List<String> groups;
@@ -35,6 +32,7 @@ namespace TaskListPanel
         private Regex todoParser = null;
         private Boolean isEnabled = false;
         private Boolean refreshEnabled = false;
+        private System.Windows.Forms.Timer parseTimer;
         private Boolean firstExecutionCompleted = false;
         private Dictionary<String, DateTime> filesCache;
         private ContextMenuStrip contextMenu;
@@ -48,8 +46,11 @@ namespace TaskListPanel
         private ColumnHeader columnText;
         private ColumnHeader columnName;
         private ColumnHeader columnPath;
-        private ListView listView;
         private BackgroundWorker bgWork;
+        private ListView listView;
+
+        // Regex
+        static private Regex reClean = new Regex(@"(\*)?\*/.*", RegexOptions.Compiled);
 
         public PluginUI(PluginMain pluginMain)
         {
@@ -86,11 +87,6 @@ namespace TaskListPanel
             this.parseTimer.Tick += delegate { this.ParseNextFile(); };
             this.parseTimer.Enabled = false;
             this.parseTimer.Tag = null;
-        }
-
-        private Regex BuildRegex(String pattern)
-        {
-            return new Regex(@"(//|\*)[\t ]*(" + pattern + @")[:\t ]+(.*)", RegexOptions.Multiline);
         }
 
         #region Windows Forms Designer Generated Code
@@ -199,6 +195,14 @@ namespace TaskListPanel
         #region Methods And Event Handlers
 
         /// <summary>
+        /// 
+        /// </summary>
+        private Regex BuildRegex(String pattern)
+        {
+            return new Regex(@"(//|\*)[\t ]*(" + pattern + @")[:\t ]+(.*)", RegexOptions.Multiline);
+        }
+
+        /// <summary>
         /// Initialises the list view's context menu
         /// </summary>
         private void InitializeContextMenu()
@@ -284,7 +288,6 @@ namespace TaskListPanel
         private List<String> GetFiles(String path, ExplorationContext context)
         {
             List<String> files = new List<String>();
-
             foreach (String extension in this.extensions)
             {
                 String[] allFiles = Directory.GetFiles(path, "*" + extension);
@@ -303,12 +306,12 @@ namespace TaskListPanel
             // in depth
             foreach (String dir in Directory.GetDirectories(path))
             {
-                if (context.Worker.CancellationPending)
-                    return new List<string>();
+                if (context.Worker.CancellationPending) return new List<string>();
                 Thread.Sleep(5);
-
-                if (this.shouldBeScanned(dir, context.ExcludedPaths)) 
+                if (this.ShouldBeScanned(dir, context.ExcludedPaths))
+                {
                     files.AddRange(GetFiles(dir, context));
+                }
             }
             return files;
         }
@@ -321,15 +324,15 @@ namespace TaskListPanel
             List<String> files = new List<String>();
             foreach (String path in context.Directories)
             {
-                if (context.Worker.CancellationPending)
-                    return new List<string>();
+                if (context.Worker.CancellationPending) return new List<string>();
                 Thread.Sleep(5);
-
                 try
                 {
                     String projDir = PluginBase.CurrentProject.GetAbsolutePath(path);
-                    if (this.shouldBeScanned(projDir, context.ExcludedPaths))
+                    if (this.ShouldBeScanned(projDir, context.ExcludedPaths))
+                    {
                         files.AddRange(this.GetFiles(projDir, context));
+                    }
                 }
                 catch {}
             }
@@ -339,14 +342,13 @@ namespace TaskListPanel
         /// <summary>
         /// Checks if the path should be scanned for tasks
         /// </summary>
-        private Boolean shouldBeScanned(String path, string[] excludedPaths)
+        private Boolean ShouldBeScanned(String path, string[] excludedPaths)
         {
             String name = Path.GetFileName(path);
             if ("._- ".IndexOf(name[0]) >= 0) return false;
             foreach (String exclude in excludedPaths)
             {
-                if (!Directory.Exists(path) || path.StartsWith(exclude, StringComparison.OrdinalIgnoreCase))
-                    return false;
+                if (!Directory.Exists(path) || path.StartsWith(exclude, StringComparison.OrdinalIgnoreCase)) return false;
             }
             return true;
         }
@@ -377,17 +379,13 @@ namespace TaskListPanel
         {
             this.currentPos = -1;
             this.currentFileName = null;
-
             if (this.isEnabled && PluginBase.CurrentProject != null)
             {
                 this.RefreshEnabled = false;
-
                 // stop current exploration
                 if (this.parseTimer.Enabled) this.parseTimer.Stop();
                 this.parseTimer.Tag = null;
-                if (bgWork != null && bgWork.IsBusy)
-                    bgWork.CancelAsync();
-                
+                if (bgWork != null && bgWork.IsBusy) bgWork.CancelAsync();
                 // context
                 ExplorationContext context = new ExplorationContext();
                 Settings settings = (Settings)this.pluginMain.Settings;
@@ -395,8 +393,9 @@ namespace TaskListPanel
                 context.Directories = (string[])PluginBase.CurrentProject.SourcePaths.Clone();
                 context.HiddenPaths = PluginBase.CurrentProject.GetHiddenPaths();
                 for (int i = 0; i < context.HiddenPaths.Length; i++)
+                {
                     context.HiddenPaths[i] = PluginBase.CurrentProject.GetAbsolutePath(context.HiddenPaths[i]);
-
+                }
                 // run background
                 bgWork = new BackgroundWorker();
                 context.Worker = bgWork;
@@ -404,16 +403,17 @@ namespace TaskListPanel
                 bgWork.DoWork += new DoWorkEventHandler(bgWork_DoWork);
                 bgWork.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWork_RunWorkerCompleted);
                 bgWork.RunWorkerAsync(context);
-                
                 String message = TextHelper.GetString("Info.Refreshing");
                 this.toolStripLabel.Text = message;
             }
         }
 
-        void bgWork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void bgWork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled) return;
-
             ExplorationContext context = e.Result as ExplorationContext;
             this.parseTimer.Tag = context;
             this.parseTimer.Interval = 2000;
@@ -423,12 +423,14 @@ namespace TaskListPanel
             this.processedFiles = 0;
         }
 
-        void bgWork_DoWork(object sender, DoWorkEventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void bgWork_DoWork(object sender, DoWorkEventArgs e)
         {
             ExplorationContext context = e.Argument as ExplorationContext;
             context.Files = this.GetFiles(context);
-            if (context.Worker.CancellationPending) 
-                e.Cancel = true;
+            if (context.Worker.CancellationPending) e.Cancel = true;
             else e.Result = context;
         }
 
@@ -535,6 +537,9 @@ namespace TaskListPanel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private string CleanMatch(string value)
         {
             return reClean.Replace(value, "").Trim();
@@ -804,6 +809,9 @@ namespace TaskListPanel
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     class ExplorationContext
     {
         public int Status = 0;
@@ -813,4 +821,5 @@ namespace TaskListPanel
         public string[] ExcludedPaths;
         public string[] HiddenPaths;
     }
+
 }
