@@ -1413,7 +1413,7 @@ namespace ASCompletion.Completion
             // Expression before cursor
             expr.LocalVars = ParseLocalVars(expr);
             result = EvalExpression(expr.Value, expr, aFile, aClass, true, true);
-            if (result.IsNull())
+            if (result.IsNull() || (result.Member != null && (result.Member.Flags & FlagType.Function) == 0))
             {
                 // custom completion
                 MemberModel customMethod = ctx.ResolveFunctionContext(Sci, expr, autoHide);
@@ -3174,14 +3174,7 @@ namespace ASCompletion.Completion
                 model = ASContext.Context.GetCodeModel(expression.FunctionBody);
                 foreach (MemberModel member in model.Members)
                 {
-					if (cm.Name == member.Name
-						&& cm.Namespace == member.Namespace
-						&& cm.Type == member.Type
-						&& cm.Flags == member.Flags
-						&& cm.Access == member.Access)
-					{
-						continue;
-					}
+					if (cm.Equals(member)) continue;
 
                     member.Flags |= FlagType.LocalVar;
                     member.LineFrom += expression.FunctionOffset;

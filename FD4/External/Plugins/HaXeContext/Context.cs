@@ -518,9 +518,14 @@ namespace HaXeContext
                 }
                 // HX files are "modules": when imported all the classes contained are available
                 string fileName = item.Type.Replace(".", dirSeparator) + ".hx";
-                
-                if (fileName.StartsWith("flash" + dirSeparator) && (!IsFlashTarget || majorVersion > 8)) // flash9 remap
-                    fileName = "flash9" + fileName.Substring(5);
+
+                if (fileName.StartsWith("flash" + dirSeparator))
+                {
+                    if (!IsFlashTarget || majorVersion > 8) // flash9 remap
+                        fileName = FLASH_NEW + fileName.Substring(5);
+                    else
+                        fileName = FLASH_OLD + fileName.Substring(5);
+                }
 
                 foreach (PathModel aPath in classPath) 
                     if (aPath.IsValid && !aPath.Updating)
@@ -1306,7 +1311,11 @@ namespace HaXeContext
 
             if (String.IsNullOrEmpty(config)) config = "flash";
             else if (config.IndexOf("android") >= 0) CheckADB();
-            if (project.TraceEnabled) config += " -debug";
+
+            if (project.TraceEnabled)
+            {
+                config += " -debug -Dfdb";
+            }
 
             if (config.StartsWith("flash") && config.IndexOf("-DSWF_PLAYER") < 0)
                 config += GetSwfPlayer();
