@@ -798,6 +798,7 @@ namespace HaXeContext
             proc.StartInfo.FileName = process;
             proc.StartInfo.Arguments = args;
             proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
             proc.StartInfo.RedirectStandardError = true;
             proc.StartInfo.CreateNoWindow = true;
             proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -1296,62 +1297,6 @@ namespace HaXeContext
             // run
             RunCMD(command);
             return true;
-        }
-
-        public bool NmeRun(string config)
-        {
-            HaxeProject project = PluginBase.CurrentProject as HaxeProject;
-            if (project == null || project.OutputType != OutputType.Application) 
-                return false;
-
-            string compiler = project.CurrentSDK;
-            if (compiler == null) compiler = "haxelib";
-            else if (Directory.Exists(compiler)) compiler = Path.Combine(compiler, "haxelib.exe");
-            else compiler = compiler.Replace("haxe.exe", "haxelib.exe");
-
-            if (String.IsNullOrEmpty(config)) config = "flash";
-            else if (config.IndexOf("android") >= 0) CheckADB();
-
-            if (project.TraceEnabled)
-            {
-                config += " -debug -Dfdb";
-            }
-
-            if (config.StartsWith("flash") && config.IndexOf("-DSWF_PLAYER") < 0)
-                config += GetSwfPlayer();
-            
-            string args = "run nme run \"" + project.OutputPathAbsolute + "\" " + config;
-            string oldWD = MainForm.WorkingDirectory;
-            MainForm.WorkingDirectory = project.Directory;
-            MainForm.CallCommand("RunProcessCaptured", compiler + ";" + args);
-            MainForm.WorkingDirectory = oldWD;
-            return true;
-        }
-
-        private void CheckADB()
-        {
-            if (Process.GetProcessesByName("adb").Length > 0) 
-                return;
-
-            string adb = Environment.ExpandEnvironmentVariables("%ANDROID_SDK%/platform-tools");
-            if (adb.StartsWith("%") || !Directory.Exists(adb)) 
-                adb = Path.Combine(PathHelper.ToolDir, "android/platform-tools");
-            if (Directory.Exists(adb)) 
-            {
-                adb = Path.Combine(adb, "adb.exe");
-                ProcessStartInfo p = new ProcessStartInfo(adb, "get-state");
-                p.UseShellExecute = true;
-                p.WindowStyle = ProcessWindowStyle.Hidden;
-                Process.Start(p);
-            }
-        }
-
-        private string GetSwfPlayer()
-        {
-            DataEvent de = new DataEvent(EventType.Command, "FlashViewer.GetFlashPlayer", null);
-            EventManager.DispatchEvent(this, de);
-            if (de.Handled && !String.IsNullOrEmpty((string)de.Data)) return " -DSWF_PLAYER=\"" + de.Data + "\"";
-            else return "";
         }
         #endregion
 

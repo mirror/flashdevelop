@@ -121,15 +121,17 @@ namespace HaXeContext
                     if (de.Action == "ProjectManager.RunCustomCommand")
                     {
                         if (contextInstance.IsNmeTarget)
-                        {
-                            e.Handled = contextInstance.NmeRun(de.Data as string);
-                        }
+                            e.Handled = NMEHelper.Run(de.Data as string);
                     }
                     else if (de.Action == "ProjectManager.BuildingProject" || de.Action == "ProjectManager.TestingProject")
                     {
                         var completionHandler = contextInstance.completionModeHandler as CompletionServerCompletionHandler;
                         if (completionHandler != null && !completionHandler.IsRunning())
                             completionHandler.StartServer();
+                    }
+                    else if (de.Action == "ProjectManager.Project")
+                    {
+                        NMEHelper.Monitor(de.Data as IProject);
                     }
                     break;
 

@@ -75,9 +75,16 @@ namespace HaXeContext
             if (!listening)
             {
                 listening = true;
+                haxeProcess.BeginOutputReadLine();
                 haxeProcess.BeginErrorReadLine();
+                haxeProcess.OutputDataReceived += new DataReceivedEventHandler(haxeProcess_OutputDataReceived);
                 haxeProcess.ErrorDataReceived += new DataReceivedEventHandler(haxeProcess_ErrorDataReceived);
             }
+        }
+
+        void haxeProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            TraceManager.AddAsync(e.Data, 2);
         }
 
         void haxeProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
