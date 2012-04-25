@@ -17,6 +17,7 @@ namespace ASCompletion.Completion
         public bool hasImports;
         public bool hasImportsWildcard;
         public bool hasClasses;
+        public bool hasMultipleDefs;
         public bool hasExtends;
         public bool hasImplements;
         public bool hasInterfaces;
@@ -24,6 +25,7 @@ namespace ASCompletion.Completion
         public bool hasTypeDefs;
         public bool hasGenerics;
         public bool hasEcmaTyping;
+        public bool hasCArrays;
         public bool hasVars;
         public bool hasConsts;
         public bool hasMethods;

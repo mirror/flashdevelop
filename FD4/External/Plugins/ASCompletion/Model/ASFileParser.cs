@@ -1519,9 +1519,13 @@ namespace ASCompletion.Model
                         }
 
                         // metadata
-                        else if (!inValue && c1 == '[' && version == 3)
+                        else if (!inValue && c1 == '[')
                         {
-                            LookupMeta(ref ba, ref i);
+                            if (version == 3) LookupMeta(ref ba, ref i);
+                            else if (features.hasCArrays && curMember != null && curMember.Type != null)
+                            {
+                                if (ba[i] == ']') curMember.Type = "Array@" + curMember.Type;
+                            }
                         }
 
                         // haXe signatures: T -> T -> T

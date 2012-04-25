@@ -34,6 +34,8 @@ namespace AS2Context
             new Regex("^[a-z$_][a-z0-9$_]*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         static protected readonly Regex re_package =
             new Regex("^[a-z$_][a-z0-9$_.]*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        static protected readonly Regex re_lastDot =
+            new Regex("\\.[^<]", RegexOptions.RightToLeft | RegexOptions.Compiled);
         #endregion
 
         #region initialization
@@ -470,11 +472,11 @@ namespace AS2Context
                 return ResolveTypeIndex(cname, inFile);
 
             string package = "";
-            int p = cname.LastIndexOf('.');
-            if (p > 0 && p < cname.Length - 1 && cname[p + 1] != '<')
+            Match m = re_lastDot.Match(cname);
+            if (m.Success)
             {
-                package = cname.Substring(0, p);
-                cname = cname.Substring(p + 1);
+                package = cname.Substring(0, m.Index);
+                cname = cname.Substring(m.Index + 1);
             }
 
             // quick check in current file
@@ -497,30 +499,46 @@ namespace AS2Context
             {
                 foreach (MemberModel import in inFile.Imports)
                 {
-                    if (import.Name == "*" && import.Type.Length > 2)
-                    {
-                        // try wildcards
-                        string testPackage = import.Type.Substring(0, import.Type.Length - 2);
-                        if (settings.LazyClasspathExploration)
-                        {
-                            ClassModel testClass = GetModel(testPackage, cname, inPackage);
-                            if (!testClass.IsVoid()) return testClass;
-                        }
-                        else
-                        {
-                            FileModel pack = ResolvePackage(testPackage, false);
-                            if (pack == null) continue;
-                            MemberModel found = pack.Imports.Search(cname, 0, 0);
-                            if (found != null) return ResolveType(found.Type, null);
-                            //found = pack.Members.Search(cname, 0, 0);
-                            //if (found != null)
-                        }
-                    }
-                    else if (import.Name == cname)
+                    if (import.Name == cname)
                     {
                         if (import.Type.Length > import.Name.Length)
                             package = import.Type.Substring(0, import.Type.Length - cname.Length - 1);
                         break;
+                    }
+                    else if (features.hasImportsWildcard)
+                    {
+                        if (import.Name == "*" && import.Type.Length > 2)
+                        {
+                            // try wildcards
+                            string testPackage = import.Type.Substring(0, import.Type.Length - 2);
+                            if (settings.LazyClasspathExploration)
+                            {
+                                ClassModel testClass = GetModel(testPackage, cname, inPackage);
+                                if (!testClass.IsVoid()) return testClass;
+                            }
+                            else
+                            {
+                                FileModel pack = ResolvePackage(testPackage, false);
+                                if (pack == null) continue;
+                                MemberModel found = pack.Imports.Search(cname, 0, 0);
+                                if (found != null) return ResolveType(found.Type, null);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (settings.LazyClasspathExploration)
+                        {
+                            ClassModel testClass = GetModel(import.Type, cname, inPackage);
+                            if (!testClass.IsVoid()) return testClass;
+                        }
+                        else
+                        {
+                            FileModel pack = ResolvePackage(import.Type, false);
+                            if (pack == null) continue;
+                            MemberModel found = pack.Imports.Search(cname, 0, 0);
+                            if (found != null) return ResolveType(found.Type, null);
+                        }
                     }
                 }
             }
@@ -529,7 +547,7 @@ namespace AS2Context
             return GetModel(package, cname, inPackage);
         }
 
-        private ClassModel ResolveTypeIndex(string cname, FileModel inFile)
+        protected ClassModel ResolveTypeIndex(string cname, FileModel inFile)
         {
             int p = cname.IndexOf('@');
             if (p < 0) return ClassModel.VoidClass;
@@ -1123,7 +1141,7 @@ namespace AS2Context
                     MemberModel member;
                     foreach (ClassModel aClass in cFile.Classes)
                     {
-                        if (aClass.Access == Visibility.Private)
+                        if (features.hasMultipleDefs || aClass.Access == Visibility.Private)
                         {
                             member = aClass.ToMemberModel();
                             elements.Add(member);
