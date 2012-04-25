@@ -210,7 +210,7 @@ namespace BasicCompletion
             {
                 items.Sort();
                 String curWord = sci.GetWordFromPosition(sci.CurrentPos);
-                if (curWord != null && curWord.Length > 1) CompletionList.Show(items, false, curWord);
+                if (curWord != null && curWord.Length > 2) CompletionList.Show(items, false, curWord);
             }
         }
 
@@ -219,7 +219,7 @@ namespace BasicCompletion
         /// </summary>
         public void AddKeywords(String language)
         {
-            List<ICompletionListItem> keywords = new List<ICompletionListItem>();
+            List<String> keywords = new List<String>();
             Language lang = ScintillaControl.Configuration.GetLanguage(language);
             for (Int32 i = 0; i < lang.usekeywords.Length; i++)
             {
@@ -229,10 +229,29 @@ namespace BasicCompletion
                 {
                     String entry = Regex.Replace(kc.val, @"\t|\n|\r", "");
                     String[] words = entry.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
-                    for (Int32 j = 0; j < words.Length; j++) keywords.Add(new CompletionItem(words[j]));
+                    for (Int32 j = 0; j < words.Length; j++) keywords.Add(words[j]);
                 }
             }
-            this.keywordTable.Add(language, keywords);
+            keywords = this.RemoveDuplicates(keywords);
+            List<ICompletionListItem> items = new List<ICompletionListItem>();
+            for (Int32 k = 0; k < keywords.Count; k++)
+            {
+                if (!keywords[k].StartsWith("\x5E")) items.Add(new CompletionItem(keywords[k]));
+            }
+            this.keywordTable.Add(language, items);
+        }
+
+        /// <summary>
+        /// Removes duplicates from a list and returns a new one
+        /// </summary>
+        public List<String> RemoveDuplicates(List<String> input)
+        {
+            List<String> result = new List<String>();
+            foreach (String entry in input)
+            {
+                if (!result.Contains(entry)) result.Add(entry);
+            }
+            return result;
         }
 
         /// <summary>
