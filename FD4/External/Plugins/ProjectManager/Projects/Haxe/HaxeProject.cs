@@ -13,6 +13,8 @@ namespace ProjectManager.Projects.Haxe
         // hack : we cannot reference settings HaxeProject is also used by FDBuild
         public static bool saveHXML = false;
 
+        protected string[] rawHXML;
+
         public HaxeProject(string path)
             : base(path, new HaxeOptions())
         {
@@ -20,6 +22,7 @@ namespace ProjectManager.Projects.Haxe
         }
 
         public override string Language { get { return "haxe"; } }
+        public override bool ReadOnly { get { return false; } }
         public override bool HasLibraries { get { return OutputType == OutputType.Application && IsFlashOutput; } }
         public override bool RequireLibrary { get { return IsFlashOutput; } }
         public override string DefaultSearchFilter { get { return "*.hx"; } }
@@ -40,6 +43,12 @@ namespace ProjectManager.Projects.Haxe
                 string projectName = RemoveDiacritics(Name);
                 return Path.Combine("obj", projectName + "Resources.swf");
             }
+        }
+
+        public string[] RawHXML
+        {
+            get { return rawHXML; }
+            set { ParseHXML(value); }
         }
 
         public new HaxeOptions CompilerOptions { get { return (HaxeOptions)base.CompilerOptions; } }
@@ -152,73 +161,117 @@ namespace ProjectManager.Projects.Haxe
         {
             List<String> pr = new List<String>();
 
-            // class paths
-            List<String> classPaths = new List<String>();
-            foreach (string cp in paths)
-                classPaths.Add(cp);
-            foreach (string cp in this.Classpaths)
-                classPaths.Add(cp);
-            foreach (string cp in classPaths) {
-                String ccp = String.Join("/",cp.Split('\\'));
-                pr.Add("-cp " + Quote(ccp));
-            }
-
-            // libraries
-            foreach (string lib in CompilerOptions.Libraries)
-                if (lib.Length > 0) pr.Add("-lib " + lib);
-
-            // compilation mode
-            string mode = null;
-            if (IsFlashOutput) mode = "swf";
-            else if (IsJavacriptOutput) mode = "js";
-            else if (IsNekoOutput) mode = "neko";
-            else if (IsPhpOutput) mode = "php";
-            else if (IsCppOutput) mode = "cpp";
-            //else throw new SystemException("Unknown mode");
-
-            outfile = String.Join("/",outfile.Split('\\'));
-            pr.Add("-" + mode + " " + Quote(outfile));
-
-            // nme options
-            if (IsNmeOutput)
+            if (rawHXML != null)
             {
-                pr.Add("--remap flash:nme");
+                pr.AddRange(rawHXML);
             }
-
-            // flash options
-            if (IsFlashOutput)
+            else
             {
-                string htmlColor = this.MovieOptions.Background.Substring(1);
-
-                if( htmlColor.Length > 0 )
-                    htmlColor = ":" + htmlColor;
-
-                pr.Add("-swf-header " + string.Format("{0}:{1}:{2}{3}", MovieOptions.Width, MovieOptions.Height, MovieOptions.Fps, htmlColor));
-
-                if( !UsesInjection && LibraryAssets.Count > 0 )
-                    pr.Add("-swf-lib " + Quote(LibrarySWFPath));
-
-                if( CompilerOptions.FlashStrict )
-                    pr.Add("--flash-strict");
-
-                // convert Flash version to haxe supported parameter
-                string param = null;
-                int majorVersion = MovieOptions.MajorVersion;
-                int minorVersion = MovieOptions.MinorVersion;
-
-                if (MovieOptions.Platform == HaxeMovieOptions.AIR_PLATFORM 
-                    || MovieOptions.Platform == HaxeMovieOptions.AIR_MOBILE_PLATFORM)
-                    AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
-                if (movieOptions.Platform == "NME")
-                    HaxeProject.GuessFlashPlayerForNME(ref majorVersion, ref minorVersion);
-                
-                if (majorVersion >= 10)
+                // extra options
+                foreach (string opt in CompilerOptions.Additional)
                 {
-                    if (minorVersion > 0) param = majorVersion + "." + minorVersion;
-                    else param = "" + majorVersion;
+                    String p = opt.Trim();
+                    if (p == "" || p[0] == '#')
+                        continue;
+                    char[] space = { ' ' };
+                    string[] parts = p.Split(space, 2);
+                    if (parts.Length == 1)
+                        pr.Add(p);
+                    else
+                        pr.Add(parts[0] + ' ' + Quote(parts[1]));
                 }
-                else param = "" + majorVersion;
-                if (param != null) pr.Add("-swf-version " + param);
+
+                // class paths
+                List<String> classPaths = new List<String>();
+                foreach (string cp in paths)
+                    classPaths.Add(cp);
+                foreach (string cp in this.Classpaths)
+                    classPaths.Add(cp);
+                foreach (string cp in classPaths)
+                {
+                    String ccp = String.Join("/", cp.Split('\\'));
+                    pr.Add("-cp " + Quote(ccp));
+                }
+
+                // libraries
+                foreach (string lib in CompilerOptions.Libraries)
+                    if (lib.Length > 0) pr.Add("-lib " + lib);
+
+                // compilation mode
+                string mode = null;
+                if (IsFlashOutput) mode = "swf";
+                else if (IsJavacriptOutput) mode = "js";
+                else if (IsNekoOutput) mode = "neko";
+                else if (IsPhpOutput) mode = "php";
+                else if (IsCppOutput) mode = "cpp";
+                //else throw new SystemException("Unknown mode");
+
+                outfile = String.Join("/", outfile.Split('\\'));
+                pr.Add("-" + mode + " " + Quote(outfile));
+
+                // nme options
+                if (IsNmeOutput)
+                {
+                    pr.Add("--remap flash:nme");
+                }
+
+                // flash options
+                if (IsFlashOutput)
+                {
+                    string htmlColor = this.MovieOptions.Background.Substring(1);
+
+                    if (htmlColor.Length > 0)
+                        htmlColor = ":" + htmlColor;
+
+                    pr.Add("-swf-header " + string.Format("{0}:{1}:{2}{3}", MovieOptions.Width, MovieOptions.Height, MovieOptions.Fps, htmlColor));
+
+                    if (!UsesInjection && LibraryAssets.Count > 0)
+                        pr.Add("-swf-lib " + Quote(LibrarySWFPath));
+
+                    if (CompilerOptions.FlashStrict)
+                        pr.Add("--flash-strict");
+
+                    // convert Flash version to haxe supported parameter
+                    string param = null;
+                    int majorVersion = MovieOptions.MajorVersion;
+                    int minorVersion = MovieOptions.MinorVersion;
+
+                    if (MovieOptions.Platform == HaxeMovieOptions.AIR_PLATFORM
+                        || MovieOptions.Platform == HaxeMovieOptions.AIR_MOBILE_PLATFORM)
+                        AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
+                    if (movieOptions.Platform == "NME")
+                        HaxeProject.GuessFlashPlayerForNME(ref majorVersion, ref minorVersion);
+
+                    if (majorVersion >= 10)
+                    {
+                        if (minorVersion > 0) param = majorVersion + "." + minorVersion;
+                        else param = "" + majorVersion;
+                    }
+                    else param = "" + majorVersion;
+                    if (param != null) pr.Add("-swf-version " + param);
+                }
+
+                // defines
+                foreach (string def in CompilerOptions.Directives)
+                    pr.Add("-D " + Quote(def));
+
+                // add project files marked as "always compile"
+                foreach (string relTarget in CompileTargets)
+                {
+                    string absTarget = GetAbsolutePath(relTarget);
+                    // guess the class name from the file name
+                    foreach (string cp in classPaths)
+                        if (absTarget.StartsWith(cp, StringComparison.OrdinalIgnoreCase))
+                        {
+                            string className = GetClassName(absTarget, cp);
+                            if (CompilerOptions.MainClass != className)
+                                pr.Add(className);
+                        }
+                }
+
+                // add main class
+                if (CompilerOptions.MainClass != null && CompilerOptions.MainClass.Length > 0)
+                    pr.Add("-main " + CompilerOptions.MainClass);
             }
 
             // debug 
@@ -231,42 +284,6 @@ namespace ProjectManager.Projects.Haxe
                     pr.Add("-D fdb");
                 }
             }
-
-            // defines
-            foreach (string def in CompilerOptions.Directives)
-                pr.Add("-D "+Quote(def));
-
-            // add project files marked as "always compile"
-            foreach( string relTarget in CompileTargets )
-            {
-                string absTarget = GetAbsolutePath(relTarget);
-                // guess the class name from the file name
-                foreach (string cp in classPaths)
-                    if( absTarget.StartsWith(cp, StringComparison.OrdinalIgnoreCase) ) {
-                        string className = GetClassName(absTarget, cp);
-                        if( CompilerOptions.MainClass != className )
-                            pr.Add(className);
-                    }
-            }
-
-            // add main class
-            if( CompilerOptions.MainClass != null && CompilerOptions.MainClass.Length > 0)
-                pr.Add("-main " + CompilerOptions.MainClass);
-
-
-            // extra options
-            foreach (string opt in CompilerOptions.Additional) {
-                String p = opt.Trim();                   
-                if( p == "" || p[0] == '#' )
-                    continue;    
-                char[] space = {' '};
-                string[] parts = p.Split(space, 2);
-                if (parts.Length == 1)
-                    pr.Add(p);
-                else
-                    pr.Add(parts[0] + ' ' + Quote(parts[1]));
-            }
-
             return pr.ToArray();
         }
 
@@ -288,6 +305,22 @@ namespace ProjectManager.Projects.Haxe
 
         public static HaxeProject Load(string path)
         {
+            string ext = Path.GetExtension(path).ToLower();
+            if (ext == ".hxml")
+            {
+                HaxeProject hxproj = new HaxeProject(path);
+                hxproj.RawHXML = File.ReadAllLines(path);
+                return hxproj;
+            }
+            else if (ext == ".nmml")
+            {
+                HaxeProject hxproj = new HaxeProject(path);
+                hxproj.MovieOptions.Platform = HaxeMovieOptions.NME_PLATFORM;
+                hxproj.OutputType = OutputType.Application;
+                hxproj.OutputPath = hxproj.GetRelativePath(path);
+                return hxproj;
+            }
+
             HaxeProjectReader reader = new HaxeProjectReader(path);
 
             try
@@ -310,6 +343,9 @@ namespace ProjectManager.Projects.Haxe
 
         public override void SaveAs(string fileName)
         {
+            string ext = Path.GetExtension(fileName).ToLower();
+            if (ext != ".hxproj") return;
+
             if (!AllowedSaving(fileName)) return;
             try
             {
@@ -330,6 +366,65 @@ namespace ProjectManager.Projects.Haxe
             }
         }
 
+        #endregion
+
+        #region HXML parsing
+
+        private void ParseHXML(string[] raw)
+        {
+            rawHXML = raw;
+
+            Regex reHxOp = new Regex("-([a-z0-9-]+)\\s*(.*)", RegexOptions.IgnoreCase);
+            List<string> libs = new List<string>();
+            List<string> defs = new List<string>();
+            List<string> cps = new List<string>();
+            List<string> add = new List<string>();
+            string target = HaxeMovieOptions.FLASHPLAYER_PLATFORM;
+            string output = "";
+            foreach(string line in raw)
+            {
+                Match m = reHxOp.Match(line);
+                if (m.Success)
+                {
+                    string op = m.Groups[1].Value;
+                    string value = m.Groups[2].Value.Trim();
+                    switch (op)
+                    {
+                        case "D": defs.Add(value); break;
+                        case "cp": cps.Add(value); break;
+                        case "lib": libs.Add(value); break;
+                        case "main": CompilerOptions.MainClass = value; break;
+                        case "swf":
+                        case "swf9": target = HaxeMovieOptions.FLASHPLAYER_PLATFORM; output = value; break;
+                        case "swf-header":
+                            var header = value.Split(':');
+                            int.TryParse(header[0], out MovieOptions.Width);
+                            int.TryParse(header[1], out MovieOptions.Height);
+                            int.TryParse(header[2], out MovieOptions.Fps);
+                            MovieOptions.Background = header[3];
+                            break;
+                        case "cpp": target = HaxeMovieOptions.CPP_PLATFORM; output = value; break;
+                        case "js": target = HaxeMovieOptions.JAVASCRIPT_PLATFORM; output = value; break;
+                        case "php": target = HaxeMovieOptions.PHP_PLATFORM; output = value; break;
+                        case "neko": target = HaxeMovieOptions.NEKO_PLATFORM; output = value; break;
+                        case "cs": target = HaxeMovieOptions.CSHARP_PLATFORM; output = value; break;
+                        case "java": target = HaxeMovieOptions.JAVA_PLATFORM; output = value; break;
+                        default: add.Add(line); break;
+                    }
+                }
+            }
+            CompilerOptions.Directives = defs.ToArray();
+            CompilerOptions.Libraries = libs.ToArray();
+            CompilerOptions.Additional = add.ToArray();
+            Classpaths.Clear();
+            Classpaths.AddRange(cps);
+            if (MovieOptions.TargetBuildTypes == null)
+            {
+                OutputPath = output;
+                OutputType = OutputType.Application;
+                MovieOptions.Platform = target;
+            }
+        }
         #endregion
     }
 }

@@ -4836,4 +4836,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Define haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
     <comment>Added after 4.0</comment>
   </data>
+  <data name="ProjectManager.ToolTip.TargetBuild" xml:space="preserve">
+    <value>Select Target Build</value>
+    <comment>Added after 4.0.1</comment>
+  </data>
 </root>

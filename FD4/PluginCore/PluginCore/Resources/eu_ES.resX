@@ -4829,4 +4829,8 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>Haxe konpilatzailearen zerbitzari portua definitu (OsaketaZerbitzari Moduan bakarrik aplikatuko da).</value>
     <comment>Added after 4.0</comment>
   </data>
+  <data name="ProjectManager.ToolTip.TargetBuild" xml:space="preserve">
+    <value>Select Target Build</value>
+    <comment>Added after 4.0.1</comment>
+  </data>
 </root>

@@ -144,6 +144,14 @@ namespace HaXeContext
         {
             get { return platform == HaxeMovieOptions.CPP_PLATFORM; }
         }
+        public bool IsCsharpTarget
+        {
+            get { return platform == HaxeMovieOptions.CSHARP_PLATFORM; }
+        }
+        public bool IsJavaTarget
+        {
+            get { return platform == HaxeMovieOptions.JAVA_PLATFORM; }
+        }
         public bool IsNmeTarget
         {
             get { return platform == HaxeMovieOptions.NME_PLATFORM; }
@@ -237,6 +245,14 @@ namespace HaXeContext
             {
                 lang = "cpp";
                 features.Directives.Add("--remap flash:nme");
+            }
+            else if (IsCsharpTarget)
+            {
+                lang = "cs";
+            }
+            else if (IsJavaTarget)
+            {
+                lang = "java";
             }
             else if (IsFlashTarget)
             {

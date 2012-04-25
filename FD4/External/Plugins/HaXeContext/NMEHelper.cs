@@ -14,8 +14,16 @@ namespace HaXeContext
 {
     public class NMEHelper
     {
+        static string nmmlPath;
         static WatcherEx watcher;
+        static HaxeProject hxproj;
+        static System.Timers.Timer updater;
 
+        /// <summary>
+        /// Run NME project (after build)
+        /// </summary>
+        /// <param name="command">Project's custom run command</param>
+        /// <returns>Execution handled</returns>
         static public bool Run(string command)
         {
             if (!string.IsNullOrEmpty(command)) // project has custom run command
@@ -25,12 +33,7 @@ namespace HaXeContext
             if (project == null || project.OutputType != OutputType.Application)
                 return false;
 
-            string compiler = project.CurrentSDK;
-            if (compiler == null) compiler = "haxelib";
-            else if (Directory.Exists(compiler)) compiler = Path.Combine(compiler, "haxelib.exe");
-            else compiler = compiler.Replace("haxe.exe", "haxelib.exe");
-
-            string config = project.MovieOptions.TargetBuild;
+            string config = project.TargetBuild;
             if (String.IsNullOrEmpty(config)) config = "flash";
             else if (config.IndexOf("android") >= 0) CheckADB();
 
@@ -38,18 +41,21 @@ namespace HaXeContext
             {
                 config += " -debug -Dfdb";
             }
-
             if (config.StartsWith("flash") && config.IndexOf("-DSWF_PLAYER") < 0)
                 config += GetSwfPlayer();
 
             string args = "run nme run \"" + project.OutputPathAbsolute + "\" " + config;
+            string haxelib = GetHaxelib(project);
             string oldWD = PluginBase.MainForm.WorkingDirectory;
             PluginBase.MainForm.WorkingDirectory = project.Directory;
-            PluginBase.MainForm.CallCommand("RunProcessCaptured", compiler + ";" + args);
+            PluginBase.MainForm.CallCommand("RunProcessCaptured", haxelib + ";" + args);
             PluginBase.MainForm.WorkingDirectory = oldWD;
             return true;
         }
 
+        /// <summary>
+        /// Start Android ADB server in the background
+        /// </summary>
         static private void CheckADB()
         {
             if (Process.GetProcessesByName("adb").Length > 0)
@@ -68,6 +74,9 @@ namespace HaXeContext
             }
         }
 
+        /// <summary>
+        /// Provide FD-configured Flash player
+        /// </summary>
         static private string GetSwfPlayer()
         {
             DataEvent de = new DataEvent(EventType.Command, "FlashViewer.GetFlashPlayer", null);
@@ -76,17 +85,102 @@ namespace HaXeContext
             else return "";
         }
 
+        /// <summary>
+        /// Watch NME projects to update the configuration & HXML command using 'nme display'
+        /// </summary>
+        /// <param name="project"></param>
         static public void Monitor(IProject project)
         {
-            /*if (watcher != null) 
+            if (updater == null)
+            {
+                updater = new System.Timers.Timer();
+                updater.Interval = 200;
+                updater.SynchronizingObject = PluginCore.PluginBase.MainForm as System.Windows.Forms.Form;
+                updater.Elapsed += updater_Elapsed;
+                updater.AutoReset = false;
+            }
+
+            hxproj = null;
+            StopWatcher();
+            if (project is HaxeProject)
+            {
+                hxproj = project as HaxeProject;
+                hxproj.ProjectUpdating += new ProjectUpdatingHandler(hxproj_ProjectUpdating);
+            }
+        }
+
+        internal static void StopWatcher()
+        {
+            if (watcher != null)
             {
                 watcher.Dispose();
                 watcher = null;
+                nmmlPath = null;
             }
-            if (project is HaxeProject)
+        }
+
+        static void hxproj_ProjectUpdating()
+        {
+            if (hxproj.MovieOptions.Platform == HaxeMovieOptions.NME_PLATFORM)
             {
-                HaxeProject hxproj = project as HaxeProject;
-            }*/
+                string nmmlProj = hxproj.OutputPathAbsolute;
+                if (nmmlPath != nmmlProj)
+                {
+                    nmmlPath = nmmlProj;
+                    StopWatcher();
+                    if (File.Exists(nmmlPath))
+                    {
+                        watcher = new WatcherEx(Path.GetDirectoryName(nmmlPath), Path.GetFileName(nmmlPath));
+                        watcher.Changed += watcher_Changed;
+                        watcher.EnableRaisingEvents = true;
+                        UpdateProject();
+                    }
+                }
+                else UpdateProject();
+            }
+            else StopWatcher();
+        }
+
+        static void updater_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            UpdateProject();
+        }
+
+        static void watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            updater.Enabled = false;
+            updater.Enabled = true;
+        }
+
+        private static void UpdateProject()
+        {
+            string haxelib = GetHaxelib(hxproj);
+
+            ProcessStartInfo pi = new ProcessStartInfo();
+            pi.FileName = haxelib;
+            pi.Arguments = " run nme display \"" + nmmlPath +"\" " + hxproj.TargetBuild;
+            pi.RedirectStandardOutput = true;
+            pi.UseShellExecute = false;
+            pi.CreateNoWindow = true;
+            pi.WindowStyle = ProcessWindowStyle.Hidden;
+            Process p = Process.Start(pi);
+            p.WaitForExit(500);
+
+            List<string> lines = new List<string>();
+            do { lines.Add(p.StandardOutput.ReadLine()); }
+            while (!p.StandardOutput.EndOfStream);
+            p.Close();
+
+            hxproj.RawHXML = lines.ToArray();
+        }
+
+        private static string GetHaxelib(IProject project)
+        {
+            string haxelib = project.CurrentSDK;
+            if (haxelib == null) haxelib = "haxelib";
+            else if (Directory.Exists(haxelib)) haxelib = Path.Combine(haxelib, "haxelib.exe");
+            else haxelib = haxelib.Replace("haxe.exe", "haxelib.exe");
+            return haxelib;
         }
     }
 }

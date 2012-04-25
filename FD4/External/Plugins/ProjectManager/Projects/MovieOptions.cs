@@ -12,7 +12,8 @@ namespace ProjectManager.Projects
 		public int MajorVersion;
         public int MinorVersion;
         public string Platform;
-		public string Background;
+        public string Background;
+        public string[] TargetBuildTypes;
 
 		public MovieOptions()
 		{

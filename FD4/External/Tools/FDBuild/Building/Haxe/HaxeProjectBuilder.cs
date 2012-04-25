@@ -33,11 +33,10 @@ namespace ProjectManager.Building.Haxe
             string outputDir = Path.GetDirectoryName(project.OutputPathAbsolute);
             if (!Directory.Exists(outputDir)) Directory.CreateDirectory(outputDir);
 
-            if (project.IsNmeOutput)
+            if (project.IsNmeOutput && !string.IsNullOrEmpty(project.TargetBuild))
             {
                 haxePath = haxePath.Replace("haxe.exe", "haxelib.exe");
-                string config = project.TestMovieBehavior == ProjectManager.Projects.TestMovieBehavior.Custom ? project.TestMovieCommand : null;
-                if (String.IsNullOrEmpty(config)) config = "flash";
+                string config = project.TargetBuild;
                 string haxeNmeArgs = String.Join(" ", BuildNmeCommand(extraClasspaths, output, config, noTrace, null));
                 Console.WriteLine("haxelib " + haxeNmeArgs);
                 if (!ProcessRunner.Run(haxePath, haxeNmeArgs, false))
@@ -80,7 +79,11 @@ namespace ProjectManager.Building.Haxe
             pr.Add("run nme build");
             pr.Add(Quote(output));
             pr.Add(target);
-            if (!noTrace) pr.Add("-debug");
+            if (!noTrace)
+            {
+                pr.Add("-debug");
+                if (target.StartsWith("flash")) pr.Add("-Dfdb");
+            }
             if (extraArgs != null) pr.Add(extraArgs);
 
             return pr.ToArray();

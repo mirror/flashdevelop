@@ -20,6 +20,7 @@ namespace ProjectManager.Projects
     }
 
     public delegate void ChangedHandler();
+    public delegate void ProjectUpdatingHandler();
     public delegate bool BeforeSaveHandler(string fileName);
 
     public abstract class Project : PluginCore.IProject
@@ -34,6 +35,7 @@ namespace ProjectManager.Projects
         AssetCollection libraryAssets;
         internal Dictionary<string, string> storage;
         bool traceEnabled; // selected configuration 
+        string targetBuild;
         string preferredSDK;
         string currentSDK;
         PathCollection absClasspaths;
@@ -51,6 +53,7 @@ namespace ProjectManager.Projects
 
         public event ChangedHandler ClasspathChanged; // inner operation changed the classpath
         public event BeforeSaveHandler BeforeSave;
+        public event ProjectUpdatingHandler ProjectUpdating;
 
 		public Project(string path, CompilerOptions compilerOptions)
 		{
@@ -72,6 +75,7 @@ namespace ProjectManager.Projects
 		}
 
         public abstract string Language { get; }
+        public virtual bool ReadOnly { get { return false; } }
         public virtual bool UsesInjection { get { return false; } }
         public virtual bool HasLibraries { get { return false; } }
         public virtual bool RequireLibrary { get { return false; } }
@@ -84,6 +88,7 @@ namespace ProjectManager.Projects
 
         protected bool AllowedSaving(string fileName)
         {
+            if (ReadOnly) return false;
             if (BeforeSave != null) return BeforeSave(fileName);
             else return true;
         }
@@ -110,6 +115,7 @@ namespace ProjectManager.Projects
         public virtual string Name { get { return Path.GetFileNameWithoutExtension(path); } }
 		public string Directory { get { return Path.GetDirectoryName(path); } }
         public bool TraceEnabled { set { traceEnabled = value; } get { return traceEnabled; } }
+        public string TargetBuild { set { targetBuild = value; } get { return targetBuild; } }
         public virtual bool EnableInteractiveDebugger { get { return movieOptions.DebuggerSupported; } }
 		
 		// we only provide getters for these to preserve the original pointer
@@ -317,6 +323,7 @@ namespace ProjectManager.Projects
 
         public void UpdateVars()
         {
+            if (ProjectUpdating != null) ProjectUpdating();
             vars = new BuildEventVars(this).GetVars();
         }
 

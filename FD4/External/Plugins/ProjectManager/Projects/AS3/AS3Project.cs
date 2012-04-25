@@ -27,6 +27,7 @@ namespace ProjectManager.Projects.AS3
         }
 
         public override string Language { get { return "as3"; } }
+        public override bool ReadOnly { get { return FileInspector.IsFlexBuilderProject(ProjectPath); } }
         public override bool HasLibraries { get { return OutputType == OutputType.Application || OutputType == OutputType.Library; } }
         public override int MaxTargetsCount { get { return 1; } }
         public override string DefaultSearchFilter { get { return "*.as;*.mxml"; } }
@@ -219,8 +220,7 @@ namespace ProjectManager.Projects.AS3
 
         public override void Save()
         {
-            if (FileInspector.IsFlexBuilderProject(ProjectPath))
-                return;
+            if (ReadOnly) return;
             RebuildCompilerOptions();
             SaveAs(ProjectPath);
         }

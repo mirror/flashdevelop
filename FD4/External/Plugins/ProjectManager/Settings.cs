@@ -256,6 +256,7 @@ namespace ProjectManager
         public Boolean DebugMode;
         public List<String> ExpandedPaths;
         public String ProjectPath;
+        public String TargetBuild;
 
         public ProjectPreferences()
         {

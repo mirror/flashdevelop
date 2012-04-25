@@ -17,6 +17,7 @@ namespace ProjectManager.Controls
         public ToolStripButton TestMovie;
         public ToolStripButton BuildProject;
         public ToolStripComboBox ConfigurationSelector;
+        public ToolStripComboBox TargetBuildSelector;
         public RecentProjectsMenu RecentProjects;
 		public ProjectMenu ProjectMenu;
 
@@ -70,10 +71,23 @@ namespace ProjectManager.Controls
             ConfigurationSelector.AutoSize = false;
             ConfigurationSelector.Enabled = false;
             ConfigurationSelector.Width = 85;
-            ConfigurationSelector.Margin = new Padding(1, 0, 0, 0);
+            //ConfigurationSelector.Margin = new Padding(1, 0, 0, 0);
             ConfigurationSelector.FlatStyle = PluginBase.MainForm.Settings.ComboBoxFlatStyle;
             ConfigurationSelector.Font = PluginBase.Settings.DefaultFont;
             toolBar.Items.Add(ConfigurationSelector);
+
+            TargetBuildSelector = new ToolStripComboBox();
+            TargetBuildSelector.Name = "TargetBuildSelector";
+            TargetBuildSelector.ToolTipText = TextHelper.GetString("ToolTip.TargetBuild");
+            TargetBuildSelector.DropDownStyle = ComboBoxStyle.DropDownList;
+            TargetBuildSelector.AutoSize = false;
+            TargetBuildSelector.Enabled = false;
+            TargetBuildSelector.Width = 85;
+            TargetBuildSelector.Visible = false;
+            //TargetBuildSelector.Margin = new Padding(1, 0, 0, 0);
+            TargetBuildSelector.FlatStyle = PluginBase.MainForm.Settings.ComboBoxFlatStyle;
+            TargetBuildSelector.Font = PluginBase.Settings.DefaultFont;
+            toolBar.Items.Add(TargetBuildSelector);
         }
 
         public bool DisabledForBuild
@@ -81,10 +95,38 @@ namespace ProjectManager.Controls
             get { return !TestMovie.Enabled; }
             set
             {
-                BuildProject.Enabled = TestMovie.Enabled = ProjectMenu.AllItemsEnabled = !value;
+                BuildProject.Enabled = TestMovie.Enabled = ProjectMenu.AllItemsEnabled = ConfigurationSelector.Enabled = !value;
+                TargetBuildSelector.Enabled = !value && TargetBuildSelector.Visible;
             }
         }
-	}
+
+        public void SetProject(ProjectManager.Projects.Project project)
+        {
+            RecentProjects.AddOpenedProject(project.ProjectPath);
+            ConfigurationSelector.Enabled = true;
+            ProjectMenu.ProjectItemsEnabled = true;
+            TestMovie.Enabled = true;
+            BuildProject.Enabled = true;
+            ProjectChanged(project);
+        }
+
+        public void ProjectChanged(ProjectManager.Projects.Project project)
+        {
+            TargetBuildSelector.Items.Clear();
+            if (project.MovieOptions.TargetBuildTypes != null)
+            {
+                TargetBuildSelector.Items.AddRange(project.MovieOptions.TargetBuildTypes);
+                TargetBuildSelector.Text = project.TargetBuild ?? project.MovieOptions.TargetBuildTypes[0];
+                TargetBuildSelector.Visible = true;
+                TargetBuildSelector.Enabled = true;
+            }
+            else
+            {
+                TargetBuildSelector.Visible = false;
+                TargetBuildSelector.Enabled = false;
+            }
+        }
+    }
 
 	/// <summary>
 	/// The "Project" menu for FD's main menu

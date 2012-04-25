@@ -181,18 +181,19 @@ namespace ProjectManager.Actions
             {
                 arguments += " -cp \"" + Environment.ExpandEnvironmentVariables(cp) + "\"";
             }
+
+            if (project.TargetBuild != null)
+                arguments += " -target \"" + project.TargetBuild + "\"";
 			
 			arguments = arguments.Replace("\\\"", "\""); // c# console args[] bugfix
 
             SetStatusBar(TextHelper.GetString("Info.BuildStarted"));
             menus.DisabledForBuild = true;
-            menus.ConfigurationSelector.Enabled = false;
 
             fdProcess.StartProcess(fdBuildPath, "\"" + project.ProjectPath + "\"" + arguments,
                 project.Directory, delegate(bool success)
                 {
                     menus.DisabledForBuild = false;
-                    menus.ConfigurationSelector.Enabled = true; // !project.NoOutput;
                     if (success)
                     {
                         SetStatusBar(TextHelper.GetString("Info.BuildSucceeded"));

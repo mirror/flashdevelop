@@ -44,6 +44,7 @@ namespace ProjectManager.Projects
 
             infos.Add(new BuildEventInfo("FDBuild", FDBuild));
             infos.Add(new BuildEventInfo("ToolsDir", ToolsDir));
+            infos.Add(new BuildEventInfo("OutputFile", project.OutputPath));
             infos.Add(new BuildEventInfo("OutputDir", Path.GetDirectoryName(project.GetAbsolutePath(project.OutputPath))));
             infos.Add(new BuildEventInfo("OutputName", Path.GetFileName(project.OutputPath)));
             infos.Add(new BuildEventInfo("ProjectName", project.Name));
@@ -51,6 +52,7 @@ namespace ProjectManager.Projects
             infos.Add(new BuildEventInfo("ProjectPath", project.ProjectPath));
             infos.Add(new BuildEventInfo("TimeStamp", DateTime.Now.ToString("g")));
             infos.Add(new BuildEventInfo("BuildConfig", project.TraceEnabled ? "debug" : "release"));
+            infos.Add(new BuildEventInfo("TargetBuild", project.TargetBuild ?? ""));
             infos.Add(new BuildEventInfo("CompilerPath", project.CurrentSDK));
             if (project.Language == "as3") infos.Add(new BuildEventInfo("FlexSDK", project.CurrentSDK)); 
             infos.AddRange(additional);

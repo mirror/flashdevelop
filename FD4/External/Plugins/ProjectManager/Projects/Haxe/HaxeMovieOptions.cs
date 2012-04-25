@@ -15,11 +15,16 @@ namespace ProjectManager.Projects.Haxe
         public const string PHP_PLATFORM = "PHP";
         public const string CPP_PLATFORM = "C++";
         public const string NME_PLATFORM = "NME";
+        public const string CSHARP_PLATFORM = "C#";
+        public const string JAVA_PLATFORM = "Java";
+        public static string[] NME_TARGETS = new string[] { 
+            "flash", "html5", "windows", "android", "webos", "blackberry" };
         
         public HaxeMovieOptions()
         {
             MajorVersion = 10;
             Platform = TargetPlatforms[0];
+            TargetBuildTypes = NME_TARGETS;
         }
 
         public override bool DebuggerSupported
@@ -38,7 +43,8 @@ namespace ProjectManager.Projects.Haxe
             { 
                 return new string[] { 
                         FLASHPLAYER_PLATFORM, AIR_PLATFORM, AIR_MOBILE_PLATFORM, NME_PLATFORM, 
-                        JAVASCRIPT_PLATFORM, NEKO_PLATFORM, PHP_PLATFORM, CPP_PLATFORM 
+                        JAVASCRIPT_PLATFORM, NEKO_PLATFORM, PHP_PLATFORM, CPP_PLATFORM, 
+                        CSHARP_PLATFORM, JAVA_PLATFORM
                     }; 
             }
         }

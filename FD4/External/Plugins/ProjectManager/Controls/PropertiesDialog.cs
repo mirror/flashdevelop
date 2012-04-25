@@ -998,8 +998,8 @@ namespace ProjectManager.Controls
                     (ot) => ot.ToString()
                 );
             InitCombo(outputCombo, types, project.OutputType, "Label.OutputType");
-            outputCombo.SelectedIndexChanged += new System.EventHandler(this.outputCombo_SelectedIndexChanged);
-            
+            outputCombo.SelectedIndexChanged += new EventHandler(outputCombo_SelectedIndexChanged);
+
             outputSwfBox.Text = project.OutputPath;
             widthTextBox.Text = options.Width.ToString();
             heightTextBox.Text = options.Height.ToString();

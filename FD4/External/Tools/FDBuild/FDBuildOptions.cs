@@ -39,6 +39,9 @@ namespace FDBuild
 
         [Option("Set compiler version (optional)", "version")]
         public string CompilerVersion;
+
+        [Option("Set build target", "target")]
+        public string TargetBuild;
         
         [Option("Set Swfmill executable path", "swfmill")]
         public string SwfmillPath;

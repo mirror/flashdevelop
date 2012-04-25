@@ -218,7 +218,10 @@ namespace ProjectManager.Helpers
             projectTypes["project.fdp"] = typeof(AS2Project);
             projectTypes["project.as2proj"] = typeof(AS2Project);
             projectTypes["project.as3proj"] = typeof(AS3Project);
+            projectTypes["project.actionscriptproperties"] = typeof(AS3Project);
             projectTypes["project.hxproj"] = typeof(HaxeProject);
+            //projectTypes["project.hxml"] = typeof(HaxeProject);
+            //projectTypes["project.nmml"] = typeof(HaxeProject);
             projectTypesSet = true;
         }
 
