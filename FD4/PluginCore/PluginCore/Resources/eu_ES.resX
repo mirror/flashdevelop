@@ -4833,4 +4833,16 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>Select Target Build</value>
     <comment>Added after 4.0.1</comment>
   </data>
+  <data name="BasicCompletion.Description.EnabledLanguages" xml:space="preserve">
+    <value>List of languages that should use the basic code completion.</value>
+    <comment>Added after 4.0.1</comment>
+  </data>
+  <data name="BasicCompletion.Info.CompletionItemDesc" xml:space="preserve">
+    <value>Suggestion</value>
+    <comment>Added after 4.0.1</comment>
+  </data>
+  <data name="BasicCompletion.Info.Description" xml:space="preserve">
+    <value>Adds global basic code completion support to FlashDevelop.</value>
+    <comment>Added after 4.0.1</comment>
+  </data>
 </root>
