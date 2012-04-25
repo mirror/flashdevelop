@@ -76,5 +76,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <JavaClass TypeName="flex.tools.debugger.cli.ExpressionContext"/>
 -->
 
-  <ClassPath Path="D:\tools\flex4air2\lib\fdb.jar" />
+  <ClassPath Path="..\..\..\FlashDEvelop\bin\Debug\Tools\flexlibs\lib\fdb.jar" />
 </jni4net-proxygen>
