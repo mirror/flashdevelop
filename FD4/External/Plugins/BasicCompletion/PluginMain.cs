@@ -116,10 +116,30 @@ namespace BasicCompletion
 		{
             switch (e.Type)
             {
+                case EventType.Keys:
+                {
+                    Keys keys = (e as KeyEvent).Value;
+                    Keys shortcut = Keys.Control | Keys.Alt | Keys.Space;
+                    ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+                    if (document != null && document.IsEditable && this.IsSupported(document) && keys == shortcut)
+                    {
+                        e.Handled = true;
+                        String lang = document.SciControl.ConfigurationLanguage.ToLower();
+                        List<ICompletionListItem> items = this.keywordTable[lang] as List<ICompletionListItem>;
+                        if (items != null && items.Count > 0)
+                        {
+                            items.Sort();
+                            CompletionList.Show(items, false);
+                        }
+                    }
+                    break;
+                }
                 case EventType.FileSwitch:
+                case EventType.SyntaxChange:
+                case EventType.ApplySettings:
                 {
                     ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                    if (document.IsEditable && this.IsSupported(document))
+                    if (document != null && document.IsEditable && this.IsSupported(document))
                     {
                         String language = document.SciControl.ConfigurationLanguage.ToLower();
                         if (!this.keywordTable.ContainsKey(language))
@@ -153,7 +173,8 @@ namespace BasicCompletion
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileSwitch);
+            EventType eventTypes = EventType.Keys | EventType.ApplySettings | EventType.SyntaxChange | EventType.FileSwitch;
+            EventManager.AddEventHandler(this, eventTypes);
         }
 
         /// <summary>
