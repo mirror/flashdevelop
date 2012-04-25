@@ -401,11 +401,18 @@ namespace FlashDebugger
 				});
 				return;
 			}
-			CurrentLocation = FlashInterface.getCurrentLocation();
-			UpdateStackUI();
-			UpdateLocalsUI();
-			UpdateMenuState(state);
-			(PluginBase.MainForm as Form).Activate();
+            try
+            {
+                CurrentLocation = FlashInterface.getCurrentLocation();
+                UpdateStackUI();
+                UpdateLocalsUI();
+                UpdateMenuState(state);
+                (PluginBase.MainForm as Form).Activate();
+            }
+            catch (PlayerDebugException ex)
+            {
+                ErrorManager.ShowError("Internal Debugger Exception", ex);
+            }
 		}
 
         /// <summary>
