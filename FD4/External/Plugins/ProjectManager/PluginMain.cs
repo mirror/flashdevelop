@@ -512,7 +512,6 @@ namespace ProjectManager
 
             // ui
             pluginUI.SetProject(project);
-            menus.SetProject(project);
 
             // notify
             PluginBase.CurrentSolution = project;
@@ -522,6 +521,7 @@ namespace ProjectManager
 
             projectActions.UpdateASCompletion(MainForm, project);
             pluginUI.NotifyIssues();
+            menus.SetProject(project);
             project.ClasspathChanged += new ChangedHandler(ProjectClasspathsChanged);
             project.BeforeSave += new BeforeSaveHandler(ProjectBeforeSave);
             listenToPathChange = true;

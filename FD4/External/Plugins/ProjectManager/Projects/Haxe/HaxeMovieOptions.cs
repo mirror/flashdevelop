@@ -24,7 +24,6 @@ namespace ProjectManager.Projects.Haxe
         {
             MajorVersion = 10;
             Platform = TargetPlatforms[0];
-            TargetBuildTypes = NME_TARGETS;
         }
 
         public override bool DebuggerSupported

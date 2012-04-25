@@ -418,7 +418,12 @@ namespace ProjectManager.Projects.Haxe
             CompilerOptions.Additional = add.ToArray();
             Classpaths.Clear();
             Classpaths.AddRange(cps);
-            if (MovieOptions.TargetBuildTypes == null)
+
+            if (MovieOptions.Platform == HaxeMovieOptions.NME_PLATFORM)
+            {
+                MovieOptions.TargetBuildTypes = HaxeMovieOptions.NME_TARGETS;
+            }
+            else if (MovieOptions.TargetBuildTypes == null)
             {
                 OutputPath = output;
                 OutputType = OutputType.Application;
