@@ -26,9 +26,9 @@ namespace BasicCompletion
         private String pluginAuth = "FlashDevelop Team";
         private Hashtable baseTable = new Hashtable();
         private Hashtable fileTable = new Hashtable();
+        private BackgroundWorker updateWorker;
         private String settingFilename;
         private Settings settingObject;
-        private Timer updateTimer;
 
 	    #region Required Properties
 
@@ -99,11 +99,9 @@ namespace BasicCompletion
 		public void Initialize()
 		{
             this.InitBasics();
+            this.InitWorker();
             this.LoadSettings();
             this.AddEventHandlers();
-            this.updateTimer = new Timer();
-            this.updateTimer.Tick += new EventHandler(this.UpdateTimerTick);
-            this.updateTimer.Interval = 10000;
         }
 		
 		/// <summary>
@@ -161,9 +159,10 @@ namespace BasicCompletion
                 }
                 case EventType.FileSave:
                 {
-                    this.updateTimer.Tag = document;
-                    this.updateTimer.Stop();
-                    this.updateTimer.Start();
+                    if (document != null && document.IsEditable && this.IsSupported(document))
+                    {
+                        this.updateWorker.RunWorkerAsync(document);
+                    }
                     break;
                 }
             }
@@ -172,7 +171,25 @@ namespace BasicCompletion
 		#endregion
 
         #region Custom Methods
-       
+
+        /// <summary>
+        /// Initializes the background worker
+        /// </summary>
+        public void InitWorker()
+        {
+            this.updateWorker = new BackgroundWorker();
+            this.updateWorker.DoWork += new DoWorkEventHandler(this.UpdateWorkerDoWork);
+        }
+
+        /// <summary>
+        /// Updates the document keywords on a background worker
+        /// </summary>
+        private void UpdateWorkerDoWork(Object sender, DoWorkEventArgs e)
+        {
+            ITabbedDocument document = e.Argument as ITabbedDocument;
+            this.AddDocumentKeywords(document);
+        }
+
         /// <summary>
         /// Initializes important variables
         /// </summary>
@@ -293,19 +310,6 @@ namespace BasicCompletion
         {
             String lang = document.SciControl.ConfigurationLanguage;
             return this.settingObject.EnabledLanguages.Contains(lang);
-        }
-
-        /// <summary>
-        /// Updates the document keywords after save and 10sec delay
-        /// </summary>
-        private void UpdateTimerTick(Object sender, EventArgs e)
-        {
-            ITabbedDocument document = this.updateTimer.Tag as ITabbedDocument;
-            if (document != null && document.IsEditable && this.IsSupported(document))
-            {
-                this.AddDocumentKeywords(document);
-                this.updateTimer.Stop();
-            }
         }
 
 		#endregion
