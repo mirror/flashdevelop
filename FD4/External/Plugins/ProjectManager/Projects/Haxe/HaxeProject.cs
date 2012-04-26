@@ -167,20 +167,6 @@ namespace ProjectManager.Projects.Haxe
             }
             else
             {
-                // extra options
-                foreach (string opt in CompilerOptions.Additional)
-                {
-                    String p = opt.Trim();
-                    if (p == "" || p[0] == '#')
-                        continue;
-                    char[] space = { ' ' };
-                    string[] parts = p.Split(space, 2);
-                    if (parts.Length == 1)
-                        pr.Add(p);
-                    else
-                        pr.Add(parts[0] + ' ' + Quote(parts[1]));
-                }
-
                 // class paths
                 List<String> classPaths = new List<String>();
                 foreach (string cp in paths)
@@ -272,6 +258,20 @@ namespace ProjectManager.Projects.Haxe
                 // add main class
                 if (CompilerOptions.MainClass != null && CompilerOptions.MainClass.Length > 0)
                     pr.Add("-main " + CompilerOptions.MainClass);
+                
+                // extra options
+                foreach (string opt in CompilerOptions.Additional)
+                {
+                    String p = opt.Trim();
+                    if (p == "" || p[0] == '#')
+                        continue;
+                    char[] space = { ' ' };
+                    string[] parts = p.Split(space, 2);
+                    if (parts.Length == 1)
+                        pr.Add(p);
+                    else
+                        pr.Add(parts[0] + ' ' + Quote(parts[1]));
+                }
             }
 
             // debug 
