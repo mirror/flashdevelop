@@ -128,7 +128,10 @@ namespace BasicCompletion
                         if (items != null && items.Count > 0)
                         {
                             items.Sort();
-                            CompletionList.Show(items, false);
+                            Int32 curPos = document.SciControl.CurrentPos;
+                            String curWord = document.SciControl.GetWordFromPosition(curPos);
+                            if (curWord == null) curWord = String.Empty;
+                            CompletionList.Show(items, false, curWord);
                             e.Handled = true;
                         }
                     }
@@ -147,11 +150,7 @@ namespace BasicCompletion
                     if (document != null && document.IsEditable && this.IsSupported(document))
                     {
                         String language = document.SciControl.ConfigurationLanguage.ToLower();
-                        if (!this.keywordTable.ContainsKey(language))
-                        {
-                            this.AddKeywords(language);
-                            UITools.Manager.OnCharAdded += new UITools.CharAddedHandler(this.SciControlCharAdded);
-                        }
+                        if (!this.keywordTable.ContainsKey(language)) this.AddKeywords(language);
                     }
                     break;
                 }
@@ -202,24 +201,6 @@ namespace BasicCompletion
         public void SaveSettings()
         {
             ObjectSerializer.Serialize(this.settingFilename, this.settingObject);
-        }
-
-        /// <summary>
-        /// Shows the completion list after typing three chars
-        /// </summary>
-        private void SciControlCharAdded(ScintillaControl sci, Int32 value)
-        {
-            String lang = sci.ConfigurationLanguage.ToLower();
-            List<ICompletionListItem> items = this.keywordTable[lang] as List<ICompletionListItem>;
-            if (items != null && items.Count > 0)
-            {
-                items.Sort();
-                String curWord = sci.GetWordFromPosition(sci.CurrentPos);
-                if (curWord != null && curWord.Length > 2 && !Char.IsWhiteSpace((char)value))
-                {
-                    CompletionList.Show(items, false, curWord);
-                }
-            }
         }
 
         /// <summary>
