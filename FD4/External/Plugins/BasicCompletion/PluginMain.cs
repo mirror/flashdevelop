@@ -24,9 +24,11 @@ namespace BasicCompletion
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Adds global basic code completion support to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
-        private Hashtable keywordTable = new Hashtable();
+        private Hashtable baseTable = new Hashtable();
+        private Hashtable fileTable = new Hashtable();
         private String settingFilename;
         private Settings settingObject;
+        private Timer updateTimer;
 
 	    #region Required Properties
 
@@ -99,6 +101,9 @@ namespace BasicCompletion
             this.InitBasics();
             this.LoadSettings();
             this.AddEventHandlers();
+            this.updateTimer = new Timer();
+            this.updateTimer.Tick += new EventHandler(this.UpdateTimerTick);
+            this.updateTimer.Interval = 10000;
         }
 		
 		/// <summary>
@@ -114,17 +119,17 @@ namespace BasicCompletion
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+            if (document == null || !document.IsEditable) return;
             switch (e.Type)
             {
                 case EventType.Keys:
                 {
                     Keys keys = (e as KeyEvent).Value;
-                    ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                    if (document == null && !document.IsEditable) return;
                     if (this.IsSupported(document) && keys == (Keys.Control | Keys.Space))
                     {
-                        String lang = document.SciControl.ConfigurationLanguage.ToLower();
-                        List<ICompletionListItem> items = this.keywordTable[lang] as List<ICompletionListItem>;
+                        String lang = document.SciControl.ConfigurationLanguage;
+                        List<ICompletionListItem> items = this.GetCompletionListItems(lang, document.FileName);
                         if (items != null && items.Count > 0)
                         {
                             items.Sort();
@@ -146,12 +151,19 @@ namespace BasicCompletion
                 case EventType.SyntaxChange:
                 case EventType.ApplySettings:
                 {
-                    ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                    if (document != null && document.IsEditable && this.IsSupported(document))
+                    if (this.IsSupported(document))
                     {
-                        String language = document.SciControl.ConfigurationLanguage.ToLower();
-                        if (!this.keywordTable.ContainsKey(language)) this.AddKeywords(language);
+                        String language = document.SciControl.ConfigurationLanguage;
+                        if (!this.baseTable.ContainsKey(language)) this.AddBaseKeywords(language);
+                        if (!this.fileTable.ContainsKey(document.FileName)) this.AddDocumentKeywords(document);
                     }
+                    break;
+                }
+                case EventType.FileSave:
+                {
+                    this.updateTimer.Tag = document;
+                    this.updateTimer.Stop();
+                    this.updateTimer.Start();
                     break;
                 }
             }
@@ -177,7 +189,7 @@ namespace BasicCompletion
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventType eventTypes = EventType.Keys | EventType.ApplySettings | EventType.SyntaxChange | EventType.FileSwitch;
+            EventType eventTypes = EventType.Keys | EventType.FileSave | EventType.ApplySettings | EventType.SyntaxChange | EventType.FileSwitch;
             EventManager.AddEventHandler(this, eventTypes);
         }
 
@@ -204,9 +216,9 @@ namespace BasicCompletion
         }
 
         /// <summary>
-        /// Adds keywords from config file to hashtable
+        /// Adds base keywords from config file to hashtable
         /// </summary>
-        public void AddKeywords(String language)
+        public void AddBaseKeywords(String language)
         {
             List<String> keywords = new List<String>();
             Language lang = ScintillaControl.Configuration.GetLanguage(language);
@@ -218,29 +230,60 @@ namespace BasicCompletion
                 {
                     String entry = Regex.Replace(kc.val, @"\t|\n|\r", "");
                     String[] words = entry.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
-                    for (Int32 j = 0; j < words.Length; j++) keywords.Add(words[j]);
+                    for (Int32 j = 0; j < words.Length; j++)
+                    {
+                        if (words[j].Length > 3 && !keywords.Contains(words[j]) && !words[j].StartsWith("\x5E"))
+                        {
+                            keywords.Add(words[j]);
+                        }
+                    }
                 }
             }
-            keywords = this.RemoveDuplicates(keywords);
-            List<ICompletionListItem> items = new List<ICompletionListItem>();
-            for (Int32 k = 0; k < keywords.Count; k++)
-            {
-                if (!keywords[k].StartsWith("\x5E")) items.Add(new CompletionItem(keywords[k]));
-            }
-            this.keywordTable.Add(language, items);
+            this.baseTable[language] = keywords;
         }
 
         /// <summary>
-        /// Removes duplicates from a list and returns a new one
+        /// Adds document keywords from config file to hashtable
         /// </summary>
-        public List<String> RemoveDuplicates(List<String> input)
+        public void AddDocumentKeywords(ITabbedDocument document)
         {
-            List<String> result = new List<String>();
-            foreach (String entry in input)
+            List<String> keywords = new List<String>();
+            String textLang = document.SciControl.ConfigurationLanguage;
+            Language language = ScintillaControl.Configuration.GetLanguage(textLang);
+            String wordCharsRegex = "[" + language.characterclass.Characters + "]+";
+            MatchCollection matches = Regex.Matches(document.SciControl.Text, wordCharsRegex);
+            for (Int32 i = 0; i < matches.Count; i++)
             {
-                if (!result.Contains(entry)) result.Add(entry);
+                if (!keywords.Contains(matches[i].Value) && matches[i].Value.Length > 3)
+                {
+                    keywords.Add(matches[i].Value);
+                }
             }
-            return result;
+            this.fileTable[document.FileName] = keywords;
+        }
+
+        /// <summary>
+        /// Gets the completion list items combining base and doc keywords
+        /// </summary>
+        public List<ICompletionListItem> GetCompletionListItems(String lang, String file)
+        {
+            List<String> allWords = new List<String>();
+            if (this.baseTable.ContainsKey(lang))
+            {
+                List<String> baseWords = this.baseTable[lang] as List<String>;
+                allWords.AddRange(baseWords);
+            }
+            if (this.fileTable.ContainsKey(file))
+            {
+                List<String> fileWords = this.fileTable[file] as List<String>;
+                for (Int32 i = 0; i < fileWords.Count; i++)
+                {
+                    if (!allWords.Contains(fileWords[i])) allWords.Add(fileWords[i]);
+                }
+            }
+            List<ICompletionListItem> items = new List<ICompletionListItem>();
+            for (Int32 j = 0; j < allWords.Count; j++) items.Add(new CompletionItem(allWords[j]));
+            return items;
         }
 
         /// <summary>
@@ -250,6 +293,19 @@ namespace BasicCompletion
         {
             String lang = document.SciControl.ConfigurationLanguage;
             return this.settingObject.EnabledLanguages.Contains(lang);
+        }
+
+        /// <summary>
+        /// Updates the document keywords after save and 10sec delay
+        /// </summary>
+        private void UpdateTimerTick(Object sender, EventArgs e)
+        {
+            ITabbedDocument document = this.updateTimer.Tag as ITabbedDocument;
+            if (document != null && document.IsEditable && this.IsSupported(document))
+            {
+                this.AddDocumentKeywords(document);
+                this.updateTimer.Stop();
+            }
         }
 
 		#endregion
