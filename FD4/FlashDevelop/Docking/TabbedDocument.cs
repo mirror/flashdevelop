@@ -99,6 +99,14 @@ namespace FlashDevelop.Docking
                 foreach (Control ctrl in this.Controls)
                 {
                     if (ctrl is ScintillaControl && !this.Disposing) return ctrl as ScintillaControl;
+                    else if (ctrl is SplitContainer && ctrl.Name == "fdSplitView" && !this.Disposing)
+                    {
+                        SplitContainer casted = ctrl as SplitContainer;
+                        ScintillaControl sci1 = casted.Panel1.Controls[0] as ScintillaControl;
+                        ScintillaControl sci2 = casted.Panel2.Controls[0] as ScintillaControl;
+                        if (sci2.IsFocus) return sci2;
+                        else return sci1;
+                    }
                 }
                 return null;
             }
