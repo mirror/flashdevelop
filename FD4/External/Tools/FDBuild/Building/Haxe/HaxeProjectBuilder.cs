@@ -64,7 +64,7 @@ namespace ProjectManager.Building.Haxe
             
             string serverPort = Environment.ExpandEnvironmentVariables("%HAXE_SERVER_PORT%");
             if (!serverPort.StartsWith("%") && serverPort != "0")
-                haxeArgs += " --connect " + serverPort;
+                haxeArgs = "--connect " + serverPort + " " + haxeArgs;
             
             Console.WriteLine("haxe " + haxeArgs);
 
