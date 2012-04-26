@@ -1524,7 +1524,7 @@ namespace ASCompletion.Model
                             if (version == 3) LookupMeta(ref ba, ref i);
                             else if (features.hasCArrays && curMember != null && curMember.Type != null)
                             {
-                                if (ba[i] == ']') curMember.Type = "Array@" + curMember.Type;
+                                if (ba[i] == ']') curMember.Type = features.CArrayTemplate + "@" + curMember.Type;
                             }
                         }
 

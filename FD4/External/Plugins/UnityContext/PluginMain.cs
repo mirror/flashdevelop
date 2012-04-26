@@ -94,6 +94,9 @@ namespace UnityContext
             this.InitBasics();
             this.LoadSettings();
             this.AddEventHandlers();
+
+            // register Unity3D project
+            ProjectManager.Helpers.ProjectCreator.AppendProjectType("project.u3dproj", typeof(UnityProject));
         }
 
         /// <summary>
@@ -144,7 +147,7 @@ namespace UnityContext
                 }
 
             string dir = Path.GetDirectoryName(fileName);
-            while (Directory.GetFiles(dir, "*.unityproj").Length == 0)
+            while (Directory.GetFiles(dir, "*.u3dproj").Length == 0)
             {
                 dir = Path.GetDirectoryName(dir);
                 if (dir.Length <= 3) return false;

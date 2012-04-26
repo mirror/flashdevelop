@@ -25,7 +25,6 @@ namespace ASCompletion.Completion
         public bool hasTypeDefs;
         public bool hasGenerics;
         public bool hasEcmaTyping;
-        public bool hasCArrays;
         public bool hasVars;
         public bool hasConsts;
         public bool hasMethods;
@@ -36,6 +35,10 @@ namespace ASCompletion.Completion
         public bool hasStaticInheritance;
         public bool hasInference;
         public bool checkFileName;
+
+        // C-style array type (ie. string[])
+        public bool hasCArrays;
+        public string CArrayTemplate;
 
         // support for directives
         public bool hasDirectives;
@@ -57,7 +60,6 @@ namespace ASCompletion.Completion
         public Visibility methodModifierDefault;
 
         // keywords
-        
         public string dot;
         public string voidKey;
         public string objectKey;

@@ -935,6 +935,8 @@ namespace ASCompletion.Context
             parser.Features.hasVars = ASContext.Context.Features.hasVars;
             parser.Features.hasMethods = ASContext.Context.Features.hasMethods;
             parser.Features.hasGenerics = ASContext.Context.Features.hasGenerics;
+            parser.Features.hasCArrays = ASContext.Context.Features.hasCArrays;
+            parser.Features.CArrayTemplate = ASContext.Context.Features.CArrayTemplate;
             return parser;
         }
 
