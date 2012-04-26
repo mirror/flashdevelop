@@ -119,18 +119,23 @@ namespace BasicCompletion
                 case EventType.Keys:
                 {
                     Keys keys = (e as KeyEvent).Value;
-                    Keys shortcut = Keys.Control | Keys.Alt | Keys.Space;
                     ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
-                    if (document != null && document.IsEditable && this.IsSupported(document) && keys == shortcut)
+                    if (document == null && !document.IsEditable) return;
+                    if (this.IsSupported(document) && keys == (Keys.Control | Keys.Space))
                     {
-                        e.Handled = true;
                         String lang = document.SciControl.ConfigurationLanguage.ToLower();
                         List<ICompletionListItem> items = this.keywordTable[lang] as List<ICompletionListItem>;
                         if (items != null && items.Count > 0)
                         {
                             items.Sort();
                             CompletionList.Show(items, false);
+                            e.Handled = true;
                         }
+                    }
+                    else if (this.IsSupported(document) && keys == (Keys.Control | Keys.Alt | Keys.Space))
+                    {
+                        PluginBase.MainForm.CallCommand("InsertSnippet", "null");
+                        e.Handled = true;
                     }
                     break;
                 }
@@ -200,7 +205,7 @@ namespace BasicCompletion
         }
 
         /// <summary>
-        /// Shows the completion list after typing two chars
+        /// Shows the completion list after typing three chars
         /// </summary>
         private void SciControlCharAdded(ScintillaControl sci, Int32 value)
         {
@@ -210,7 +215,10 @@ namespace BasicCompletion
             {
                 items.Sort();
                 String curWord = sci.GetWordFromPosition(sci.CurrentPos);
-                if (curWord != null && curWord.Length > 2) CompletionList.Show(items, false, curWord);
+                if (curWord != null && curWord.Length > 2 && !Char.IsWhiteSpace((char)value))
+                {
+                    CompletionList.Show(items, false, curWord);
+                }
             }
         }
 

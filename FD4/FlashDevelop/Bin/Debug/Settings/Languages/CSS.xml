@@ -64,7 +64,7 @@
 	<languages>
 		<language name="css">
 			<lexer name="css" style-bits="7" />
-			<character-class><![CDATA[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-]]></character-class>
+			<character-class><![CDATA[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789#-]]></character-class>
 			<comment-start><![CDATA[/*]]></comment-start>
 			<comment-end><![CDATA[*/]]></comment-end>
 			<file-extensions>css,hss</file-extensions>
