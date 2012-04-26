@@ -50,8 +50,8 @@
 				<style name="globalclass" fore="0x1518ff" />
 				<style name="gdefault" />
 				<style name="linenumber" fore="0x666666" />
-				<style name="bracelight" fore="0x0000cc" back="0xcdcdff" />
-				<style name="bracebad" />
+				<style name="bracelight" fore="0x0000cc" back="0xcdcdff" bold="true" />
+				<style name="bracebad" bold="true" />
 				<style name="controlchar" fore="0xffffff" />
 				<style name="indentguide" fore="0xc0c0c0" />
 				<style name="lastpredefined" fore="0x666666" />
