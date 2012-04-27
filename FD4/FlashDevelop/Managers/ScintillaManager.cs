@@ -38,7 +38,8 @@ namespace FlashDevelop.Managers
         public static void LoadConfiguration()
         {
             SciConfigUtil = new ConfigurationUtility(Assembly.GetExecutingAssembly());
-            SciConfig = (Scintilla)SciConfigUtil.LoadConfiguration(typeof(Scintilla), FileNameHelper.Scintilla);
+            String[] configFiles = Directory.GetFiles(Path.Combine(PathHelper.SettingDir, "Languages"));
+            SciConfig = (Scintilla)SciConfigUtil.LoadConfiguration(configFiles);
             ScintillaControl.Configuration = SciConfig;
             MainForm.Instance.ApplyAllSettings();
         }

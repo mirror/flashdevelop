@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using PluginCore.Helpers;
@@ -116,6 +117,21 @@ namespace ScintillaNet.Configuration
         public virtual object LoadConfiguration(Type configType, string filename)
         {
             return LoadConfiguration( configType, filename, null);
+        }
+
+        public virtual object LoadConfiguration(string[] files)
+        {
+            Scintilla configFile = new Scintilla();
+            List<include> includes = new List<include>();
+            for (Int32 i = 0; i < files.Length; i++)
+            {
+                include inc = new include();
+                inc.file = files[i];
+                includes.Add(inc);
+            }
+            configFile.includes = includes.ToArray();
+            configFile.init(this, null);
+            return configFile;
         }
         
     }

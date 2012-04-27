@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Xml;
 using System.Text;
 using System.Windows.Forms;
@@ -91,6 +92,8 @@ namespace FlashDevelop.Managers
             switch (node.Name)
             {
                 case "menu" :
+                    String name = XmlHelper.GetAttribute(node, "name");
+                    if (name == "SyntaxMenu") node.InnerXml = GetSyntaxMenuXml();
                     items.Add(GetMenu(node));
                     break;
                 case "separator" :
@@ -212,6 +215,22 @@ namespace FlashDevelop.Managers
         public static ToolStripSeparator GetSeparator(XmlNode node)
         {
             return new ToolStripSeparator();
+        }
+
+        /// <summary>
+        /// Gets the dynamic syntax menu xml (easy integration :)
+        /// </summary>
+        private static String GetSyntaxMenuXml()
+        {
+            String syntaxXml = "";
+            String[] syntaxFiles = Directory.GetFiles(Path.Combine(PathHelper.SettingDir, "Languages"), "*.xml");
+            String xmlTmpl = "<button label=\"{0}\" click=\"ChangeSyntax\" tag=\"{1}\" flags=\"Enable:IsEditable+Check:IsEditable|IsActiveSyntax\" />";
+            for (Int32 i = 0; i < syntaxFiles.Length; i++)
+            {
+                String fileName = Path.GetFileNameWithoutExtension(syntaxFiles[i]);
+                syntaxXml += String.Format(xmlTmpl, fileName, fileName.ToLower());
+            }
+            return syntaxXml;
         }
 
         /// <summary>

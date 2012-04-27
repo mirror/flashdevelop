@@ -43,17 +43,6 @@ namespace FlashDevelop.Helpers
         }
 
         /// <summary>
-        /// Path to the scintilla config file
-        /// </summary>
-        public static String Scintilla
-        {
-            get
-            {
-                return GetSettingFile("ScintillaNET.xml");
-            }
-        }
-
-        /// <summary>
         /// Path to the scintilla menu file
         /// </summary>
         public static String ScintillaMenu
