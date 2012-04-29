@@ -625,8 +625,7 @@ namespace ProjectManager
                     project.Save();
                     menus.ProjectChanged(project);
                 }
-                else if (dialog.ClasspathsChanged)
-                    projectActions.UpdateASCompletion(MainForm, project);
+                else projectActions.UpdateASCompletion(MainForm, project);
             }
         }
 

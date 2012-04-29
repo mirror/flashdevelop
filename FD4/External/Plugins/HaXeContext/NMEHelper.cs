@@ -164,7 +164,7 @@ namespace HaXeContext
             pi.CreateNoWindow = true;
             pi.WindowStyle = ProcessWindowStyle.Hidden;
             Process p = Process.Start(pi);
-            p.WaitForExit(500);
+            p.WaitForExit(5000);
 
             List<string> lines = new List<string>();
             do { lines.Add(p.StandardOutput.ReadLine()); }
