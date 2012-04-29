@@ -424,6 +424,8 @@ namespace ProjectManager.Projects.Haxe
             if (MovieOptions.Platform == HaxeMovieOptions.NME_PLATFORM)
             {
                 MovieOptions.TargetBuildTypes = HaxeMovieOptions.NME_TARGETS;
+                if (TestMovieBehavior == TestMovieBehavior.Unknown)
+                    TestMovieBehavior = TestMovieBehavior.Custom;
             }
             else if (MovieOptions.TargetBuildTypes == null)
             {
