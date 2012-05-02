@@ -23,6 +23,9 @@ namespace FlashDevelop.Docking
         private Timer focusTimer;
         private Timer backupTimer;
         private String previousText;
+        private ScintillaControl editor;
+        private ScintillaControl editor2;
+        private SplitContainer splitContainer;
         private Boolean useCustomIcon;
         private Boolean isModified;
         private FileInfo fileInfo;
@@ -90,6 +93,27 @@ namespace FlashDevelop.Docking
         }
 
         /// <summary>
+        /// Are we splitted in to two sci controls?
+        /// </summary>
+        public Boolean IsSplitted
+        {
+            get
+            {
+                if (!this.IsEditable || this.splitContainer.Panel2Collapsed) return false;
+                else return true;
+            }
+            set
+            {
+                if (this.IsEditable)
+                {
+                    this.splitContainer.Panel2Collapsed = !value;
+                    if (value) this.splitContainer.Panel2.Show();
+                    else this.splitContainer.Panel2.Hide();
+                }
+            }
+        }
+
+        /// <summary>
         /// ScintillaControl of the document
         /// </summary>
         public ScintillaControl SciControl
@@ -111,7 +135,19 @@ namespace FlashDevelop.Docking
                 return null;
             }
         }
-        
+
+        /// <summary>
+        /// SplitContainer of the document
+        /// </summary>
+        public SplitContainer SplitContainer
+        {
+            get
+            {
+                if (this.splitContainer != null) return this.splitContainer;
+                else return null;
+            }
+        }
+            
         /// <summary>
         /// Gets if the file is untitled
         /// </summary>
@@ -168,8 +204,22 @@ namespace FlashDevelop.Docking
         /// <summary>
         /// Adds a new scintilla control to the document
         /// </summary>
-        public void AddScintillaControl(ScintillaControl editor)
+        public void AddEditorControls(String file, String text, Int32 codepage)
         {
+            editor = ScintillaManager.CreateControl(file, text, codepage);
+            editor.Dock = DockStyle.Fill;
+            editor2 = ScintillaManager.CreateControl(file, text, codepage);
+            editor2.Dock = DockStyle.Fill;
+            splitContainer = new SplitContainer();
+            splitContainer.Name = "fdSplitView";
+            splitContainer.Orientation = Orientation.Horizontal;
+            splitContainer.BackColor = SystemColors.Control;
+            splitContainer.Panel1.Controls.Add(editor);
+            splitContainer.Panel2.Controls.Add(editor2);
+            splitContainer.Dock = DockStyle.Fill;
+            splitContainer.Panel2Collapsed = true;
+            Int32 oldDoc = editor.DocPointer;
+            editor2.DocPointer = oldDoc;
             editor.SavePointLeft += delegate 
             {
                 Globals.MainForm.OnDocumentModify(this);
@@ -179,7 +229,8 @@ namespace FlashDevelop.Docking
                 editor.MarkerDeleteAll(2);
                 this.IsModified = false;
             };
-            this.Controls.Add(editor);
+            ScintillaManager.UpdateControlSyntax(editor2);
+            this.Controls.Add(splitContainer);
         }
 
         /// <summary>

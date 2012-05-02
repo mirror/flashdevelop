@@ -528,13 +528,12 @@ namespace FlashDevelop
             {
                 this.notifyOpenFile = true;
                 TabbedDocument tabbedDocument = new TabbedDocument();
-                ScintillaControl editor = ScintillaManager.CreateControl(file, text, codepage);
                 tabbedDocument.Closing += new System.ComponentModel.CancelEventHandler(this.OnDocumentClosing);
                 tabbedDocument.Closed += new System.EventHandler(this.OnDocumentClosed);
                 tabbedDocument.TabPageContextMenuStrip = this.tabMenu;
                 tabbedDocument.ContextMenuStrip = this.editorMenu;
                 tabbedDocument.Text = Path.GetFileName(file);
-                tabbedDocument.AddScintillaControl(editor);
+                tabbedDocument.AddEditorControls(file, text, codepage);
                 tabbedDocument.Show();
                 return tabbedDocument;
             }
@@ -2411,6 +2410,18 @@ namespace FlashDevelop
         public void ShowSettings(Object sender, System.EventArgs e)
         {
             SettingDialog.Show("FlashDevelop", "");
+        }
+
+        /// <summary>
+        /// Toggles the currect document to and from split view
+        /// </summary>
+        public void ToggleSplitView(Object sender, System.EventArgs e)
+        {
+            if (this.CurrentDocument.IsEditable)
+            {
+                this.CurrentDocument.IsSplitted = !this.CurrentDocument.IsSplitted;
+                ButtonManager.UpdateFlaggedButtons();
+            }
         }
 
         /// <summary>

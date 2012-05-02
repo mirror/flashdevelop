@@ -109,6 +109,7 @@
 		<button label="Label.ExpandAll" click="ScintillaCommand" tag="ExpandAllFolds" shortcut="Control|Shift|E" flags="Enable:IsEditable" />
 		<separator />
 		<button label="Label.FullScreen" click="ToggleFullScreen" shortcut="Shift|Alt|Enter" flags="Check:IsFullScreen" />
+		<button label="Label.SplitView" click="ToggleSplitView" shortcut="Control|Shift|Enter" flags="Check:IsSplitted" />
 		<separator />
 	</menu>
 	<menu label="Label.Search" name="SearchMenu">

@@ -58,6 +58,7 @@ namespace PluginCore
         Control.ControlCollection Controls { get; }
         ScintillaControl SciControl { get; }
         Boolean IsModified { get; set; }
+        Boolean IsSplitted { get; set; }
         Boolean IsBrowsable { get; }
         Boolean IsUntitled { get; }
         Boolean IsEditable { get; }
