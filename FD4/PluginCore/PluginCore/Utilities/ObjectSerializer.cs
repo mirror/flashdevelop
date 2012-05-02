@@ -53,7 +53,12 @@ namespace PluginCore.Utilities
             }
             catch (Exception ex)
             {
-                ErrorManager.ShowError(ex);
+                IMainForm mainForm = PluginBase.MainForm;
+                if (mainForm.MultiInstanceMode && mainForm.ClosingEntirely)
+                {
+                    ErrorManager.AddToLog("Skipping errors on multi full close.", ex);
+                }
+                else ErrorManager.ShowError(ex);
             }
         }
 
