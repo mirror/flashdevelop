@@ -242,7 +242,7 @@ namespace HaXeContext
             set
             {
                 _completionMode = value;
-                CompletionModeChanged();
+                FireCompletionMode();
             }
         }
 
@@ -253,7 +253,7 @@ namespace HaXeContext
             get { return completionServerPort; }
             set {
                 completionServerPort = value;
-                CompletionModeChanged();
+                FireCompletionMode();
             }
         }
 
@@ -287,6 +287,12 @@ namespace HaXeContext
         private void FireChanged()
         {
             if (OnClasspathChanged != null) OnClasspathChanged();
+        }
+
+        [Browsable(false)]
+        private void FireCompletionMode()
+        {
+            if (CompletionModeChanged != null) CompletionModeChanged();
         }
 
         [Browsable(false)]
