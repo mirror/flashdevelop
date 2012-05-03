@@ -343,10 +343,9 @@ namespace HaXeContext
             if (proj != null)
             {
                 foreach (string param in proj.BuildHXML(new string[0], "", false))
-                    if (param.IndexOf("-lib ") == 0)
+                    if (!string.IsNullOrEmpty(param) && param.IndexOf("-lib ") == 0)
                         AddPath(LookupLibrary(param.Substring(5)));
             }
-
 
             // add external pathes
             List<PathModel> initCP = classPath;

@@ -372,6 +372,8 @@ namespace ProjectManager.Projects.Haxe
 
         private void ParseHXML(string[] raw)
         {
+            if (raw != null && (raw.Length == 0 || raw[0] == null))
+                raw = null;
             rawHXML = raw;
 
             Regex reHxOp = new Regex("-([a-z0-9-]+)\\s*(.*)", RegexOptions.IgnoreCase);
@@ -381,10 +383,11 @@ namespace ProjectManager.Projects.Haxe
             List<string> add = new List<string>();
             string target = HaxeMovieOptions.FLASHPLAYER_PLATFORM;
             string output = "";
+            if (raw != null)
             foreach(string line in raw)
             {
                 if (line == null) break;
-                Match m = reHxOp.Match(line);
+                Match m = reHxOp.Match(line.Trim());
                 if (m.Success)
                 {
                     string op = m.Groups[1].Value;

@@ -9,6 +9,7 @@ using PluginCore.Managers;
 using PluginCore.Bridge;
 using ProjectManager.Projects;
 using PluginCore.Helpers;
+using System.Text.RegularExpressions;
 
 namespace HaXeContext
 {
@@ -158,20 +159,26 @@ namespace HaXeContext
 
             ProcessStartInfo pi = new ProcessStartInfo();
             pi.FileName = haxelib;
-            pi.Arguments = " run nme display \"" + nmmlPath +"\" " + hxproj.TargetBuild;
+            pi.Arguments = " run nme display \"" + hxproj.GetRelativePath(nmmlPath) +"\" " + hxproj.TargetBuild;
+            pi.RedirectStandardError = true;
             pi.RedirectStandardOutput = true;
             pi.UseShellExecute = false;
             pi.CreateNoWindow = true;
+            pi.WorkingDirectory = Path.GetDirectoryName(hxproj.ProjectPath);
             pi.WindowStyle = ProcessWindowStyle.Hidden;
             Process p = Process.Start(pi);
             p.WaitForExit(5000);
 
-            List<string> lines = new List<string>();
-            do { lines.Add(p.StandardOutput.ReadLine()); }
-            while (!p.StandardOutput.EndOfStream);
+            string hxml = p.StandardOutput.ReadToEnd();
+            string err = p.StandardError.ReadToEnd();
             p.Close();
 
-            hxproj.RawHXML = lines.ToArray();
+            if (string.IsNullOrEmpty(hxml))
+            {
+                TraceManager.AddAsync(err, -3);
+                hxproj.RawHXML = null;
+            }
+            else hxproj.RawHXML = Regex.Split(hxml, "[\r\n]+");
         }
 
         private static string GetHaxelib(IProject project)

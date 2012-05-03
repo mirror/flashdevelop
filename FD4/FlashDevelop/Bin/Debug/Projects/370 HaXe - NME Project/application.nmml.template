@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<!-- metadata, make sure 'package' is at least 2 segments (ie. com.myproject) -->
+	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
 	<app file="$(ProjectID)" title="$(ProjectName)" main="$(PackageDot)Main" package="$(PackageName)" 
 		version="1.0.0" company="$(DefaultUser)" />
 		
