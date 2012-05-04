@@ -47,6 +47,7 @@ namespace FlashDevelop.Settings
         private Boolean confirmOnExit = false;
         private Boolean useSystemColors = false;
         private Boolean disableFindOptionSync = false;
+        private Boolean disableSimpleQuickFind = false;
         private Boolean disableReplaceFilesConfirm = false;
         private Boolean autoReloadModifiedFiles = false;
         private Boolean saveUnicodeWithBOM = false;

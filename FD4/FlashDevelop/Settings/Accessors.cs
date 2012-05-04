@@ -612,6 +612,16 @@ namespace FlashDevelop.Settings
             set { this.disableFindTextUpdating = value; }
         }
 
+        [DefaultValue(false)]
+        [DisplayName("Disable Simple Quick Find")]
+        [LocalizedCategory("FlashDevelop.Category.Features")]
+        [LocalizedDescription("FlashDevelop.Description.DisableSimpleQuickFind")]
+        public Boolean DisableSimpleQuickFind
+        {
+            get { return this.disableSimpleQuickFind; }
+            set { this.disableSimpleQuickFind = value; }
+        }
+        
         #endregion
 
         #region Formatting

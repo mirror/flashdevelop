@@ -212,6 +212,7 @@ namespace PluginCore
         String CustomTemplateDir { get; set; }
         String CustomProjectsDir { get; set; }
         Boolean DisableFindOptionSync { get; set; }
+        Boolean DisableSimpleQuickFind { get; set; }
         Boolean DisableReplaceFilesConfirm { get; set; }
         Boolean AutoReloadModifiedFiles { get; set; }
         Boolean UseListViewGrouping { get; set; }

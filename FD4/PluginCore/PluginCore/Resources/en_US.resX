@@ -4856,4 +4856,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Split &amp;View</value>
     <comment>Added after 4.0.1</comment>
   </data>
+  <data name="FlashDevelop.Description.DisableSimpleQuickFind" xml:space="preserve">
+    <value>Disables the simple find when Quick Find control is hidden.</value>
+    <comment>Added after 4.0.1</comment>
+  </data>
 </root>
