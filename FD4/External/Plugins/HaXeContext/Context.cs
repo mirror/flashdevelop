@@ -1058,7 +1058,7 @@ namespace HaXeContext
                 val == "trace")
                 return null;
 
-            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position, completionModeHandler);
+            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position + 1, completionModeHandler);
             ArrayList al = hc.getList();
             if (al == null || al.Count == 0)
                 return null; // haxe.exe not found

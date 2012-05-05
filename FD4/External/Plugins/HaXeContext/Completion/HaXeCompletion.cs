@@ -57,7 +57,7 @@ namespace HaXeContext
             var file = PluginBase.MainForm.CurrentDocument.FileName;
 
             // Locate carret position
-            var pos = position + 1; // sci.CurrentPos;
+            var pos = position; // sci.CurrentPos;
             // locate a . or (
             while (pos > 1 && sci.CharAt(pos - 1) != '.' && sci.CharAt(pos - 1) != '(')
                 pos--;

@@ -2858,6 +2858,7 @@ namespace ASCompletion.Completion
             bool hasGenerics = features.hasGenerics;
             bool hadWS = false;
             bool hadDot = ignoreWhiteSpace;
+            int dotCount = 0;
             bool inRegex = false;
             char dot = features.dot[features.dot.Length-1];
             while (position > minPos)
@@ -2989,7 +2990,15 @@ namespace ASCompletion.Completion
                     {
                         if (features.dot.Length == 2)
                             hadDot = position > 0 && Sci.CharAt(position - 1) == features.dot[0];
-                        else hadDot = true;
+                        else
+                        {
+                            hadDot = true;
+                            if (++dotCount == 3) // haxe's triple dot in for()
+                            {
+                                sb.Remove(0, 2);
+                                break;
+                            }
+                        }
                         sb.Insert(0, c);
                     }
                     else if (characterClass.IndexOf(c) >= 0)
@@ -3001,6 +3010,7 @@ namespace ASCompletion.Completion
                         }
                         hadWS = false;
                         hadDot = false;
+                        dotCount = 0;
                         sb.Insert(0, c);
                         startPos = position;
                     }
