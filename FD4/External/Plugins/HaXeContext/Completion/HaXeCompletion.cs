@@ -100,9 +100,9 @@ namespace HaXeContext
             else
                 hxmlArgs.Add(file.Substring(start, end - start));
 
-            hxmlArgs.Add("--display \"" + file + "\"@" + pos);
-            hxmlArgs.Add("-D use_rtti_doc");
-            if (hp.TraceEnabled) hxmlArgs.Add("-debug");
+            hxmlArgs.Insert(0, "--display \"" + file + "\"@" + pos);
+            hxmlArgs.Insert(1, "-D use_rtti_doc");
+            if (hp.TraceEnabled) hxmlArgs.Insert(2, "-debug");
 
             return hxmlArgs.ToArray();
         }
