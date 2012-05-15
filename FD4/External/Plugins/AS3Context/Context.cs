@@ -52,7 +52,7 @@ namespace AS3Context
             features.hasPackages = true;
             features.hasNamespaces = true;
             features.hasImports = true;
-            features.hasImportsWildcard = false;
+            features.hasImportsWildcard = true;
             features.hasClasses = true;
             features.hasExtends = true;
             features.hasImplements = true;

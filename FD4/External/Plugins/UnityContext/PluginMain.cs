@@ -117,7 +117,7 @@ namespace UnityContext
                 case EventType.SyntaxDetect:
                     // detect Actionscript language version
                     ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
-                    if (!doc.IsEditable) return;
+                    if (doc == null || !doc.IsEditable) return;
                     if (doc.FileName.ToLower().EndsWith(".js"))
                     {
                         if (IsUnityProject(doc.FileName))
