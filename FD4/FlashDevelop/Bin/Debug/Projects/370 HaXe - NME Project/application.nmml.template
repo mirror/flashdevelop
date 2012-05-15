@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
+	<!-- NMML reference: https://gist.github.com/1763850 -->
+	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<app file="$(ProjectID)" title="$(ProjectName)" main="$(PackageDot)Main" package="$(PackageName)" 
-		version="1.0.0" company="$(DefaultUser)" />
-		
+	<meta title="$(ProjectName)" package="$(PackageDot)$(ProjectID)" version="1.0.0" company="$(DefaultUser)" />
+	
 	<!-- output -->
-	<window width="800" height="480" fps="60" background="0xFFFFFF" orientation="landscape" resizable="true" />
-	<set name="BUILD_DIR" value="bin" />
+	<app main="$(PackageDot)Main" file="$(ProjectID)" path="bin" />
+	
+	<window background="#000000" fps="60" />
+	<window width="800" height="480" unless="mobile" />
+	<window orientation="landscape" vsync="true" antialiasing="0" if="cpp" />
 	
 	<!-- classpath, haxe libs -->
-	<classpath name="src" />
+	<source path="src" />
 	<haxelib name="nme" />
 	
 	<!-- assets -->
-	<icon name="assets/nme.svg" />
-	<assets path="assets" include="*" exclude="nme.svg" />
+	<icon path="assets/nme.svg" />
+	<assets path="assets/img" rename="img" />
 	
 	<!-- DLLs -->
 	<ndll name="std" />
 	<ndll name="regexp" />
 	<ndll name="zlib" />
 	<ndll name="nme" haxelib="nme" />
+
+	<!-- optimize JS output -->
+	<haxeflag name="--dead-code-elimination" if="html5" />
+	<haxeflag name="--js-modern" if="html5" />
 	
-	<!-- Windows app: hide console -->
-	<!--<setenv name="no_console" value="1" />-->
 </project>
