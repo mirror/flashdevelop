@@ -206,6 +206,7 @@ namespace BasicCompletion
         /// </summary> 
         public void AddEventHandlers()
         {
+            UITools.Manager.OnCharAdded += new UITools.CharAddedHandler(this.SciControlCharAdded);
             EventType eventTypes = EventType.Keys | EventType.FileSave | EventType.ApplySettings | EventType.SyntaxChange | EventType.FileSwitch;
             EventManager.AddEventHandler(this, eventTypes);
         }
@@ -301,6 +302,27 @@ namespace BasicCompletion
             List<ICompletionListItem> items = new List<ICompletionListItem>();
             for (Int32 j = 0; j < allWords.Count; j++) items.Add(new CompletionItem(allWords[j]));
             return items;
+        }
+
+        /// <summary>
+        /// Shows the completion list atomaticly after typing three chars
+        /// </summary>
+        private void SciControlCharAdded(ScintillaControl sci, Int32 value)
+        {
+            String lang = sci.ConfigurationLanguage.ToLower();
+            if (this.settingObject.EnableAutoCompletion && this.settingObject.EnabledLanguages.Contains(lang))
+            {
+                List<ICompletionListItem> items = this.GetCompletionListItems(lang, sci.FileName);
+                if (items != null && items.Count > 0)
+                {
+                    items.Sort();
+                    String curWord = sci.GetWordFromPosition(sci.CurrentPos);
+                    if (curWord != null && curWord.Length > 2 && !Char.IsWhiteSpace((char)value))
+                    {
+                        CompletionList.Show(items, false, curWord);
+                    }
+                }
+            }
         }
 
         /// <summary>

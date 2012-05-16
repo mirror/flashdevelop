@@ -4853,4 +4853,8 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>Bilaketa Azkarra kontrola gordetzean bilaketa sinplea desgaitu.</value>
     <comment>Added after 4.0.1</comment>
   </data>
+  <data name="BasicCompletion.Description.EnableAutoCompletion" xml:space="preserve">
+    <value>Enables auto-completion of keywords and words from the current file.</value>
+    <comment>Added after 4.0.1</comment>
+  </data>
 </root>

@@ -4860,4 +4860,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Disables the simple find when Quick Find control is hidden.</value>
     <comment>Added after 4.0.1</comment>
   </data>
+  <data name="BasicCompletion.Description.EnableAutoCompletion" xml:space="preserve">
+    <value>Enables auto-completion of keywords and words from the current file.</value>
+    <comment>Added after 4.0.1</comment>
+  </data>
 </root>
