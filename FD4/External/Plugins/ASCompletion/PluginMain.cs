@@ -725,7 +725,8 @@ namespace ASCompletion
             if (model.Version == 1 && PluginBase.CurrentProject != null) return PluginBase.CurrentProject.Language;
             else if (model.Version > 2) return "as3";
             else if (model.Version > 1) return "as2";
-            else if (settingObject.LastASVersion != null) return settingObject.LastASVersion;
+            else if (settingObject.LastASVersion != null && settingObject.LastASVersion.StartsWith("as"))
+                return settingObject.LastASVersion;
             else return "as2";
         }
 

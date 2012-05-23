@@ -156,10 +156,12 @@ namespace HaXeContext
         private static void UpdateProject()
         {
             string haxelib = GetHaxelib(hxproj);
+            string config = hxproj.TargetBuild;
+            if (String.IsNullOrEmpty(config)) config = "flash";
 
             ProcessStartInfo pi = new ProcessStartInfo();
             pi.FileName = haxelib;
-            pi.Arguments = " run nme display \"" + hxproj.GetRelativePath(nmmlPath) +"\" " + hxproj.TargetBuild;
+            pi.Arguments = " run nme display \"" + hxproj.GetRelativePath(nmmlPath) + "\" " + config;
             pi.RedirectStandardError = true;
             pi.RedirectStandardOutput = true;
             pi.UseShellExecute = false;

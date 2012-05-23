@@ -21,7 +21,18 @@ namespace ProjectManager.Projects.Haxe
 
         protected override void PostProcess()
         {
-            if (version > 1) return;
+            if (version > 1)
+            {
+                // old projects fix
+                if (project.MovieOptions.Platform == HaxeMovieOptions.NME_PLATFORM
+                    && project.TargetBuild == null && project.TestMovieCommand != "")
+                {
+                    project.TestMovieCommand = "";
+                    try { project.Save(); }
+                    catch { }
+                }
+                return;
+            }
 
             if (project.MovieOptions.MajorVersion > 10)
             {
@@ -53,7 +64,8 @@ namespace ProjectManager.Projects.Haxe
                 }
                 project.MovieOptions.Platform = platform;
             }
-            project.Save();
+            try { project.Save(); } 
+            catch { }
         }
 
         // process HaXe-specific stuff
