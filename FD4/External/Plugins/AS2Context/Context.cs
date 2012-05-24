@@ -199,7 +199,12 @@ namespace AS2Context
                         tempVersion = 8;
                     }
                     path = Path.Combine(as2settings.MMClassPath, "FP" + Math.Max(7, tempVersion));
-                    if (System.IO.Directory.Exists(path)) AddPath(path);
+                    if (System.IO.Directory.Exists(path))
+                    {
+                        PathModel aPath = new PathModel(path, this);
+                        ManualExploration(aPath, new string[] { "aso", "FP7", "FP8", "FP9" });
+                        AddPath(aPath);
+                    }
                 }
             }
 

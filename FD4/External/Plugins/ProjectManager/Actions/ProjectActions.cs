@@ -206,6 +206,7 @@ namespace ProjectManager.Actions
             {
                 info["lang"] = currentLang;
                 info["platform"] = "";
+                info["targetBuild"] = "";
                 info["version"] = "0.0";
                 info["classpath"] = null;
                 info["hidden"] = null;
@@ -221,6 +222,7 @@ namespace ProjectManager.Actions
 
                 info["platform"] = platform;
                 info["version"] = majorVersion + "." + minorVersion;
+                info["targetBuild"] = project.TargetBuild;
                 info["lang"] = currentLang;
                 info["classpath"] = classPaths.ToArray();
                 info["hidden"] = hiddenPaths.ToArray();

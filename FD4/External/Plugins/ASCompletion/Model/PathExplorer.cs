@@ -88,13 +88,6 @@ namespace ASCompletion.Model
             this.pathModel = pathModel;
             foundFiles = new List<string>();
             explored = new List<string>();
-            if (context.Settings.LanguageId == "AS2")
-            {
-                explored.Add(Path.Combine(pathModel.Path, "aso"));
-                explored.Add(Path.Combine(pathModel.Path, "FP7"));
-                explored.Add(Path.Combine(pathModel.Path, "FP8"));
-                explored.Add(Path.Combine(pathModel.Path, "FP9"));
-            }
         }
 
         public void HideDirectories(IEnumerable<String> dirs)

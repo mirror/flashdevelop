@@ -245,9 +245,12 @@ namespace HaXeContext
             {
                 lang = "cpp";
 
-                TraceManager.Add("TODO: set correct lang for NME depending on target");
-
-                features.Directives.Add("--remap flash:nme");
+                if (contextSetup.TargetBuild == null || contextSetup.TargetBuild.StartsWith("flash"))
+                    lang = "";
+                else if (contextSetup.TargetBuild.StartsWith("html5"))
+                    lang = "js";
+                else if (contextSetup.TargetBuild.IndexOf("neko") >= 0)
+                    lang = "neko";
             }
             else if (IsCsharpTarget)
             {
@@ -302,26 +305,24 @@ namespace HaXeContext
                     PathModel std = PathModel.GetModel(haxeCP, this);
                     if (!std.WasExplored && !Settings.LazyClasspathExploration)
                     {
-                        PathExplorer stdExplorer = new PathExplorer(this, std);
                         string[] keep = new string[] { "sys", "haxe" };
                         List<String> hide = new List<string>();
                         foreach (string dir in Directory.GetDirectories(haxeCP))
                             if (Array.IndexOf<string>(keep, Path.GetFileName(dir)) < 0)
                                 hide.Add(Path.GetFileName(dir));
-                        stdExplorer.HideDirectories(hide);
-                        stdExplorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
-                        stdExplorer.Run();
+                        ManualExploration(std, hide);
                     }
                     AddPath(std);
 
-                    PathModel specific = PathModel.GetModel(Path.Combine(haxeCP, lang), this);
-                    if (!specific.WasExplored && !Settings.LazyClasspathExploration)
+                    if (!string.IsNullOrEmpty(lang))
                     {
-                        PathExplorer speExplorer = new PathExplorer(this, specific);
-                        speExplorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
-                        speExplorer.Run();
+                        PathModel specific = PathModel.GetModel(Path.Combine(haxeCP, lang), this);
+                        if (!specific.WasExplored && !Settings.LazyClasspathExploration)
+                        {
+                            ManualExploration(specific, null);
+                        }
+                        AddPath(specific);
                     }
-                    AddPath(specific);
                 }
             }
             HaxeProject proj = PluginBase.CurrentProject as HaxeProject;
@@ -382,6 +383,24 @@ namespace HaXeContext
 
             if (completionModeHandler == null) 
                 OnCompletionModeChange();
+        }
+
+        override protected bool ExplorePath(PathModel path)
+        {
+            if (!path.WasExplored && !path.IsVirtual && !path.IsTemporaryPath)
+            {
+                string haxelib = Path.Combine(path.Path, "haxelib.xml");
+                if (File.Exists(haxelib))
+                {
+                    string src = File.ReadAllText(haxelib);
+                    if (src.IndexOf("<project name=\"nme\"") >= 0)
+                    {
+                        ManualExploration(path, new string[] { 
+                            "js", "jeash", "neash", "flash", "neko", "tools", "samples", "project" });
+                    }
+                }
+            }
+            return base.ExplorePath(path);
         }
 
         /// <summary>

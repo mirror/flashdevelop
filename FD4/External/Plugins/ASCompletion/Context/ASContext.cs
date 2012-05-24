@@ -559,7 +559,7 @@ namespace ASCompletion.Context
 		/// Add a path to the classpath
 		/// </summary>
 		/// <param name="path">Path to add</param>
-        protected PathModel AddPath(string path)
+        protected virtual PathModel AddPath(string path)
 		{
 			try
 			{
@@ -592,7 +592,7 @@ namespace ASCompletion.Context
 			return aPath;
 		}
 
-        protected PathModel AddPath(PathModel path)
+        protected virtual PathModel AddPath(PathModel path)
 		{
 			// avoid duplicated pathes
 			string upath = path.Path.ToUpper();
@@ -606,7 +606,15 @@ namespace ASCompletion.Context
             return path;
         }
 
-        protected bool ExplorePath(PathModel path)
+        protected virtual void ManualExploration(PathModel path, IEnumerable<String> hideDirectories)
+        {
+            PathExplorer explorer = new PathExplorer(this, path);
+            if (hideDirectories != null) explorer.HideDirectories(hideDirectories);
+            explorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
+            explorer.Run();
+        }
+
+        protected virtual bool ExplorePath(PathModel path)
         {
             // exploration
             if (path.IsTemporaryPath)
@@ -1536,6 +1544,7 @@ namespace ASCompletion.Context
         public string Lang;
         public string Platform;
         public string Version;
+        public string TargetBuild;
         public string[] Classpath;
         public string[] HiddenPaths;
     }

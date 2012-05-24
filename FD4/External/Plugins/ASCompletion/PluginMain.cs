@@ -260,6 +260,7 @@ namespace ASCompletion
                                     setup.Platform = (string)info["platform"];
                                     setup.Lang = (string)info["lang"];
                                     setup.Version = (string)info["version"];
+                                    setup.TargetBuild = (string)info["targetBuild"];
                                     setup.Classpath = (string[])info["classpath"];
                                     setup.HiddenPaths = (string[])info["hidden"];
                                     ASContext.SetLanguageClassPath(setup);
