@@ -996,8 +996,12 @@ namespace ASCompletion.Model
                     }
                     else if (c1 == '<')
                     {
-                        if (inType) inGeneric = true;
-                        paramTempCount++;
+                        if (i > 1 && ba[i - 2] == '<') paramTempCount = 0; // a << b
+                        else
+                        {
+                            if (inType) inGeneric = true;
+                            paramTempCount++;
+                        }
                     }
                     else if (c1 == '>')
                     {

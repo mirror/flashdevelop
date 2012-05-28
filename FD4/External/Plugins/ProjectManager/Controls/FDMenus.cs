@@ -152,15 +152,15 @@ namespace ProjectManager.Controls
             NewProject = new ToolStripMenuItem(TextHelper.GetString("Label.NewProject"));
 			NewProject.Image = Icons.NewProject.Img;
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.NewProject", NewProject);
-            AllItems.Add(NewProject);
+            //AllItems.Add(NewProject);
 
             OpenProject = new ToolStripMenuItem(TextHelper.GetString("Label.OpenProject"));
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.OpenProject", OpenProject);
-            AllItems.Add(OpenProject);
+            //AllItems.Add(OpenProject);
 
             ImportProject = new ToolStripMenuItem(TextHelper.GetString("Label.ImportProject"));
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.ImportProject", ImportProject);
-            AllItems.Add(ImportProject);
+            //AllItems.Add(ImportProject);
 
             CloseProject = new ToolStripMenuItem(TextHelper.GetString("Label.CloseProject"));
             PluginBase.MainForm.RegisterShortcutItem("ProjectMenu.CloseProject", CloseProject);
