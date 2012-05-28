@@ -145,6 +145,7 @@ namespace HaXeContext
         static void updater_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             UpdateProject();
+            hxproj.PropertiesChanged();
         }
 
         static void watcher_Changed(object sender, FileSystemEventArgs e)
