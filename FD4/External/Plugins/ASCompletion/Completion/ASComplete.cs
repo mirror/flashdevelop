@@ -2333,6 +2333,7 @@ namespace ASCompletion.Completion
 		{
 			ASResult result = new ASResult();
             IASContext context = ASContext.Context;
+            if (!inClass.IsVoid()) inFile = inClass.InFile;
 
             int p = token.IndexOf('(');
             if (p > 0) token = token.Substring(0, p);
@@ -2355,12 +2356,12 @@ namespace ASCompletion.Completion
 					result.Member = var;
                     result.InFile = inFile;
 					result.InClass = inClass;
-                    result.Type = context.ResolveType(var.Type, inClass.InFile);
+                    result.Type = context.ResolveType(var.Type, inFile);
 					
 					if ((var.Flags & FlagType.Function) > 0)
 						result.Type = ASContext.Context.ResolveType("Function", null);
 					else
-						result.Type = context.ResolveType(var.Type, inClass.InFile);
+						result.Type = context.ResolveType(var.Type, inFile);
 
 					return result;
 				}
@@ -2373,7 +2374,7 @@ namespace ASCompletion.Completion
                 if (para.Name == token || (para.Name[0] == '?' && para.Name.Substring(1) == token))
                 {
                     result.Member = para;
-                    result.Type = context.ResolveType(para.Type, inClass.InFile);
+                    result.Type = context.ResolveType(para.Type, inFile);
                     return result;
                 }
 			}
