@@ -15,6 +15,13 @@ namespace FlashDebugger.Controls
 			}
         }
 
+		private int m_ChildrenShowLimit = 500;
+		public int ChildrenShowLimit
+		{
+			get { return m_ChildrenShowLimit; }
+			set { m_ChildrenShowLimit = value; }
+		}
+
         private Variable m_Value;
 		private bool m_bEditing = false;
 

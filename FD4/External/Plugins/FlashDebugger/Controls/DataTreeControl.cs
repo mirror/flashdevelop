@@ -66,6 +66,7 @@ namespace FlashDebugger.Controls
 			ValueNodeTextBox.IsEditEnabledValueNeeded += new EventHandler<NodeControlValueEventArgs>(ValueNodeTextBox_IsEditEnabledValueNeeded);
 			ValueNodeTextBox.EditorShowing += new System.ComponentModel.CancelEventHandler(ValueNodeTextBox_EditorShowing);
 			ValueNodeTextBox.EditorHided += new EventHandler(ValueNodeTextBox_EditorHided);
+			_tree.NodeMouseDoubleClick += new EventHandler<TreeNodeAdvMouseEventArgs>(_tree_NodeMouseDoubleClick);
 			_contextMenuStrip = new ContextMenuStrip();
 			if (PluginBase.MainForm != null && PluginBase.Settings != null)
 			{
@@ -233,7 +234,7 @@ namespace FlashDebugger.Controls
             if (e.Node.Index >= 0)
             {
                 DataNode node = e.Node.Tag as DataNode;
-				if (node.Nodes.Count == 0)
+				if (node.Nodes.Count == 0 && node.Variable != null)
                 {
 					FlashInterface flashInterface = PluginMain.debugManager.FlashInterface;
                     SortedList<DataNode, DataNode> nodes = new SortedList<DataNode, DataNode>();
@@ -299,7 +300,7 @@ namespace FlashDebugger.Controls
 							}
 							node.Nodes.Add(childrenNode);
 						}
-                        if (ch.Equals("flash.events::EventDispatcher"))
+                        else if (ch.Equals("flash.events::EventDispatcher"))
                         {
                             Variable list = node.Variable.getValue().getMemberNamed(flashInterface.Session, "listeners");
                             var omg = list.getName();
@@ -327,13 +328,35 @@ namespace FlashDebugger.Controls
                         }
 					}
 					//test children
+					int limit = 0;
 					foreach (DataNode item in nodes.Keys)
 					{
+						if (limit >= node.ChildrenShowLimit) break;
 						node.Nodes.Add(item);
+						limit++;
+					}
+					if (nodes.Count > node.ChildrenShowLimit)
+					{
+						DataNode moreNode = new DataNode("...");
+						node.Nodes.Add(moreNode);
 					}
                 }
             }
         }
+
+		void _tree_NodeMouseDoubleClick(object sender, TreeNodeAdvMouseEventArgs e)
+		{
+			DataNode node = e.Node.Tag as DataNode;
+			if (node.Text == "..." && node.Variable == null)
+			{
+				e.Handled = true;
+				(node.Parent as DataNode).ChildrenShowLimit += 10;
+				TreeNodeAdv parent = e.Node.Parent;
+				parent.Collapse(true);
+				node.Parent.Nodes.Clear();
+				parent.Expand(true);
+			}
+		}
 
 		public void SaveExpanded()
 		{
