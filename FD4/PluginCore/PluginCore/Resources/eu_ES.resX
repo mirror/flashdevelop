@@ -4822,7 +4822,7 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="HaXeContext.Description.CompletionMode" xml:space="preserve">
-    <value>Osaketa egokiena haxe konpilatzaileak emango du eta azkarrena OsaketaZerbitzari bidez izango da. Alternatiba gisa, FlashDevelop-ek oinarrizko haxe osaketa du.</value>
+    <value>Osaketa egokiena Haxe konpilatzaileak emango du eta azkarrena OsaketaZerbitzari bidez izango da. Alternatiba gisa, FlashDevelop-ek oinarrizko Haxe osaketa du.</value>
     <comment>Added after 4.0</comment>
   </data>
   <data name="HaXeContext.Description.CompletionServerPort" xml:space="preserve">

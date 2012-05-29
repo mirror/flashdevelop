@@ -14,7 +14,7 @@ namespace HaXeContext
 {
     public class PluginMain : IPlugin, InstalledSDKOwner
     {
-        private String pluginName = "HaXeContext";
+        private String pluginName = "HaxeContext";
         private String pluginGuid = "ccf2c534-db6b-4c58-b90e-cd0b837e61c5";
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Haxe context for the ASCompletion engine.";

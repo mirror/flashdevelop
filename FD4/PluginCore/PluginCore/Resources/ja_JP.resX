@@ -4886,11 +4886,11 @@ UseData:"</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="HaXeContext.Description.CompletionMode" xml:space="preserve">
-    <value>The most complete completion will be provided by the haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for haxe completion.</value>
+    <value>The most complete completion will be provided by the Haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for Haxe completion.</value>
     <comment>Added after 4.0</comment>
   </data>
   <data name="HaXeContext.Description.CompletionServerPort" xml:space="preserve">
-    <value>Define haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
+    <value>Define Haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
     <comment>Added after 4.0</comment>
   </data>
   <data name="ProjectManager.ToolTip.TargetBuild" xml:space="preserve">
