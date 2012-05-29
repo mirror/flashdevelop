@@ -85,12 +85,13 @@ namespace FlashDebugger.Controls
 					{
 						if (!m_bEditing)
 						{
-                            temp = "\"" + m_Value.ToString() + "\"";
+                            temp = "\"" + escape(m_Value.ToString()) + "\"";
 						}
 						else
 						{
                             temp = m_Value.ToString();
 						}
+                        return temp;
 					}
 				}
 				else if (type == VariableType_.NULL)
@@ -105,10 +106,7 @@ namespace FlashDebugger.Controls
                 if (temp == null) temp = m_Value.ToString();
                 if (!m_bEditing)
                 {
-                    if (temp.Length > 65535)
-                        temp = temp.Substring(0, 65535 - 5) + "[...]";
-                    temp = temp.Replace("\n", "\\n");
-                    temp = temp.Replace("\r", "\\r");
+                    temp = escape(temp);
                 }
                 return temp;
 			}
@@ -135,6 +133,23 @@ namespace FlashDebugger.Controls
 				}
 #endif
 			}
+        }
+
+        private string escape(string text)
+        {
+            text = text.Replace("\\", "\\\\");
+            text = text.Replace("\"", "\\\"");
+            text = text.Replace("\0", "\\0");
+            text = text.Replace("\a", "\\a");
+            text = text.Replace("\b", "\\b");
+            text = text.Replace("\f", "\\f");
+            text = text.Replace("\n", "\\n");
+            text = text.Replace("\r", "\\r");
+            text = text.Replace("\t", "\\t");
+            text = text.Replace("\v", "\\v");
+            if (text.Length > 65535)
+                text = text.Substring(0, 65535 - 5) + "[...]";
+            return text;
         }
 
 		public Variable Variable

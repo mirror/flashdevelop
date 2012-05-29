@@ -12,7 +12,7 @@ using flash.tools.debugger.expression;
 
 namespace FlashDebugger.Controls
 {
-    public partial class DataTreeControl : UserControl
+    public partial class DataTreeControl : UserControl, IToolTipProvider
     {
         private DataTreeModel _model;
         private static ViewerForm viewerForm = null;
@@ -52,6 +52,7 @@ namespace FlashDebugger.Controls
 		public DataTreeControl(bool watchMode)
         {
             InitializeComponent();
+            this.ValueNodeTextBox.ToolTipProvider = this;
 			this.watchMode = watchMode;
             _model = new DataTreeModel();
             _tree.Model = _model;
@@ -178,7 +179,11 @@ namespace FlashDebugger.Controls
                 }
                 DataNode node = Tree.SelectedNode.Tag as DataNode;
                 viewerForm.Exp = node.Text;
+                // use IsEditing to get unfiltered value
+                bool ed = node.IsEditing;
+                node.IsEditing = true;
 				viewerForm.Value = node.Value;
+                node.IsEditing = ed;
                 Form mainform = (PluginBase.MainForm as Form);
                 viewerForm.Left = mainform.Left + mainform.Width / 2 - viewerForm.Width / 2;
                 viewerForm.Top = mainform.Top + mainform.Height / 2 - viewerForm.Height / 2;
@@ -367,6 +372,22 @@ namespace FlashDebugger.Controls
 			}
 		}
 
+
+        #region IToolTipProvider Members
+
+        public string GetToolTip(TreeNodeAdv node, NodeControl nodeControl)
+        {
+            DataNode dataNode = node.Tag as DataNode;
+            // use IsEditing to get unfiltered value
+            bool e = dataNode.IsEditing;
+            dataNode.IsEditing = true;
+            string r = dataNode.Value;
+            dataNode.IsEditing = e;
+            if (r.Length > 300) r = r.Substring(0, 300) + "[...]";
+            return r;
+        }
+
+        #endregion
     }
 
 }
