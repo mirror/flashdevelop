@@ -1346,16 +1346,16 @@
     <value>既定の Flash Player バージョンです。</value>
   </data>
   <data name="HaXeContext.Description.HaXeCheckParameters" xml:space="preserve">
-    <value>シンタックスチェックのための haXe コンパイラーパラメータです。</value>
+    <value>シンタックスチェックのための Haxe コンパイラーパラメータです。</value>
   </data>
   <data name="HaXeContext.Description.HaXePath" xml:space="preserve">
-    <value>haXe コンパイラーのパスです。</value>
+    <value>Haxe コンパイラーのパスです。</value>
   </data>
   <data name="HaXeContext.Info.InvalidForQuickBuild" xml:space="preserve">
-    <value>このファイルには有効な haXe クラスが無いか、または @haxe ビルドコマンドが含まれません。</value>
+    <value>このファイルには有効な Haxe クラスが無いか、または @haxe ビルドコマンドが含まれません。</value>
   </data>
   <data name="HaXeContext.Info.InvalidHaXePath" xml:space="preserve">
-    <value>haXe コンパイラーのパスが正しく設定されていません。設定を確認してください。</value>
+    <value>Haxe コンパイラーのパスが正しく設定されていません。設定を確認してください。</value>
   </data>
   <data name="HaXeContext.Info.InvalidQuickBuildCommand" xml:space="preserve">
     <value>無効なクイックビルドコマンドです。</value>
@@ -2271,7 +2271,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>FlashDevelop にコード補完エンジンを追加します。</value>
   </data>
   <data name="HaXeContext.Info.Description" xml:space="preserve">
-    <value>ASCompletion エンジンに haXe コンテキストを追加します。</value>
+    <value>ASCompletion エンジンに Haxe コンテキストを追加します。</value>
   </data>
   <data name="ProjectManager.Info.Description" xml:space="preserve">
     <value>FlashDevelop にプロジェクトマネージャーを追加します。</value>
@@ -2940,7 +2940,7 @@ Never - 起動時にスタートページを表示しません。</value>
     <value>ファイル名:</value>
   </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
-    <value>デフォルトでは、haXe のコード補完は haXe コンパイラーと FlashDevelop の自動補完の両方を組み合わせて使用されます。</value>
+    <value>デフォルトでは、Haxe のコード補完は Haxe コンパイラーと FlashDevelop の自動補完の両方を組み合わせて使用されます。</value>
   </data>
   <data name="FlashDevelop.Description.DisableFindTextUpdating" xml:space="preserve">
     <value>クイック検索が使用された後の検索テキストの更新を無効化します。</value>
@@ -3105,7 +3105,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
     <value>タスクの監視対象から除外するパスを指定します。</value>
   </data>
   <data name="HaXeContext.Description.DisableCompletionOnDemand" xml:space="preserve">
-    <value>False に設定すると、haXe のコード補完は Ctrl + Space または Ctrl + Shift + Space を押下したときにのみ表示されます。</value>
+    <value>False に設定すると、Haxe のコード補完は Ctrl + Space または Ctrl + Shift + Space を押下したときにのみ表示されます。</value>
   </data>
   <data name="ProjectManager.Description.StaticLinkRSL" xml:space="preserve">
     <value>ランタイム共有ライブラリ( RSL )を静的にリンクします。</value>
@@ -3540,13 +3540,13 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
     <value>あいまいな型</value>
   </data>
   <data name="HaXeContext.Info.HaXeDone" xml:space="preserve">
-    <value>HaXe 完了</value>
+    <value>Haxe 完了</value>
   </data>
   <data name="HaXeContext.Info.HaXeExeError" xml:space="preserve">
-    <value>Haxe.exe が見つかりませんでした。{0}{0}haxesetup.exe を実行し、FlashDevelop を再起動してください。{0}または環境設定の HaxeContext で haXe のパスを設定してください。</value>
+    <value>Haxe.exe が見つかりませんでした。{0}{0}haxesetup.exe を実行し、FlashDevelop を再起動してください。{0}または環境設定の HaxeContext で Haxe のパスを設定してください。</value>
   </data>
   <data name="HaXeContext.Info.HaXeRunning" xml:space="preserve">
-    <value>HaXe 実行中</value>
+    <value>Haxe 実行中</value>
   </data>
   <data name="PHPContext.Info.PHPDone" xml:space="preserve">
     <value>PHP 完了</value>

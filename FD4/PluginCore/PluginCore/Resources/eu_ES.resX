@@ -1338,16 +1338,16 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Definitutako proiekturik ez dagonean erabiliko den lehenetsitako Flash Player bertsioa.</value>
   </data>
   <data name="HaXeContext.Description.HaXeCheckParameters" xml:space="preserve">
-    <value>HaXe konpiladore parametroak sintaxi egiaztapenerako.</value>
+    <value>Haxe konpiladore parametroak sintaxi egiaztapenerako.</value>
   </data>
   <data name="HaXeContext.Description.HaXePath" xml:space="preserve">
-    <value>HaXe konpiladorera bidea.</value>
+    <value>Haxe konpiladorera bidea.</value>
   </data>
   <data name="HaXeContext.Info.InvalidForQuickBuild" xml:space="preserve">
-    <value>Fitxategi hau ez da balizko HaXe klase bat edo ez du balizko @haxe eraikitze komando bat barruan.</value>
+    <value>Fitxategi hau ez da balizko Haxe klase bat edo ez du balizko @haxe eraikitze komando bat barruan.</value>
   </data>
   <data name="HaXeContext.Info.InvalidHaXePath" xml:space="preserve">
-    <value>HaXe konpiladorearen bidea ez da zuzena. Egiaztatu zure Programa Ezarpenak.</value>
+    <value>Haxe konpiladorearen bidea ez da zuzena. Egiaztatu zure Programa Ezarpenak.</value>
   </data>
   <data name="HaXeContext.Info.InvalidQuickBuildCommand" xml:space="preserve">
     <value>Eraikitze azkarrerako komando baliogabea.</value>
@@ -2265,7 +2265,7 @@ Inoiz - abiatzean ez da hasiera orria erakutsiko.</value>
     <value>Kode osatzaile motore bat gehitzen zaio FlashDevelop-i.</value>
   </data>
   <data name="HaXeContext.Info.Description" xml:space="preserve">
-    <value>HaXe ingurunea gehitzen zaio ASCompletion motoreari.</value>
+    <value>Haxe ingurunea gehitzen zaio ASCompletion motoreari.</value>
   </data>
   <data name="ProjectManager.Info.Description" xml:space="preserve">
     <value>Proiektu kudeatzaile eta eraikitzailea gehitzen zaio FlashDevelop-i.</value>
@@ -2929,10 +2929,10 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <value>Izen berria:</value>
   </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
-    <value>Modu lehenetsian haXe osaketa haXe konpiladorearen eta FlashDevelop-en osaketa automatikoen bidez elikatzen da.</value>
+    <value>Modu lehenetsian Haxe osaketa Haxe konpiladorearen eta FlashDevelop-en osaketa automatikoen bidez elikatzen da.</value>
   </data>
   <data name="HaXeContext.Description.DisableCompletionOnDemand" xml:space="preserve">
-    <value>false-n jarri, haXe osaketa CTRL-Space edo CTRL-Shift-Space sakatzean bakarrik bistaratuko da.</value>
+    <value>false-n jarri, Haxe osaketa CTRL-Space edo CTRL-Shift-Space sakatzean bakarrik bistaratuko da.</value>
   </data>
   <data name="FlashDevelop.Description.DisableFindTextUpdating" xml:space="preserve">
     <value>Bilaketa azkarra erabiltzean, bilaketa testuaren eguneratzea desgaitzen da.</value>
@@ -3524,13 +3524,13 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <value>Mota anbiguoa</value>
   </data>
   <data name="HaXeContext.Info.HaXeDone" xml:space="preserve">
-    <value>HaXe Egina</value>
+    <value>Haxe Egina</value>
   </data>
   <data name="HaXeContext.Info.HaXeExeError" xml:space="preserve">
-    <value>Haxe.exe ezin izan da kokatu.{0}{0}Mesedez 'haxesetup' exekutatu HaXe-ren instalazioa eta FlashDevelop berrabiarazi,{0}edo HaXe-ren instalazio bidea konfiguratu HaxeIngurunea ezarpenetan.</value>
+    <value>Haxe.exe ezin izan da kokatu.{0}{0}Mesedez 'haxesetup' exekutatu Haxe-ren instalazioa eta FlashDevelop berrabiarazi,{0}edo Haxe-ren instalazio bidea konfiguratu HaxeIngurunea ezarpenetan.</value>
   </data>
   <data name="HaXeContext.Info.HaXeRunning" xml:space="preserve">
-    <value>HaXe Exekutatzen</value>
+    <value>Haxe Exekutatzen</value>
   </data>
   <data name="PHPContext.Info.PHPDone" xml:space="preserve">
     <value>PHP Egina</value>

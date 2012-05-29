@@ -127,7 +127,7 @@ namespace ProjectManager.Controls
             this.langComboBox.Items.AddRange(new object[] {
             "AS2",
             "AS3",
-            "HaXe"});
+            "Haxe"});
             this.langComboBox.Location = new System.Drawing.Point(187, 150);
             this.langComboBox.Name = "langComboBox";
             this.langComboBox.Size = new System.Drawing.Size(88, 21);

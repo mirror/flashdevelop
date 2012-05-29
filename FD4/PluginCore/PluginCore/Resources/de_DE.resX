@@ -1356,16 +1356,16 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
     <value>Standardversion des Flash Players wenn kein Projekt geöffnet ist.</value>
   </data>
   <data name="HaXeContext.Description.HaXeCheckParameters" xml:space="preserve">
-    <value>HaXe Compiler Parameter für die Syntaxüberprüfung.</value>
+    <value>Haxe Compiler Parameter für die Syntaxüberprüfung.</value>
   </data>
   <data name="HaXeContext.Description.HaXePath" xml:space="preserve">
-    <value>Pfad zum haXe Compiler.</value>
+    <value>Pfad zum Haxe Compiler.</value>
   </data>
   <data name="HaXeContext.Info.InvalidForQuickBuild" xml:space="preserve">
-    <value>Dieses Dokument ist keine gültige haXe-Klasse oder beinhaltet keinen gültigen @haxe build Befehl.</value>
+    <value>Dieses Dokument ist keine gültige Haxe-Klasse oder beinhaltet keinen gültigen @haxe build Befehl.</value>
   </data>
   <data name="HaXeContext.Info.InvalidHaXePath" xml:space="preserve">
-    <value>HaXe Compiler Pfad ist ungültig. Bitte überprüfen Sie die haXe-Einstellungen.</value>
+    <value>Haxe Compiler Pfad ist ungültig. Bitte überprüfen Sie die Haxe-Einstellungen.</value>
   </data>
   <data name="HaXeContext.Info.InvalidQuickBuildCommand" xml:space="preserve">
     <value>Ungültiger QuickBuild-Befehl.</value>
@@ -2272,7 +2272,7 @@ Never - Startseite wird nie angezeigt.</value>
     <value>Fügt FlashDevelop eine Codevervollständigung hinzu.</value>
   </data>
   <data name="HaXeContext.Info.Description" xml:space="preserve">
-    <value>Fügt FlashDevelop einen haXe Kontext hinzu.</value>
+    <value>Fügt FlashDevelop einen Haxe Kontext hinzu.</value>
   </data>
   <data name="ProjectManager.Info.Description" xml:space="preserve">
     <value>Fügt FlashDevelop einen Projektmanager hinzu.</value>
@@ -2940,7 +2940,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Neuer Name</value>
   </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
-    <value>Deaktiviert die Verschmelzung der Vervollständigung des haXe Compilers und der von FlashDevelop.</value>
+    <value>Deaktiviert die Verschmelzung der Vervollständigung des Haxe Compilers und der von FlashDevelop.</value>
   </data>
   <data name="HaXeContext.Description.DisableCompletionOnDemand" xml:space="preserve">
     <value>Deaktiviert das automatische anzeigen der Vervollständigung. Sie wird dann nur angezeigt, wenn entweder Strg-Leerzeichen oder Strg-Shift-Leerzeichen gedrückt werden.</value>
@@ -2949,7 +2949,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Deaktiviert das Text-Update wenn die Schnellsuchleiste verwendet wird.</value>
   </data>
   <data name="HaXeContext.Description.ExportHXML" xml:space="preserve">
-    <value>Exportiere eine HXML-Datei wenn das haXe-Projekt verändert wurde.</value>
+    <value>Exportiere eine HXML-Datei wenn das Haxe-Projekt verändert wurde.</value>
   </data>
   <data name="ASCompletion.Description.PropertiesGenerationLocation" xml:space="preserve">
     <value>Gibt an, wo neue Eigenschaften (Getter, Setter) erstellt werden.</value>
@@ -3530,13 +3530,13 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <value>Mehrdeutiger Typ</value>
   </data>
   <data name="HaXeContext.Info.HaXeDone" xml:space="preserve">
-    <value>HaXe beendet</value>
+    <value>Haxe beendet</value>
   </data>
   <data name="HaXeContext.Info.HaXeExeError" xml:space="preserve">
-    <value>Haxe.exe konnte nicht gefunden werden.{0}{0}Bitte führen Sie 'haxesetup' im haXe-Installationsverzeichnis aus und starten Sie FlashDevelop neu,{0}oder geben Sie den Pfad zur haXe-Installation in den Einstellungen ein.</value>
+    <value>Haxe.exe konnte nicht gefunden werden.{0}{0}Bitte führen Sie 'haxesetup' im Haxe-Installationsverzeichnis aus und starten Sie FlashDevelop neu,{0}oder geben Sie den Pfad zur Haxe-Installation in den Einstellungen ein.</value>
   </data>
   <data name="HaXeContext.Info.HaXeRunning" xml:space="preserve">
-    <value>HaXe wird ausgeführt</value>
+    <value>Haxe wird ausgeführt</value>
   </data>
   <data name="PHPContext.Info.PHPDone" xml:space="preserve">
     <value>PHP beendet</value>
@@ -4829,11 +4829,11 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="HaXeContext.Description.CompletionMode" xml:space="preserve">
-    <value>The most complete completion will be provided by the haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for haxe completion.</value>
+    <value>The most complete completion will be provided by the Haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for Haxe completion.</value>
     <comment>Added after 4.0</comment>
   </data>
   <data name="HaXeContext.Description.CompletionServerPort" xml:space="preserve">
-    <value>Define haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
+    <value>Define Haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
     <comment>Added after 4.0</comment>
   </data>
   <data name="ProjectManager.ToolTip.TargetBuild" xml:space="preserve">

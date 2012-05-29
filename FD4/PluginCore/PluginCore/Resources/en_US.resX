@@ -1338,16 +1338,16 @@ Alternatively, Adobe Flash Professional can also be used for syntax checking - p
     <value>Default Flash Player target version when no project is defined.</value>
   </data>
   <data name="HaXeContext.Description.HaXeCheckParameters" xml:space="preserve">
-    <value>HaXe compiler parameters for syntax checking.</value>
+    <value>Haxe compiler parameters for syntax checking.</value>
   </data>
   <data name="HaXeContext.Description.HaXePath" xml:space="preserve">
-    <value>Path to the HaXe compiler.</value>
+    <value>Path to the Haxe compiler.</value>
   </data>
   <data name="HaXeContext.Info.InvalidForQuickBuild" xml:space="preserve">
-    <value>This file is not a valid HaXe class or does not include a @haxe build command.</value>
+    <value>This file is not a valid Haxe class or does not include a @haxe build command.</value>
   </data>
   <data name="HaXeContext.Info.InvalidHaXePath" xml:space="preserve">
-    <value>HaXe compiler path is not correctly set. Please check your Program Settings.</value>
+    <value>Haxe compiler path is not correctly set. Please check your Program Settings.</value>
   </data>
   <data name="HaXeContext.Info.InvalidQuickBuildCommand" xml:space="preserve">
     <value>Invalid QuickBuild command.</value>
@@ -2269,7 +2269,7 @@ Never - the start page will not show based on startup.</value>
     <value>Adds a code completion engine to FlashDevelop.</value>
   </data>
   <data name="HaXeContext.Info.Description" xml:space="preserve">
-    <value>Adds a HaXe context for the ASCompletion engine.</value>
+    <value>Adds a Haxe context for the ASCompletion engine.</value>
   </data>
   <data name="ProjectManager.Info.Description" xml:space="preserve">
     <value>Adds a project management and building to FlashDevelop.</value>
@@ -2934,10 +2934,10 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>New name:</value>
   </data>
   <data name="HaXeContext.Description.DisableMixedCompletion" xml:space="preserve">
-    <value>By default haXe completion is alimented both by the haXe compiler and FlashDevelop automatic completion.</value>
+    <value>By default Haxe completion is alimented both by the Haxe compiler and FlashDevelop automatic completion.</value>
   </data>
   <data name="HaXeContext.Description.DisableCompletionOnDemand" xml:space="preserve">
-    <value>Set to false, haXe completion will be displayed only when CTRL-Space or CTRL-Shift-Space is pressed.</value>
+    <value>Set to false, Haxe completion will be displayed only when CTRL-Space or CTRL-Shift-Space is pressed.</value>
   </data>
   <data name="FlashDevelop.Description.DisableFindTextUpdating" xml:space="preserve">
     <value>Disables the find text update when the quick find is used.</value>
@@ -3530,13 +3530,13 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Ambiguous Type</value>
   </data>
   <data name="HaXeContext.Info.HaXeDone" xml:space="preserve">
-    <value>HaXe Done</value>
+    <value>Haxe Done</value>
   </data>
   <data name="HaXeContext.Info.HaXeExeError" xml:space="preserve">
-    <value>Haxe.exe can not be located.{0}{0}Please run 'haxesetup' in HaXe installation and restart FlashDevelop,{0}or configure the path to HaXe installation in HaxeContext settings.</value>
+    <value>Haxe.exe can not be located.{0}{0}Please run 'haxesetup' in Haxe installation and restart FlashDevelop,{0}or configure the path to Haxe installation in HaxeContext settings.</value>
   </data>
   <data name="HaXeContext.Info.HaXeRunning" xml:space="preserve">
-    <value>HaXe Running</value>
+    <value>Haxe Running</value>
   </data>
   <data name="PHPContext.Info.PHPDone" xml:space="preserve">
     <value>PHP Done</value>

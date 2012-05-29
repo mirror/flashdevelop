@@ -100,7 +100,7 @@ namespace HaXeContext
             }
         }
 
-        [DisplayName("Installed HaXe SDKs")]
+        [DisplayName("Installed Haxe SDKs")]
         [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("HaXeContext.Description.HaXePath")]
         public InstalledSDK[] InstalledSDKs
         {

@@ -17,7 +17,7 @@ namespace HaXeContext
         private String pluginName = "HaXeContext";
         private String pluginGuid = "ccf2c534-db6b-4c58-b90e-cd0b837e61c5";
         private String pluginHelp = "www.flashdevelop.org/community/";
-        private String pluginDesc = "HaXe context for the ASCompletion engine.";
+        private String pluginDesc = "Haxe context for the ASCompletion engine.";
         private String pluginAuth = "FlashDevelop Team";
         private HaXeSettings settingObject;
         private Context contextInstance;
