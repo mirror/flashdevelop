@@ -237,30 +237,32 @@ namespace FlashDebugger.Controls
 				if (node.Nodes.Count == 0 && node.Variable != null)
                 {
 					FlashInterface flashInterface = PluginMain.debugManager.FlashInterface;
-                    SortedList<DataNode, DataNode> nodes = new SortedList<DataNode, DataNode>();
-					SortedList<DataNode, DataNode> inherited = new SortedList<DataNode, DataNode>();
-					SortedList<DataNode, DataNode> statics = new SortedList<DataNode, DataNode>();
+					List<DataNode> nodes = new List<DataNode>();
+					List<DataNode> inherited = new List<DataNode>();
+					List<DataNode> statics = new List<DataNode>();
+					int tmpLimit = node.ChildrenShowLimit;
 					foreach (Variable member in node.Variable.getValue().getMembers(flashInterface.Session))
 					{
 						DataNode memberNode = new DataNode(member);
                         
 						if (member.isAttributeSet(VariableAttribute_.IS_STATIC))
 						{
-							statics.Add(memberNode, memberNode);
+							statics.Add(memberNode);
 						}
 						else if (member.getLevel() > 0)
 						{
-							inherited.Add(memberNode, memberNode);
+							inherited.Add(memberNode);
 						}
 						else
 						{
-							nodes.Add(memberNode, memberNode);
+							nodes.Add(memberNode);
 						}
 					}
 					if (inherited.Count > 0)
 					{
 						DataNode inheritedNode = new DataNode("[inherited]");
-						foreach (DataNode item in inherited.Keys)
+						inherited.Sort();
+						foreach (DataNode item in inherited)
 						{
 							inheritedNode.Nodes.Add(item);
 						}
@@ -269,7 +271,8 @@ namespace FlashDebugger.Controls
 					if (statics.Count > 0)
 					{
 						DataNode staticNode = new DataNode("[static]");
-						foreach (DataNode item in statics.Keys)
+						statics.Sort();
+						foreach (DataNode item in statics)
 						{
 							staticNode.Nodes.Add(item);
 						}
@@ -328,18 +331,19 @@ namespace FlashDebugger.Controls
                         }
 					}
 					//test children
-					int limit = 0;
-					foreach (DataNode item in nodes.Keys)
+					nodes.Sort();
+					_tree.BeginUpdate();
+					foreach (DataNode item in nodes)
 					{
-						if (limit >= node.ChildrenShowLimit) break;
+						if (0 == tmpLimit--) break;
 						node.Nodes.Add(item);
-						limit++;
 					}
-					if (nodes.Count > node.ChildrenShowLimit)
+					if (tmpLimit == -1)
 					{
 						DataNode moreNode = new DataNode("...");
 						node.Nodes.Add(moreNode);
 					}
+					_tree.EndUpdate();
                 }
             }
         }
@@ -350,11 +354,15 @@ namespace FlashDebugger.Controls
 			if (node.Text == "..." && node.Variable == null)
 			{
 				e.Handled = true;
-				(node.Parent as DataNode).ChildrenShowLimit += 10;
+				_tree.BeginUpdate();
+				(node.Parent as DataNode).ChildrenShowLimit += 500;
 				TreeNodeAdv parent = e.Node.Parent;
+				int ind = e.Node.Index;
 				parent.Collapse(true);
 				node.Parent.Nodes.Clear();
 				parent.Expand(true);
+				_tree.EndUpdate();
+				if (parent.Children.Count>ind) _tree.ScrollTo(parent.Children[ind]);
 			}
 		}
 

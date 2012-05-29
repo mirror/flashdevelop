@@ -27,8 +27,8 @@ namespace FlashDebugger.Controls
 
 		public int CompareTo(DataNode otherNode)
 		{
-			String thisName = m_Value.getName();
-			String otherName = otherNode.m_Value.getName();
+			String thisName = Text;
+			String otherName = otherNode.Text;
 			if (thisName == otherName)
 			{
 				return 0;
