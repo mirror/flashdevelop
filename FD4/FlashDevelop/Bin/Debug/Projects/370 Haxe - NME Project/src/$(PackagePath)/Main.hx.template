@@ -1,0 +1,35 @@
+package $(PackageName);
+
+import nme.display.Sprite;
+import nme.events.Event;
+import nme.Lib;
+
+/**
+$(CBI)* ...
+$(CBI)* @author $(DefaultUser)
+$(CBI)*/
+
+class Main extends Sprite $(CSLB){
+	
+	public function new() $(CSLB){
+		super();
+		#if iphone
+		Lib.current.stage.addEventListener(Event.RESIZE, init);
+		#else
+		addEventListener(Event.ADDED_TO_STAGE, init);
+		#end
+	}
+
+	private function init(e) $(CSLB){
+		// entry point
+	}
+	
+	static public function main() $(CSLB){
+		var stage = Lib.current.stage;
+		stage.scaleMode = nme.display.StageScaleMode.NO_SCALE;
+		stage.align = nme.display.StageAlign.TOP_LEFT;
+		
+		Lib.current.addChild(new Main());
+	}
+	
+}
