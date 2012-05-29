@@ -1,1 +1,0 @@
-A Javascript project written in the HaXe language
