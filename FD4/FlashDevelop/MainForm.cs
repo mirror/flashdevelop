@@ -1040,25 +1040,19 @@ namespace FlashDevelop
             EventManager.DispatchEvent(this, ne);
             this.closingEntirely = true;
             if (ne.Handled) e.Cancel = true;
+            if (!e.Cancel && Globals.Settings.ConfirmOnExit)
+            {
+                String title = TextHelper.GetString("Title.ConfirmDialog");
+                String message = TextHelper.GetString("Info.AreYouSureToExit");
+                DialogResult result = MessageBox.Show(Globals.MainForm, message, " " + title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No) e.Cancel = true;
+            }
             if (!e.Cancel) this.CloseAllDocuments(false);
             if (this.closeAllCanceled)
             {
                 this.closeAllCanceled = false;
                 this.closingEntirely = false;
                 e.Cancel = true;
-            }
-            if (!e.Cancel && Globals.Settings.ConfirmOnExit)
-            {
-                if (this.Documents.Length == 0)
-                {
-                    NotifyEvent fe = new NotifyEvent(EventType.FileEmpty);
-                    EventManager.DispatchEvent(this, fe);
-                    if (!fe.Handled) this.New(null, null);
-                }
-                String title = TextHelper.GetString("Title.ConfirmDialog");
-                String message = TextHelper.GetString("Info.AreYouSureToExit");
-                DialogResult result = MessageBox.Show(Globals.MainForm, message, " " + title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.No) e.Cancel = true;
             }
             if (!e.Cancel)
             {
