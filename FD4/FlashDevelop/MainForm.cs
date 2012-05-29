@@ -1054,6 +1054,12 @@ namespace FlashDevelop
                 this.closingEntirely = false;
                 e.Cancel = true;
             }
+            if (!e.Cancel && this.Documents.Length == 0)
+            {
+                NotifyEvent fe = new NotifyEvent(EventType.FileEmpty);
+                EventManager.DispatchEvent(this, fe);
+                if (!fe.Handled) this.New(null, null);
+            }
             if (!e.Cancel)
             {
                 String file = FileNameHelper.SessionData;
