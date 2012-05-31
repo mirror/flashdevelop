@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using PluginCore.Utilities;
 using PluginCore.Helpers;
+using System.Windows.Forms;
 
 namespace PluginCore.FRService
 {
@@ -168,7 +169,17 @@ namespace PluginCore.FRService
                     {
                         FileHelper.WriteFile(file, src, Encoding.GetEncoding(info.CodePage), info.ContainsBOM);
                     }
-                    else openDocuments[file].SciControl.Text = src;
+                    else 
+                    {
+                        // make this method thread safe
+                        if ((PluginBase.MainForm as Form).InvokeRequired)
+                        {
+                            (PluginBase.MainForm as Form).BeginInvoke((MethodInvoker) delegate {
+                                openDocuments[file].SciControl.Text = src;
+                            });
+                        }
+                        else openDocuments[file].SciControl.Text = src;
+                    }
                     break;
             }
         }
