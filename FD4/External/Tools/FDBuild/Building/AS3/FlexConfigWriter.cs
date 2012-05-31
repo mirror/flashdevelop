@@ -58,6 +58,11 @@ namespace FDBuild.Building.AS3
             WriteDefine("CONFIG::debug", debugMode ? "true" : "false");
             WriteDefine("CONFIG::release", debugMode ? "false" : "true");
             WriteDefine("CONFIG::timeStamp", "'" + DateTime.Now.ToString("d") + "'");
+            var isMobile = project.MovieOptions.Platform == AS3MovieOptions.AIR_MOBILE_PLATFORM;
+            var isDesktop = project.MovieOptions.Platform == AS3MovieOptions.AIR_PLATFORM;
+            WriteDefine("CONFIG::air", isMobile || isDesktop ? "true" : "false");
+            WriteDefine("CONFIG::mobile", isMobile ? "true" : "false");
+            WriteDefine("CONFIG::desktop", isDesktop ? "true" : "false");
 
             if (options.CompilerConstants != null)
             {
