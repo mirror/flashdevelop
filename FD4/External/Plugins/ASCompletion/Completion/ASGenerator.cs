@@ -97,7 +97,10 @@ namespace ASCompletion.Completion
                     ShowPromoteLocalAndAddParameter(found);
                     return;
                 }
+            }
 
+            if (contextToken != null)
+            {
                 if (resolve.Member == null && resolve.Type == null) // import declaration
                 {
                     if (CheckAutoImport(found))
@@ -310,7 +313,7 @@ namespace ASCompletion.Completion
                         contextMatch = m;
                         ShowNewClassList(found);
                     }
-                    else
+                    else if (!found.inClass.IsVoid())
                     {
                         m = Regex.Match(text, String.Format(patternMethod, contextToken));
                         if (m.Success)
