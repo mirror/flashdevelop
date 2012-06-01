@@ -31,8 +31,8 @@ namespace ProjectManager.Projects.Haxe
         { 
             get 
             {
-                return movieOptions.DebuggerSupported && CompilerOptions.EnableDebug 
-                    && (TargetBuild == "flash" || movieOptions.Platform == HaxeMovieOptions.FLASHPLAYER_PLATFORM);
+                return movieOptions.DebuggerSupported && CompilerOptions.EnableDebug
+                    && (movieOptions.Platform == HaxeMovieOptions.NME_PLATFORM || movieOptions.Platform == HaxeMovieOptions.FLASHPLAYER_PLATFORM);
             } 
         }
 
@@ -181,7 +181,11 @@ namespace ProjectManager.Projects.Haxe
 
                 // libraries
                 foreach (string lib in CompilerOptions.Libraries)
-                    if (lib.Length > 0) pr.Add("-lib " + lib);
+                    if (lib.Length > 0)
+                    {
+                        if (lib.Trim().StartsWith("-lib")) pr.Add(lib);
+                        else pr.Add("-lib " + lib);
+                    }
 
                 // compilation mode
                 string mode = null;
