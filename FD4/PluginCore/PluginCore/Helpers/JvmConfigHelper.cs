@@ -7,14 +7,18 @@ namespace PluginCore.Helpers
 {
     public class JvmConfigHelper
     {
+        static public Dictionary<string, Dictionary<string, string>> Cache = new Dictionary<string,Dictionary<string,string>>();
+
         /// <summary>
         /// Read a jvm.config file and returns its variables as a Dictionnary.
         /// </summary>
         public static Dictionary<string, string> ReadConfig(string configPath)
         {
             if (configPath == null) configPath = "";
-            if (ConfigHelper.Cache.ContainsKey(configPath)) return ConfigHelper.Cache[configPath];
-            Dictionary<string, string> config = ConfigHelper.Parse(configPath, true);
+            if (Cache.ContainsKey(configPath)) return Cache[configPath];
+
+            Dictionary<string, string> config = ConfigHelper.Parse(configPath, false).Flatten();
+            Cache[configPath] = config;
 
             // default values
             if (!config.ContainsKey("java.home")) config["java.home"] = "";

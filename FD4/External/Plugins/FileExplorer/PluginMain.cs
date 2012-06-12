@@ -182,7 +182,7 @@ namespace FileExplorer
                     BridgeManager.RemoteOpen(path);
                     return;
                 }
-                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
+                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true).Flatten();
                 if (!config.ContainsKey("explorer")) config["explorer"] = "explorer.exe /e,\"{0}\"";
                 String explorer = PluginBase.MainForm.ProcessArgString(config["explorer"]);
                 int start = explorer.StartsWith("\"") ? explorer.IndexOf("\"", 2) : 0;
@@ -213,7 +213,7 @@ namespace FileExplorer
                     BridgeManager.RemoteConsole(path);
                     return;
                 }*/
-                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true);
+                Dictionary<string, string> config = ConfigHelper.Parse(configFilename, true).Flatten();
                 if (!config.ContainsKey("cmd")) config["cmd"] = "cmd.exe";
                 String cmd = PluginBase.MainForm.ProcessArgString(config["cmd"]);
                 int start = cmd.StartsWith("\"") ? cmd.IndexOf("\"", 2) : 0;

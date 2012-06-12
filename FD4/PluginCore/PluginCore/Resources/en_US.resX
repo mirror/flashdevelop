@@ -4864,4 +4864,40 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Enables auto-completion of keywords and words from the current file.</value>
     <comment>Added after 4.0.1</comment>
   </data>
+  <data name="CssCompletion.Description.DisableAutoCompletion" xml:space="preserve">
+    <value>Disable CSS attributes, values and variables auto-completion.</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="CssCompletion.Description.DisableCompileOnSave" xml:space="preserve">
+    <value>Disable automatic compilation of special CSS languages (SCSS, LESS, HSS) on save. Note: also disables minification.</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="CssCompletion.Description.DisableMinifyOnSave" xml:space="preserve">
+    <value>Disable automatic minification of CSS files as "name.min.css" on save.</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="CssCompletion.Description.EnableVerboseCompilation" xml:space="preserve">
+    <value>Display raw compilation result in Output panel (for debugging purpose).</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="CssCompletion.Info.CompletionPrefixesDesc" xml:space="preserve">
+    <value>Browser prefix</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="CssCompletion.Info.CompletionPropertyDesc" xml:space="preserve">
+    <value>CSS property</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="CssCompletion.Info.CompletionPseudoDesc" xml:space="preserve">
+    <value>CSS pseudo element or class</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="CssCompletion.Info.CompletionValueDesc" xml:space="preserve">
+    <value>CSS value</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="CssCompletion.Info.CompletionVariableDesc" xml:space="preserve">
+    <value>Custom variable</value>
+    <comment>Added for 4.1</comment>
+  </data>
 </root>

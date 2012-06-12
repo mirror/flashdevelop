@@ -1,78 +1,74 @@
-diff -r f9d1fc0f9227 include/SciLexer.h
---- a/include/SciLexer.h	Thu Nov 25 10:04:31 2010 +1100
-+++ b/include/SciLexer.h	Sat Nov 27 22:24:24 2010 +0100
-@@ -150,6 +150,11 @@
- #define SCE_C_COMMENTDOCKEYWORD 17
- #define SCE_C_COMMENTDOCKEYWORDERROR 18
- #define SCE_C_GLOBALCLASS 19
-+//<ADD-KEYWORD-CLASSES
-+#define SCE_C_WORD3 20
-+#define SCE_C_WORD4 21
-+#define SCE_C_WORD5 22
-+//ADD-KEYWORD-CLASSES>
+# HG changeset patch
+# User pelsass
+# Date 1338972102 -7200
+# Node ID f92c6a1446440daad5c627a68ccfe6a86599ff54
+# Parent  ae4d2f897a8fd92294f61d4d56e90e7700a912df
+Additional LexCPP keyword classes
+
+diff -r ae4d2f897a8f -r f92c6a144644 include/SciLexer.h
+--- a/include/SciLexer.h	Wed May 30 09:10:54 2012 +1000
++++ b/include/SciLexer.h	Wed Jun 06 10:41:42 2012 +0200
+@@ -160,6 +160,9 @@
+ #define SCE_C_STRINGRAW 20
+ #define SCE_C_TRIPLEVERBATIM 21
+ #define SCE_C_HASHQUOTEDSTRING 22
++#define SCE_C_WORD3 23
++#define SCE_C_WORD4 24
++#define SCE_C_WORD5 25
  #define SCE_D_DEFAULT 0
  #define SCE_D_COMMENT 1
  #define SCE_D_COMMENTLINE 2
-diff -r f9d1fc0f9227 lexers/LexCPP.cxx
---- a/lexers/LexCPP.cxx	Thu Nov 25 10:04:31 2010 +1100
-+++ b/lexers/LexCPP.cxx	Sat Nov 27 22:24:24 2010 +0100
-@@ -233,6 +233,11 @@
+diff -r ae4d2f897a8f -r f92c6a144644 lexers/LexCPP.cxx
+--- a/lexers/LexCPP.cxx	Wed May 30 09:10:54 2012 +1000
++++ b/lexers/LexCPP.cxx	Wed Jun 06 10:41:42 2012 +0200
+@@ -244,6 +244,9 @@
              "Documentation comment keywords",
              "Global classes and typedefs",
              "Preprocessor definitions",
-+//<ADD-KEYWORD-CLASSES
 +            "Extended(1) keywords and identifiers",
 +            "Extended(2) keywords and identifiers",
 +            "Extended(3) keywords and identifiers",
-+//ADD-KEYWORD-CLASSES>
              0,
  };
  
-@@ -289,6 +294,11 @@
+@@ -320,6 +323,9 @@
  	WordList keywords2;
  	WordList keywords3;
  	WordList keywords4;
-+//<ADD-KEYWORD-CLASSES
-+	WordList keywords5;
-+	WordList keywords6;
-+	WordList keywords7;
-+//ADD-KEYWORD-CLASSES>
++    WordList keywords5;
++    WordList keywords6;
++    WordList keywords7;
  	WordList ppDefinitions;
  	std::map<std::string, std::string> preprocessorDefinitionsStart;
  	OptionsCPP options;
-@@ -367,7 +377,18 @@
+@@ -402,6 +408,15 @@
  	case 4:
  		wordListN = &ppDefinitions;
  		break;
--	}
-+//<ADD-KEYWORD-CLASSES
-+	case 5:
-+		wordListN = &keywords5;
-+		break;
-+	case 6:
-+		wordListN = &keywords6;
-+		break;
-+	case 7:
-+		wordListN = &keywords7;
-+		break;
-+    }
-+//ADD-KEYWORD-CLASSES>
++    case 5:
++        wordListN = &keywords5;
++        break;
++    case 6:
++        wordListN = &keywords6;
++        break;
++    case 7:
++        wordListN = &keywords7;
++        break;
+ 	}
  	int firstModification = -1;
  	if (wordListN) {
- 		WordList wlNew;
-@@ -554,6 +575,15 @@
+@@ -588,7 +603,13 @@
+ 						sc.ChangeState(SCE_C_WORD2|activitySet);
  					} else if (keywords4.InList(s)) {
  						sc.ChangeState(SCE_C_GLOBALCLASS|activitySet);
- 					}
-+//<ADD-KEYWORD-CLASSES
-+                    else if (keywords5.InList(s)) {
-+						sc.ChangeState(SCE_C_WORD3|activitySet);
-+					} else if (keywords6.InList(s)) {
-+						sc.ChangeState(SCE_C_WORD4|activitySet);
-+					} else if (keywords7.InList(s)) {
-+						sc.ChangeState(SCE_C_WORD5|activitySet);
-+					}
-+//ADD-KEYWORD-CLASSES>
- 					sc.SetState(SCE_C_DEFAULT|activitySet);
- 				}
- 				break;
+-					}
++                    } else if (keywords5.InList(s)) {
++                        sc.ChangeState(SCE_C_WORD3|activitySet);
++                    } else if (keywords6.InList(s)) {
++                        sc.ChangeState(SCE_C_WORD4|activitySet);
++                    } else if (keywords7.InList(s)) {
++                        sc.ChangeState(SCE_C_WORD5|activitySet);
++                    }
+ 					const bool literalString = sc.ch == '\"';
+ 					if (literalString || sc.ch == '\'') {
+ 						size_t lenS = strlen(s);

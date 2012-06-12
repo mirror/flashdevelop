@@ -417,6 +417,7 @@ namespace ProjectManager.Projects.Haxe
                         case "neko": target = HaxeMovieOptions.NEKO_PLATFORM; output = value; break;
                         case "cs": target = HaxeMovieOptions.CSHARP_PLATFORM; output = value; break;
                         case "java": target = HaxeMovieOptions.JAVA_PLATFORM; output = value; break;
+                        case "--connect": break; // ignore
                         default: add.Add(line); break;
                     }
                 }
