@@ -1,8 +1,8 @@
 using System;
+using System.Text;
+using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Text;
 using PluginCore.Localization;
 
 namespace BasicCompletion
@@ -11,7 +11,7 @@ namespace BasicCompletion
     public class Settings
     {
         private Boolean enableAutoCompletion = false;
-        private List<String> enabledLanguages = new List<String> { "css", "jscript", "csharp", "python", "text" };
+        private List<String> enabledLanguages = new List<String> { "jscript", "csharp", "python", "text" };
         
         /// <summary> 
         /// Get and sets the EnabledLanguages

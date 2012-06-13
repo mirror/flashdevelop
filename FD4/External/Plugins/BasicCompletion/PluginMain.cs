@@ -305,7 +305,7 @@ namespace BasicCompletion
         }
 
         /// <summary>
-        /// Shows the completion list atomaticly after typing three chars
+        /// Shows the completion list automaticly after typing three chars
         /// </summary>
         private void SciControlCharAdded(ScintillaControl sci, Int32 value)
         {
@@ -317,9 +317,13 @@ namespace BasicCompletion
                 {
                     items.Sort();
                     String curWord = sci.GetWordFromPosition(sci.CurrentPos);
-                    if (curWord != null && curWord.Length > 2 && !Char.IsWhiteSpace((char)value))
+                    if (curWord != null && curWord.Length > 2)
                     {
-                        CompletionList.Show(items, false, curWord);
+                        Language language = ScintillaControl.Configuration.GetLanguage(sci.ConfigurationLanguage);
+                        if (language.characterclass.Characters.Contains(Char.ToString((char)value)))
+                        {
+                            CompletionList.Show(items, true, curWord);
+                        }
                     }
                 }
             }
