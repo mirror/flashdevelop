@@ -4889,4 +4889,8 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>Custom variable</value>
     <comment>Added for 4.1</comment>
   </data>
+  <data name="CssCompletion.Info.Description" xml:space="preserve">
+    <value>Adds CSS completion to FlashDevelop.</value>
+    <comment>Added for 4.1</comment>
+  </data>
 </root>

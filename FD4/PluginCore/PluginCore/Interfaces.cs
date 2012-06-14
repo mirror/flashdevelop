@@ -56,7 +56,10 @@ namespace PluginCore
         String Text { get; set; }
         Boolean UseCustomIcon { get; set; }
         Control.ControlCollection Controls { get; }
+        SplitContainer SplitContainer { get; }
         ScintillaControl SciControl { get; }
+        ScintillaControl SplitSci1 { get; }
+        ScintillaControl SplitSci2 { get; }
         Boolean IsModified { get; set; }
         Boolean IsSplitted { get; set; }
         Boolean IsBrowsable { get; }

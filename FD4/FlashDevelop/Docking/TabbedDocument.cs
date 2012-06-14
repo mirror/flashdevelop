@@ -114,7 +114,7 @@ namespace FlashDevelop.Docking
         }
 
         /// <summary>
-        /// ScintillaControl of the document
+        /// Current ScintillaControl of the document
         /// </summary>
         public ScintillaControl SciControl
         {
@@ -133,6 +133,30 @@ namespace FlashDevelop.Docking
                     }
                 }
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// First splitted ScintillaControl 
+        /// </summary>
+        public ScintillaControl SplitSci1
+        {
+            get
+            {
+                if (this.editor != null) return this.editor;
+                else return null;
+            }
+        }
+
+        /// <summary>
+        /// Second splitted ScintillaControl
+        /// </summary>
+        public ScintillaControl SplitSci2
+        {
+            get
+            {
+                if (this.editor2 != null) return this.editor2;
+                else return null;
             }
         }
 
@@ -229,8 +253,22 @@ namespace FlashDevelop.Docking
                 editor.MarkerDeleteAll(2);
                 this.IsModified = false;
             };
+            editor.FocusChanged += new FocusHandler(this.EditorFocusChanged);
+            editor2.FocusChanged += new FocusHandler(this.EditorFocusChanged);
             ScintillaManager.UpdateControlSyntax(editor2);
             this.Controls.Add(splitContainer);
+        }
+
+        /// <summary>
+        /// When the user changes to sci, block events from inactive sci
+        /// </summary>
+        private void EditorFocusChanged(ScintillaControl sender)
+        {
+            if (sender.IsFocus)
+            {
+                this.editor.DisableAllSciEvents = (sender == editor2);
+                this.editor2.DisableAllSciEvents = (sender == editor);
+            }
         }
 
         /// <summary>

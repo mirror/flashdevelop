@@ -4908,7 +4908,10 @@ namespace ScintillaNet
 		{
 			return (UInt32)Perform(directPointer, message, wParam, lParam);
 		}
-		
+
+        // Stops all sci events from firing...
+        public bool DisableAllSciEvents = false;
+
 		protected override void WndProc(ref System.Windows.Forms.Message m )
 		{
             if (m.Msg == WM_COMMAND)
@@ -4922,7 +4925,7 @@ namespace ScintillaNet
             else if (m.Msg == WM_NOTIFY)
 			{
 				SCNotification scn = (SCNotification)Marshal.PtrToStructure(m.LParam, typeof(SCNotification));
-				if (scn.nmhdr.hwndFrom == hwndScintilla) 
+                if (scn.nmhdr.hwndFrom == hwndScintilla && !this.DisableAllSciEvents) 
 				{
 					switch (scn.nmhdr.code)
 					{
