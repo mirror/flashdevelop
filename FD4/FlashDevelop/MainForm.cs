@@ -2415,18 +2415,6 @@ namespace FlashDevelop
         }
 
         /// <summary>
-        /// Toggles the currect document to and from split view
-        /// </summary>
-        public void ToggleSplitView(Object sender, System.EventArgs e)
-        {
-            if (this.CurrentDocument.IsEditable)
-            {
-                this.CurrentDocument.IsSplitted = !this.CurrentDocument.IsSplitted;
-                ButtonManager.UpdateFlaggedButtons();
-            }
-        }
-
-        /// <summary>
         /// Shows the application in fullscreen or normal mode
         /// </summary>
         public void ToggleFullScreen(Object sender, System.EventArgs e)
