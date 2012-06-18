@@ -4845,10 +4845,6 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>Oinarrizko kode osaketa orokorra gehitzen dio FlashDevelop-i.</value>
     <comment>Added after 4.0.1</comment>
   </data>
-  <data name="FlashDevelop.Label.SplitView" xml:space="preserve">
-    <value>Bista &amp;banatua</value>
-    <comment>Added after 4.0.1</comment>
-  </data>
   <data name="FlashDevelop.Description.DisableSimpleQuickFind" xml:space="preserve">
     <value>Bilaketa Azkarra kontrola gordetzean bilaketa sinplea desgaitu.</value>
     <comment>Added after 4.0.1</comment>

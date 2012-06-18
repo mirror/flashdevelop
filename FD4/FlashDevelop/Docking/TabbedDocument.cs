@@ -91,14 +91,20 @@ namespace FlashDevelop.Docking
         }
 
         /// <summary>
-        /// Current ScintillaControl of the document
+        /// ScintillaControl of the document
         /// </summary>
         public ScintillaControl SciControl
         {
             get
             {
-                if (this.editor != null && !this.Disposing) return editor;
-                else return null;
+                foreach (Control ctrl in this.Controls)
+                {
+                    if (ctrl is ScintillaControl && !this.Disposing)
+                    {
+                        return ctrl as ScintillaControl;
+                    }
+                }
+                return null;
             }
         }
             
