@@ -4854,39 +4854,39 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableCompileOnSave" xml:space="preserve">
-    <value>Disable automatic compilation of special CSS languages (SCSS, LESS, HSS) on save. Note: also disables minification.</value>
+    <value>CSS lengoaia berezientzako (SCSS, LESS, HSS), gordetzeko osatze automatikoa desgaitzen du. Oharra: txikitzea ere desgaitzen da.</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableMinifyOnSave" xml:space="preserve">
-    <value>Disable automatic minification of CSS files as "name.min.css" on save.</value>
+    <value>CSS fitxategiak "izena.min.css" moduan gordetzeko txikitze automatikoa desgaitzen du.</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.EnableVerboseCompilation" xml:space="preserve">
-    <value>Display raw compilation result in Output panel (for debugging purpose).</value>
+    <value>Konpilazio emaitza gordinak bistaratzen ditu Irteera panelean (arazteko helburuarekin).</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionPrefixesDesc" xml:space="preserve">
-    <value>Browser prefix</value>
+    <value>Arakatzaile aurrizkia</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionPropertyDesc" xml:space="preserve">
-    <value>CSS property</value>
+    <value>CSS propietatea</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionPseudoDesc" xml:space="preserve">
-    <value>CSS pseudo element or class</value>
+    <value>CSS sasi elementu edo klasea</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionValueDesc" xml:space="preserve">
-    <value>CSS value</value>
+    <value>CSS balioa</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionVariableDesc" xml:space="preserve">
-    <value>Custom variable</value>
+    <value>Aldagai pertsonalizatua</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.Description" xml:space="preserve">
-    <value>Adds CSS completion to FlashDevelop.</value>
+    <value>CSS osagketa gehitzen dio FlashDevelop-i.</value>
     <comment>Added for 4.1</comment>
   </data>
 </root>
