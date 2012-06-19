@@ -59,11 +59,12 @@ namespace CssCompletion
                 }
                 else return;
             }
+
             var context = GetContext(sci, position);
             if (context.InBlock)
             {
                 if (context.Word == "-") HandlePrefixCompletion(context, true);
-                else if (context.Word.Length == 2 || (char)value == '-')
+                else if (context.Word.Length >= 2 || (char)value == '-')
                     HandlePropertyCompletion(context, true);
             }
             else if (context.InValue)
@@ -182,7 +183,7 @@ namespace CssCompletion
                     ctx.InBlock = !IsVarDecl(sci, i);
                     break;
                 }
-                else if (c == '}' || c == ',')
+                else if (c == '}' || c == ',' || c == '.' || c == '#')
                 {
                     ctx.Separator = c;
                     ctx.Position = lastCharPos;
@@ -203,10 +204,13 @@ namespace CssCompletion
                     }
                 }
             }
-            if (word.Length > 0 && word[0] == '-')
+            if (word.Length > 0)
             {
-                Match m = reNavPrefix.Match(word);
-                if (m.Success) word = m.Groups[1].Value;
+                if (word[0] == '-')
+                {
+                    Match m = reNavPrefix.Match(word);
+                    if (m.Success) word = m.Groups[1].Value;
+                }
             }
             ctx.Word = word;
             return ctx;
