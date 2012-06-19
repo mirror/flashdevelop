@@ -57,6 +57,7 @@ namespace CssCompletion
         public int Position;
         public bool InValue;
         public bool InBlock;
+        public bool InUrl;
         public string Word;
         public string Property;
 

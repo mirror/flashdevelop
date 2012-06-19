@@ -15,7 +15,6 @@ using PluginCore.Utilities;
 using PluginCore.Localization;
 using ASCompletion.Model;
 using System.Collections;
-using PluginCore.Helpers;
 using System.Collections.Generic;
 
 namespace AS3Context.Compiler

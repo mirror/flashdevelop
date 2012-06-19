@@ -38,11 +38,14 @@ namespace CssCompletion
         {
             EventManager.DispatchEvent(features, new NotifyEvent(EventType.ProcessStart));
 
-            string cmd = PathHelper.ResolvePath(features.Compile, Path.Combine(PathHelper.ToolDir, "css"));
+            string toolsDir = Path.Combine(PathHelper.ToolDir, "css");
+            string cmd = PathHelper.ResolvePath(features.Compile, toolsDir);
             string outFile = Path.GetFileNameWithoutExtension(fileName) + ".css";
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = cmd;
             info.Arguments = Path.GetFileName(fileName) + " " + outFile;
+            if (info.EnvironmentVariables.ContainsKey("path")) info.EnvironmentVariables["path"] += ";" + toolsDir;
+            else info.EnvironmentVariables["path"] = toolsDir;
             info.CreateNoWindow = true;
             info.WorkingDirectory = Path.GetDirectoryName(fileName);
             info.UseShellExecute = false;
@@ -53,16 +56,17 @@ namespace CssCompletion
 
             string res = p.StandardOutput.ReadToEnd() ?? "";
             string err = p.StandardError.ReadToEnd() ?? "";
-            if (settings.EnableVerboseCompilation)
-            {
-                if (res.Trim().Length > 0) TraceManager.Add(res);
-                if (err.Trim().Length > 0) TraceManager.Add(err, 3);
-            }
 
             MatchCollection matches = features.ErrorPattern.Matches(err);
             if (matches.Count > 0)
                 foreach (Match m in matches)
                     TraceManager.Add(fileName + ":" + m.Groups["line"] + ": " + m.Groups["desc"].Value.Trim(), -3);
+
+            if (settings.EnableVerboseCompilation || (err != "" && matches.Count == 0))
+            {
+                if (res.Trim().Length > 0) TraceManager.Add(res);
+                if (err.Trim().Length > 0) TraceManager.Add(err, 3);
+            }
 
             EventManager.DispatchEvent(features, new TextEvent(EventType.ProcessEnd, "Done(" + p.ExitCode + ")"));
 

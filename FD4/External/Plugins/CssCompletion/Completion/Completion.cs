@@ -120,8 +120,12 @@ namespace CssCompletion
                 return ctx;
 
             int inString = 0;
+            if (style == 14) inString = 1;
+            if (style == 13) inString = 2;
+
             bool inWord = true;
             bool inComment = false;
+            bool inPar = false;
             string word = "";
             int lastCharPos = i;
 
@@ -152,11 +156,18 @@ namespace CssCompletion
                 if (c == '\'') inString = 1; // entering line
                 else if (c == '"') inString = 2;
 
+                else if (c == ')') inPar = true;
+                else if (inPar)
+                {
+                    if (c == '(') inPar = false;
+                    continue;
+                }
+
                 else if (c == ':')
                 {
                     ctx.Separator = c;
                     ctx.Position = lastCharPos;
-                    string attr = ReadAttributeName(sci, i);
+                    string attr = ReadAttribute(sci, i);
                     if (attr.Length > 1 && !IsTag(attr) && attr[0] != features.Trigger && !IsVarDecl(sci, i))
                     {
                         ctx.InValue = true;
@@ -175,8 +186,21 @@ namespace CssCompletion
                 {
                     ctx.Separator = c;
                     ctx.Position = lastCharPos;
-                    ctx.InBlock = false;
                     break;
+                }
+                else if (c == '(')
+                {
+                    string tok = ReadWordLeft(sci, i);
+                    if (tok == "url")
+                    {
+                        ctx.Separator = '(';
+                        ctx.InUrl = true;
+                        ctx.Position = i + 1;
+                        word = "";
+                        for (int j = i + 2; j < position; j++)
+                            word += (char)sci.CharAt(j);
+                        break;
+                    }
                 }
             }
             if (word.Length > 0 && word[0] == '-')
@@ -201,7 +225,26 @@ namespace CssCompletion
             return Array.IndexOf<string>(tags, word) >= 0;
         }
 
-        private string ReadAttributeName(ScintillaControl sci, int i)
+        private string ReadWordLeft(ScintillaControl sci, int i)
+        {
+            bool inWord = false;
+            string word = "";
+
+            while (i > 1)
+            {
+                char c = (char)sci.CharAt(i--);
+
+                if (wordChars.IndexOf(c) >= 0)
+                {
+                    inWord = true;
+                    word = c + word;
+                }
+                else if (inWord) break;
+            }
+            return word;
+        }
+
+        private string ReadAttribute(ScintillaControl sci, int i)
         {
             bool inWord = false;
             string word = "";
