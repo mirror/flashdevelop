@@ -228,10 +228,19 @@ namespace FlashDebugger
 				return m_PathMap[file.getFullPath()];
 			}
 			Char pathSeparator = Path.DirectorySeparatorChar;
+			String pathFromPackage = file.getPackageName().ToString().Replace('/', pathSeparator);
 			foreach (Folder folder in PluginMain.settingObject.SourcePaths)
 			{
-				String pathFromPackage = file.getPackageName().replaceAll("/", pathSeparator.ToString());
                 String localPath = folder.Path + pathSeparator + pathFromPackage + pathSeparator + file.getName();
+				if (File.Exists(localPath))
+				{
+					m_PathMap[file.getFullPath()] = localPath;
+					return localPath;
+				}
+			}
+			foreach (ASCompletion.Model.PathModel path in ASCompletion.Context.ASContext.Context.Classpath)
+			{
+				String localPath = path.Path + pathSeparator + pathFromPackage + pathSeparator + file.getName();
 				if (File.Exists(localPath))
 				{
 					m_PathMap[file.getFullPath()] = localPath;
