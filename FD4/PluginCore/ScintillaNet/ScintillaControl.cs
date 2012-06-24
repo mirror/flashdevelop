@@ -5265,7 +5265,8 @@ namespace ScintillaNet
                             {
                                 int bracePos = CurrentPos - 1;
                                 while (bracePos > 0 && CharAt(bracePos) != '{') bracePos--;
-                                if (bracePos >= 0 && CharAt(bracePos) == '{' && BaseStyleAt(bracePos) == 10) 
+                                int style = BaseStyleAt(bracePos);
+                                if (bracePos >= 0 && CharAt(bracePos) == '{' && (style == 10/*CPP*/ || style == 5/*CSS*/)) 
                                     previousIndent += TabWidth;
                             }
                             // TODO: Should this test a config variable for indenting after case : statements?

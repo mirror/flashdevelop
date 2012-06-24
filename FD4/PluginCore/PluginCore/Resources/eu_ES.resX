@@ -4889,4 +4889,8 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>CSS osagketa gehitzen dio FlashDevelop-i.</value>
     <comment>Added for 4.1</comment>
   </data>
+  <data name="CssCompletion.Description.DisableAutoCloseBraces" xml:space="preserve">
+    <value>By default CSS blocks' closing brace is inserted automatically after pressing &lt;Enter&gt;.</value>
+    <comment>Added for 4.1</comment>
+  </data>
 </root>

@@ -7,12 +7,14 @@ using ScintillaNet;
 using PluginCore.Managers;
 using PluginCore.Controls;
 using PluginCore;
+using PluginCore.Utilities;
 
 namespace CssCompletion
 {
     public class Completion
     {
         Regex reNavPrefix = new Regex("\\-[a-z]+\\-(.*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        Settings settings;
         Language lang;
         string wordChars;
         List<ICompletionListItem> properties;
@@ -24,8 +26,9 @@ namespace CssCompletion
         CssFeatures features;
         int lastColonInsert;
 
-        public Completion(PluginCore.Helpers.SimpleIni config)
+        public Completion(PluginCore.Helpers.SimpleIni config, Settings settings)
         {
+            this.settings = settings;
             lang = ScintillaControl.Configuration.GetLanguage("css");
             InitProperties(GetSection(config, "Properties"));
             InitLists(GetSection(config, "Lists"));
@@ -56,6 +59,12 @@ namespace CssCompletion
                         lastColonInsert = -1;
                         return;
                     }
+                }
+                else if (c == '\n' && !settings.DisableAutoCloseBraces)
+                {
+                    int line = sci.LineFromPosition(position);
+                    string text = sci.GetLine(line - 1).TrimEnd();
+                    if (text.EndsWith("{")) AutoCloseBrace(sci, line);
                 }
                 else return;
             }
@@ -468,6 +477,86 @@ namespace CssCompletion
             foreach (var def in config)
                 if (def.Key == name) return def.Value;
             return null;
+        }
+
+        /// <summary>
+        /// Add closing brace to a code block.
+        /// If enabled, move the starting brace to a new line.
+        /// </summary>
+        /// <param name="Sci"></param>
+        /// <param name="txt"></param>
+        /// <param name="line"></param>
+        public static void AutoCloseBrace(ScintillaControl Sci, int line)
+        {
+            // find matching brace
+            int bracePos = Sci.LineEndPosition(line - 1) - 1;
+            while ((bracePos > 0) && (Sci.CharAt(bracePos) != '{')) bracePos--;
+            if (bracePos == 0 || Sci.BaseStyleAt(bracePos) != 5) return;
+            int match = Sci.SafeBraceMatch(bracePos);
+            int start = line;
+            int indent = Sci.GetLineIndentation(start - 1);
+            if (match > 0)
+            {
+                int endIndent = Sci.GetLineIndentation(Sci.LineFromPosition(match));
+                if (endIndent + Sci.TabWidth > indent)
+                    return;
+            }
+
+            // find where to include the closing brace
+            int startIndent = indent;
+            int newIndent = indent + Sci.TabWidth;
+            int count = Sci.LineCount;
+            int lastLine = line;
+            int position;
+            string txt = Sci.GetLine(line).Trim();
+            line++;
+            int eolMode = Sci.EOLMode;
+            string NL = LineEndDetector.GetNewLineMarker(eolMode);
+
+            if (txt.Length > 0 && ")]};,".IndexOf(txt[0]) >= 0)
+            {
+                Sci.BeginUndoAction();
+                try
+                {
+                    position = Sci.CurrentPos;
+                    Sci.InsertText(position, NL + "}");
+                    Sci.SetLineIndentation(line, startIndent);
+                }
+                finally
+                {
+                    Sci.EndUndoAction();
+                }
+                return;
+            }
+            else
+            {
+                while (line < count - 1)
+                {
+                    txt = Sci.GetLine(line).TrimEnd();
+                    if (txt.Length != 0)
+                    {
+                        indent = Sci.GetLineIndentation(line);
+                        if (indent <= startIndent) break;
+                        lastLine = line;
+                    }
+                    else break;
+                    line++;
+                }
+            }
+            if (line >= count - 1) lastLine = start;
+
+            // insert closing brace
+            Sci.BeginUndoAction();
+            try
+            {
+                position = Sci.LineEndPosition(lastLine);
+                Sci.InsertText(position, NL + "}");
+                Sci.SetLineIndentation(lastLine + 1, startIndent);
+            }
+            finally
+            {
+                Sci.EndUndoAction();
+            }
         }
 
         #endregion

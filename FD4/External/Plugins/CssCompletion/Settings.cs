@@ -10,10 +10,19 @@ namespace CssCompletion
     [Serializable]
     public class Settings
     {
-        private Boolean disableAutoCompletion = false;
-        private Boolean disableCompileOnSave = false;
-        private Boolean disableMinifyOnSave = false;
-        private Boolean enableVerboseCompilation = false;
+        private bool disableAutoCompletion = false;
+        private bool disableCompileOnSave = false;
+        private bool disableMinifyOnSave = false;
+        private bool enableVerboseCompilation = false;
+        private bool disableAutoCloseBraces = false;
+
+        [DisplayName("Disable Auto-Close Blocks"), DefaultValue(false)]
+        [LocalizedDescription("CssCompletion.Description.DisableAutoCloseBraces")]
+        public bool DisableAutoCloseBraces
+        {
+            get { return disableAutoCloseBraces; }
+            set { disableAutoCloseBraces = value; }
+        }
 
         [DisplayName("Disable Auto Completion"), DefaultValue(false)]
         [LocalizedDescription("CssCompletion.Description.DisableAutoCompletion")]
