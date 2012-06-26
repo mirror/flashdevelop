@@ -101,6 +101,9 @@ namespace AS2Context
             features.dot = ".";
             features.voidKey = "Void";
             features.objectKey = "Object";
+            features.booleanKey = "Boolean";
+            features.numberKey = "Number";
+            features.arrayKey = "Array";
             features.importKey = "import";
             features.typesPreKeys = new string[] { "import", "new", "instanceof", "extends", "implements" };
             features.codeKeywords = new string[] { 

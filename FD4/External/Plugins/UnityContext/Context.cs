@@ -94,6 +94,9 @@ namespace UnityContext
             features.dot = ".";
             features.voidKey = "void";
             features.objectKey = "Object";
+            features.booleanKey = "boolean";
+            features.numberKey = "float";
+            features.arrayKey = "Array";
             features.importKey = "import";
             features.CArrayTemplate = "BuiltInArray";
             features.typesPreKeys = new string[] { "import", "new", "instanceof", "extends", "implements" };

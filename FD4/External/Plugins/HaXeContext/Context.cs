@@ -92,6 +92,9 @@ namespace HaXeContext
             features.dot = ".";
             features.voidKey = "Void";
             features.objectKey = "Dynamic";
+            features.booleanKey = "Bool";
+            features.numberKey = "Float";
+            features.arrayKey = "Array<T>";
             features.importKey = "import";
             features.importKeyAlt = "using";
             features.typesPreKeys = new string[] { "import", "new", "extends", "implements", "using" };

@@ -2217,7 +2217,7 @@ namespace ASCompletion.Completion
                         if (c == '[')
                         {
                             result = new ASResult();
-                            result.Type = ctx.ResolveType("Array", null);
+                            result.Type = ctx.ResolveType(ctx.Features.arrayKey, null);
                             types.Insert(0, result);
                         }
                         else if (c == '{')
@@ -2231,7 +2231,7 @@ namespace ASCompletion.Completion
                             else
                             {
                                 result = new ASResult();
-                                result.Type = ctx.ResolveType("Object", null);
+                                result.Type = ctx.ResolveType(ctx.Features.objectKey, null);
                                 types.Insert(0, result);
                             }
                         }
@@ -2355,13 +2355,13 @@ namespace ASCompletion.Completion
                             if (d != double.MaxValue && d.ToString().Length == trimmed.Length)
                             {
                                 result = new ASResult();
-                                result.Type = ctx.ResolveType("Number", null);
+                                result.Type = ctx.ResolveType(ctx.Features.numberKey, null);
                                 types.Insert(0, result);
                             }
                             else if (trimmed.Equals("true") || trimmed.Equals("false"))
                             {
                                 result = new ASResult();
-                                result.Type = ctx.ResolveType("Boolean", null);
+                                result.Type = ctx.ResolveType(ctx.Features.booleanKey, null);
                                 types.Insert(0, result);
                             }
                         }
@@ -2966,12 +2966,13 @@ namespace ASCompletion.Completion
                 word = Sci.GetWordFromPosition(pos);
             }
 
+            IASContext ctx = inClass.InFile.Context;
             m = Regex.Match(line, "new\\s+([a-z0-9.<>,_$-]+)", RegexOptions.IgnoreCase);
             if (m.Success)
             {
                 string cname = m.Groups[1].Value;
-                if (cname.StartsWith("<")) cname = "Vector." + cname; // literral vector
-                type = inClass.InFile.Context.ResolveType(cname, inClass.InFile);
+                if (cname.StartsWith("<")) cname = "Vector." + cname; // literal vector
+                type = ctx.ResolveType(cname, inClass.InFile);
                 if (!type.IsVoid()) resolve = null;
             }
             else
@@ -2979,28 +2980,29 @@ namespace ASCompletion.Completion
                 char c = (char)Sci.CharAt(pos);
                 if (c == '"' || c == '\'')
                 {
-                    type = inClass.InFile.Context.ResolveType("String", inClass.InFile);
+                    type = ctx.ResolveType("String", inClass.InFile);
                 }
                 else if (c == '}')
                 {
-                    type = inClass.InFile.Context.ResolveType(ASContext.Context.Features.objectKey, inClass.InFile);
+                    type = ctx.ResolveType(ctx.Features.objectKey, inClass.InFile);
                 }
                 else if (c == '>')
                 {
-                    type = inClass.InFile.Context.ResolveType("XML", inClass.InFile);
+                    type = ctx.ResolveType("XML", inClass.InFile);
                 }
                 else if (c == ']')
                 {
-                    type = inClass.InFile.Context.ResolveType("Array", inClass.InFile);
+                    type = ctx.ResolveType(ctx.Features.arrayKey, inClass.InFile);
                 }
                 else if (word != null && Char.IsDigit(word[0]))
                 {
-                    type = inClass.InFile.Context.ResolveType("Number", inClass.InFile);
+                    type = ctx.ResolveType(ctx.Features.numberKey, inClass.InFile);
                 }
                 else if (word != null && (word == "true" || word == "false"))
                 {
-                    type = inClass.InFile.Context.ResolveType("Boolean", inClass.InFile);
+                    type = ctx.ResolveType(ctx.Features.booleanKey, inClass.InFile);
                 }
+                if (type.IsVoid()) resolve = null;
             }
             if (resolve == null)
             {
@@ -3863,17 +3865,18 @@ namespace ASCompletion.Completion
             {
                 string type = FormatType(member.Type);
                 if (type == null) type = features.objectKey;
-                /*{
-                    string message = String.Format(TextHelper.GetString("Info.TypeDeclMissing"), member.Name);
-                    ErrorManager.ShowInfo(message);
-                    return;
-                }*/
+                
                 decl = acc + features.functionKey + " ";
                 bool noRet = type.Equals("void", StringComparison.OrdinalIgnoreCase);
                 type = (noRet) ? ASContext.Context.Features.voidKey : type;
                 if (!noRet) typesUsed.Add(getQualifiedType(type, ofClass));
                 string action = (isProxy || isAS2Event) ? "" : GetSuperCall(member, typesUsed, ofClass);
                 string template = TemplateUtils.GetTemplate("MethodOverride");
+                
+                // fix parameters if needed
+                foreach (MemberModel para in member.Parameters)
+                   if (para.Type == "any") para.Type = "*";
+
                 template = TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
                 template = TemplateUtils.ReplaceTemplateVariable(template, "Name", member.Name);
                 template = TemplateUtils.ReplaceTemplateVariable(template, "Arguments", TemplateUtils.ParametersString(member, true));

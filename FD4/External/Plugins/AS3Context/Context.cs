@@ -86,6 +86,9 @@ namespace AS3Context
             features.dot = ".";
             features.voidKey = "void";
             features.objectKey = "Object";
+            features.booleanKey = "Boolean";
+            features.numberKey = "Number";
+            features.arrayKey = "Array";
             features.importKey = "import";
             features.typesPreKeys = new string[] { "import", "new", "typeof", "is", "as", "extends", "implements" };
             features.codeKeywords = new string[] { 
