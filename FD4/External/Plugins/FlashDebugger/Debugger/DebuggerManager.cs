@@ -12,6 +12,7 @@ using ScintillaNet;
 using PluginCore;
 using net.sf.jni4net;
 using PluginCore.Helpers;
+using ProjectManager.Projects.Haxe;
 
 namespace FlashDebugger
 {
@@ -69,6 +70,15 @@ namespace FlashDebugger
                 IProject project = PluginBase.CurrentProject;
                 if (project == null || !project.EnableInteractiveDebugger) return false;
                 currentProject = project as Project;
+
+                // ignore non-flash haxe targets
+                if (project is HaxeProject)
+                {
+                    HaxeProject hproj = project as HaxeProject;
+                    if (hproj.MovieOptions.Platform == HaxeMovieOptions.NME_PLATFORM
+                        && (hproj.TargetBuild != null && !hproj.TargetBuild.StartsWith("flash")))
+                        return false;
+                }
                 // Give a console warning for non external player...
                 if (currentProject.TestMovieBehavior == TestMovieBehavior.NewTab || currentProject.TestMovieBehavior == TestMovieBehavior.NewWindow)
                 {

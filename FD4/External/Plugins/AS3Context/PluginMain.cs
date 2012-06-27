@@ -245,7 +245,7 @@ namespace AS3Context
                                 
                                 if (PluginBase.CurrentProject.TraceEnabled)
                                 {
-                                    de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
+                                    de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", (e as DataEvent).Data);
                                     EventManager.DispatchEvent(this, de);
                                 }
                             }

@@ -2103,7 +2103,7 @@ namespace ASCompletion.Completion
                 List<String> imports = new List<string>();
                 if (returnType.Member != null)
                 {
-                    if (!"void".Equals(returnType.Member.Type, StringComparison.InvariantCultureIgnoreCase))
+                    if (returnType.Member.Type == ASContext.Context.Features.voidKey)
                     {
                         returnTypeStr = FormatType(GetShortType(returnType.Member.Type));
                         imports.Add(getQualifiedType(returnType.Member.Type, inClassForImport));
@@ -3002,7 +3002,7 @@ namespace ASCompletion.Completion
                 {
                     type = ctx.ResolveType(ctx.Features.booleanKey, inClass.InFile);
                 }
-                if (type.IsVoid()) resolve = null;
+                if (type != null && type.IsVoid()) type = null;
             }
             if (resolve == null)
             {

@@ -157,7 +157,7 @@ namespace FlashDebugger
                     {
                         if (settingObject.StartDebuggerOnTestMovie)
                         {
-                            if (debugManager.Start(true)) buildevnt.Handled = true;
+                            if (debugManager.Start(buildevnt.Data != null)) buildevnt.Handled = true;
                         }
                         return;
                     }
