@@ -19,6 +19,7 @@ namespace ProjectManager.Controls
         public ToolStripButton ProjectProperties;
         public ToolStripButton ProjectTypes;
         public ToolStripButton Synchronize;
+        public ToolStripButton SynchronizeMain;
         public ToolStripSeparator Separator;
 
         private ProjectContextMenu treeMenu;
@@ -48,6 +49,10 @@ namespace ProjectManager.Controls
             Synchronize.ToolTipText = TextHelper.GetString("ToolTip.Synchronize");
             Synchronize.Padding = new Padding(0);
 
+            SynchronizeMain = new ToolStripButton(Icons.ActionScriptCompile.Img);
+            SynchronizeMain.ToolTipText = TextHelper.GetString("ToolTip.Synchronize");
+            SynchronizeMain.Padding = new Padding(0);
+
             ProjectTypes = new ToolStripButton(Icons.AllClasses.Img);
             ProjectTypes.ToolTipText = TextHelper.GetString("ToolTip.ProjectTypes");
             ProjectTypes.Alignment = ToolStripItemAlignment.Right;
@@ -58,6 +63,7 @@ namespace ProjectManager.Controls
 
             Items.Add(ShowHidden);
             Items.Add(Synchronize);
+            Items.Add(SynchronizeMain);
             Items.Add(RefreshSelected);
             Items.Add(Separator);
             Items.Add(ProjectProperties);

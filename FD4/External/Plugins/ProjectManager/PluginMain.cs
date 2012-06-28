@@ -214,6 +214,7 @@ namespace ProjectManager
             pluginUI.Rename += fileActions.Rename;
             pluginUI.TreeBar.ShowHidden.Click += delegate { ToggleShowHidden(); };
             pluginUI.TreeBar.Synchronize.Click += delegate { TreeSyncToCurrentFile(); };
+            pluginUI.TreeBar.SynchronizeMain.Click += delegate { TreeSyncToMainFile(); };
             pluginUI.TreeBar.ProjectProperties.Click += delegate { OpenProjectProperties(); };
             pluginUI.TreeBar.RefreshSelected.Click += delegate { TreeRefreshSelectedNode(); };
             pluginUI.TreeBar.ProjectTypes.Click += delegate 
@@ -1242,6 +1243,14 @@ namespace ProjectManager
             if (path != null && Directory.Exists(path))
             {
                 PluginBase.MainForm.CallCommand("FindAndReplaceInFilesFrom", path);
+            }
+        }
+        
+        private void TreeSyncToMainFile()
+        {
+            if(Tree.Project.CompileTargets.Count > 0)
+            {
+               Tree.Select(Tree.Project.GetAbsolutePath(Tree.Project.CompileTargets[0]));
             }
         }
 
