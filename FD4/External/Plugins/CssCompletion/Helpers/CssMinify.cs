@@ -24,7 +24,7 @@ namespace CssCompletion
 			/// Represents a punctuation character. This can be any character
 			/// that is not classified as a Token, StringD, or StringS
 			/// </summary>
-			Punctuation,
+            Punctuation,
 
 			/// <summary>
 			/// Represents a token character: an alphanumeric value
@@ -71,11 +71,18 @@ namespace CssCompletion
 
 			while(i < aNumChars)
 			{
-				CssState aCurState = GetState(theCss, ref i, aPrevState);
+                CssState aCurState = GetState(theCss, ref i, aPrevState);
 
-				if(i > aPrevPos + 1)
+                if (aPrevState == CssState.Punctuation && i > 0
+                    && theCss[aPrevPos] == '}' && theCss[i] != '}')
+                {
+                    if (Char.IsDigit(theCss[i])) aRet.Append(' ');
+                    else aRet.Append('\n'); // keep blocks on new lines
+                }
+
+                if (i > aPrevPos + 1)
 				{
-					// If whitespace is found between two tokens, keep it compact
+                    // If whitespace is found between two tokens, keep it compact
 					if (aPrevState != CssState.Punctuation && aCurState != CssState.Punctuation)
 						aRet.Append(' ');
 
@@ -84,7 +91,7 @@ namespace CssCompletion
 
 				aPrevPos = i;
 				aPrevState = aCurState;
-				aRet.Append(theCss[i++]);
+                aRet.Append(theCss[i++]);
 			}
 
 			return aRet.ToString();
@@ -176,17 +183,18 @@ namespace CssCompletion
 			}	// end while(aSkip)
 
 			thePos = i;
-			if ( IsTokenChar( theCss[i] ) )
-				return CssState.Token;
+            char c = theCss[i];
+            if (IsTokenChar(c))
+                return CssState.Token;
 
-			else if (theCss[i] == '\"')
-				return CssState.StringD;
+            else if (c == '\"')
+                return CssState.StringD;
 
-			else if(theCss[i] == '\'')
-				return CssState.StringS;
+            else if (c == '\'')
+                return CssState.StringS;
 
-			else
-				return CssState.Punctuation;
+            else
+                return CssState.Punctuation;
 		}
 
 		private static bool IsWhitespaceChar(char p)

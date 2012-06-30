@@ -1,1 +1,2 @@
-@lessc %1 > %2
+@lessc %*
+::lessc in out <options> 

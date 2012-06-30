@@ -24,7 +24,8 @@ namespace CssCompletion
             if (settings.DisableMinifyOnSave) return;
             try
             {
-                string min = CssMinifier.Minify(File.ReadAllText(fileName));
+                string raw = File.ReadAllText(fileName);
+                string min = CssMinifier.Minify(raw);
                 string outFile = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName)) + ".min.css";
                 File.WriteAllText(outFile, min);
             }
@@ -38,12 +39,33 @@ namespace CssCompletion
         {
             EventManager.DispatchEvent(features, new NotifyEvent(EventType.ProcessStart));
 
+            string raw = File.ReadAllText(fileName);
+            string options = "";
+            Match mParams = Regex.Match(raw, "\\@options\\s(.*)", RegexOptions.Multiline);
+            if (mParams.Success)
+            {
+                options = mParams.Groups[1].Value.Trim();
+                int endComment = options.IndexOf("*/");
+                if (endComment > 0) options = options.Substring(0, endComment).Trim();
+            }
+
             string toolsDir = Path.Combine(PathHelper.ToolDir, "css");
-            string cmd = PathHelper.ResolvePath(features.Compile, toolsDir);
+            string[] parts = features.Compile.Split(';');
+            string cmd = PathHelper.ResolvePath(parts[0], toolsDir);
+            if (cmd == null)
+            {
+                TraceManager.Add(parts[0] + " command not found");
+                return;
+            }
             string outFile = Path.GetFileNameWithoutExtension(fileName) + ".css";
+            string args = parts[1].Replace("$(options)", options)
+                .Replace("$(in)", Path.GetFileName(fileName))
+                .Replace("$(out)", outFile);
+            TraceManager.Add(Path.GetFileNameWithoutExtension(cmd) + " " + args);
+
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = cmd;
-            info.Arguments = Path.GetFileName(fileName) + " " + outFile;
+            info.Arguments = args;
             if (info.EnvironmentVariables.ContainsKey("path")) info.EnvironmentVariables["path"] += ";" + toolsDir;
             else info.EnvironmentVariables["path"] = toolsDir;
             info.CreateNoWindow = true;
@@ -52,28 +74,34 @@ namespace CssCompletion
             info.RedirectStandardOutput = true;
             info.RedirectStandardError = true;
             Process p = Process.Start(info);
-            p.WaitForExit();
-
-            string res = p.StandardOutput.ReadToEnd() ?? "";
-            string err = p.StandardError.ReadToEnd() ?? "";
-
-            MatchCollection matches = features.ErrorPattern.Matches(err);
-            if (matches.Count > 0)
-                foreach (Match m in matches)
-                    TraceManager.Add(fileName + ":" + m.Groups["line"] + ": " + m.Groups["desc"].Value.Trim(), -3);
-
-            if (settings.EnableVerboseCompilation || (err != "" && matches.Count == 0))
+            if (p.WaitForExit(3000))
             {
-                if (res.Trim().Length > 0) TraceManager.Add(res);
-                if (err.Trim().Length > 0) TraceManager.Add(err, 3);
+                string res = p.StandardOutput.ReadToEnd() ?? "";
+                string err = p.StandardError.ReadToEnd() ?? "";
+
+                MatchCollection matches = features.ErrorPattern.Matches(err);
+                if (matches.Count > 0)
+                    foreach (Match m in matches)
+                        TraceManager.Add(fileName + ":" + m.Groups["line"] + ": " + m.Groups["desc"].Value.Trim(), -3);
+
+                if (settings.EnableVerboseCompilation || (err != "" && matches.Count == 0))
+                {
+                    if (res.Trim().Length > 0) TraceManager.Add(res);
+                    if (err.Trim().Length > 0) TraceManager.Add(err, 3);
+                }
+
+                EventManager.DispatchEvent(features, new TextEvent(EventType.ProcessEnd, "Done(" + p.ExitCode + ")"));
+
+                if (p.ExitCode == 0)
+                {
+                    outFile = Path.Combine(Path.GetDirectoryName(fileName), outFile);
+                    CompressFile(outFile, features, settings);
+                }
             }
-
-            EventManager.DispatchEvent(features, new TextEvent(EventType.ProcessEnd, "Done(" + p.ExitCode + ")"));
-
-            if (p.ExitCode == 0)
+            else
             {
-                outFile = Path.Combine(Path.GetDirectoryName(fileName), outFile);
-                CompressFile(outFile, features, settings);
+                p.Kill();
+                EventManager.DispatchEvent(features, new TextEvent(EventType.ProcessEnd, "Done(99): Style compiler not responding."));
             }
         }
     }
