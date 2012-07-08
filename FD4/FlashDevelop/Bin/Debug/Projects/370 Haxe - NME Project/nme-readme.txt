@@ -11,6 +11,14 @@ About NME
 	Read more: 
 	http://www.haxenme.org/
 
+Project configuration, libraries, classpaths
+	
+	NME configuration is based on a NMML file - it's an XML which allows you very complex
+	configurations depending on the target platform. There is no GUI for it.
+	
+	DO NOT modify FlashDevelop project properties as they will automatically be synchronized with the
+	NMML when you modify it.
+
 Development
 
 	NME is very close to Flash API but using 'nme' as the root package (ie. nme.display.Sprite).
@@ -36,11 +44,6 @@ Debugging
 
 	By default your project targets Flash so you'll be able to add breakpoints and debug your app 
 	like any AS3 project.
-
-Project configuration, libraries, classpaths
-	
-	NME integration in FlashDevelop is still early and you'll have to configure the classpath and
-	haxelibs both in the FD project and in the build.nmml file.
 	
 Native targets
 
