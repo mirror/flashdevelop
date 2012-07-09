@@ -17,6 +17,8 @@ $(CBI)*/
 class Main $(CSLB){
 	static function main() $(CSLB){
 		var app = NativeApplication.nativeApplication;
+			
+		// new to AIR? please read *carefully* the readme.txt files!
 		
 		app.addEventListener(InvokeEvent.INVOKE, function(e : InvokeEvent) $(CSLB){
 			

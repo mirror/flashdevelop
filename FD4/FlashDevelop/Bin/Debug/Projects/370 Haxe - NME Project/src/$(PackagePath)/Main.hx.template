@@ -22,6 +22,8 @@ class Main extends Sprite $(CSLB){
 
 	private function init(e) $(CSLB){
 		// entry point
+		
+		// new to Haxe NME? please read *carefully* the readme.txt file!
 	}
 	
 	static public function main() $(CSLB){
