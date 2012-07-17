@@ -11,6 +11,7 @@ namespace CssCompletion
     public class Settings
     {
         private bool disableAutoCompletion = false;
+        private bool disableInsertColon = false;
         private bool disableCompileOnSave = false;
         private bool disableMinifyOnSave = false;
         private bool enableVerboseCompilation = false;
@@ -30,6 +31,14 @@ namespace CssCompletion
         {
             get { return this.disableAutoCompletion; }
             set { this.disableAutoCompletion = value; }
+        }
+
+        [DisplayName("Disable Insert Colon"), DefaultValue(false)]
+        [LocalizedDescription("CssCompletion.Description.DisableInsertColon")]
+        public Boolean DisableInsertColon
+        {
+            get { return this.disableInsertColon; }
+            set { this.disableInsertColon = value; }
         }
 
         [DisplayName("Disable Compile To CSS On Save"), DefaultValue(false)]

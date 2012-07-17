@@ -60,6 +60,16 @@ namespace CssCompletion
                         return;
                     }
                 }
+                else if (c == ';')
+                {
+                    char c2 = (char)sci.CharAt(position);
+                    if (c2 == ';')
+                    {
+                        sci.DeleteBack();
+                        sci.SetSel(position, position);
+                        return;
+                    }
+                }
                 else if (c == '\n' && !settings.DisableAutoCloseBraces)
                 {
                     int line = sci.LineFromPosition(position);
@@ -109,10 +119,15 @@ namespace CssCompletion
         {
             if (!(item is CompletionItem)) return;
             CompletionItem it = item as CompletionItem;
-            if (trigger != ':' && it.Kind == ItemKind.Property)
+            if (trigger == ':')
+            {
+                lastColonInsert = position + text.Length + 1;
+            }
+            else if (it.Kind == ItemKind.Property && !settings.DisableInsertColon)
             {
                 int pos = position + text.Length;
-                sci.InsertText(pos, ":");
+                char c = (char)sci.CharAt(pos);
+                if (c != ':') sci.InsertText(pos, ":");
                 sci.SetSel(pos + 1, pos + 1);
                 lastColonInsert = pos + 1;
             }

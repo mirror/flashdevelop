@@ -4957,4 +4957,8 @@ UseData:"</value>
     <value>By default CSS blocks' closing brace is inserted automatically after pressing &lt;Enter&gt;.</value>
     <comment>Added for 4.1</comment>
   </data>
+  <data name="CssCompletion.Description.DisableInsertColon" xml:space="preserve">
+    <value>Disable automatic insertion of colon (:) character when completing attributes.</value>
+    <comment>Added for 4.1</comment>
+  </data>
 </root>
