@@ -9,6 +9,9 @@ namespace FlashDebugger
 	{
 		public const int WM_NCLBUTTONDOWN = 0x00A1;
 		public const int WM_LBUTTONDOWN = 0x0201;
+		public const int WM_KEYDOWN = 0x0100;
+
+		public const int VK_ESCAPE = 0x1B;
         
         [DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);

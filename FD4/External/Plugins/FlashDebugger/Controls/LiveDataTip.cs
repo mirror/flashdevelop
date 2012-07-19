@@ -23,6 +23,7 @@ namespace FlashDebugger
 			m_MouseMessageFilter = new MouseMessageFilter();
 			m_MouseMessageFilter.AddControls(new Control[] { m_ToolTip, m_ToolTip.DataTree });
 			m_MouseMessageFilter.MouseDownEvent += new MouseDownEventHandler(MouseMessageFilter_MouseDownEvent);
+			m_MouseMessageFilter.KeyDownEvent += new EventHandler(MouseMessageFilter_KeyDownEvent);
 			Application.AddMessageFilter(m_MouseMessageFilter);
 			UITools.Manager.OnMouseHover += new UITools.MouseHoverHandler(Manager_OnMouseHover);
 		}
@@ -43,6 +44,16 @@ namespace FlashDebugger
 		}
 
 		private void MouseMessageFilter_MouseDownEvent(MouseButtons button, Point e)
+		{
+			if (m_ToolTip.Visible &&
+				!m_ToolTip.DataTree.Tree.ContextMenuStrip.Visible &&
+				!m_ToolTip.DataTree.Viewer.Visible)
+			{
+				Hide();
+			}
+		}
+
+		private void MouseMessageFilter_KeyDownEvent(object sender, EventArgs e)
 		{
 			if (m_ToolTip.Visible &&
 				!m_ToolTip.DataTree.Tree.ContextMenuStrip.Visible &&
@@ -111,6 +122,7 @@ namespace FlashDebugger
     public class MouseMessageFilter : IMessageFilter
     {
         public event MouseDownEventHandler MouseDownEvent = null;
+        public event EventHandler KeyDownEvent = null;
 		private Control[] m_ControlList;
 
         public void AddControls(Control[] controls)
@@ -120,6 +132,13 @@ namespace FlashDebugger
 
         public bool PreFilterMessage(ref Message m)
         {
+            if (m.Msg == Win32.WM_KEYDOWN && m.WParam.ToInt32() == Win32.VK_ESCAPE)
+            {
+                if (KeyDownEvent != null)
+                {
+                    KeyDownEvent(null, null);
+                }
+            }
             if (m.Msg == Win32.WM_LBUTTONDOWN)
             {
 				Control target = Control.FromHandle(m.HWnd);
