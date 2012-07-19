@@ -101,7 +101,8 @@ namespace HaXeContext
             features.codeKeywords = new string[] { 
                 "enum", "typedef", "class", "interface", "var", "function", "new", "cast", "return", "break", 
                 "continue", "callback", "if", "else", "for", "while", "do", "switch", "case", "default", "type",
-                "null", "untyped", "true", "false", "try", "catch", "throw", "inline", "dynamic"
+                "null", "untyped", "true", "false", "try", "catch", "throw", "inline", "dynamic",
+                "extends", "using", "import", "implements"
             };
             features.varKey = "var";
             features.overrideKey = "override";

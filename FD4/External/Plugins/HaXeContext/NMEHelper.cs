@@ -47,10 +47,21 @@ namespace HaXeContext
 
             string args = "run nme run \"" + project.OutputPathAbsolute + "\" " + config;
             string haxelib = GetHaxelib(project);
-            string oldWD = PluginBase.MainForm.WorkingDirectory;
-            PluginBase.MainForm.WorkingDirectory = project.Directory;
-            PluginBase.MainForm.CallCommand("RunProcessCaptured", haxelib + ";" + args);
-            PluginBase.MainForm.WorkingDirectory = oldWD;
+
+            if (config.StartsWith("flash") || config.StartsWith("html5")) // no capture
+            {
+                var infos = new ProcessStartInfo(haxelib, args);
+                infos.WorkingDirectory = project.Directory;
+                infos.WindowStyle = ProcessWindowStyle.Hidden;
+                Process.Start(infos);
+            }
+            else
+            {
+                string oldWD = PluginBase.MainForm.WorkingDirectory;
+                PluginBase.MainForm.WorkingDirectory = project.Directory;
+                PluginBase.MainForm.CallCommand("RunProcessCaptured", haxelib + ";" + args);
+                PluginBase.MainForm.WorkingDirectory = oldWD;
+            }
             return true;
         }
 
