@@ -2208,10 +2208,32 @@ namespace ASCompletion.Completion
             if (IsStatic(context.ContextFunction) && head.RelClass == inClass
                 && head.Member != null && !IsStatic(head.Member)) return notFound;
 
+            // resolve
+            ASResult result = EvalTail(context, inFile, head, tokens, complete);
+
+            // if failed, try as qualified class name
+            if ((result == null || result.IsNull()) && tokens.Length > 1) 
+            {
+                ClassModel qualif = ASContext.Context.ResolveType(expression, inFile);
+                if (!qualif.IsVoid())
+                {
+                    result = new ASResult();
+                    result.Context = context;
+                    result.IsStatic = true;
+                    result.InFile = qualif.InFile;
+                    result.Type = qualif;
+                }
+            }
+            return result ?? notFound;
+        }
+
+        static ASResult EvalTail(ASExpr context, FileModel inFile, ASResult head, string[] tokens, bool complete)
+        {
 			// eval tail
 			int n = tokens.Length;
 			if (!complete) n--;
 			// context
+            ContextFeatures features = ASContext.Context.Features;
 			ASResult step = head;
 			ClassModel resultClass = head.Type;
 			// look for static or dynamic members?
@@ -2224,6 +2246,7 @@ namespace ASCompletion.Completion
 
 			// explore
             bool inE4X = false;
+            string token = tokens[0];
             string path = token;
             step.Path = token;
             step.Context = context;
@@ -2245,7 +2268,7 @@ namespace ASCompletion.Completion
                         step.Type = ctx.ResolveType(ctx.Features.objectKey, null);
                         acc = Visibility.Public;
                     }
-                    else return notFound;
+                    else return null;
                 }
                 else if (step.IsPackage)
                 {
