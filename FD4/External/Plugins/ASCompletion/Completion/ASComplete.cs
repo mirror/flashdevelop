@@ -2214,7 +2214,7 @@ namespace ASCompletion.Completion
             // if failed, try as qualified class name
             if ((result == null || result.IsNull()) && tokens.Length > 1) 
             {
-                ClassModel qualif = ASContext.Context.ResolveType(expression, inFile);
+                ClassModel qualif = ASContext.Context.ResolveType(expression, null);
                 if (!qualif.IsVoid())
                 {
                     result = new ASResult();
