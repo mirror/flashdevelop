@@ -26,6 +26,7 @@ namespace ProjectManager.Actions
 	public class BuildActions
 	{
         static public int LatestSDKMatchQuality;
+        static bool setPlayerglobalHomeEnv;
 
 		IMainForm mainForm;
         FDMenus menus;
@@ -190,6 +191,14 @@ namespace ProjectManager.Actions
             SetStatusBar(TextHelper.GetString("Info.BuildStarted"));
             menus.DisabledForBuild = true;
 
+            // Apache Flex compat
+            string playerglobalHome = Environment.ExpandEnvironmentVariables("%PLAYERGLOBAL_HOME%");
+            if (playerglobalHome.StartsWith("%")) setPlayerglobalHomeEnv = true;
+            if (setPlayerglobalHomeEnv)
+                Environment.SetEnvironmentVariable("PLAYERGLOBAL_HOME", 
+                    Path.Combine(project.CurrentSDK, "frameworks/libs/player"));
+
+            // run FDBuild
             fdProcess.StartProcess(fdBuildPath, "\"" + project.ProjectPath + "\"" + arguments,
                 project.Directory, delegate(bool success)
                 {

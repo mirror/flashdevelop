@@ -814,6 +814,8 @@ namespace AS3Context
                     case XmlNodeType.Text:
                         desc += prefix + ReadString() + postfix;
                         break;
+
+                    default: Read(); break;
                 }
             }
             return desc;
