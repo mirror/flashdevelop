@@ -52,9 +52,12 @@ namespace ProjectManager.Projects
             infos.Add(new BuildEventInfo("ProjectPath", project.ProjectPath));
             infos.Add(new BuildEventInfo("TimeStamp", DateTime.Now.ToString("g")));
             infos.Add(new BuildEventInfo("BuildConfig", project.TraceEnabled ? "debug" : "release"));
+            infos.Add(new BuildEventInfo("TargetPlatform", project.MovieOptions.Platform));
+            infos.Add(new BuildEventInfo("TargetVersion", project.MovieOptions.Version));
+            infos.Add(new BuildEventInfo("TargetBuild", project.TargetBuild));
             infos.Add(new BuildEventInfo("TargetBuild", project.TargetBuild ?? ""));
             infos.Add(new BuildEventInfo("CompilerPath", project.CurrentSDK));
-            if (project.Language == "as3") infos.Add(new BuildEventInfo("FlexSDK", project.CurrentSDK)); 
+            if (project.Language == "as3") infos.Add(new BuildEventInfo("FlexSDK", project.CurrentSDK));
             infos.AddRange(additional);
 
             return infos.ToArray();
