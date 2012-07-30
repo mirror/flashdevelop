@@ -97,6 +97,9 @@
         private System.Windows.Forms.Button AppIconButton128;
         private System.Windows.Forms.TextBox AppIconField128;
         private System.Windows.Forms.Label AppIconLabel128;
+        private System.Windows.Forms.Button AppIconButton144;
+        private System.Windows.Forms.TextBox AppIconField144;
+        private System.Windows.Forms.Label AppIconLabel144;
         private System.Windows.Forms.Button AppIconButton48;
         private System.Windows.Forms.TextBox AppIconField48;
         private System.Windows.Forms.Label AppIconLabel48;
@@ -146,6 +149,9 @@
         private System.Windows.Forms.TextBox VersionNoField;
         private System.Windows.Forms.Label VersionLabelLabel;
         private System.Windows.Forms.TextBox VersionLabelField;
+        private System.Windows.Forms.TextBox SupportedLanguagesField;
+        private System.Windows.Forms.Label SupportedLanguagesLabel;
+        private System.Windows.Forms.Button SupportedLanguagesButton;
         private System.Windows.Forms.TabPage FileTypeIconsTabPage;
         private System.Windows.Forms.TableLayoutPanel FileTypeIconsPanel;
         private System.Windows.Forms.Button FileTypeIconButton128;
@@ -259,6 +265,9 @@
             this.VersionNoField = new System.Windows.Forms.TextBox();
             this.VersionLabelLabel = new System.Windows.Forms.Label();
             this.VersionLabelField = new System.Windows.Forms.TextBox();
+            this.SupportedLanguagesButton = new System.Windows.Forms.Button();
+            this.SupportedLanguagesField = new System.Windows.Forms.TextBox();
+            this.SupportedLanguagesLabel = new System.Windows.Forms.Label();
             this.InstallationTabPage = new System.Windows.Forms.TabPage();
             this.SupportedProfilesGroupBox = new System.Windows.Forms.GroupBox();
             this.ExtendedTvField = new System.Windows.Forms.CheckBox();
@@ -313,6 +322,9 @@
             this.AppIconLabel128 = new System.Windows.Forms.Label();
             this.AppIconField128 = new System.Windows.Forms.TextBox();
             this.AppIconButton128 = new System.Windows.Forms.Button();
+            this.AppIconLabel144 = new System.Windows.Forms.Label();
+            this.AppIconField144 = new System.Windows.Forms.TextBox();
+            this.AppIconButton144 = new System.Windows.Forms.Button();
             this.AppIconLabel512 = new System.Windows.Forms.Label();
             this.AppIconField512 = new System.Windows.Forms.TextBox();
             this.AppIconButton512 = new System.Windows.Forms.Button();
@@ -560,6 +572,9 @@
             this.DetailsTabPage.Controls.Add(this.NameLabel);
             this.DetailsTabPage.Controls.Add(this.IDLabel);
             this.DetailsTabPage.Controls.Add(this.VersionPanel25);
+            this.DetailsTabPage.Controls.Add(this.SupportedLanguagesButton);
+            this.DetailsTabPage.Controls.Add(this.SupportedLanguagesField);
+            this.DetailsTabPage.Controls.Add(this.SupportedLanguagesLabel);
             this.DetailsTabPage.Location = new System.Drawing.Point(4, 22);
             this.DetailsTabPage.Name = "DetailsTabPage";
             this.DetailsTabPage.Padding = new System.Windows.Forms.Padding(20, 25, 20, 20);
@@ -787,6 +802,36 @@
             this.VersionLabelField.Name = "VersionLabelField";
             this.VersionLabelField.Size = new System.Drawing.Size(426, 21);
             this.VersionLabelField.TabIndex = 10;
+            // 
+            // SupportedLanguagesLabel
+            // 
+            this.SupportedLanguagesLabel.AutoSize = true;
+            this.SupportedLanguagesLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.SupportedLanguagesLabel.Location = new System.Drawing.Point(23, 272);
+            this.SupportedLanguagesLabel.Name = "SupportedLanguagesLabel";
+            this.SupportedLanguagesLabel.Size = new System.Drawing.Size(60, 13);
+            this.SupportedLanguagesLabel.TabIndex = 18;
+            this.SupportedLanguagesLabel.Text = "Languages";
+            // 
+            // SupportedLanguagesField
+            // 
+            this.ValidationErrorProvider.SetIconPadding(this.SupportedLanguagesField, 2);
+            this.SupportedLanguagesField.Location = new System.Drawing.Point(100, 269);
+            this.SupportedLanguagesField.MaxLength = 212;
+            this.SupportedLanguagesField.Name = "SupportedLanguagesField";
+            this.SupportedLanguagesField.Size = new System.Drawing.Size(391, 21);
+            this.SupportedLanguagesField.TabIndex = 19;
+            // 
+            // SupportedLanguagesButton
+            // 
+            this.SupportedLanguagesButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.SupportedLanguagesButton.Location = new System.Drawing.Point(497, 267);
+            this.SupportedLanguagesButton.Name = "SupportedLanguagesButton";
+            this.SupportedLanguagesButton.Size = new System.Drawing.Size(29, 22);
+            this.SupportedLanguagesButton.TabIndex = 20;
+            this.SupportedLanguagesButton.Text = "...";
+            this.SupportedLanguagesButton.UseVisualStyleBackColor = true;
+            this.SupportedLanguagesButton.Click += new System.EventHandler(this.SupportedLanguagesButton_Click);
             // 
             // InstallationTabPage
             // 
@@ -1133,13 +1178,16 @@
             this.AppIconsPanel.Controls.Add(this.AppIconLabel128, 0, 7);
             this.AppIconsPanel.Controls.Add(this.AppIconField128, 1, 7);
             this.AppIconsPanel.Controls.Add(this.AppIconButton128, 2, 7);
-            this.AppIconsPanel.Controls.Add(this.AppIconLabel512, 0, 8);
-            this.AppIconsPanel.Controls.Add(this.AppIconField512, 1, 8);
-            this.AppIconsPanel.Controls.Add(this.AppIconButton512, 2, 8);
+            this.AppIconsPanel.Controls.Add(this.AppIconLabel144, 0, 8);
+            this.AppIconsPanel.Controls.Add(this.AppIconField144, 1, 8);
+            this.AppIconsPanel.Controls.Add(this.AppIconButton144, 2, 8);
+            this.AppIconsPanel.Controls.Add(this.AppIconLabel512, 0, 9);
+            this.AppIconsPanel.Controls.Add(this.AppIconField512, 1, 9);
+            this.AppIconsPanel.Controls.Add(this.AppIconButton512, 2, 9);
             this.AppIconsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.AppIconsPanel.Location = new System.Drawing.Point(0, 0);
             this.AppIconsPanel.Name = "AppIconsPanel";
-            this.AppIconsPanel.RowCount = 9;
+            this.AppIconsPanel.RowCount = 10;
             this.AppIconsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.AppIconsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.AppIconsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -1149,7 +1197,8 @@
             this.AppIconsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.AppIconsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.AppIconsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.AppIconsPanel.Size = new System.Drawing.Size(479, 237);
+            this.AppIconsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.AppIconsPanel.Size = new System.Drawing.Size(479, 263);
             this.AppIconsPanel.TabIndex = 12;
             // 
             // AppIconLabel16
@@ -1432,35 +1481,70 @@
             this.AppIconButton128.UseVisualStyleBackColor = true;
             this.AppIconButton128.Click += new System.EventHandler(this.AppIconButtonClick);
             // 
+            // AppIconLabel144
+            // 
+            this.AppIconLabel144.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.AppIconLabel144.AutoSize = true;
+            this.AppIconLabel144.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.AppIconLabel144.Location = new System.Drawing.Point(3, 214);
+            this.AppIconLabel144.Name = "AppIconLabel144";
+            this.AppIconLabel144.Size = new System.Drawing.Size(55, 13);
+            this.AppIconLabel144.TabIndex = 24;
+            this.AppIconLabel144.Text = "144 x 144";
+            // 
+            // AppIconField144
+            // 
+            this.AppIconField144.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ValidationErrorProvider.SetIconPadding(this.AppIconField144, 36);
+            this.AppIconField144.Location = new System.Drawing.Point(74, 212);
+            this.AppIconField144.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.AppIconField144.Name = "AppIconField144";
+            this.AppIconField144.Size = new System.Drawing.Size(343, 21);
+            this.AppIconField144.TabIndex = 25;
+            this.AppIconField144.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateAppIconField);
+            // 
+            // AppIconButton144
+            // 
+            this.AppIconButton144.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.AppIconButton144.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.AppIconButton144.Location = new System.Drawing.Point(423, 211);
+            this.AppIconButton144.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.AppIconButton144.Name = "AppIconButton144";
+            this.AppIconButton144.Size = new System.Drawing.Size(29, 23);
+            this.AppIconButton144.TabIndex = 26;
+            this.AppIconButton144.Text = "...";
+            this.AppIconButton144.UseVisualStyleBackColor = true;
+            this.AppIconButton144.Click += new System.EventHandler(this.AppIconButtonClick);
+            // 
             // AppIconLabel512
             // 
             this.AppIconLabel512.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.AppIconLabel512.AutoSize = true;
             this.AppIconLabel512.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.AppIconLabel512.Location = new System.Drawing.Point(3, 216);
+            this.AppIconLabel512.Location = new System.Drawing.Point(3, 242);
             this.AppIconLabel512.Name = "AppIconLabel512";
             this.AppIconLabel512.Size = new System.Drawing.Size(55, 13);
-            this.AppIconLabel512.TabIndex = 24;
+            this.AppIconLabel512.TabIndex = 27;
             this.AppIconLabel512.Text = "512 x 512";
             // 
             // AppIconField512
             // 
             this.AppIconField512.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ValidationErrorProvider.SetIconPadding(this.AppIconField512, 36);
-            this.AppIconField512.Location = new System.Drawing.Point(74, 212);
+            this.AppIconField512.Location = new System.Drawing.Point(74, 238);
             this.AppIconField512.Name = "AppIconField512";
             this.AppIconField512.Size = new System.Drawing.Size(343, 21);
-            this.AppIconField512.TabIndex = 25;
+            this.AppIconField512.TabIndex = 28;
             this.AppIconField512.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateAppIconField);
             // 
             // AppIconButton512
             // 
             this.AppIconButton512.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.AppIconButton512.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.AppIconButton512.Location = new System.Drawing.Point(423, 211);
+            this.AppIconButton512.Location = new System.Drawing.Point(423, 237);
             this.AppIconButton512.Name = "AppIconButton512";
             this.AppIconButton512.Size = new System.Drawing.Size(29, 23);
-            this.AppIconButton512.TabIndex = 26;
+            this.AppIconButton512.TabIndex = 29;
             this.AppIconButton512.Text = "...";
             this.AppIconButton512.UseVisualStyleBackColor = true;
             this.AppIconButton512.Click += new System.EventHandler(this.AppIconButtonClick);

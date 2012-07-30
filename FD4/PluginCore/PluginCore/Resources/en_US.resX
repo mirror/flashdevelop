@@ -3979,6 +3979,14 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Portuguese Braz.(pt-BR)</value>
     <comment>Added after 3.3.1</comment>
   </data>
+  <data name="AirProperties.Locale.PortugueseSimple" xml:space="preserve">
+    <value>Portuguese (pt)</value>
+    <comment></comment>
+  </data>
+  <data name="AirProperties.Locale.PortugueseSimple" xml:space="preserve">
+    <value>Portuguese (pt)</value>
+    <comment></comment>
+  </data>
   <data name="AirProperties.Locale.Russian" xml:space="preserve">
     <value>Russian (ru)</value>
     <comment>Added after 3.3.1</comment>

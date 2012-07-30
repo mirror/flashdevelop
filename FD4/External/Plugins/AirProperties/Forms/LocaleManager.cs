@@ -23,9 +23,10 @@ namespace AirProperties
             new ListItem(TextHelper.GetString("Locale.French"), "fr"),
             new ListItem(TextHelper.GetString("Locale.German"), "de"),
             new ListItem(TextHelper.GetString("Locale.Italian"), "it"),
-            new ListItem(TextHelper.GetString("Locale.Japanese"), "jp"),
+            new ListItem(TextHelper.GetString("Locale.Japanese"), "ja"),
             new ListItem(TextHelper.GetString("Locale.Korean"), "ko"),
             new ListItem(TextHelper.GetString("Locale.Polish"), "pl"),
+            new ListItem(TextHelper.GetString("Locale.PortugueseSimple"), "pt"),
             new ListItem(TextHelper.GetString("Locale.Portuguese"), "pt-BR"),
             new ListItem(TextHelper.GetString("Locale.Russian"), "ru"),
             new ListItem(TextHelper.GetString("Locale.Spanish"), "es"),
@@ -171,7 +172,7 @@ namespace AirProperties
             String newLocale = CustomLocaleField.Text.Trim();
             String baseLocale;
             Boolean isValid = false;
-            if (newLocale.Length > 0)
+            if (newLocale.Length > 0 && newLocale != TextHelper.GetString("Label.AddCustomLocale"))
             {
                 foreach (ListItem locale in _defaultLocales)
                 {

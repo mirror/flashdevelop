@@ -66,6 +66,7 @@ namespace AirProperties
                 new PropertyManager.AirApplicationIconField("57", AppIconField57, PropertyManager.AirVersion.V20),
                 new PropertyManager.AirApplicationIconField("72", AppIconField72, PropertyManager.AirVersion.V20),
                 new PropertyManager.AirApplicationIconField("128", AppIconField128, PropertyManager.AirVersion.V10),
+                new PropertyManager.AirApplicationIconField("144", AppIconField144, PropertyManager.AirVersion.V33),
                 new PropertyManager.AirApplicationIconField("512", AppIconField512, PropertyManager.AirVersion.V20)
             };
             if (this._pluginMain.Settings.SelectPropertiesFileOnOpen) SelectAndLoadPropertiesFile();
@@ -233,6 +234,17 @@ namespace AirProperties
         private void SetupUI()
         {
             // Remove unsupported properties
+            if (PropertyManager.MajorVersion < PropertyManager.AirVersion.V33)
+            {
+                // Remove 144x144
+                AppIconsPanel.RemoveRow(8);
+            }
+            if (PropertyManager.MajorVersion < PropertyManager.AirVersion.V32)
+            {
+                SupportedLanguagesLabel.Visible = false;
+                SupportedLanguagesField.Visible = false;
+                SupportedLanguagesButton.Visible = false;
+            }
             if (PropertyManager.MajorVersion < PropertyManager.AirVersion.V25)
             {
                 VersionPanel25.Visible = false;
@@ -266,7 +278,7 @@ namespace AirProperties
             {
                 PublisherIdLabel.Visible = false;
                 PublisherIdField.Visible = false;
-            }            
+            }
         }
 
         private void LoadProperties(Boolean isDefault)
@@ -404,6 +416,10 @@ namespace AirProperties
                         String androidManifestAdditions = PropertyManager.GetProperty("android/manifestAdditions");
                         AndroidManifestAdditionsField.Text = FormatXML(androidManifestAdditions, "android");
                     }
+                    if (PropertyManager.MajorVersion >= PropertyManager.AirVersion.V32)
+                    {
+                        PropertyManager.GetProperty("supportedLanguages", SupportedLanguagesField);
+                    }
                     //Validate all controls so the error provider activates on any invalid values
                     ValidateChildren();
                     _isPropertiesLoaded = true;
@@ -516,7 +532,7 @@ namespace AirProperties
                     {
                         PropertyManager.SetProperty("icon/image" + icon.Size + "x" + icon.Size, icon.Field);
                     }
-                }   
+                }
                 // Initial Window tab
                 PropertyManager.SetProperty("initialWindow/content", System.Web.HttpUtility.UrlPathEncode(ContentField.Text));
                 PropertyManager.SetProperty("initialWindow/title", TitleField);
@@ -554,6 +570,10 @@ namespace AirProperties
                 if (PropertyManager.MajorVersion >= PropertyManager.AirVersion.V25)
                 {
                     PropertyManager.SetPropertyCData("android/manifestAdditions", AndroidManifestAdditionsField);
+                }
+                if (PropertyManager.MajorVersion >= PropertyManager.AirVersion.V32)
+                {
+                    PropertyManager.SetProperty("supportedLanguages", SupportedLanguagesField);
                 }
                 PropertyManager.CommitProperties(_propertiesFile);
             }
@@ -1105,7 +1125,19 @@ namespace AirProperties
                 ExtensionsListView.Items.RemoveAt(ExtensionsListView.SelectedIndices[0]);
             }
         }
-        
+
+        private void SupportedLanguagesButton_Click(object sender, EventArgs e)
+        {
+            List<string> locales = new List<string>();
+            locales.AddRange(SupportedLanguagesField.Text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries));
+            LocaleManager frmLocaleMan = new LocaleManager(ref locales);
+            if (frmLocaleMan.ShowDialog(this) == DialogResult.OK)
+            {
+                SupportedLanguagesField.Text = String.Join(" ", locales.ToArray());
+            }
+
+        }
+
         #endregion
 
         #region Validation Event Handlers / Methods
