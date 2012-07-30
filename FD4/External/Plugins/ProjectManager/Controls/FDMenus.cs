@@ -79,7 +79,7 @@ namespace ProjectManager.Controls
             TargetBuildSelector = new ToolStripComboBox();
             TargetBuildSelector.Name = "TargetBuildSelector";
             TargetBuildSelector.ToolTipText = TextHelper.GetString("ToolTip.TargetBuild");
-            TargetBuildSelector.DropDownStyle = ComboBoxStyle.DropDownList;
+            TargetBuildSelector.DropDownStyle = ComboBoxStyle.DropDown;
             TargetBuildSelector.AutoSize = false;
             TargetBuildSelector.Enabled = false;
             TargetBuildSelector.Width = 85;
@@ -116,7 +116,10 @@ namespace ProjectManager.Controls
             if (project.MovieOptions.TargetBuildTypes != null)
             {
                 TargetBuildSelector.Items.AddRange(project.MovieOptions.TargetBuildTypes);
-                TargetBuildSelector.Text = project.TargetBuild ?? project.MovieOptions.TargetBuildTypes[0];
+                string target = project.TargetBuild ?? project.MovieOptions.TargetBuildTypes[0];
+                if (!TargetBuildSelector.Items.Contains(target))
+                    TargetBuildSelector.Items.Insert(0, target);
+                TargetBuildSelector.Text = target;
                 TargetBuildSelector.Visible = true;
                 TargetBuildSelector.Enabled = true;
             }

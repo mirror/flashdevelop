@@ -171,16 +171,9 @@ namespace ProjectManager
                 pluginUI.IsTraceDisabled = !isDebug;
                 if (project != null) project.TraceEnabled = isDebug;
             };
-            menus.TargetBuildSelector.SelectedIndexChanged += delegate
-            {
-                if (project != null && project.MovieOptions.TargetBuildTypes != null
-                    && project.TargetBuild != menus.TargetBuildSelector.Text)
-                {
-                    FlexCompilerShell.Cleanup();
-                    project.TargetBuild = menus.TargetBuildSelector.Text;
-                    projectActions.UpdateASCompletion(MainForm, project);
-                }
-            };
+            menus.TargetBuildSelector.KeyDown += new KeyEventHandler(TargetBuildSelector_KeyDown);
+            menus.TargetBuildSelector.SelectedIndexChanged += delegate { ApplyTargetBuild(); };
+            menus.TargetBuildSelector.LostFocus += delegate { ApplyTargetBuild(); };
             
             menus.ProjectMenu.NewProject.Click += delegate { NewProject(); };
             menus.ProjectMenu.OpenProject.Click += delegate { OpenProject(); };
@@ -270,6 +263,26 @@ namespace ProjectManager
             buildTimer.Tick += new EventHandler(OnBuildTimerTick);
             buildingAll = false;
             runOutput = false;
+        }
+
+        private void ApplyTargetBuild()
+        {
+            string target = menus.TargetBuildSelector.Text;
+            if (project != null && project.MovieOptions.TargetBuildTypes != null
+                && project.TargetBuild != target)
+            {
+                if (!menus.TargetBuildSelector.Items.Contains(target))
+                    menus.TargetBuildSelector.Items.Insert(0, target);
+                FlexCompilerShell.Cleanup();
+                project.TargetBuild = menus.TargetBuildSelector.Text;
+                projectActions.UpdateASCompletion(MainForm, project);
+            }
+        }
+
+        void TargetBuildSelector_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) // leave target build input field to apply
+                PluginBase.MainForm.CurrentDocument.Activate();
         }
 		
 		public void Dispose()

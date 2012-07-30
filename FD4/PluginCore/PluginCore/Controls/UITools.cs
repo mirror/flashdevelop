@@ -263,7 +263,7 @@ namespace PluginCore.Controls
             }
             else if (m.Msg == WM_KEYUP)
             {
-                if ((int)m.WParam == 17) // Ctrl
+                if ((int)m.WParam == 17 || (int)m.WParam == 18) // Ctrl / AltGr
                 {
                     if (CompletionList.Active) CompletionList.FadeIn();
                     if (callTip.CallTipActive) callTip.FadeIn();
