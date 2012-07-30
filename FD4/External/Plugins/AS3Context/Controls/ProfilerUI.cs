@@ -337,7 +337,7 @@ namespace AS3Context.Controls
 
         private string AddDefaultProfiler()
         {
-            string swfPath = ResolvePath(CheckResource("Profiler4.swf", "Profiler.swf"));
+            string swfPath = ResolvePath(CheckResource("Profiler5.swf", "Profiler.swf"));
             ASCompletion.Commands.CreateTrustFile.Run("FDProfiler.cfg", Path.GetDirectoryName(swfPath));
             FlashConnect.Settings settings = GetFlashConnectSettings();
             return "\r\nPreloadSwf=" + swfPath + "?host=" + settings.Host + "&port=" + settings.Port + "\r\n";

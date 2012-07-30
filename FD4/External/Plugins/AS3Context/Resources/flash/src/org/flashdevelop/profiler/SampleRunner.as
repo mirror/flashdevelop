@@ -91,7 +91,10 @@ package org.flashdevelop.profiler
 			for each(var info:SampleInfo in tc.obj)
 			{
 				cpt++;
-				out.push(info.stack.join(","));
+				if (info.stack)
+					out.push(info.stack.join(","));
+				else 
+					out.push("[no stack]");
 			}
 		}
 		
