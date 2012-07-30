@@ -1132,7 +1132,7 @@ namespace ProjectManager.Controls
         {
             try
             {
-                new FileInfo(path);
+                if (path != "") new FileInfo(path);
                 return true;
             }
             catch(Exception ex) {
