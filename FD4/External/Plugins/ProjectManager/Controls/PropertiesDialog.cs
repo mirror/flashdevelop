@@ -1092,7 +1092,7 @@ namespace ProjectManager.Controls
 			try
 			{
                 project.OutputType = GetOutput();
-				project.OutputPath = outputSwfBox.Text;
+                if (OuputValid(outputSwfBox.Text)) project.OutputPath = outputSwfBox.Text;
 				project.Classpaths.Clear();
 				project.Classpaths.AddRange(classpathControl.Classpaths);
 				options.Width = int.Parse(widthTextBox.Text);
@@ -1127,6 +1127,19 @@ namespace ProjectManager.Controls
 			propertiesChanged = true;
 			return true;
 		}
+
+        private bool OuputValid(string path)
+        {
+            try
+            {
+                new FileInfo(path);
+                return true;
+            }
+            catch(Exception ex) {
+                ErrorManager.ShowInfo(ex.Message);
+                return false;
+            }
+        }
 
 		private void btnOK_Click(object sender, EventArgs e)
 		{
