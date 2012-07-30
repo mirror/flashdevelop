@@ -10,6 +10,7 @@ using PluginCore.Utilities;
 using PluginCore.Managers;
 using PluginCore.Helpers;
 using PluginCore;
+using ProjectManager.Projects.AS3;
 
 namespace AirProperties
 {
@@ -210,7 +211,8 @@ namespace AirProperties
             if (PluginBase.CurrentProject != null)
             {
                 ProjectManager.Projects.Project project = (ProjectManager.Projects.Project)PluginBase.CurrentProject;
-                pluginActive = (project.MovieOptions.Platform == "AIR" || project.MovieOptions.Platform == "AIR Mobile");
+                pluginActive = project.MovieOptions.Platform == AS3MovieOptions.AIR_PLATFORM
+                    || project.MovieOptions.Platform == AS3MovieOptions.AIR_MOBILE_PLATFORM;
             }
             this.pluginMenuItem.Enabled = this.pmMenuButton.Enabled = pluginActive;
         }

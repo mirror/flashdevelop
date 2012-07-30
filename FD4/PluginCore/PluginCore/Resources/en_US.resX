@@ -2411,8 +2411,14 @@ Please note that with injection enabled, you will not be able to use many projec
   <data name="ProjectManager.Title.ImportProject" xml:space="preserve">
     <value>Select Project To Import</value>
   </data>
+  <data name="ProjectManager.Title.ImportPackagedProject" xml:space="preserve">
+    <value>Select destination folder for packaged project</value>
+  </data>
   <data name="ProjectManager.Info.ImportProjectFilter" xml:space="preserve">
-    <value>Adobe Flash Builder Project (.actionScriptProperties)|.actionScriptProperties</value>
+    <value>Adobe Flash Builder Project (.actionScriptProperties)|.actionScriptProperties|Packaged Adobe Flash Builder Project (*.zip;*.fxp)|*.zip;*.fxp</value>
+  </data>
+  <data name="ProjectManager.Info.NotValidFlashBuilderProject" xml:space="preserve">
+    <value>The selected file was not a valid Flash Builder project</value>
   </data>
   <data name="FlashDevelop.Info.RedirectFilesResults" xml:space="preserve">
     <value>Send results to Results Panel</value>

@@ -128,7 +128,8 @@ namespace ProjectManager.Actions
             }
             
             // close running AIR projector
-            if (project.MovieOptions.Platform == "AIR")
+            if (project.MovieOptions.Platform == AS3MovieOptions.AIR_PLATFORM 
+                || project.MovieOptions.Platform == AS3MovieOptions.AIR_MOBILE_PLATFORM)
             {
                 foreach (Process proc in Process.GetProcessesByName("adl"))
                 {

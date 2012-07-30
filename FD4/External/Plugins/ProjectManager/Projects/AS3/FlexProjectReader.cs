@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml;
+using System.Runtime.InteropServices;
 
 namespace ProjectManager.Projects.AS3
 {
@@ -12,6 +13,8 @@ namespace ProjectManager.Projects.AS3
         string mainApp;
         string outputPath;
         PathCollection applications;
+
+        public IDictionary<string, string> EnvironmentPaths { get; set; }
 
         public FlexProjectReader(string filename)
             : base(filename, new AS3Project(filename))
@@ -23,21 +26,23 @@ namespace ProjectManager.Projects.AS3
         {
             mainApp = GetAttribute("mainApplicationPath");
         }
-        
+
         protected override void ProcessNode(string name)
         {
             if (NodeType == XmlNodeType.Element)
-            switch (name)
-            {
-                case "compiler": ReadCompilerOptions(); break;
-                case "applications": ReadApplications(); break;
-                case "modules": ReadModules(); break;
-            }
+                switch (name)
+                {
+                    case "compiler": ReadCompilerOptions(); break;
+                    case "applications": ReadApplications(); break;
+                    case "modules": ReadModules(); break;
+                    case "theme": ReadTheme(); break;
+                    case "buildTargets": ReadBuildTargets(); break;
+                }
         }
 
         private void ReadCompilerOptions()
         {
-            outputPath = GetAttribute("outputFolderPath") ?? "";
+            outputPath = GetAttribute("outputFolderLocation") ?? (GetAttribute("outputFolderPath") ?? "");
             mainApp = (GetAttribute("sourceFolderPath") ?? "") + "/" + mainApp;
             if (mainApp.StartsWith("/")) mainApp = mainApp.Substring(1);
             project.CompileTargets.Add(OSPath(mainApp.Replace('/', '\\')));
@@ -77,7 +82,7 @@ namespace ProjectManager.Projects.AS3
                                 project.MovieOptions.Version = "9.0";
                         }
                 }
-                catch { } 
+                catch { }
                 api.Add("Library\\AS3\\frameworks\\Flex" + target);
             }
             project.CompilerOptions.Additional = additional.Split('\n');
@@ -90,17 +95,20 @@ namespace ProjectManager.Projects.AS3
         private void ProcessCompilerOptionNode(string name)
         {
             if (NodeType == XmlNodeType.Element)
-            switch (name)
-            {
-                case "compilerSourcePath": ReadCompilerSourcePaths(); break;
-                case "libraryPath": ReadLibraryPaths(); break;
-            }
+                switch (name)
+                {
+                    case "compilerSourcePath": ReadCompilerSourcePaths(); break;
+                    case "libraryPath": ReadLibraryPaths(); break;
+                }
         }
 
         private void ReadCompilerSourcePaths()
         {
-            ReadStartElement("compilerSourcePath");
-            ReadPaths("compilerSourcePathEntry", project.Classpaths);
+            if (!IsEmptyElement)
+            {
+                ReadStartElement("compilerSourcePath");
+                ReadPaths("compilerSourcePathEntry", project.Classpaths);
+            }
         }
 
         private void ReadLibraryPaths()
@@ -120,11 +128,22 @@ namespace ProjectManager.Projects.AS3
 
                     case "libraryPathEntry":
                         string path = GetAttribute("path") ?? "";
+
+                        if (path.StartsWith("$") && EnvironmentPaths != null)
+                        {
+                            string value;
+                            string environmentPath = path.Substring(2, path.IndexOf('}') - 2);
+                            if (EnvironmentPaths.TryGetValue(environmentPath, out value))
+                                path = path.Replace("${" + environmentPath + "}", value);
+                        }
+
                         if (path.Length > 0 && !path.StartsWith("$"))
                         {
                             asset = new LibraryAsset(project, path.Replace('/', '\\'));
-                            if (exclude) asset.SwfMode = SwfAssetMode.ExternalLibrary;
-                            else asset.SwfMode = SwfAssetMode.Library;
+                            if (exclude || GetAttribute("linkType").ToString() == "2")
+                                asset.SwfMode = SwfAssetMode.ExternalLibrary;
+                            else
+                                asset.SwfMode = SwfAssetMode.Library;
                             project.SwcLibraries.Add(asset);
                         }
                         break;
@@ -141,7 +160,7 @@ namespace ProjectManager.Projects.AS3
             ReadPaths("application", applications);
             if (applications.Count > 0)
             {
-                project.OutputPath = Path.Combine(outputPath, 
+                project.OutputPath = Path.Combine(outputPath,
                     Path.GetFileNameWithoutExtension(applications[0]) + ".swf");
             }
         }
@@ -161,6 +180,45 @@ namespace ProjectManager.Projects.AS3
             }
         }
 
+        private void ReadTheme()
+        {
+            if (GetAttribute("themeIsDefault") == "false")
+            {
+                string themeLocation = GetAttribute("themeLocation").ToString().Replace("${EXTERNAL_THEME_DIR}/", 
+                    GetThemeFolderPath() + Path.DirectorySeparatorChar);
+
+                string themeFile = ".packagedThemes" + Path.DirectorySeparatorChar + 
+                    themeLocation.Substring(themeLocation.LastIndexOf('\\') + 1) + ".swc";
+
+                if (File.Exists(Path.Combine(project.Directory, themeFile)) || 
+                    File.Exists(themeFile = Path.Combine(themeLocation, themeLocation.Substring(themeLocation.LastIndexOf('\\') + 1) + ".swc")))
+                {
+                    LibraryAsset asset = new LibraryAsset(project, themeFile);
+                    asset.SwfMode = SwfAssetMode.IncludedLibrary;   // Should it be a plain library instead?
+                    project.SwcLibraries.Add(asset);
+
+                    project.RebuildCompilerOptions();
+                }
+
+            }
+        }
+
+        private void ReadBuildTargets()
+        {
+            ReadStartElement("buildTargets");
+            while (Name == "buildTarget")
+            {
+                if (GetAttribute("androidSettingsVersion") != null || GetAttribute("iosSettingsVersion") != null)
+                {
+                    project.MovieOptions.Platform = AS3MovieOptions.AIR_MOBILE_PLATFORM;
+                    project.TestMovieBehavior = TestMovieBehavior.Custom;
+
+                    break;
+                }
+                Read();
+            }
+        }
+
         public static String ResolvePath(String path, String relativeTo)
         {
             if (path == null || path.Length == 0) return null;
@@ -169,6 +227,26 @@ namespace ProjectManager.Projects.AS3
             String resolvedPath = Path.Combine(relativeTo, path);
             if (Directory.Exists(resolvedPath) || File.Exists(resolvedPath)) return resolvedPath;
             return null;
+        }
+
+        public static String GetThemeFolderPath()
+        {
+            StringBuilder builder = new StringBuilder();
+            SafeNativeMethods.SHGetFolderPath(IntPtr.Zero, SafeNativeMethods.CSIDL_PROFILE, IntPtr.Zero, 0x0000, builder);
+
+            return builder.ToString() + Path.DirectorySeparatorChar + "Application Data" + Path.DirectorySeparatorChar + 
+                "Adobe" + Path.DirectorySeparatorChar + "Flash Builder" + Path.DirectorySeparatorChar + "Themes";
+        }
+
+        private class SafeNativeMethods
+        {
+
+            public const int CSIDL_PROFILE = 0x0028;
+
+            [DllImport("shell32.dll")]
+            public static extern int SHGetFolderPath(IntPtr hwndOwner, int nFolder, IntPtr hToken,
+               uint dwFlags, [Out] StringBuilder pszPath);
+
         }
     }
 }

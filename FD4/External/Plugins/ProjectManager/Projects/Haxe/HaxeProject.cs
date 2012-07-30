@@ -232,7 +232,7 @@ namespace ProjectManager.Projects.Haxe
                     if (MovieOptions.Platform == HaxeMovieOptions.AIR_PLATFORM
                         || MovieOptions.Platform == HaxeMovieOptions.AIR_MOBILE_PLATFORM)
                         AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
-                    if (movieOptions.Platform == "NME")
+                    if (movieOptions.Platform == HaxeMovieOptions.NME_PLATFORM)
                         HaxeProject.GuessFlashPlayerForNME(ref majorVersion, ref minorVersion);
 
                     if (majorVersion >= 10)

@@ -125,6 +125,12 @@ namespace ProjectManager.Projects
             return ext == ".as3proj" || IsFlexBuilderProject(path);
         }
 
+        public static bool IsFlexBuilderPackagedProject(string path)
+        {
+            string ext = Path.GetExtension(path).ToLower();
+            return ext == ".fxp" || ext == ".zip";
+        }
+
         public static bool IsFlexBuilderProject(string path)
         {
             return Path.GetFileName(path).ToLower() == ".actionscriptproperties";

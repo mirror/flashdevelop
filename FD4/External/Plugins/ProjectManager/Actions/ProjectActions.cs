@@ -13,6 +13,7 @@ using ProjectManager.Projects;
 using ProjectManager.Projects.AS2;
 using ProjectManager.Projects.AS3;
 using PluginCore.Helpers;
+using ICSharpCode.SharpZipLib.Zip;
 using ProjectManager.Controls.TreeView;
 using System.Text.RegularExpressions;
 
@@ -92,25 +93,85 @@ namespace ProjectManager.Actions
             dialog.Filter = TextHelper.GetString("Info.ImportProjectFilter");
             if (dialog.ShowDialog() == DialogResult.OK && File.Exists(dialog.FileName))
             {
-                if (FileInspector.IsFlexBuilderProject(dialog.FileName))
+                string fbProject = dialog.FileName;
+
+                try
                 {
-                    try
+                    if (FileInspector.IsFlexBuilderPackagedProject(fbProject))
                     {
-                        Project imported = AS3Project.Load(dialog.FileName);
+                        fbProject = ExtractPackagedProject(fbProject);
+                    }
+
+                    if (FileInspector.IsFlexBuilderProject(fbProject))
+                    {
+                        Project imported = AS3Project.Load(fbProject);
                         string path = Path.GetDirectoryName(imported.ProjectPath);
                         string name = Path.GetFileName(path);
                         string newPath = Path.Combine(path, name + ".as3proj");
                         imported.SaveAs(newPath);
                         return newPath;
                     }
-                    catch (Exception exception)
-                    {
-                        string msg = TextHelper.GetString("Info.CouldNotOpenProject");
-                        ErrorManager.ShowInfo(msg + " " + exception.Message);
-                    }
+                    else
+                        ErrorManager.ShowInfo(TextHelper.GetString("Info.NotValidFlashBuilderProject"));
+                }
+                catch (Exception exception)
+                {
+                    string msg = TextHelper.GetString("Info.CouldNotOpenProject");
+                    ErrorManager.ShowInfo(msg + " " + exception.Message);
                 }
             }
             return null;
+        }
+
+        private string ExtractPackagedProject(string packagePath)
+        {
+            using (FileStream fs = new FileStream(packagePath, FileMode.Open, FileAccess.Read))
+            using (ZipFile zFile = new ZipFile(fs))
+            {
+                if (zFile.GetEntry(".actionscriptProperties") != null)
+                {
+                    using (FolderBrowserDialog saveDialog = new FolderBrowserDialog())
+                    {
+                        saveDialog.ShowNewFolderButton = true;
+                        saveDialog.Description = TextHelper.GetString("Title.ImportPackagedProject");
+
+                        if (saveDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            foreach (ZipEntry entry in zFile)
+                            {
+                                Int32 size = 4095;
+                                Byte[] data = new Byte[4095];
+                                string newPath = Path.Combine(saveDialog.SelectedPath, entry.Name.Replace('/', '\\'));
+
+                                if (entry.IsFile)
+                                {
+                                    Stream zip = zFile.GetInputStream(entry);
+                                    String ext = Path.GetExtension(newPath);
+                                    String dirPath = Path.GetDirectoryName(newPath);
+                                    if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
+                                    FileStream extracted = new FileStream(newPath, FileMode.Create);
+                                    while (true)
+                                    {
+                                        size = zip.Read(data, 0, data.Length);
+                                        if (size > 0) extracted.Write(data, 0, size);
+                                        else break;
+                                    }
+                                    extracted.Close();
+                                    extracted.Dispose();
+                                }
+                                else
+                                {
+                                    Directory.CreateDirectory(newPath);
+                                }
+                            }
+                        }
+
+                        return Path.Combine(saveDialog.SelectedPath, ".actionScriptProperties");
+                    }
+                }
+            }
+
+            return string.Empty;
         }
 
         #endregion
@@ -134,7 +195,8 @@ namespace ProjectManager.Actions
                 platform = project.MovieOptions.Platform;
                 majorVersion = project.MovieOptions.MajorVersion;
                 minorVersion = project.MovieOptions.MinorVersion;
-                if (project.MovieOptions.Platform == "AIR" || project.MovieOptions.Platform == "AIR Mobile")
+                if (project.MovieOptions.Platform == AS3MovieOptions.AIR_PLATFORM 
+                    || project.MovieOptions.Platform == AS3MovieOptions.AIR_MOBILE_PLATFORM)
                     AS3Project.GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
 
                 // add project classpaths
