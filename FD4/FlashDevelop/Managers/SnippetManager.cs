@@ -76,7 +76,7 @@ namespace FlashDevelop.Managers
             {
                 Int32 endPos = sci.SelectionEnd;
                 Int32 startPos = sci.SelectionStart;
-                String curWord = sci.GetWordFromPosition(sci.CurrentPos);
+                String curWord = sci.GetWordFromPosition(endPos);
                 if (startPos == endPos)
                 {
                     endPos = sci.WordEndPosition(sci.CurrentPos, true);
@@ -88,7 +88,7 @@ namespace FlashDevelop.Managers
                     // Remember the current word
                     ArgsProcessor.PrevSelWord = curWord;
                 }
-                SnippetHelper.InsertSnippetText(sci, sci.CurrentPos, snippet);
+                SnippetHelper.InsertSnippetText(sci, endPos, snippet);
                 return true;
             }
             else if (canShowList)
