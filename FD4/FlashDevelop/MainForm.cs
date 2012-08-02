@@ -570,7 +570,7 @@ namespace FlashDevelop
         public DockContent OpenEditableDocument(String org, Encoding encoding, Boolean restorePosition)
         {
             DockContent createdDoc;
-            EncodingFileInfo info = new EncodingFileInfo();
+            EncodingFileInfo info;
             String file = PathHelper.GetPhysicalPathName(org);
             TextEvent te = new TextEvent(EventType.FileOpening, file);
             EventManager.DispatchEvent(this, te);
@@ -1627,8 +1627,7 @@ namespace FlashDevelop
             {
                 for (Int32 i = 0; i < args.Length; i++)
                 {
-				    String file = PathHelper.GetLongPathName(args[i]);
-                    if (File.Exists(file)) this.OpenEditableDocument(file);
+                    OpenDocumentFromParameters(args[i]);
                 }
             }
             Win32.ActivateWindow(this.Handle);
@@ -1637,6 +1636,38 @@ namespace FlashDevelop
             */
             NotifyEvent ne = new NotifyEvent(EventType.StartArgs);
             EventManager.DispatchEvent(this, ne);
+        }
+
+        private void OpenDocumentFromParameters(string file)
+        {
+            Match openParams = Regex.Match(file, "@([0-9]+)($|:([0-9]+)$)"); // path@line:col
+            if (openParams.Success)
+            {
+                file = file.Substring(0, openParams.Index);
+                file = PathHelper.GetLongPathName(file);
+                if (File.Exists(file))
+                {
+                    TabbedDocument doc = this.OpenEditableDocument(file, false) as TabbedDocument;
+                    if (doc != null) ApplyOpenParams(openParams, doc.SciControl);
+                    else if (CurrentDocument.FileName == file) ApplyOpenParams(openParams, CurrentDocument.SciControl);
+                }
+            }
+            else if (File.Exists(file))
+            {
+                file = PathHelper.GetLongPathName(file);
+                this.OpenEditableDocument(file);
+            }
+        }
+
+        private void ApplyOpenParams(Match openParams, ScintillaControl sci)
+        {
+            if (sci == null) return;
+            Int32 line = Math.Min(sci.LineCount - 1, Math.Max(0, Int32.Parse(openParams.Groups[1].Value) - 1));
+            Int32 col = 0;
+            if (openParams.Groups.Count > 3 && openParams.Groups[3].Value.Length > 0) 
+                col = Int32.Parse(openParams.Groups[3].Value);
+            Int32 position = sci.PositionFromLine(line) + col;
+            sci.SetSel(position, position);
         }
 
         /// <summary>
