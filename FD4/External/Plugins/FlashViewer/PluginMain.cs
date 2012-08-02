@@ -151,7 +151,7 @@ namespace FlashViewer
         /// </summary> 
         public void AddEventHandlers()
         {
-            EventManager.AddEventHandler(this, EventType.FileOpening, HandlingPriority.High);
+            EventManager.AddEventHandler(this, EventType.FileOpening, HandlingPriority.Low);
             EventManager.AddEventHandler(this, EventType.Command);
         }
 

@@ -344,6 +344,11 @@ namespace ProjectManager
                         te.Handled = true;
                         OpenProjectSilent(te.Value);
                     }
+                    else if (project != null && te.Value.EndsWith(".swf"))
+                    {
+                        te.Handled = true;
+                        OpenSwf(te.Value);
+                    }
                     break;
 
                 case EventType.FileOpen:
@@ -700,7 +705,8 @@ namespace ProjectManager
             int w = project.MovieOptions.Width;
             int h = project.MovieOptions.Height;
             bool isOutput = path.ToLower() == project.OutputPathAbsolute.ToLower();
-            path = project.FixDebugReleasePath(path);
+            if (path.StartsWith(project.Directory)) 
+                path = project.FixDebugReleasePath(path);
 
             if (project.TestMovieBehavior == TestMovieBehavior.NewTab)
             {
