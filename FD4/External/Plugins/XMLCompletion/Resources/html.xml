@@ -1,99 +1,121 @@
 <declarations>
 	<groups>
-		<group id="@class" at="class,dir,id,lang,style:s,title" />
-		<group id="@events" at="onclick:e,ondblclick:e,onkeydown:e,onkeypress:e,onkeyup:e,onmousedown:e,onmousemove:e,onmouseout:e,onmouseover:e,onmouseup:e" />
+		<group id="@global" at="accesskey,class,contenteditable,dir,id,lang,style:s,tabindex,title" />
+		<group id="@events" at="onclick:e,ondblclick:e,onkeydown:e,onkeypress:e,onkeyup:e,onmousedown:e,onmousemove:e,onmouseout:e,onmouseover:e,onmouseup:e,ontouchstart:e,ontouchmove:e,ontouchend:e" />
+		<group id="@media-global" at="src,crossorigin,preload,autoplay,mediagroup,loop,muted,controls"
+		<group id="@media-events" at="onloadstart:e,onprogress:e,onsuspend:e,onabort:e,onerror:e,onemptied:e,onstalled:e,onloadedmetadata:e,onloadeddata:e,oncanplay:e,canplaythrough:e,onplaying:e,onwaiting:e,onseeking:e,onseeked:e,onended:e,ondurationchange:e,ontimeupdate:e,onplay:e,onpause:e,onratechange:e,onvolumechange:e" />		
 	</groups>
 	<tags>
-		<a at="accesskey,charset,@class,coords,href,hreflang,name,onblur:e,@events,onfocus:e,rel,rev,shape,tabindex,target,type" />
-		<abbr at="@class,@events" />
-		<acronym at="@class,@events" />
-		<address at="@class,@events" />
-		<applet at="align,alt,archive,class,code,codebase,height,hspace,id,name,object,vspace,width" />
-		<area at="accesskey,alt,@class,coords,href,nohref,onblur:e,@events,onfocus:e,shape,tabindex,target" />
-		<b at="@class,@events" />
+		<a at="charset,@global,coords,href,hreflang,media,name,onblur:e,@events,onfocus:e,rel,rev,shape,tabindex,target,type" />
+		<abbr at="@global,@events" />
+		<acronym at="@global,@events" />
+		<address at="@global,@events" />
+		<applet at="@global,align,alt,archive,code,codebase,height,hspace,name,object,vspace,width" />
+		<area at="alt,@global,coords,href,media,nohref,onblur:e,@events,onfocus:e,shape,target" />
+		<article at="@global,@events" />
+		<aside at="@global,@events" />
+		<audio at="@global,@events,@media-global,@media-events" />
+		<b at="@global,@events" />
 		<base at="href,target" />
 		<basefont at="color:s,face:s,id,size:s" />
 		<bdo at="dir" />
-		<big at="@class,@events" />
-		<blockquote at="cite,@class,@events" />
-		<body at="align,background:s,bgcolor:s,@class,link,@events,onload:e,onunload:e,text,vlink" />
-		<br leaf="yes" at="class,clear,id,style:s,title" />
-		<button at="accesskey,@class,disabled,name,onblur:e,@events,onfocus:e,tabindex,type,value" />
-		<caption at="align,@class,@events" />
-		<center at="@class,@events" />
-		<cite at="@class,@events" />
-		<code at="@class,@events" />
-		<col at="align,char,charoff,@class,@events,span,valign,width" />
-		<colgroup at="align,char,charoff,@class,@events,span,valign,width" />
-		<dd at="@class,@events" />
-		<del at="cite,@class,datetime,@events" />
-		<dfn at="@class,@events" />
-		<dir at="@class,compact,@events" />
-		<div at="align,@class,@events" />
-		<dl at="@class,compact,@events" />
-		<dt at="@class,@events" />
-		<em at="@class,@events" />
-		<fieldset at="@class,@events" />
-		<font at="@class,color:s,face:s,size:s" />
-		<form at="accept,accept-charset,action,@class,enctype,method,name,@events,onreset:e,onsubmit:e,target" />
-		<frame at="class,frameborder:s,id,longdesc,marginheight,marginwidth,name,noresize,scrolling,src,style,title" />
-		<frameset at="class,cols,id,onload:e,onunload:e,rows,style,title" />
-		<h1 at="align,@class,@events" />
-		<h2 at="align,@class,@events" />
-		<h3 at="align,@class,@events" />
-		<h4 at="align,@class,@events" />
-		<h5 at="align,@class,@events" />
-		<h6 at="align,@class,@events" />
+		<big at="@global,@events" />
+		<blockquote at="cite,@global,@events" />
+		<body at="align,background:s,bgcolor:s,@global,link,@events,onload:e,onunload:e,text,vlink" />
+		<br leaf="yes" at="@global,clear" />
+		<button at="@global,disabled,name,onblur:e,@events,onfocus:e,type,value" />
+		<caption at="align,@global,@events" />
+		<canvas at="@global,@events,width,height" />
+		<center at="@global,@events" />
+		<cite at="@global,@events" />
+		<code at="@global,@events" />
+		<col at="align,char,charoff,@global,@events,span,valign,width" />
+		<colgroup at="align,char,charoff,@global,@events,span,valign,width" />
+		<datalist at="@global" />
+		<dd at="@global,@events" />
+		<del at="cite,@global,datetime,@events" />
+		<dfn at="@global,@events" />
+		<dir at="@global,compact,@events" />
+		<div at="align,@global,@events" />
+		<dl at="@global,compact,@events" />
+		<dt at="@global,@events" />
+		<em at="@global,@events" />
+		<embed at="@global,@events,src,type,width,height" />
+		<fieldset at="@global,@events,disabled,form" />
+		<figure at="@global,@events" />
+		<figcaption at="@global,@events" />
+		<font at="@global,color:s,face:s,size:s" />
+		<form at="accept,accept-charset,action,form,@global,enctype,method,name,novalidate,@events,onreset:e,onsubmit:e,target" />
+		<frame at="@global,frameborder:s,longdesc,marginheight,marginwidth,name,noresize,scrolling,src" />
+		<frameset at="@global,cols,onload:e,onunload:e,rows" />
+		<footer at="@global,@events" />
+		<h1 at="align,@global,@events" />
+		<h2 at="align,@global,@events" />
+		<h3 at="align,@global,@events" />
+		<h4 at="align,@global,@events" />
+		<h5 at="align,@global,@events" />
+		<h6 at="align,@global,@events" />
 		<head at="dir,lang,profile" />
-		<hr leaf="yes" at="align,@class,noshade:s,@events,size,width" />
-		<html at="dir,lang,version" />
-		<i at="@class,@events" />
-		<iframe at="align,class,frameborder,headers,id,longdesc,marginheight,marginwidth,name,scrolling,src,style:s,title,width" />
-		<img leaf="yes" at="align,alt,border,@class,height,hspace,ismap,longdesc,name,@events,src,usemap,vspace,width" />
-		<input leaf="yes" at="accept,accesskey,align,alt,checked,@class,disabled,ismap,maxlength,name,onblur:e,onchange:e,@events,onfocus:e,onselect:e,readonly,size,src,tabindex,type,usemap,value" />
-		<ins at="cite,@class,datetime,@events" />
-		<isindex at="@class,prompt" />
-		<kbd at="@class,@events" />
-		<label at="accesskey,@class,for,onblur:e,@events,onfocus:e" />
-		<legend at="accesskey,align,@class,@events" />
-		<li at="@class,@events,type,value" />
-		<link leaf="yes" at="charset,@class,href,hreflang,media,@events,rel,rev,target,type" />
-		<map at="@class,name,@events" />
-		<menu at="@class,compact,@events" />
-		<meta leaf="yes" at="content,dir,http-equiv,lang,name,scheme" />
-		<noframes at="@class,@events" />
-		<noscript at="@class,@events" />
-		<object at="align,archive,border:s,@class,classid,codebase,codetype,data,declare,height,hspace,name,@events,standby,tabindex,type,usemap,vspace,width" />
-		<ol at="@class,compact,@events,start,type" />
-		<optgroup at="@class,disabled,label,@events" />
-		<option at="@class,disabled,label,@events,selected,value" />
-		<p at="align,@class,@events" />
+		<header at="@global,@events" />
+		<hgroup at="@global,@events" />
+		<hr leaf="yes" at="align,@global,noshade:s,@events,size,width" />
+		<html at="dir,lang,manifest,version" />
+		<i at="@global,@events" />
+		<iframe at="@global,align,frameborder,headers,longdesc,marginheight,marginwidth,name,sandbox,seamless,srcdoc,scrolling,src,width" />
+		<img leaf="yes" at="align,alt,border,crossorigin,@global,height,hspace,ismap,longdesc,name,@events,src,usemap,vspace,width" />
+		<input leaf="yes" at="accept,align,alt,autofocus,autocomplete,min,max,multiple,pattern,step,checked,dirname,form,@global,disabled,ismap,list,maxlength,name,onblur:e,onchange:e,@events,onfocus:e,onselect:e,placeholder,readonly,required,size,src,type,usemap,value,width,height" />
+		<ins at="cite,@global,datetime,@events" />
+		<isindex at="@global,prompt" />
+		<kbd at="@global,@events" />
+		<label at="@global,for,form,onblur:e,@events,onfocus:e" />
+		<legend at="align,@global,@events" />
+		<li at="@global,@events,type,value" />
+		<link leaf="yes" at="charset,@global,href,hreflang,media,@events,rel,rev,target,type" />
+		<map at="@global,name,@events" />
+		<mark at="@global,@events" />
+		<menu at="@global,compact,@events,label,type" />
+		<meta leaf="yes" at="charset,content,dir,http-equiv,lang,name,scheme" />
+		<meter at="@global,@events,value,min,max,low,high,optimum" />
+		<nav at="@global,@events" />
+		<noframes at="@global,@events" />
+		<noscript at="@global,@events" />
+		<object at="align,archive,border:s,form,@global,classid,codebase,codetype,data,declare,height,hspace,name,@events,standby,type,usemap,vspace,width" />
+		<ol at="@global,compact,@events,reversed,start,type" />
+		<optgroup at="@global,disabled,label,@events" />
+		<option at="@global,disabled,label,@events,selected,value" />
+		<p at="align,@global,@events" />
+		<progress at="@global,@events,value,max" />
 		<param at="id,name,type,value,valuetype" />
-		<pre at="@class,@events,width" />
-		<q at="cite,@class,@events" />
-		<s at="@class,@events" />
-		<span at="@class,@events" />
-		<samp at="@class,@events" />
-		<script at="charset,defer,language,src,type" />
-		<select at="@class,disabled,multiple,name,onblur:e,onchange:e,@events,onfocus:e,size,tabindex" />
-		<small at="@class,@events" />
-		<strike at="@class,@events" />
-		<strong at="@class,@events" />
+		<pre at="@global,@events,width" />
+		<q at="cite,@global,@events" />
+		<s at="@global,@events" />
+		<samp at="@global,@events" />
+		<section at="@global,@events" />
+		<span at="@global,@events" />
+		<script at="async,charset,defer,language,src,type" />
+		<select at="@global,disabled,autofocus,form,multiple,name,onblur:e,onchange:e,@events,onfocus:e,size" />
+		<small at="@global,@events" />
+		<source at="@global,src,type,media" />
+		<strike at="@global,@events" />
+		<strong at="@global,@events" />
 		<style at="dir,lang,media,title,type" />
-		<sub at="@class,@events" />
-		<sup at="@class,@events" />
-		<table at="align,bgcolor:s,border:s,cellpadding,cellspacing,@class,frame,height,@events,rules,summary,width" />
-		<tbody at="align,char,charoff,@class,@events,valign" />
-		<td at="abbr,align,axis,bgcolor:s,char,charoff,@class,colspan,headers,height,nowrap,@events,rowspan,scope,valign,width" />
-		<textarea at="accesskey,@class,cols,disabled,name,onblur:e,onchange:e,@events,onfocus:e,onselect:e,readonly,rows,tabindex" />
-		<tfoot at="align,char,charoff,@class,@events,valign" />
-		<th at="abbr,align,axis,bgcolor:s,char,charoff,@class,colspan,headers,height,nowrap,@events,rowspan,scope,valign,width" />
-		<thead at="align,char,charoff,@class,@events,valign" />
+		<sub at="@global,@events" />
+		<sup at="@global,@events" />
+		<table at="align,bgcolor:s,border:s,cellpadding,cellspacing,@global,frame,height,@events,rules,summary,width" />
+		<time at="@global,@events,datetime" />
+		<tbody at="align,char,charoff,@global,@events,valign" />
+		<td at="abbr,align,axis,bgcolor:s,char,charoff,@global,colspan,headers,height,nowrap,@events,rowspan,scope,valign,width" />
+		<textarea at="@global,autofocus,cols,dirname,disabled,form,maxlength,name,onblur:e,onchange:e,@events,onfocus:e,onselect:e,readonly,rows,wrap" />
+		<tfoot at="align,char,charoff,@global,@events,valign" />
+		<th at="abbr,align,axis,bgcolor:s,char,charoff,@global,colspan,headers,height,nowrap,@events,rowspan,scope,valign,width" />
+		<thead at="align,char,charoff,@global,@events,valign" />
 		<title at="dir,lang" />
-		<tr at="align,bgcolor:s,char,charoff,@class,@events,valign" />
-		<tt at="@class,@events" />
-		<u at="@class,@events" />
-		<ul at="@class,compact,@events,type" />
-		<var at="@class,@events" />
+		<tr at="align,bgcolor:s,char,charoff,@global,@events,valign" />
+		<track at="@global,kind,src,srclang,label,default" />
+		<tt at="@global,@events" />
+		<u at="@global,@events" />
+		<ul at="@global,compact,@events,type" />
+		<var at="@global,@events" />
+		<video at="@global,@events,@media-global,@media-events,poster,width,height" />
 	</tags>
 </declarations>
