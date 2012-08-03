@@ -259,8 +259,17 @@ namespace HaXeContext
                 return false;
             }
 
-            string descriptor = Path.Combine(path, "changes.txt");
-            if (File.Exists(descriptor))
+            string[] lookup = new string[] {
+                Path.Combine(path, "CHANGES.txt"),
+                Path.Combine(path, Path.Combine("doc", "CHANGES.txt"))
+            };
+            string descriptor = null;
+            foreach(string p in lookup) 
+                if (File.Exists(p)) {
+                    descriptor = p;
+                    break;
+                }
+            if (descriptor != null)
             {
                 string raw = File.ReadAllText(descriptor);
                 Match mVer = Regex.Match(raw, "[0-9\\-]+\\s*:\\s*([0-9.]+)");
