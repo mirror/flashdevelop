@@ -2406,14 +2406,8 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   <data name="ProjectManager.Title.ImportProject" xml:space="preserve">
     <value>Inportatzeko Proiektua Aukeratu</value>
   </data>
-  <data name="ProjectManager.Title.ImportPackagedProject" xml:space="preserve">
-    <value>Select destination folder for packaged project</value>
-  </data>
   <data name="ProjectManager.Info.ImportProjectFilter" xml:space="preserve">
     <value>Adobe Flex Builder Proiektua (.actionScriptProperties)|.actionScriptProperties|Packaged Adobe Flash Builder Proiektua (*.zip;*.fxp)|*.zip;*.fxp</value>
-  </data>
-  <data name="ProjectManager.Info.NotValidFlashBuilderProject" xml:space="preserve">
-    <value>The selected file was not a valid Flash Builder project</value>
   </data>
   <data name="FlashDevelop.Info.RedirectFilesResults" xml:space="preserve">
     <value>Emaitzak Emaitza Panelera bidali</value>
@@ -3957,7 +3951,7 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Japanese" xml:space="preserve">
-    <value>Japoniarra (jp)</value>
+    <value>Japoniarra (ja)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Korean" xml:space="preserve">

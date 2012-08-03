@@ -2412,14 +2412,8 @@ Never - 起動時にスタートページを表示しません。</value>
   <data name="ProjectManager.Title.ImportProject" xml:space="preserve">
     <value>プロジェクトに読み込むものを選択</value>
   </data>
-  <data name="ProjectManager.Title.ImportPackagedProject" xml:space="preserve">
-    <value>Select destination folder for packaged project</value>
-  </data>
   <data name="ProjectManager.Info.ImportProjectFilter" xml:space="preserve">
     <value>Adobe Flash Builder プロジェクト (.actionScriptProperties)|.actionScriptProperties|Packaged Adobe Flash Builder Project (*.zip;*.fxp)|*.zip;*.fxp</value>
-  </data>
-  <data name="ProjectManager.Info.NotValidFlashBuilderProject" xml:space="preserve">
-    <value>The selected file was not a valid Flash Builder project</value>
   </data>
   <data name="FlashDevelop.Info.RedirectFilesResults" xml:space="preserve">
     <value>結果パネルに表示</value>
@@ -4222,7 +4216,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Japanese" xml:space="preserve">
-    <value>日本語 (jp)</value>
+    <value>日本語 (ja)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Korean" xml:space="preserve">
