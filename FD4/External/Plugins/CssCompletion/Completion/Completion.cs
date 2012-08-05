@@ -461,23 +461,71 @@ namespace CssCompletion
 
         private List<ICompletionListItem> HandleVariableCompletion(LocalContext context)
         {
-            MatchCollection matches = features.Pattern.Matches(context.Sci.Text);
-            if (matches.Count == 0) return null;
-            var tokens = new List<string>();
+            string src = context.Sci.Text;
+            if (context.Sci.CurrentPos < src.Length)
+                src = src.Substring(0, context.Sci.CurrentPos);
+            MatchCollection matches = features.Pattern.Matches(src);
+            if (matches.Count == 0) 
+                return null;
+
+            var tokens = new Dictionary<string, Match>();
             foreach (Match m in matches)
-                tokens.Add(m.Groups[1].Value);
-            tokens.Sort();
+                tokens[m.Groups[1].Value] = m;
 
             var items = new List<ICompletionListItem>();
-            string prev = null;
-            foreach (string token in tokens)
-                if (token != prev)
-                {
-                    items.Add(new CompletionItem(token, ItemKind.Variable));
-                    prev = token;
-                }
+            foreach (string token in tokens.Keys)
+            {
+                string desc = GetVariableValue(src, tokens[token]);
+                items.Add(new CompletionItem(token, ItemKind.Variable, desc));
+            }
+            items.Sort();
 
             return items;
+        }
+
+        private string GetVariableValue(string src, Match m)
+        {
+            // extract value
+            int i = m.Index + m.Length;
+            int len = src.Length;
+            string value = "";
+            while (i < len)
+            {
+                char c = src[i++];
+                if (c == 13 || c == 10 || c == ';') break;
+                value += c;
+            }
+
+            // extract comment before declaration
+            i = m.Index - 1;
+            string prevLine = "";
+            bool isPrev = false;
+            while (i > 0)
+            {
+                char c = src[i--];
+                if (!isPrev)
+                {
+                    if (c == 13 || c == 10) { isPrev = true; }
+                    else if (c > 32) break;
+                }
+                else
+                {
+                    if (c == 13 || c == 10)
+                    {
+                        prevLine = prevLine.Trim();
+                        if (prevLine.StartsWith("//")) break;
+                        if (!prevLine.EndsWith("*/") || prevLine.IndexOf("/*") >= 0) break;
+                    }
+                    prevLine = c + prevLine;
+                }
+            }
+            if (prevLine.Length > 0 && prevLine[0] == '/')
+            {
+                if (prevLine.StartsWith("//")) value += "//" + prevLine.Substring(2);
+                else if (prevLine.StartsWith("/*")) value += "//" + prevLine.Substring(2, prevLine.Length - 4);
+            }
+
+            return value.Trim();
         }
 
         private List<ICompletionListItem> HandlePropertyCompletion(LocalContext context)

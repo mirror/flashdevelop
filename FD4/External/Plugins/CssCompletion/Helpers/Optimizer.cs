@@ -24,6 +24,7 @@ namespace CssCompletion
             if (settings.DisableMinifyOnSave) return;
             try
             {
+                if (!File.Exists(fileName)) return;
                 string raw = File.ReadAllText(fileName);
                 string min = CssMinifier.Minify(raw);
                 string outFile = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName)) + ".min.css";

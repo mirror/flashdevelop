@@ -111,12 +111,20 @@ namespace CssCompletion
         static public System.Drawing.Bitmap PrefixesIcon;
 
         private string label;
+        private string description;
         private ItemKind kind;
 
         public CompletionItem(string label, ItemKind kind)
         {
             this.label = label;
             this.kind = kind;
+            description = "";
+        }
+        public CompletionItem(string label, ItemKind kind, string description)
+        {
+            this.label = label;
+            this.kind = kind;
+            this.description = description;
         }
         public string Label
         {
@@ -126,16 +134,27 @@ namespace CssCompletion
         {
             get 
             {
+                string desc = "";
                 switch (kind)
                 {
-                    case ItemKind.Tag: return TextHelper.GetString("Info.CompletionTagDesc");
-                    case ItemKind.Property: return TextHelper.GetString("Info.CompletionPropertyDesc");
-                    case ItemKind.Variable: return TextHelper.GetString("Info.CompletionVariableDesc");
-                    case ItemKind.Value: return TextHelper.GetString("Info.CompletionValueDesc");
-                    case ItemKind.Pseudo: return TextHelper.GetString("Info.CompletionPseudoDesc");
-                    case ItemKind.Prefixes: return TextHelper.GetString("Info.CompletionPrefixesDesc");
+                    case ItemKind.Tag: desc = TextHelper.GetString("Info.CompletionTagDesc"); break;
+                    case ItemKind.Property: desc = TextHelper.GetString("Info.CompletionPropertyDesc"); break;
+                    case ItemKind.Variable: desc = TextHelper.GetString("Info.CompletionVariableDesc"); break;
+                    case ItemKind.Value: desc = TextHelper.GetString("Info.CompletionValueDesc"); break;
+                    case ItemKind.Pseudo: desc = TextHelper.GetString("Info.CompletionPseudoDesc"); break;
+                    case ItemKind.Prefixes: desc = TextHelper.GetString("Info.CompletionPrefixesDesc"); break;
                 }
-                return "";
+                if (description.Length > 0)
+                {
+                    int comment = description.IndexOf("//");
+                    if (comment >= 0)
+                    {
+                        desc = "[I]" + description.Substring(comment + 2).Trim() + "[/I]\n" 
+                            + description.Substring(0, comment).Trim();
+                    }
+                    else desc = description;
+                }
+                return desc;
             }
         }
         public ItemKind Kind { get { return kind; } }

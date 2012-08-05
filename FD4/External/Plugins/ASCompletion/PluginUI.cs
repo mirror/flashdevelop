@@ -920,7 +920,7 @@ namespace ASCompletion
         }
         public bool RestoreLastLookupPosition()
         {
-            if (lookupLocations == null || lookupLocations.Count == 0)
+            if (!ASContext.Context.IsFileValid || lookupLocations == null || lookupLocations.Count == 0)
                 return false;
 
             LookupLocation location = lookupLocations.Pop();
