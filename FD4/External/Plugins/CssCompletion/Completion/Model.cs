@@ -9,7 +9,7 @@ namespace CssCompletion
 {
     public class CssFeatures
     {
-        public CssMode Mode;
+        public string Mode;
         public string Compile;
         public string Syntax;
         public Regex Pattern;
@@ -20,7 +20,7 @@ namespace CssCompletion
 
         public CssFeatures(string mode, Dictionary<string, string> config)
         {
-            Mode = (CssMode)Enum.Parse(typeof(CssMode), mode);
+            Mode = mode;
             string compile = GetParam("compile", config);
             if (compile.Length > 0)
                 Compile = compile;
@@ -77,16 +77,20 @@ namespace CssCompletion
         public int ColTo;
     }
 
-    public enum CssMode
+    enum CompleteMode
     {
-        CSS,
-        SCSS,
-        LESS,
-        HSS
+        None,
+        Selector,
+        Pseudo,
+        Attribute,
+        Prefix,
+        Value,
+        Variable
     }
 
     public enum ItemKind 
     {
+        Tag,
         Property,
         Value,
         Variable,
@@ -99,6 +103,7 @@ namespace CssCompletion
     /// </summary>
     public class CompletionItem : ICompletionListItem, IComparable, IComparable<ICompletionListItem>
     {
+        static public System.Drawing.Bitmap TagIcon;
         static public System.Drawing.Bitmap PropertyIcon;
         static public System.Drawing.Bitmap VariableIcon;
         static public System.Drawing.Bitmap ValueIcon;
@@ -123,6 +128,7 @@ namespace CssCompletion
             {
                 switch (kind)
                 {
+                    case ItemKind.Tag: return TextHelper.GetString("Info.CompletionTagDesc");
                     case ItemKind.Property: return TextHelper.GetString("Info.CompletionPropertyDesc");
                     case ItemKind.Variable: return TextHelper.GetString("Info.CompletionVariableDesc");
                     case ItemKind.Value: return TextHelper.GetString("Info.CompletionValueDesc");
@@ -139,6 +145,7 @@ namespace CssCompletion
             {
                 switch (kind)
                 {
+                    case ItemKind.Tag: return TagIcon;
                     case ItemKind.Property: return PropertyIcon;
                     case ItemKind.Variable: return VariableIcon;
                     case ItemKind.Value: return ValueIcon;

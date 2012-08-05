@@ -17,9 +17,11 @@ namespace CssCompletion
         Settings settings;
         Language lang;
         string wordChars;
+        List<ICompletionListItem> htmlTags;
         List<ICompletionListItem> properties;
         List<ICompletionListItem> pseudos;
         List<ICompletionListItem> prefixes;
+        List<ICompletionListItem> blockLevel;
         Dictionary<string, string[]> values;
         string[] tags;
         bool enabled;
@@ -36,18 +38,23 @@ namespace CssCompletion
 
         internal void OnFileChanged(CssFeatures features)
         {
+            if (features == this.features) return;
             this.features = features;
             enabled = features != null;
             if (enabled)
             {
                 wordChars = lang.characterclass.Characters;
-                if (features.Mode != CssMode.CSS) wordChars += features.Trigger;
+                if (features.Mode != "CSS") wordChars += features.Trigger;
+                InitBlockLevel();
             }
         }
 
         internal void OnCharAdded(ScintillaControl sci, int position, int value)
         {
             if (!enabled) return;
+
+            bool autoInsert = false;
+
             char c = (char)value;
             if (wordChars.IndexOf(c) < 0)
             {
@@ -76,24 +83,33 @@ namespace CssCompletion
                     string text = sci.GetLine(line - 1).TrimEnd();
                     if (text.EndsWith("{")) AutoCloseBrace(sci, line);
                 }
+                else if (c == '\t') // TODO get tab notification!
+                {
+                    position--;
+                    autoInsert = true;
+                }
                 else return;
             }
 
             var context = GetContext(sci, position);
+            var mode = CompleteMode.None;
+
             if (context.InBlock)
             {
-                if (context.Word == "-") HandlePrefixCompletion(context, true);
+                if (context.Word == "-") mode = CompleteMode.Prefix;
                 else if (context.Word.Length >= 2 || (char)value == '-')
-                    HandlePropertyCompletion(context, true);
+                    mode = CompleteMode.Attribute;
             }
             else if (context.InValue)
             {
-                if (features.Mode != CssMode.CSS && c == features.Trigger)
-                    HandleVariableCompletion(context, true);
+                if (features.Mode != "CSS" && c == features.Trigger)
+                    mode = CompleteMode.Variable;
                 else if (context.Word.Length == 1 && "abcdefghijklmnopqrstuvwxyz".IndexOf(context.Word[0]) >= 0)
-                    HandleValueCompletion(context, true);
+                    mode = CompleteMode.Value;
             }
-            else if (c == ':') HandlePseudoCompletion(context, true);
+            else if (c == ':') mode = CompleteMode.Pseudo;
+
+            HandleCompletion(mode, context, autoInsert, true);
         }
 
         internal void OnTextChanged(ScintillaControl sender, int position, int length, int linesAdded)
@@ -104,15 +120,49 @@ namespace CssCompletion
         {
             if (!enabled) return;
             var context = GetContext(sci, position);
-            if (context.InBlock) HandlePropertyCompletion(context, false);
+            var mode = CompleteMode.Selector;
+
+            if (context.InBlock) mode = CompleteMode.Attribute;
             else if (context.InValue)
             {
                 if (context.Word.Length > 0 && context.Word[0] == features.Trigger)
-                    HandleVariableCompletion(context, true);
-                else 
-                    HandleValueCompletion(context, false);
+                    mode = CompleteMode.Variable;
+                else
+                    mode = CompleteMode.Value;
             }
-            else if (context.Separator == ':') HandlePseudoCompletion(context, false);
+            else if (context.Separator == ':') mode = CompleteMode.Pseudo;
+
+            HandleCompletion(mode, context, false, false);
+        }
+
+        private void HandleCompletion(CompleteMode mode, LocalContext context, bool autoInsert, bool autoHide)
+        {
+            List<ICompletionListItem> items = null;
+            switch (mode)
+            {
+                case CompleteMode.Selector: items = HandleSelectorCompletion(context); break;
+                case CompleteMode.Pseudo: items = HandlePseudoCompletion(context); break;
+                case CompleteMode.Prefix: items = HandlePrefixCompletion(context); break;
+                case CompleteMode.Attribute: items = HandlePropertyCompletion(context); break;
+                case CompleteMode.Variable: items = HandleVariableCompletion(context); break;
+                case CompleteMode.Value: items = HandleValueCompletion(context); break;
+            }
+            if (items == null) return;
+
+            if (autoInsert && !string.IsNullOrEmpty(context.Word))
+            {
+                var matches = new List<ICompletionListItem>();
+                foreach(var item in items)
+                    if (item.Label.StartsWith(context.Word)) matches.Add(item);
+                if (matches.Count == 1)
+                {
+                    ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
+                    sci.SetSel(context.Position, sci.CurrentPos);
+                    sci.ReplaceSel(matches[0].Label);
+                }
+                //else 
+            }
+            else CompletionList.Show(items, autoHide, context.Word);
         }
 
         internal void OnInsert(ScintillaControl sci, int position, string text, char trigger, ICompletionListItem item)
@@ -390,31 +440,29 @@ namespace CssCompletion
 
         #region completion
 
-        private void HandlePrefixCompletion(LocalContext context, bool autoHide)
+        private List<ICompletionListItem> HandlePrefixCompletion(LocalContext context)
         {
-            CompletionList.Show(prefixes, autoHide, context.Word);
+            return prefixes;
         }
 
-        private void HandlePseudoCompletion(LocalContext context, bool autoHide)
+        private List<ICompletionListItem> HandlePseudoCompletion(LocalContext context)
         {
-            CompletionList.Show(pseudos, autoHide, context.Word);
+            return pseudos;
         }
 
-        private void HandleValueCompletion(LocalContext context, bool autoHide)
+        private List<ICompletionListItem> HandleValueCompletion(LocalContext context)
         {
             var items = new List<ICompletionListItem>();
             AddProperties(items, context.Property);
             if (items.Count > 0)
-            {
                 items.Add(new CompletionItem("inherit", ItemKind.Value));
-                CompletionList.Show(items, autoHide, context.Word);
-            }
+            return items;
         }
 
-        private void HandleVariableCompletion(LocalContext context, bool autoHide)
+        private List<ICompletionListItem> HandleVariableCompletion(LocalContext context)
         {
             MatchCollection matches = features.Pattern.Matches(context.Sci.Text);
-            if (matches.Count == 0) return;
+            if (matches.Count == 0) return null;
             var tokens = new List<string>();
             foreach (Match m in matches)
                 tokens.Add(m.Groups[1].Value);
@@ -429,12 +477,17 @@ namespace CssCompletion
                     prev = token;
                 }
 
-            CompletionList.Show(items, autoHide, context.Word.Length > 0 ? context.Word.Substring(1) : "");
+            return items;
         }
 
-        private void HandlePropertyCompletion(LocalContext context, bool autoHide)
+        private List<ICompletionListItem> HandlePropertyCompletion(LocalContext context)
         {
-            CompletionList.Show(properties, autoHide, context.Word);
+            return blockLevel;
+        }
+
+        private List<ICompletionListItem> HandleSelectorCompletion(LocalContext context)
+        {
+            return htmlTags;
         }
 
         private void AddProperties(List<ICompletionListItem> items, string name)
@@ -452,6 +505,17 @@ namespace CssCompletion
                     }
                     else items.Add(new CompletionItem(val, ItemKind.Value));
                 }
+            }
+        }
+
+        private void InitBlockLevel()
+        {
+            if (features.Mode == "CSS") blockLevel = properties;
+            else
+            {
+                blockLevel = new List<ICompletionListItem>(properties);
+                blockLevel.AddRange(htmlTags);
+                blockLevel.Sort();
             }
         }
 
@@ -474,6 +538,11 @@ namespace CssCompletion
         private void InitLists(Dictionary<string, string> section)
         {
             tags = Regex.Split(section["tags"], "\\s+");
+            htmlTags = new List<ICompletionListItem>();
+            foreach (string tag in tags)
+                htmlTags.Add(new CompletionItem(tag, ItemKind.Tag));
+            htmlTags.Sort();
+
             pseudos = MakeList(section["pseudo"], ItemKind.Pseudo);
             prefixes = MakeList(section["prefixes"], ItemKind.Prefixes);
         }

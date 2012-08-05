@@ -188,6 +188,7 @@ namespace CssCompletion
             updater.SynchronizingObject = PluginCore.PluginBase.MainForm as Form;
             updater.Elapsed += updater_Elapsed;
 
+            CompletionItem.TagIcon = (System.Drawing.Bitmap)PluginBase.MainForm.FindImage("417");
             CompletionItem.PropertyIcon = (System.Drawing.Bitmap)PluginBase.MainForm.FindImage("532");
             CompletionItem.VariableIcon = (System.Drawing.Bitmap)PluginBase.MainForm.FindImage("5");
             CompletionItem.ValueIcon = (System.Drawing.Bitmap)PluginBase.MainForm.FindImage("237");

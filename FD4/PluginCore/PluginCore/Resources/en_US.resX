@@ -4908,4 +4908,20 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Disable automatic insertion of colon (:) character when completing attributes.</value>
     <comment>Added for 4.1</comment>
   </data>
+  <data name="AirProperties.Locale.PortugueseSimple" xml:space="preserve">
+    <value>Portuguese (pt)</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="ProjectManager.Title.ImportPackagedProject" xml:space="preserve">
+    <value>Select destination folder for packaged project</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="ProjectManager.Info.NotValidFlashBuilderProject" xml:space="preserve">
+    <value>The selected file was not a valid Flash Builder project</value>
+    <comment>Added for 4.1</comment>
+  </data>
+  <data name="CssCompletion.Info.CompletionTagDesc" xml:space="preserve">
+    <value>HTML tag</value>
+    <comment>Added for 4.1</comment>
+  </data>
 </root>
