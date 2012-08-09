@@ -52,6 +52,11 @@ namespace CssCompletion
 
             string toolsDir = Path.Combine(PathHelper.ToolDir, "css");
             string[] parts = features.Compile.Split(';');
+            if (parts.Length != 2)
+            {
+                TraceManager.Add(features.Compile + " is invalid, see 'compile' in completion.ini");
+                return;
+            }
             string cmd = PathHelper.ResolvePath(parts[0], toolsDir);
             if (cmd == null)
             {
