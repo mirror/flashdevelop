@@ -2837,7 +2837,11 @@ namespace ASCompletion.Completion
                 //int tokPos = body.IndexOf(expression.ContextMember.Name);
                 //if (tokPos >= 0) minPos += tokPos + expression.ContextMember.Name.Length;
 
-                if ((expression.ContextMember.Flags & (FlagType.Function | FlagType.Constructor | FlagType.Getter | FlagType.Setter)) > 0)
+                var hasBody = FlagType.Function | FlagType.Constructor;
+                if (!ASContext.Context.CurrentModel.haXe) 
+                    hasBody |= FlagType.Getter | FlagType.Setter;
+
+                if ((expression.ContextMember.Flags & hasBody) > 0)
                 {
                     expression.ContextFunction = expression.ContextMember;
                     expression.FunctionOffset = expression.ContextMember.LineFrom;
