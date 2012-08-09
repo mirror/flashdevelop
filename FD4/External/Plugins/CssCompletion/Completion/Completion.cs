@@ -103,7 +103,11 @@ namespace CssCompletion
             else if (context.InValue)
             {
                 if (features.Mode != "CSS" && c == features.Trigger)
+                {
+                    context.Word = context.Word.Substring(1);
+                    context.Position++;
                     mode = CompleteMode.Variable;
+                }
                 else if (context.Word.Length == 1 && "abcdefghijklmnopqrstuvwxyz".IndexOf(context.Word[0]) >= 0)
                     mode = CompleteMode.Value;
             }
@@ -126,7 +130,11 @@ namespace CssCompletion
             else if (context.InValue)
             {
                 if (context.Word.Length > 0 && context.Word[0] == features.Trigger)
+                {
+                    context.Word = context.Word.Substring(1);
+                    context.Position++;
                     mode = CompleteMode.Variable;
+                }
                 else
                     mode = CompleteMode.Value;
             }
