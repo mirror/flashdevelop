@@ -24,7 +24,7 @@ namespace ProjectManager.Helpers
 	/// </summary>
 	public class ProjectCreator
 	{
-        private static Regex reArgs = new Regex("\\$\\(([a-z$]+)\\)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex reArgs = new Regex("\\$\\(([a-z$]+)\\)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
 		string projectName;
         string projectId;
         string packageName;
@@ -165,7 +165,7 @@ namespace ProjectManager.Helpers
         {
             if (match.Groups.Count > 0)
             {
-                string name = match.Groups[1].Value.ToUpper();
+                string name = match.Groups[1].Value.ToUpper(CultureInfo.InvariantCulture);
                 switch (name)
                 {
                     case "CBI": return PluginBase.Settings.CommentBlockStyle == CommentBlockStyle.Indented ? " " : "";
