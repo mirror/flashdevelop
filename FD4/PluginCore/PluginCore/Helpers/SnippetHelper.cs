@@ -87,12 +87,11 @@ namespace PluginCore.Helpers
                 Int32 newIndent; 
                 String text = snippet;
                 if (sci.SelTextSize > 0)
-                {
                     currentPosition -= sci.MBSafeTextLength(sci.SelText);
-                    sci.ReplaceSel("");
-                }
                 Int32 line = sci.LineFromPosition(currentPosition);
                 Int32 indent = sci.GetLineIndentation(line);
+                sci.ReplaceSel("");
+                
                 Int32 lineMarker = LineEndDetector.DetectNewLineMarker(text, sci.EOLMode);
                 String newline = LineEndDetector.GetNewLineMarker(lineMarker);
                 if (newline != "\n") text = text.Replace(newline, "\n");

@@ -3869,13 +3869,24 @@ namespace ASCompletion.Completion
                 decl = acc + features.functionKey + " ";
                 bool noRet = type.Equals("void", StringComparison.OrdinalIgnoreCase);
                 type = (noRet) ? ASContext.Context.Features.voidKey : type;
-                if (!noRet) typesUsed.Add(getQualifiedType(type, ofClass));
+                if (!noRet)
+                {
+                    string qType = getQualifiedType(type, ofClass);
+                    typesUsed.Add(qType);
+                    if (qType == type)
+                    {
+                        ClassModel rType = ASContext.Context.ResolveType(type, ofClass.InFile);
+                        if (!rType.IsVoid()) type = rType.Name;
+                    }
+                }
+
                 string action = (isProxy || isAS2Event) ? "" : GetSuperCall(member, typesUsed, ofClass);
                 string template = TemplateUtils.GetTemplate("MethodOverride");
                 
                 // fix parameters if needed
-                foreach (MemberModel para in member.Parameters)
-                   if (para.Type == "any") para.Type = "*";
+                if (member.Parameters != null)
+                    foreach (MemberModel para in member.Parameters)
+                       if (para.Type == "any") para.Type = "*";
 
                 template = TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
                 template = TemplateUtils.ReplaceTemplateVariable(template, "Name", member.Name);
@@ -4300,7 +4311,7 @@ namespace ASCompletion.Completion
                 if (ASContext.CommonSettings.StartWithModifiers)
                     src = FixModifiersLocation(src);
 
-                int len = SnippetHelper.InsertSnippetText(Sci, position, src);
+                int len = SnippetHelper.InsertSnippetText(Sci, position + Sci.MBSafeTextLength(Sci.SelText), src);
                 UpdateLookupPosition(position, len);
                 AddLookupPosition();
             }
