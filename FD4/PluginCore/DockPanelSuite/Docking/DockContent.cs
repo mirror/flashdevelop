@@ -63,6 +63,13 @@ namespace WeifenLuo.WinFormsUI.Docking
 			return (DockHandler.TabText != null);
 		}
 
+        [Browsable(false)]
+        public Color TabColor
+        {
+            get { return DockHandler.TabColor; }
+            set { DockHandler.TabColor = value; }
+        }
+
 		[LocalizedCategory("Category_Docking")]
 		[LocalizedDescription("DockContent_CloseButton_Description")]
 		[DefaultValue(true)]

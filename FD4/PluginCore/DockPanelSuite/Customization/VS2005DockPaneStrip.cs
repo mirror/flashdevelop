@@ -1168,22 +1168,33 @@ namespace WeifenLuo.WinFormsUI.Docking
             if (DockPane.ActiveContent == tab.Content)
             {
                 g.FillPath(BrushDocumentActiveBackground, path);
+
+                // Change by Mika: add color strip to tabs
+                SolidBrush stripBrush = new SolidBrush(tab.Content.DockHandler.TabColor);
+                Rectangle stripRect = rectTab;
+                stripRect.X = stripRect.X + stripRect.Width - 2;
+                stripRect.Height -= 1;
+                stripRect.Width = 2;
+                stripRect.Y += 1;
+                g.FillRectangle(stripBrush, stripRect);
+
                 g.DrawPath(PenDocumentTabActiveBorder, path);
 
                 // CHANGED to eliminate line between selected tab and content - NICK
                 RectangleF r = path.GetBounds();
+                float right = tab.Content.DockHandler.TabColor == Color.Transparent ? r.Right - 1 : r.Right - 3;
                 if (PluginCore.PluginBase.Settings.UseSystemColors)
                 {
                     using (Pen pen = new Pen(SystemColors.ControlLight))
                     {
-                        g.DrawLine(pen, r.Left + 2, r.Bottom - 1, r.Right - 1, r.Bottom - 1);
+                        g.DrawLine(pen, r.Left + 2, r.Bottom - 1, right, r.Bottom - 1);
                     }
                 }
                 else
                 {
                     using (Pen pen = new Pen(Color.FromArgb(240, 239, 243)))
                     {
-                        g.DrawLine(pen, r.Left + 2, r.Bottom - 1, r.Right - 1, r.Bottom - 1);
+                        g.DrawLine(pen, r.Left + 2, r.Bottom - 1, right, r.Bottom - 1);
                     }
                 }
                 if (DockPane.IsActiveDocumentPane)
@@ -1199,6 +1210,16 @@ namespace WeifenLuo.WinFormsUI.Docking
 
                 //g.FillPath(BrushDocumentInactiveBackground, path);
                 g.FillPath(tabBrush, path);
+
+                // Change by Mika: add color strip to tabs
+                SolidBrush stripBrush = new SolidBrush(tab.Content.DockHandler.TabColor);
+                Rectangle stripRect = rectTab;
+                stripRect.X = stripRect.X + stripRect.Width - 2;
+                stripRect.Height -= 2;
+                stripRect.Width = 2;
+                stripRect.Y += 1;
+                g.FillRectangle(stripBrush, stripRect);
+
                 g.DrawPath(PenDocumentTabInactiveBorder, path);
                 TextRenderer.DrawText(g, tab.Content.DockHandler.TabText, Font, rectText, ColorDocumentInactiveText, DocumentTextFormat);
             }

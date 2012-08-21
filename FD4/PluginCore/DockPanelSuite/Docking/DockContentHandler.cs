@@ -314,6 +314,21 @@ namespace WeifenLuo.WinFormsUI.Docking
 			}
 		}
 
+        private Color m_tabColor = Color.Transparent;
+        public Color TabColor
+        {
+            get { return m_tabColor == Color.Transparent ? Color.Transparent : m_tabColor; }
+            set
+            {
+                if (m_tabColor == value)
+                    return;
+
+                m_tabColor = value;
+                if (Pane != null)
+                    Pane.RefreshChanges();
+            }
+        }
+
 		private DockState m_visibleState = DockState.Unknown;
 		public DockState VisibleState
 		{

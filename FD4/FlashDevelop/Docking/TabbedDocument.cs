@@ -373,7 +373,17 @@ namespace FlashDevelop.Docking
         /// </summary>
         private void UpdateTabText()
         {
+            if (!this.IsEditable) return;
             this.Text = Path.GetFileName(this.FileName);
+            foreach (ITabbedDocument document in Globals.MainForm.Documents)
+            {
+                if (document != this && Path.GetFileName(document.FileName) == this.Text)
+                {
+                    String parent = FolderHelper.GetFolderName(Path.GetDirectoryName(this.FileName));
+                    this.Text = Path.GetFileName(this.FileName) + " (" + parent + ")";
+                    break;
+                }
+            }
             if (this.isModified) this.Text += "*";
         }
 

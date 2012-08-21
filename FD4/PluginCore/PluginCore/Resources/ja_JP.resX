@@ -4977,4 +4977,8 @@ UseData:"</value>
     <value>HTML tag</value>
     <comment>Added for 4.1</comment>
   </data>
+  <data name="FlashDevelop.Description.DisableTabDifferentiation" xml:space="preserve">
+    <value>Disables the showing of directory names in document tabs.</value>
+    <comment>Added after 4.0.4</comment>
+  </data>
 </root>

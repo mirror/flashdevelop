@@ -15,9 +15,9 @@
 			<button label="Label.TextDocument" click="NewFromTemplate" tag="txt;$(BaseDir)\Templates\TXT.fdt" shortcut="Control|D9" />
 		</menu>
 		<menu label="Label.Modify" name="ModifyMenu" flags="Enable:IsEditable">
-			<button label="Label.Reload" click="Reload" shortcut="Control|Shift|R" flags="Enable:!IsUntitled" />
-			<button label="Label.Duplicate" click="Duplicate" shortcut="Control|Shift|N" />
-			<button label="Label.Revert" click="Revert" shortcut="Control|Shift|T" flags="Enable:CanUndo" />
+			<button label="Label.Reload" click="Reload" shortcut="Control|Shift|R" flags="Enable:IsEditable|!IsUntitled" />
+			<button label="Label.Duplicate" click="Duplicate" shortcut="Control|Shift|N" flags="Enable:IsEditable" />
+			<button label="Label.Revert" click="Revert" shortcut="Control|Shift|T" flags="Enable:IsEditable|CanUndo" />
 		</menu>
 		<button label="Label.Open" click="Open" shortcut="Control|O" image="214" />
 		<separator />

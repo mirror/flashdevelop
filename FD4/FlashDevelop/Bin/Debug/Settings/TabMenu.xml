@@ -6,7 +6,7 @@
 	<separator />
 	<button label="Label.Reload" click="Reload" flags="Enable:IsEditable|!IsUntitled" />
 	<button label="Label.Duplicate" click="Duplicate" flags="Enable:IsEditable" />
-	<button label="Label.Revert" click="Revert" flags="Enable:IsEditable|CanRedo" />
+	<button label="Label.Revert" click="Revert" flags="Enable:IsEditable|CanUndo" />
 	<separator />
 	<button label="Label.Save" click="Save" flags="Enable:IsEditable" />
 	<button label="Label.SaveAs" click="SaveAs" flags="Enable:IsEditable" />

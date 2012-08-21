@@ -621,7 +621,17 @@ namespace FlashDevelop.Settings
             get { return this.disableSimpleQuickFind; }
             set { this.disableSimpleQuickFind = value; }
         }
-        
+
+        [DefaultValue(false)]
+        [DisplayName("Disable Tab Differentiation")]
+        [LocalizedCategory("FlashDevelop.Category.Features")]
+        [LocalizedDescription("FlashDevelop.Description.DisableTabDifferentiation")]
+        public Boolean DisableTabDifferentiation
+        {
+            get { return this.disableTabDifferentiation; }
+            set { this.disableTabDifferentiation = value; }
+        }
+
         #endregion
 
         #region Formatting

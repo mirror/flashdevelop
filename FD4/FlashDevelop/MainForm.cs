@@ -979,6 +979,7 @@ namespace FlashDevelop
             */
             this.dockPanel.ActiveContentChanged += new EventHandler(this.OnActiveContentChanged);
             this.dockPanel.ActiveDocumentChanged += new EventHandler(this.OnActiveDocumentChanged);
+            this.dockPanel.ContentRemoved += new EventHandler<DockContentEventArgs>(this.OnContentRemoved);
             /**
             * Populate menus and check buttons 
             */
@@ -1071,6 +1072,14 @@ namespace FlashDevelop
             }
             else this.restartRequested = false;
         }
+        
+        /// <summary>
+        /// When document is removed update tab texts
+        /// </summary>
+        public void OnContentRemoved(Object sender, DockContentEventArgs e)
+        {
+            this.RefreshTabTexts();
+        }
 
         /// <summary>
         /// Dispatch UIRefresh event and focus scintilla control
@@ -1149,6 +1158,7 @@ namespace FlashDevelop
                         this.notifyOpenFile = false;
                     }
                 }
+                this.RefreshTabTexts();
                 NotifyEvent ne = new NotifyEvent(EventType.FileSwitch);
                 EventManager.DispatchEvent(this, ne);
             }
@@ -1463,6 +1473,7 @@ namespace FlashDevelop
             TextEvent save = new TextEvent(EventType.FileSave, document.FileName);
             EventManager.DispatchEvent(this, save);
             ButtonManager.UpdateFlaggedButtons();
+            this.RefreshTabTexts();
         }
 
         #endregion
@@ -1545,6 +1556,17 @@ namespace FlashDevelop
             {
                 ErrorManager.ShowError(ex);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Refreshes all tab filename texts
+        /// </summary>
+        public void RefreshTabTexts()
+        {
+            foreach (ITabbedDocument doc in Globals.MainForm.Documents)
+            {
+                doc.RefreshTexts();
             }
         }
 
@@ -1638,6 +1660,9 @@ namespace FlashDevelop
             EventManager.DispatchEvent(this, ne);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void OpenDocumentFromParameters(string file)
         {
             Match openParams = Regex.Match(file, "@([0-9]+)($|:([0-9]+)$)"); // path@line:col
@@ -1659,13 +1684,18 @@ namespace FlashDevelop
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>        
         private void ApplyOpenParams(Match openParams, ScintillaControl sci)
         {
             if (sci == null) return;
-            Int32 line = Math.Min(sci.LineCount - 1, Math.Max(0, Int32.Parse(openParams.Groups[1].Value) - 1));
             Int32 col = 0;
-            if (openParams.Groups.Count > 3 && openParams.Groups[3].Value.Length > 0) 
+            Int32 line = Math.Min(sci.LineCount - 1, Math.Max(0, Int32.Parse(openParams.Groups[1].Value) - 1));
+            if (openParams.Groups.Count > 3 && openParams.Groups[3].Value.Length > 0)
+            {
                 col = Int32.Parse(openParams.Groups[3].Value);
+            }
             Int32 position = sci.PositionFromLine(line) + col;
             sci.SetSel(position, position);
         }
