@@ -64,9 +64,9 @@ namespace ProjectManager.Projects.Haxe
         {
             switch (platform)
             {
-                case AIR_PLATFORM: return "3.2";
-                case AIR_MOBILE_PLATFORM: return "3.2";
-                case FLASHPLAYER_PLATFORM: return "10.1";
+                case AIR_PLATFORM: return "3.4";
+                case AIR_MOBILE_PLATFORM: return "3.4";
+                case FLASHPLAYER_PLATFORM: return "10.3";
                 case NME_PLATFORM: return "3.0";
                 default: return "1.0";
             }
