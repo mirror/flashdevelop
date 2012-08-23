@@ -1078,7 +1078,7 @@ namespace FlashDevelop
         /// </summary>
         public void OnContentRemoved(Object sender, DockContentEventArgs e)
         {
-            this.RefreshTabTexts();
+            TabTextManager.UpdateTabTexts();
         }
 
         /// <summary>
@@ -1158,7 +1158,7 @@ namespace FlashDevelop
                         this.notifyOpenFile = false;
                     }
                 }
-                this.RefreshTabTexts();
+                TabTextManager.UpdateTabTexts();
                 NotifyEvent ne = new NotifyEvent(EventType.FileSwitch);
                 EventManager.DispatchEvent(this, ne);
             }
@@ -1473,7 +1473,7 @@ namespace FlashDevelop
             TextEvent save = new TextEvent(EventType.FileSave, document.FileName);
             EventManager.DispatchEvent(this, save);
             ButtonManager.UpdateFlaggedButtons();
-            this.RefreshTabTexts();
+            TabTextManager.UpdateTabTexts();
         }
 
         #endregion
@@ -1556,17 +1556,6 @@ namespace FlashDevelop
             {
                 ErrorManager.ShowError(ex);
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// Refreshes all tab filename texts
-        /// </summary>
-        public void RefreshTabTexts()
-        {
-            foreach (ITabbedDocument doc in Globals.MainForm.Documents)
-            {
-                doc.RefreshTexts();
             }
         }
 
@@ -1743,6 +1732,7 @@ namespace FlashDevelop
             this.toolStrip.Visible = this.appSettings.ViewToolBar;
             this.statusStrip.Visible = this.appSettings.ViewStatusBar;
             ButtonManager.UpdateFlaggedButtons();
+            TabTextManager.UpdateTabTexts();
         }
 
         /// <summary>

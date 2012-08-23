@@ -76,7 +76,7 @@ XPStyle on
 !define MUI_WELCOMEFINISHPAGE_BITMAP "Graphics\Wizard.bmp"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "Graphics\Wizard.bmp"
 !define MUI_PAGE_HEADER_SUBTEXT "Please view the licence before installing FlashDevelop ${VERSION}."
-!define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the installation of $(^NameDA).\r\n\r\nIt is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer. Hover the installer options for more info.\r\n\r\nTo get everything out of FlashDevelop you should have Java 1.6 runtime and Flash 10 Debug Player (ActiveX for IE) installed and also the latest Flex SDK downloaded.\r\n\r\n$_CLICK"
+!define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the installation of $(^NameDA).\r\n\r\nIt is recommended that you close all other applications before starting Setup. This will make it possible to update relevant system files without having to reboot your computer. Hover the installer options for more info.\r\n\r\nTo get everything out of FlashDevelop you should have 32-bit Java Runtime (1.6 or later) and debug Flash Player (ActiveX for IE) installed before using FlashDevelop.\r\n\r\n$_CLICK"
 !define MUI_FINISHPAGE_SHOWREADME "http://www.flashdevelop.org/wikidocs/index.php?title=Getting_Started"
 !define MUI_FINISHPAGE_SHOWREADME_TEXT "See online guide to get started"
 
@@ -291,22 +291,22 @@ Function .onInit
 	Call GetFlashVersion
 	Pop $0
 	${If} $0 == "not_found"
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Flash Player 9 (ActiveX for IE) before installing FlashDevelop."
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Flash Player (ActiveX for IE) before installing FlashDevelop."
 	${Else}
 	${VersionCompare} $0 "9.0" $1
 	${If} $1 == 2
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Flash Player 9 (ActiveX for IE) before installing FlashDevelop. You have $0."
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Flash Player (ActiveX for IE) before installing FlashDevelop. You have $0."
 	${EndIf}
 	${EndIf}
 	
 	Call GetJavaVersion
 	Pop $0
 	${If} $0 == "not_found"
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Java Runtime 1.6 before installing FlashDevelop."
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install 32-bit Java Runtime (1.6 or later) before installing FlashDevelop."
 	${Else}
 	${VersionCompare} $0 "1.6" $1
-	${If} $1 != 0
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Java Runtime 1.6 (Flex SDK requirement) before installing FlashDevelop. You have $0."
+	${If} $1 == 2
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install 32-bit Java Runtime (1.6 or later) before installing FlashDevelop. You have $0."
 	${EndIf}
 	${EndIf}
 	

@@ -134,8 +134,7 @@ namespace FlashDevelop.Docking
                 {
                     this.isModified = value;
                     ButtonManager.UpdateFlaggedButtons();
-                    this.UpdateToolTipText();
-                    this.UpdateTabText();
+                    this.RefreshTexts();
                 }
             }
         }
@@ -249,8 +248,7 @@ namespace FlashDevelop.Docking
                 }
                 else Globals.MainForm.OnFileSave(this, null);
             }
-            this.UpdateToolTipText();
-            this.UpdateTabText();
+            this.RefreshTexts();
         }
         public void Save()
         {
@@ -355,8 +353,8 @@ namespace FlashDevelop.Docking
         /// </summary>
         public void RefreshTexts()
         {
+            TabTextManager.UpdateTabTexts();
             this.UpdateToolTipText();
-            this.UpdateTabText();
         }
 
         /// <summary>
@@ -366,25 +364,6 @@ namespace FlashDevelop.Docking
         {
             if (!this.IsEditable) this.ToolTipText = "";
             else this.ToolTipText = this.FileName;
-        }
-
-        /// <summary>
-        /// Updates the document's tab text
-        /// </summary>
-        private void UpdateTabText()
-        {
-            if (!this.IsEditable) return;
-            this.Text = Path.GetFileName(this.FileName);
-            foreach (ITabbedDocument document in Globals.MainForm.Documents)
-            {
-                if (document != this && Path.GetFileName(document.FileName) == this.Text)
-                {
-                    String parent = FolderHelper.GetFolderName(Path.GetDirectoryName(this.FileName));
-                    this.Text = Path.GetFileName(this.FileName) + " (" + parent + ")";
-                    break;
-                }
-            }
-            if (this.isModified) this.Text += "*";
         }
 
         /// <summary>
