@@ -32,6 +32,14 @@ namespace FlashDevelop.Managers
         }
 
         /// <summary>
+        /// Sets the tab text if needed
+        /// </summary>
+        public static void SetTabText(ITabbedDocument doc, String text)
+        {
+            if (doc.Text != text) doc.Text = text;
+        }
+
+        /// <summary>
         /// Updates the tab texts by differenting them
         /// </summary>
         private static void DifferentiateTabTexts()
@@ -52,8 +60,8 @@ namespace FlashDevelop.Managers
                 if (entry.Value.Count == 1)
                 {
                     var doc = DocumentManager.FindDocument(entry.Value[0]);
-                    if (doc.IsModified) doc.Text = entry.Key + "*";
-                    else doc.Text = entry.Key;
+                    if (doc.IsModified) SetTabText(doc, entry.Key + "*");
+                    else SetTabText(doc, entry.Key);
                 }
                 else
                 {
@@ -61,8 +69,8 @@ namespace FlashDevelop.Managers
                     foreach (var path in paths)
                     {
                         var doc = DocumentManager.FindDocument(path.Tab);
-                        if (doc.IsModified) doc.Text = entry.Key + " (" + path.Diff + ")" + "*";
-                        else doc.Text = entry.Key + " (" + path.Diff + ")";
+                        if (doc.IsModified) SetTabText(doc, entry.Key + " (" + path.Diff + ")" + "*");
+                        else SetTabText(doc, entry.Key + " (" + path.Diff + ")");
                     }
                 }
             }

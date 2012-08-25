@@ -94,7 +94,7 @@ namespace ProjectManager
         public static ProjectManagerSettings Settings;
 
         const EventType eventMask = EventType.UIStarted | EventType.FileOpening
-            | EventType.FileOpen | EventType.FileSave | EventType.ProcessStart | EventType.ProcessEnd
+            | EventType.FileOpen | EventType.FileSave | EventType.FileSwitch | EventType.ProcessStart | EventType.ProcessEnd
             | EventType.ProcessArgs | EventType.Command | EventType.Keys | EventType.ApplySettings;
 
         #region Load/Save Settings
@@ -359,10 +359,15 @@ namespace ProjectManager
                 case EventType.FileSave:
                     // refresh the tree to update any included <mx:Script> tags
                     string path = MainForm.CurrentDocument.FileName;
-                    if (Settings.EnableMxmlMapping 
-                        && FileInspector.IsMxml(path, Path.GetExtension(path).ToLower()) 
-                        && Tree.NodeMap.ContainsKey(path))
+                    if (Settings.EnableMxmlMapping && FileInspector.IsMxml(path, Path.GetExtension(path).ToLower()) && Tree.NodeMap.ContainsKey(path))
+                    {
                         Tree.RefreshNode(Tree.NodeMap[path]);
+                    }
+                    TabColors.UpdateTabColors(Settings);
+                    break;
+
+                case EventType.FileSwitch:
+                    TabColors.UpdateTabColors(Settings);
                     break;
 
                 case EventType.ProcessStart:
@@ -372,6 +377,10 @@ namespace ProjectManager
                 case EventType.ProcessEnd:
                     string result = te.Value;
                     buildActions.NotifyBuildEnded(result);
+                    break;
+
+                case EventType.ApplySettings:
+                    TabColors.UpdateTabColors(Settings);
                     break;
 
                 case EventType.Command:
@@ -553,6 +562,7 @@ namespace ProjectManager
                 OpenPanel();
                 pluginUI.Focus();
             }
+            TabColors.UpdateTabColors(Settings);
         }
 
         void SetProject(Project project, Boolean stealFocus)

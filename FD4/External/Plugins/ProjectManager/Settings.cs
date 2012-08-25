@@ -13,6 +13,7 @@ using ProjectManager.Projects;
 using PluginCore.Localization;
 using PluginCore.Managers;
 using PluginCore;
+using ProjectManager.Controls;
 
 namespace ProjectManager
 {
@@ -41,6 +42,10 @@ namespace ProjectManager
         string[] excludedDirectories = new string[] { "obj", ".svn", "_svn", ".cvs", "_cvs", "cvs", "_sgbak", ".git", ".hg" };
         string[] executableFileTypes = new string[] { ".exe", ".lnk", ".fla", ".doc", ".pps", ".psd", ".png", ".jpg", ".gif", ".xls", ".docproj", ".ttf", ".otf", ".wav", ".mp3", ".ppt", ".pptx", ".docx", ".xlsx", ".ai", ".pdf", ".zip", ".rar" };
         string[] filteredDirectoryNames = new string[] { "src", "source", "sources", "as", "as2", "as3", "actionscript", "flash", "classes", "trunk", "svn" };
+
+        Color tabHighlightColor = Color.FromArgb(255, 190, 60);
+        HighlightType tabHighlightType = HighlightType.ExternalFiles;
+
 
         #region Properties
         [Browsable(false)]
@@ -79,6 +84,7 @@ namespace ProjectManager
 
         [DisplayName("Search In External Classpath")]
         [LocalizedDescription("ProjectManager.Description.SearchExternalClassPath")]
+        [LocalizedCategory("ProjectManager.Category.OtherOptions")]
         [DefaultValue(true)]
         public Boolean SearchExternalClassPath
         {
@@ -180,6 +186,26 @@ namespace ProjectManager
         {
             get { return enableMxmlMapping; }
             set { enableMxmlMapping = value; FireChanged("ShowGlobalClasspaths"); }
+        }
+
+        [DisplayName("Tab Highlight Color")]
+        [LocalizedDescription("ProjectManager.Description.TabHighlightColor")]
+        [LocalizedCategory("ProjectManager.Category.OtherOptions")]
+        [DefaultValue(typeof(Color), "0xFFBE3C")]
+        public Color TabHighlightColor
+        {
+            get { return tabHighlightColor; }
+            set { tabHighlightColor = value; }
+        }
+
+        [DisplayName("Tab Highlight Type")]
+        [LocalizedDescription("ProjectManager.Description.TabHighlightType")]
+        [LocalizedCategory("ProjectManager.Category.OtherOptions")]
+        [DefaultValue(HighlightType.ExternalFiles)]
+        public HighlightType TabHighlightType
+        {
+            get { return tabHighlightType; }
+            set { tabHighlightType = value; }
         }
 
         #endregion

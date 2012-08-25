@@ -4917,4 +4917,12 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>Disables the showing of directory names in document tabs.</value>
     <comment>Added after 4.0.4</comment>
   </data>
+  <data name="ProjectManager.Description.TabHighlightColor" xml:space="preserve">
+    <value>Color of the tab highlight strip.</value>
+    <comment>Added after 4.0.4</comment>
+  </data>
+  <data name="ProjectManager.Description.TabHighlightType" xml:space="preserve">
+    <value>Type of the tab highlight functionality.</value>
+    <comment>Added after 4.0.4</comment>
+  </data>
 </root>
