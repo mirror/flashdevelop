@@ -34,7 +34,7 @@ namespace ProjectManager.Controls
                 }
                 foreach (ITabbedDocument doc in PluginBase.MainForm.Documents)
                 {
-                    UpdateTabColor(doc, paths, settings);
+                    if (doc.IsEditable) UpdateTabColor(doc, paths, settings);
                 }
             }
         }
@@ -47,7 +47,7 @@ namespace ProjectManager.Controls
             Boolean isMatch = false;
             foreach (String path in paths)
             {
-                if (doc.IsEditable && doc.FileName.StartsWith(path, StringComparison.OrdinalIgnoreCase))
+                if (doc.FileName.StartsWith(path, StringComparison.OrdinalIgnoreCase))
                 {
                     isMatch = true;
                     break;
