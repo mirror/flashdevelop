@@ -24,7 +24,18 @@ namespace ProjectManager.Controls
         /// </summary>
         public static void UpdateTabColors(ProjectManagerSettings settings)
         {
-            if (PluginBase.CurrentProject != null)
+            if (PluginBase.CurrentProject == null)
+            {
+                foreach (ITabbedDocument doc in PluginBase.MainForm.Documents)
+                {
+                    DockContent tab = doc as DockContent;
+                    if (doc.IsEditable && tab.TabColor != Color.Transparent)
+                    {
+                        tab.TabColor = Color.Transparent;
+                    }
+                }
+            }
+            else if (!PluginBase.MainForm.ClosingEntirely)
             {
                 List<String> paths = new List<String>();
                 paths.Add(Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath));

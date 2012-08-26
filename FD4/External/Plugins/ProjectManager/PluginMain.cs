@@ -607,6 +607,7 @@ namespace ProjectManager
                 BroadcastProjectInfo();
                 projectActions.UpdateASCompletion(MainForm, null);
             }
+            TabColors.UpdateTabColors(Settings);
         }
         
         public void OpenPanel()
