@@ -449,7 +449,7 @@ namespace ASCompletion.Completion
             text = "";
             int n = Math.Min(lines.Length, 2);
             for (int i = 0; i < n; i++) text += "\n" + lines[i];
-            if (lines.Length > 2) text += " …";
+            if (lines.Length > 2) text += " \x86";
             return text;
         }
 		
