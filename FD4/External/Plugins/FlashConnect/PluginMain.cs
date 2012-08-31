@@ -166,6 +166,9 @@ namespace FlashConnect
                             String cmd = XmlHelper.GetAttribute(cmdNode, "cmd");
                             switch (cmd)
                             {
+                                case "call":
+                                    this.HandleCallMsg(cmdNode, e.Socket);
+                                    break;
                                 case "trace":
                                     this.HandleTraceMsg(cmdNode, e.Socket);
                                     break;
@@ -189,7 +192,24 @@ namespace FlashConnect
                 }
             });
 		}
-		
+
+        /// <summary>
+        /// Handles the call message
+        /// </summary>
+        public void HandleCallMsg(XmlNode msgNode, Socket client)
+        {
+            try
+            {
+                String command = XmlHelper.GetAttribute(msgNode, "command");
+                String arguments = HttpUtility.UrlDecode(XmlHelper.GetValue(msgNode));
+                PluginBase.MainForm.CallCommand(command, arguments);
+            }
+            catch
+            {
+                client.Send(RESULT_INVALID);
+            }
+        }
+
 		/// <summary>
 		/// Handles the trace message
 		/// </summary>
@@ -208,7 +228,7 @@ namespace FlashConnect
 		}
 		
 		/// <summary>
-		/// Handles the distribute message
+		/// Handles the notify message
 		/// </summary>
 		public void HandleNotifyMsg(XmlNode msgNode, Socket client)
 		{

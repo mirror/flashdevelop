@@ -2006,8 +2006,7 @@ namespace FlashDevelop
             if (sci.CanPaste)
             {
                 // if clip is not line-based, then just do simple paste
-                if ((sci.SelTextSize > 0 && !sci.SelText.EndsWith("\n")) || !Clipboard.GetText().EndsWith("\n")
-                    || Clipboard.ContainsData("MSDEVColumnSelect")) sci.Paste();
+                if ((sci.SelTextSize > 0 && !sci.SelText.EndsWith("\n")) || !Clipboard.GetText().EndsWith("\n") || Clipboard.ContainsData("MSDEVColumnSelect")) sci.Paste();
                 else
                 {
                     sci.BeginUndoAction();
@@ -2584,7 +2583,7 @@ namespace FlashDevelop
         }
 
         /// <summary>
-        /// Opens the settings dialog
+        /// Opens the browser with the specified file
         /// </summary>
         public void Browse(Object sender, System.EventArgs e)
         {
