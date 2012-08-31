@@ -12,6 +12,7 @@ namespace FlashConnect
         private Int32 port = 1978;
         private String host = "127.0.0.1";
         private Boolean enabled = true;
+        private List<String> commands = new List<String> { "Edit", "Browse" };
 
         /// <summary> 
         /// Get and sets the enabled
@@ -41,6 +42,17 @@ namespace FlashConnect
         {
             get { return this.port; }
             set { this.port = value; }
+        }
+
+        /// <summary> 
+        /// Get and sets the allowed commands
+        /// </summary>
+        [LocalizedDescription("FlashConnect.Description.Commands")]
+        [Editor("System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", "System.Drawing.Design.UITypeEditor,System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+        public List<String> Commands
+        {
+            get { return this.commands; }
+            set { this.commands = value; }
         }
 
     }

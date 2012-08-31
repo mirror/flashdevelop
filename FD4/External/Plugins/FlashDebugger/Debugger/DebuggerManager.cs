@@ -304,10 +304,10 @@ namespace FlashDebugger
 			if (!PluginMain.settingObject.DisablePanelsAutoshow)
 			{
                 PanelsHelper.watchPanel.Show();
+                PanelsHelper.immediatePanel.Show();
                 PanelsHelper.stackframePanel.Show();
                 PanelsHelper.pluginPanel.Show();
 				PanelsHelper.breakPointPanel.Show();
-                PanelsHelper.immediatePanel.Show();
 			}
 		}
 

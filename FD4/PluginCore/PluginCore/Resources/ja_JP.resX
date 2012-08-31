@@ -4989,4 +4989,8 @@ UseData:"</value>
     <value>Type of the tab highlight functionality.</value>
     <comment>Added after 4.0.4</comment>
   </data>
+  <data name="FlashConnect.Description.Commands" xml:space="preserve">
+    <value>List of allowed commands to be executed.</value>
+    <comment>Added after 4.0.4</comment>
+  </data>
 </root>

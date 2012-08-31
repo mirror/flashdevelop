@@ -202,7 +202,10 @@ namespace FlashConnect
             {
                 String command = XmlHelper.GetAttribute(msgNode, "command");
                 String arguments = HttpUtility.UrlDecode(XmlHelper.GetValue(msgNode));
-                PluginBase.MainForm.CallCommand(command, arguments);
+                if (this.settingObject.Commands.Contains(command))
+                {
+                    PluginBase.MainForm.CallCommand(command, arguments);
+                }
             }
             catch
             {
@@ -280,6 +283,11 @@ namespace FlashConnect
             {
                 Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingObject);
                 this.settingObject = (Settings)obj;
+            }
+            if (this.settingObject.Commands.Count == 0)
+            {
+                this.settingObject.Commands.Add("Edit");
+                this.settingObject.Commands.Add("Browse");
             }
         }
 
