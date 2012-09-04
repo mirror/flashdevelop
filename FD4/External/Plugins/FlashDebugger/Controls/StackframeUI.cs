@@ -17,6 +17,7 @@ namespace FlashDebugger
             this.pluginMain = pluginMain;
 
             lv = new ListView();
+			lv.ShowItemToolTips = true;
             this.imageColumnHeader = new ColumnHeader();
             this.imageColumnHeader.Text = string.Empty;
             this.imageColumnHeader.Width = 20;
