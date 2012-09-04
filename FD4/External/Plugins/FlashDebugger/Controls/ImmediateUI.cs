@@ -94,6 +94,7 @@ namespace FlashDebugger.Controls
 
                 foreach (SwfInfo info in PluginMain.debugManager.FlashInterface.Session.getSwfs())
                 {
+					if (info == null) continue;
                     ret += info.getPath() + "\tswfsize " + info.getSwfSize() + "\tprocesscomplete " + info.isProcessingComplete() + "\tunloaded " + info.isUnloaded() + "\turl " + info.getUrl() + "\tsourcecount "+info.getSourceCount(PluginMain.debugManager.FlashInterface.Session) + "\r\n";
                 }
                 return ret;
