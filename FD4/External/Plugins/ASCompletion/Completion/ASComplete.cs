@@ -125,6 +125,8 @@ namespace ASCompletion.Completion
                             char c = (char)Sci.CharAt(position);
                             if (c == ':' && features.hasEcmaTyping)
                                 return HandleColonCompletion(Sci, "", autoHide);
+                            else if (autoHide && (c == '(' || c == ',') && !ASContext.CommonSettings.DisableCallTip)
+                                return HandleFunctionCompletion(Sci, autoHide);
                             break;
                         }
                         if (word == "class" || word == "package" || word == "interface") 
