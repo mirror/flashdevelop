@@ -248,13 +248,17 @@ namespace FlashDebugger
 					return localPath;
 				}
 			}
-			foreach (ASCompletion.Model.PathModel path in ASCompletion.Context.ASContext.Context.Classpath)
+			Project project = PluginBase.CurrentProject as Project;
+			if (project != null)
 			{
-				String localPath = path.Path + pathSeparator + pathFromPackage + pathSeparator + file.getName();
-				if (File.Exists(localPath))
+				foreach (string cp in project.Classpaths)
 				{
-					m_PathMap[file.getFullPath()] = localPath;
-					return localPath;
+					String localPath = project.Directory + pathSeparator + cp + pathSeparator + pathFromPackage + pathSeparator + file.getName();
+					if (File.Exists(localPath))
+					{
+						m_PathMap[file.getFullPath()] = localPath;
+						return localPath;
+					}
 				}
 			}
 			return null;
