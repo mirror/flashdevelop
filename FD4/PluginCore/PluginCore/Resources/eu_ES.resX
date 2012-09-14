@@ -4890,43 +4890,43 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableAutoCloseBraces" xml:space="preserve">
-    <value>By default CSS blocks' closing brace is inserted automatically after pressing &lt;Enter&gt;.</value>
+    <value>Defektuz, &lt;Enter&gt; sakatu eta gero CSS blokeen ixteko giltza automatikoki txertatuko da.</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableInsertColon" xml:space="preserve">
-    <value>Disable automatic insertion of colon (:) character when completing attributes.</value>
+    <value>Atributuak osatzean, bi puntuen (:) txertatze automatikoa desgaitu.</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="AirProperties.Locale.PortugueseSimple" xml:space="preserve">
-    <value>Portuguese (pt)</value>
+    <value>Portuges (pt)</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="ProjectManager.Title.ImportPackagedProject" xml:space="preserve">
-    <value>Select destination folder for packaged project</value>
+    <value>Proiektu paketearen helburu karpeta aukeratu</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="ProjectManager.Info.NotValidFlashBuilderProject" xml:space="preserve">
-    <value>The selected file was not a valid Flash Builder project</value>
+    <value>Aukeratutako fitxategia ez da Flash Builder balizko proiektua</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionTagDesc" xml:space="preserve">
-    <value>HTML tag</value>
+    <value>HTML etiketa</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="FlashDevelop.Description.DisableTabDifferentiation" xml:space="preserve">
-    <value>Disables the showing of directory names in document tabs.</value>
+    <value>Karpeta izenak agertzea desgaitu dokumentuen fitxetan.</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="ProjectManager.Description.TabHighlightColor" xml:space="preserve">
-    <value>Color of the tab highlight strip.</value>
+    <value>Nabarmendutako fitxaren kolorea.</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="ProjectManager.Description.TabHighlightType" xml:space="preserve">
-    <value>Type of the tab highlight functionality.</value>
+    <value>Nabarmendutako fitxaren funtzionalitate mota.</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashConnect.Description.Commands" xml:space="preserve">
-    <value>List of allowed commands to be executed.</value>
+    <value>Exekutatzeko komando baimenduen zerrenda.</value>
     <comment>Added after 4.0.4</comment>
   </data>
 </root>
