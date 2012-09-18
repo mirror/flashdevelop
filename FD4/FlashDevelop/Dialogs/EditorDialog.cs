@@ -34,6 +34,7 @@ namespace FlashDevelop.Dialogs
         private System.Windows.Forms.Label fontLabel;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button revertButton;
+        private System.Windows.Forms.Button defaultButton;
         private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.Button exportButton;
         private System.Windows.Forms.Button cancelButton;
@@ -121,6 +122,7 @@ namespace FlashDevelop.Dialogs
         {
             this.okButton = new System.Windows.Forms.Button();
             this.applyButton = new System.Windows.Forms.Button();
+            this.defaultButton = new System.Windows.Forms.Button();
             this.revertButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.itemListView = new System.Windows.Forms.ListView();
@@ -216,6 +218,14 @@ namespace FlashDevelop.Dialogs
             this.applyButton.UseVisualStyleBackColor = true;
             this.applyButton.Click += new System.EventHandler(this.SaveButtonClick);
             // 
+            // exportButton
+            // 
+            this.exportButton.Location = new System.Drawing.Point(238, 509);
+            this.exportButton.Name = "exportButton";
+            this.exportButton.Size = new System.Drawing.Size(35, 29);
+            this.exportButton.TabIndex = 8;
+            this.exportButton.Click += new System.EventHandler(this.ExportLanguagesClick);
+            // 
             // revertButton
             // 
             this.revertButton.Location = new System.Drawing.Point(285, 509);
@@ -223,6 +233,14 @@ namespace FlashDevelop.Dialogs
             this.revertButton.Size = new System.Drawing.Size(35, 29);
             this.revertButton.TabIndex = 9;
             this.revertButton.Click += new System.EventHandler(this.RevertLanguagesClick);
+            // 
+            // defaultButton
+            // 
+            this.defaultButton.Location = new System.Drawing.Point(332, 509);
+            this.defaultButton.Name = "defaultButton";
+            this.defaultButton.Size = new System.Drawing.Size(35, 29);
+            this.defaultButton.TabIndex = 10;
+            this.defaultButton.Click += new System.EventHandler(this.MakeAsDefaultStyleClick);
             // 
             // cancelButton
             // 
@@ -868,14 +886,6 @@ namespace FlashDevelop.Dialogs
             this.languageDropDown.TabIndex = 4;
             this.languageDropDown.SelectedIndexChanged += new System.EventHandler(this.LanguagesSelectedIndexChanged);
             // 
-            // exportButton
-            // 
-            this.exportButton.Location = new System.Drawing.Point(238, 509);
-            this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(35, 29);
-            this.exportButton.TabIndex = 8;
-            this.exportButton.Click += new System.EventHandler(this.ExportLanguagesClick);
-            // 
             // EditorDialog
             // 
             this.AcceptButton = this.okButton;
@@ -889,6 +899,7 @@ namespace FlashDevelop.Dialogs
             this.Controls.Add(this.itemListView);
             this.Controls.Add(this.revertButton);
             this.Controls.Add(this.exportButton);
+            this.Controls.Add(this.defaultButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.okButton);
@@ -942,6 +953,7 @@ namespace FlashDevelop.Dialogs
             this.languageDropDown.FlatStyle = Globals.Settings.ComboBoxFlatStyle;
             tooltip.SetToolTip(this.exportButton, TextHelper.GetString("Label.ExportFiles"));
             tooltip.SetToolTip(this.revertButton, TextHelper.GetString("Label.RevertFiles"));
+            tooltip.SetToolTip(this.defaultButton, TextHelper.GetString("Label.MakeAsDefault"));
             this.saveFileDialog.Filter = TextHelper.GetString("Info.ZipFilter");
             this.Text = " " + TextHelper.GetString("Title.SyntaxEditDialog");
             this.boldCheckBox.Text = TextHelper.GetString("Info.Bold");
@@ -995,6 +1007,7 @@ namespace FlashDevelop.Dialogs
             Image colorImage = PluginBase.MainForm.FindImage("328");
             this.revertButton.Image = PluginBase.MainForm.FindImage("55|24|3|3");
             this.exportButton.Image = PluginBase.MainForm.FindImage("55|9|3|3");
+            this.defaultButton.Image = PluginBase.MainForm.FindImage("55|25|3|3");
             this.foregroundButton.Image = this.backgroundButton.Image = colorImage;
             this.caretForeButton.Image = this.caretlineBackButton.Image = colorImage;
             this.selectionForeButton.Image = this.selectionBackButton.Image = colorImage;
@@ -1635,6 +1648,50 @@ namespace FlashDevelop.Dialogs
                 }
                 this.Enabled = true;
             }
+            Globals.MainForm.RefreshSciConfig();
+        }
+
+        /// <summary>
+        /// Makes the current style as the default
+        /// </summary>
+        private void MakeAsDefaultStyleClick(Object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            this.isLanguageSaved = true;
+            String[] confFiles = Directory.GetFiles(this.LangDir);
+            foreach (String confFile in confFiles)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(confFile);
+                XmlElement node = doc.SelectSingleNode(defaultStylePath) as XmlElement;
+                if (this.fontNameComboBox.Text != "") node.SetAttribute("font", fontNameComboBox.Text);
+                else node.RemoveAttribute("font");
+                if (this.fontSizeComboBox.Text != "") node.SetAttribute("size", fontSizeComboBox.Text);
+                else node.RemoveAttribute("size");
+                if (this.foregroundTextBox.Text != "") node.SetAttribute("fore", foregroundTextBox.Text);
+                else node.RemoveAttribute("fore");
+                if (this.backgroundTextBox.Text != "") node.SetAttribute("back", backgroundTextBox.Text);
+                else node.RemoveAttribute("back");
+                if (this.boldCheckBox.CheckState == CheckState.Checked) node.SetAttribute("bold", "true");
+                else if (this.boldCheckBox.CheckState == CheckState.Unchecked) node.SetAttribute("bold", "false");
+                else node.RemoveAttribute("bold");
+                if (this.italicsCheckBox.CheckState == CheckState.Checked) node.SetAttribute("italics", "true");
+                else if (this.italicsCheckBox.CheckState == CheckState.Unchecked) node.SetAttribute("italics", "false");
+                else node.RemoveAttribute("italics");
+                XmlTextWriter xmlWriter = new XmlTextWriter(confFile, Encoding.UTF8);
+                xmlWriter.Formatting = Formatting.Indented;
+                xmlWriter.IndentChar = '\t';
+                xmlWriter.Indentation = 1;
+                doc.Save(xmlWriter);
+                xmlWriter.Close();
+            }
+            this.LoadLanguage(this.languageDropDown.Text, true);
+            if (this.itemListView.SelectedIndices.Count > 0)
+            {
+                String language = this.itemListView.SelectedItems[0].Text;
+                this.LoadLanguageItem(language);
+            }
+            this.Enabled = true;
             Globals.MainForm.RefreshSciConfig();
         }
 

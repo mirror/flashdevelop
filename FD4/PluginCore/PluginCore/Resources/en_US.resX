@@ -4940,4 +4940,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>List of allowed commands to be executed.</value>
     <comment>Added after 4.0.4</comment>
   </data>
+  <data name="FlashDevelop.Label.MakeAsDefault" xml:space="preserve">
+    <value>Make As Default Style</value>
+    <comment>Added after 4.0.4</comment>
+  </data>
 </root>

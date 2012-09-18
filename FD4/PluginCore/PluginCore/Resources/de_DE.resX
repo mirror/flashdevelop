@@ -4936,4 +4936,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>List of allowed commands to be executed.</value>
     <comment>Added after 4.0.4</comment>
   </data>
+  <data name="FlashDevelop.Label.MakeAsDefault" xml:space="preserve">
+    <value>Make As Default Style</value>
+    <comment>Added after 4.0.4</comment>
+  </data>
 </root>
