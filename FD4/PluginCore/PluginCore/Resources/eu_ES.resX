@@ -4930,7 +4930,7 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashDevelop.Label.MakeAsDefault" xml:space="preserve">
-    <value>Make As Default Style</value>
+    <value>Lehenetsitako estiloa egin</value>
     <comment>Added after 4.0.4</comment>
   </data>
 </root>
