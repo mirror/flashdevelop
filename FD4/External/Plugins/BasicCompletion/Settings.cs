@@ -11,7 +11,7 @@ namespace BasicCompletion
     public class Settings
     {
         private Boolean enableAutoCompletion = false;
-        private List<String> enabledLanguages = new List<String> { "jscript", "csharp", "python", "text" };
+        private List<String> enabledLanguages = new List<String> { "jscript", "csharp", "python", "text", "cpp", "properties", "batch" };
         
         /// <summary> 
         /// Get and sets the EnabledLanguages
