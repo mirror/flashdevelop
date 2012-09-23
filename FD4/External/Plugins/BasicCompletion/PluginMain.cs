@@ -268,16 +268,19 @@ namespace BasicCompletion
             List<String> keywords = new List<String>();
             String textLang = document.SciControl.ConfigurationLanguage;
             Language language = ScintillaControl.Configuration.GetLanguage(textLang);
-            String wordCharsRegex = "[" + language.characterclass.Characters + "]+";
-            MatchCollection matches = Regex.Matches(document.SciControl.Text, wordCharsRegex);
-            for (Int32 i = 0; i < matches.Count; i++)
+            if (language.characterclass != null)
             {
-                if (!keywords.Contains(matches[i].Value) && matches[i].Value.Length > 3)
+                String wordCharsRegex = "[" + language.characterclass.Characters + "]+";
+                MatchCollection matches = Regex.Matches(document.SciControl.Text, wordCharsRegex);
+                for (Int32 i = 0; i < matches.Count; i++)
                 {
-                    keywords.Add(matches[i].Value);
+                    if (!keywords.Contains(matches[i].Value) && matches[i].Value.Length > 3)
+                    {
+                        keywords.Add(matches[i].Value);
+                    }
                 }
+                this.fileTable[document.FileName] = keywords;
             }
-            this.fileTable[document.FileName] = keywords;
         }
 
         /// <summary>
