@@ -153,6 +153,7 @@ namespace FlashDebugger
         public java.lang.String FormatValue(Value val)
         {
             java.lang.String ret = "";
+            if (val == null) return "null";
 			int type = val.getType();
             if (type == VariableType_.MOVIECLIP || type == VariableType_.OBJECT)
             {
