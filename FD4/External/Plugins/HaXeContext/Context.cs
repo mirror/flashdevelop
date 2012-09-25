@@ -309,7 +309,7 @@ namespace HaXeContext
                     PathModel std = PathModel.GetModel(haxeCP, this);
                     if (!std.WasExplored && !Settings.LazyClasspathExploration)
                     {
-                        string[] keep = new string[] { "sys", "haxe" };
+                        string[] keep = new string[] { "sys", "haxe", "libs" };
                         List<String> hide = new List<string>();
                         foreach (string dir in Directory.GetDirectories(haxeCP))
                             if (Array.IndexOf<string>(keep, Path.GetFileName(dir)) < 0)
