@@ -708,9 +708,9 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         public new void Show()
         {
+            base.Show();
             this.lookupIsDirty = false;
             this.UpdateFindText();
-            base.Show();
         }
 
 		#endregion
