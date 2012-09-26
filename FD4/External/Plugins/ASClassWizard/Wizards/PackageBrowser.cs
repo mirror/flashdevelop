@@ -78,16 +78,21 @@ namespace ASClassWizard.Wizards
             {
                 foreach(string cp in classpathList)
                 {
-                    foreach (string item in Directory.GetDirectories(cp))
-                    {
-                        if (IsDirectoryExcluded(item) == false)
+                    if (Directory.Exists(cp))
+                        try
                         {
-                            node = new SimpleDirectoryNode(item, Path.Combine(cp, item));
-                            node.ImageIndex = Icons.Folder.Index;
-                            node.SelectedImageIndex = Icons.Folder.Index;
-                            this.browserView.Nodes.Add(node);
+                            foreach (string item in Directory.GetDirectories(cp))
+                            {
+                                if (IsDirectoryExcluded(item) == false)
+                                {
+                                    node = new SimpleDirectoryNode(item, Path.Combine(cp, item));
+                                    node.ImageIndex = Icons.Folder.Index;
+                                    node.SelectedImageIndex = Icons.Folder.Index;
+                                    this.browserView.Nodes.Add(node);
+                                }
+                            }
                         }
-                    }
+                        catch { }
                 }
             }
             this.browserView.EndUpdate();
