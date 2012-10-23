@@ -4933,4 +4933,8 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>Lehenetsitako estiloa egin</value>
     <comment>Added after 4.0.4</comment>
   </data>
+  <data name="FlashDevelop.Label.CollapseRegions" xml:space="preserve">
+    <value>Collapse Regions</value>
+    <comment>Added after 4.0.4</comment>
+  </data>
 </root>

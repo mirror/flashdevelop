@@ -5706,7 +5706,7 @@ namespace ScintillaNet
 				HideLines(i+1, maxSubOrd);
 			}
         }
-        
+
         /// <summary>
         /// Only folds functions keeping the blocks within it open
         /// </summary>
@@ -5716,11 +5716,9 @@ namespace ScintillaNet
             {
                 // Determine if function block
                 string line = GetLine(i);
-                bool collapse = (line.Contains("function") && line.Contains("(") && line.Contains(")"));
-
-                if (collapse)
+                if ((line.Contains("function") && line.Contains("(") && line.Contains(")")))
                 {
-                    // Get the function opening brace
+                    // Get the function closing brace
                     int maxSubOrd = LastChild(i, -1);
                     // Get brace if on the next line
                     if (maxSubOrd == i)
@@ -5728,9 +5726,7 @@ namespace ScintillaNet
                         i++;
                         maxSubOrd = LastChild(i, -1);
                     }
-
                     FoldExpanded(i, false);
-
                     HideLines(i + 1, maxSubOrd);
                     i = maxSubOrd;
                 }
@@ -5741,7 +5737,63 @@ namespace ScintillaNet
                 }
             }
         }
-		
+
+        /// <summary>
+        /// Only folds regions and functions keeping the blocks within it open
+        /// </summary>
+        public void CollapseRegions()
+        {
+            // hide all lines inside some blocks, show lines outside
+            for (int i = 0; i < LineCount; i++)
+            {
+                // if region/function block
+                string line = GetLine(i);
+                if (line.Contains("//{") || (line.Contains("function") && line.Contains("(") && line.Contains(")")))
+                {
+                    // Get the function closing brace
+                    int maxSubOrd = LastChild(i, -1);
+                    // Get brace if on the next line
+                    if (maxSubOrd == i)
+                    {
+                        i++;
+                        maxSubOrd = LastChild(i, -1);
+                    }
+                    // hide all lines inside
+                    HideLines(i + 1, maxSubOrd);
+                    i = maxSubOrd;
+                }
+                else
+                {
+                    // show lines outside
+                    ShowLines(i + 1, i + 1);
+                }
+            }
+            // collapse some block lines, expand all other type of lines
+            for (int i = 0; i < LineCount; i++)
+            {
+                // if region/function block
+                string line = GetLine(i);
+                if (line.Contains("//{") || (line.Contains("function") && line.Contains("(") && line.Contains(")")))
+                {
+                    // Get the function closing brace
+                    int maxSubOrd = LastChild(i, -1);
+                    // Get brace if on the next line
+                    if (maxSubOrd == i)
+                    {
+                        i++;
+                        maxSubOrd = LastChild(i, -1);
+                    }
+                    // collapse some block lines
+                    FoldExpanded(i, false);
+                }
+                else
+                {
+                    // expand all other type of lines
+                    FoldExpanded(i, true);
+                }
+            }
+        }
+
 		/// <summary>
 		/// Selects the specified text, starting from the caret position
 		/// </summary>

@@ -4940,4 +4940,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Make As Default Style</value>
     <comment>Added after 4.0.4</comment>
   </data>
+  <data name="FlashDevelop.Label.CollapseRegions" xml:space="preserve">
+    <value>Collapse Regions</value>
+    <comment>Added after 4.0.4</comment>
+  </data>
 </root>
