@@ -2,31 +2,47 @@
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<keyword-classes>
 		<keyword-class name="js-primary-keywords">
-			enum throw throws class extends try const finally long private package final
-			protected public byte int short char interface static double enum float package
-			boolean implements while function export if in assign ref do for import var
-			else switch with abstract native catch return default instanceOf new goto delete 
+			abstract as assign boolean break byte case catch char class const continue debugger declare default delete do double else 
+			enum export extends finally float for goto if ignore implements import in instanceof int interface let long module new package 
+			ref return short switch synchronized throw throws transient try typeof var void volatile while with yield function constructor
 		</keyword-class>
 		<keyword-class name="js-secondary-keywords">
-			alert arguments break callee caller captureEvents clearInterval clearTimeout close 
-			closed comment confirm constructor continue debugger defaultStatus document 
-			escape eval export false find focus frames getClass history home Infinity innerHeight 
-			innerWidth isFinite isNaN isNan java label length Link location Location locationbar 
-			menubar moveBy moveTo name NaN navigate navigator netscape null onBlur onError 
-			onFocus onLoad onUnload open opener outerHeight outerWidth pageXoffset pageYoffset 
-			parent parseFloat parseInt personalbar print prompt prototype releaseEvents resizeBy 
-			resizeTo routeEvent scroll scrollbars scrollBy scrollTo Select self setInterval 
-			setTimeout status statusbar stop sun super synchronized taint this toolbar top toString 
-			transient true typeof undefined unescape untaint unwatch valueOf void watch window 
+			null Infinity NaN undefined true false arguments this super prototype
 		</keyword-class>
 		<keyword-class name="js-additional-keywords">
-			ActiveXObject Anchor Area Array blur Boolean Button Date Checkbox Document Element 
-			FileUpload Form Frame Function Hidden History Image JavaArray JavaClass JavaObject JavaPackage 
-			Math MimeType Navigator Number Object Option Packages Password Plugin Radio RegExp 
-			Text Textarea Submit Window Reset String XMLHttpRequest
+			DOMImplementation DocumentFragment Node NodeList NamedNodeMap CharacterData Attr Element Text Comment CDATASection 
+			DocumentType Notation Entity EntityReference ProcessingInstruction void any string bool number DOMException
+			HTMLElement Anchor Area Base Body Button Form Frame Frameset Image Link Meta Option Select Style Table TableCell TableRow Textarea
+			ActiveXObject XMLHttpRequest Array Boolean Date Function Infinity Math Number NaN Object Packages RegExp String
+			Error EvalError RangeError ReferenceError SyntaxError TypeError URIError
+		</keyword-class>
+		<keyword-class name="ts-additional-keywords3">
+			INDEX_SIZE_ERR DOMSTRING_SIZE_ERR HIERARCHY_REQUEST_ERR WRONG_DOCUMENT_ERR INVALID_CHARACTER_ERR NO_DATA_ALLOWED_ERR 
+			NO_MODIFICATION_ALLOWED_ERR NOT_FOUND_ERR NOT_SUPPORTED_ERR INUSE_ATTRIBUTE_ERR INVALID_STATE_ERR SYNTAX_ERR INVALID_MODIFICATION_ERR 
+			NAMESPACE_ERR INVALID_ACCESS_ERR ELEMENT_NODE ATTRIBUTE_NODE TEXT_NODE CDATA_SECTION_NODE ENTITY_REFERENCE_NODE ENTITY_NODE 
+			PROCESSING_INSTRUCTION_NODE COMMENT_NODE DOCUMENT_NODE DOCUMENT_TYPE_NODE DOCUMENT_FRAGMENT_NODE NOTATION_NODE
+		</keyword-class>
+		<keyword-class name="js-additional-keywords4">
+			onfocus onkeydown onkeypress onkeyup onmousedown onmousemove onmouseout onmouseover onmouseup onresize onload onsubmit window navigator screen 
+			history location document event netscape alert confirm prompt status self top parent escape unescape all applets alinkColor bgColor fgColor linkColor 
+			vlinkColor xmlEncoding createTextNode createElement insertBefore replaceChild removeChild appendChild hasChildNodes cloneNode normalize isSupported 
+			hasAttributes getAttribute setAttribute removeAttribute getAttributeNode setAttributeNode removeAttributeNode getElementsByTagName hasAttribute 
+			getElementById adoptNode close compareDocumentPosition createAttribute createCDATASection createComment createDocumentFragment createElementNS 
+			createEvent createExpression createNSResolver createProcessingInstruction createRange createTreeWalker elementFromPoint evaluate getBoxObjectFor 
+			getElementsByClassName getSelection getUserData hasFocus importNode nodeName nodeValue nodeType parentNode childNodes firstChild lastChild 
+			previousSibling nextSibling attributes ownerDocument namespaceURI prefix localName tagName readyState responseText responseXML statusText
+			onreadystatechange abort getAllResponseHeaders getResponseHeader open send setRequestHeader attachEvent detachEvent cancelBubble returnValue
+			className clientHeight clientLeft clientTop clientWidth dir href id innerHTML lang length offsetHeight offsetLeft offsetParent offsetTop 
+			offsetWidth scrollHeight scrollLeft scrollTop scrollWidth style tabIndex target title blur click focus mouseover mouseout load item
+			scrollIntoView addEventListener dispatchEvent removeEventListener preventDefault stopPropagation onblur onclick oncontextmenu ondblclick
+		</keyword-class>
+		<keyword-class name="js-additional-keywords5">
+			private public static native protected final
 		</keyword-class>
 		<keyword-class name="js-documentation-keywords">
-			author exception deprecated link param return see serial serialData serialField since throws version usage copy default example exampleText inheritDoc internal private 
+			addon argument author base beta class constructor copy default deprecated description example exampleText exception exec extends file
+			fileoverview final ignore inheritDoc internal license link member method module namespace optional param private protected requires return
+			returns see serial serialData serialField since throws title type usage version static property
 		</keyword-class>
 	</keyword-classes>
 	<languages>
@@ -36,7 +52,7 @@
 			<line-comment><![CDATA[//]]></line-comment>
 			<comment-start><![CDATA[/*]]></comment-start>
 			<comment-end><![CDATA[*/]]></comment-end>
-			<file-extensions>js,jsfl,asc</file-extensions>
+			<file-extensions>js,jsfl,asc,ts</file-extensions>
 			<use-keywords>
 				<keyword key="0" class="js-secondary-keywords" />
 				<keyword key="1" class="js-additional-keywords" />
@@ -65,10 +81,10 @@
 				<style name="verbatim" />
 				<style name="regex" />
 				<style name="commentlinedoc" fore="0x008000" />
-				<style name="word2" fore="0x008080" />
+				<style name="word2" fore="0x0080aa" />
 				<style name="word3" />
 				<style name="word4" />
-				<style name="word5" />
+				<style name="word5" fore="0x0060ff" />
 				<style name="commentdockeyword" fore="0x800000" />
 				<style name="commentdockeyworderror" fore="0xff0000" />
 				<style name="globalclass" fore="0x1518ff" />
