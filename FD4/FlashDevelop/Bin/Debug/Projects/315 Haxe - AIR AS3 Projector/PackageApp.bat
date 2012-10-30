@@ -4,7 +4,7 @@ call bat\SetupSDK.bat
 call bat\SetupApplication.bat
 
 set AIR_TARGET=
-set OPTIONS=
+set OPTIONS=-tsa none
 call bat\Packager.bat
 
 pause

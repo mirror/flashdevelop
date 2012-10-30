@@ -60,6 +60,7 @@ namespace ProjectManager.Projects.Haxe
         {
             get { return movieOptions.Platform == HaxeMovieOptions.FLASHPLAYER_PLATFORM 
                 || movieOptions.Platform == HaxeMovieOptions.AIR_PLATFORM
+                || movieOptions.Platform == HaxeMovieOptions.AIR_MOBILE_PLATFORM
                 || movieOptions.Platform == HaxeMovieOptions.NME_PLATFORM;
             }
         }
