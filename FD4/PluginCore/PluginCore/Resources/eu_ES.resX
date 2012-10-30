@@ -1581,7 +1581,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Trace Modua CustomFunction baldin bada, trace() deiak ordezkatzea nahi duzun funtzioaren bide osoa idatzi behar zenuke. Funtzio hori duen klasea konpilatua dagoela ziurtatu behar duzu Beti Konpilatu markatuz.</value>
   </data>
   <data name="ProjectManager.Description.TraceMode" xml:space="preserve">
-    <value>Konpiladoreak trace() deia nola maneiatuko duen kontrolatzen da. Lehenetsitako FlashConnect da, trace()-ren emaitzak FlashDevelop-en irteera panelera bidaliko dituena.</value>
+    <value>Konpiladoreak trace() deia nola kudeatuko duen kontrolatzen da. Lehenetsitako FlashConnect da, trace()-ren emaitzak FlashDevelop-en irteera panelera bidaliko dituena.</value>
   </data>
   <data name="ProjectManager.Description.UseMain" xml:space="preserve">
     <value>true jartzen bada, pelikulako sarrera puntua izanen den main() izeneko funtzio estatiko bakarra definitu beharko da.</value>
@@ -2211,7 +2211,7 @@ Inoiz - abiatzean ez da hasiera orria erakutsiko.</value>
     <value>Hartzaile eta aldatzailea</value>
   </data>
   <data name="ASCompletion.Label.GenerateHandler" xml:space="preserve">
-    <value>{0} maneiatzailea sortu</value>
+    <value>{0} kudeatzailea sortu</value>
   </data>
   <data name="ASCompletion.Label.GenerateSet" xml:space="preserve">
     <value>Aldatzailea</value>
@@ -4934,7 +4934,7 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashDevelop.Label.CollapseRegions" xml:space="preserve">
-    <value>Collapse Regions</value>
+    <value>Eremuak bildu</value>
     <comment>Added after 4.0.4</comment>
   </data>
 </root>
