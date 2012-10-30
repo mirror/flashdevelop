@@ -1222,22 +1222,21 @@ namespace ASCompletion.Completion
             while(tempLine > 0)
             {
                 tempText = Sci.GetLine(tempLine).Trim();
-                tempIndent = Sci.GetLineIndentation(tempLine);
-                if (tempText.Length > 0 && !tempText.StartsWith("*"))
+                if (tempText.IndexOf("class") >= 0 || tempText.IndexOf("interface") >=0 || tempText.IndexOf("enum") >= 0) 
+                    break;
+                if (tempText.Length > 0 && IsDeclaration(tempText))
                 {
+                    tempIndent = Sci.GetLineIndentation(tempLine);
                     tab = tempIndent;
                     if (tempText.EndsWith("{")) tab += Sci.TabWidth;
                     break;
-                } 
+                }
                 tempLine--;
             }
             if (tab > 0)
             {
                 tempIndent = Sci.GetLineIndentation(line);
 				Sci.SetLineIndentation(line, tab);
-                if (Sci.IsUseTabs) position += (tab - tempIndent) / Sci.TabWidth;
-                else position += (tab - tempIndent);
-				Sci.SetSel(position, position);
 			}
 
 			// build list
@@ -1249,6 +1248,24 @@ namespace ASCompletion.Completion
 			CompletionList.Show(known, autoHide, tail);
 			return true;
 		}
+
+        private static bool IsDeclaration(string line)
+        {
+            ContextFeatures features = ASContext.Context.Features;
+            if (!string.IsNullOrEmpty(features.privateKey) && line.StartsWith(features.privateKey)) return true;
+            if (!string.IsNullOrEmpty(features.protectedKey) && line.StartsWith(features.protectedKey)) return true;
+            if (!string.IsNullOrEmpty(features.internalKey) && line.StartsWith(features.internalKey)) return true;
+            if (!string.IsNullOrEmpty(features.publicKey) && line.StartsWith(features.publicKey)) return true;
+            if (!string.IsNullOrEmpty(features.varKey) && line.StartsWith(features.varKey)) return true;
+            if (!string.IsNullOrEmpty(features.constKey) && line.StartsWith(features.constKey)) return true;
+            if (!string.IsNullOrEmpty(features.overrideKey) && line.StartsWith(features.overrideKey)) return true;
+            if (!string.IsNullOrEmpty(features.inlineKey) && line.StartsWith(features.inlineKey)) return true;
+            if (!string.IsNullOrEmpty(features.functionKey) && line.StartsWith(features.functionKey)) return true;
+            if (!string.IsNullOrEmpty(features.staticKey) && line.StartsWith(features.staticKey)) return true;
+            if (!string.IsNullOrEmpty(features.finalKey) && line.StartsWith(features.finalKey)) return true;
+            return false;
+        }
+
 		#endregion
 
 		#region function_completion
