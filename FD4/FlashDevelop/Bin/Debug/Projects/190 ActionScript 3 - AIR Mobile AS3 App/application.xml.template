@@ -14,6 +14,7 @@
 		<manifestAdditions><![CDATA[
 			
 			<manifest android:installLocation="auto">
+			  <uses-sdk android:minSdkVersion="8"/>
 				<uses-permission android:name="android.permission.INTERNET"/>
 				<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch"/>
 			</manifest>
