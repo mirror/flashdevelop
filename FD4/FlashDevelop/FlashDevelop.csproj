@@ -102,6 +102,7 @@
     <Compile Include="Dialogs\SnippetDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Managers\CleanupManager.cs" />
     <Compile Include="Managers\FilePollManager.cs" />
     <Compile Include="Managers\MarkerManager.cs" />
     <Compile Include="Managers\OldTabsManager.cs" />

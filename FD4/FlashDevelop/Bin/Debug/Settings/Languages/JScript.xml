@@ -10,34 +10,45 @@
 			null Infinity NaN undefined true false arguments this super prototype
 		</keyword-class>
 		<keyword-class name="js-additional-keywords">
-			DOMImplementation DocumentFragment Node NodeList NamedNodeMap CharacterData Attr Element Text Comment CDATASection 
-			DocumentType Notation Entity EntityReference ProcessingInstruction void any string bool number DOMException
-			HTMLElement Anchor Area Base Body Button Form Frame Frameset Image Link Meta Option Select Style Table TableCell TableRow Textarea
-			ActiveXObject XMLHttpRequest Array Boolean Date Function Infinity Math Number NaN Object Packages RegExp String
-			Error EvalError RangeError ReferenceError SyntaxError TypeError URIError
+			DOMImplementation DocumentFragment Node NodeList NamedNodeMap CharacterData Attr Element Text Comment CDATASection DocumentType Notation Entity 
+			EntityReference ProcessingInstruction void any string bool number DOMException HTMLElement Anchor Area Base Body Button Form Frame Frameset Image 
+			Link Meta Option Select Style Table TableCell TableRow Textarea Array Boolean Date Function Infinity Math Number NaN Object Packages RegExp String 
+			Error EvalError RangeError ReferenceError SyntaxError TypeError URIError XMLHttpRequest ActiveXObject
 		</keyword-class>
-		<keyword-class name="ts-additional-keywords3">
-			INDEX_SIZE_ERR DOMSTRING_SIZE_ERR HIERARCHY_REQUEST_ERR WRONG_DOCUMENT_ERR INVALID_CHARACTER_ERR NO_DATA_ALLOWED_ERR 
-			NO_MODIFICATION_ALLOWED_ERR NOT_FOUND_ERR NOT_SUPPORTED_ERR INUSE_ATTRIBUTE_ERR INVALID_STATE_ERR SYNTAX_ERR INVALID_MODIFICATION_ERR 
-			NAMESPACE_ERR INVALID_ACCESS_ERR ELEMENT_NODE ATTRIBUTE_NODE TEXT_NODE CDATA_SECTION_NODE ENTITY_REFERENCE_NODE ENTITY_NODE 
-			PROCESSING_INSTRUCTION_NODE COMMENT_NODE DOCUMENT_NODE DOCUMENT_TYPE_NODE DOCUMENT_FRAGMENT_NODE NOTATION_NODE
+		<keyword-class name="js-additional-keywords3">
+			private public static native protected final
 		</keyword-class>
 		<keyword-class name="js-additional-keywords4">
-			onfocus onkeydown onkeypress onkeyup onmousedown onmousemove onmouseout onmouseover onmouseup onresize onload onsubmit window navigator screen 
-			history location document event netscape alert confirm prompt status self top parent escape unescape all applets alinkColor bgColor fgColor linkColor 
-			vlinkColor xmlEncoding createTextNode createElement insertBefore replaceChild removeChild appendChild hasChildNodes cloneNode normalize isSupported 
-			hasAttributes getAttribute setAttribute removeAttribute getAttributeNode setAttributeNode removeAttributeNode getElementsByTagName hasAttribute 
-			getElementById adoptNode close compareDocumentPosition createAttribute createCDATASection createComment createDocumentFragment createElementNS 
-			createEvent createExpression createNSResolver createProcessingInstruction createRange createTreeWalker elementFromPoint evaluate getBoxObjectFor 
-			getElementsByClassName getSelection getUserData hasFocus importNode nodeName nodeValue nodeType parentNode childNodes firstChild lastChild 
-			previousSibling nextSibling attributes ownerDocument namespaceURI prefix localName tagName readyState responseText responseXML statusText
-			onreadystatechange abort getAllResponseHeaders getResponseHeader open send setRequestHeader attachEvent detachEvent cancelBubble returnValue
-			className clientHeight clientLeft clientTop clientWidth dir href id innerHTML lang length offsetHeight offsetLeft offsetParent offsetTop 
-			offsetWidth scrollHeight scrollLeft scrollTop scrollWidth style tabIndex target title blur click focus mouseover mouseout load item
-			scrollIntoView addEventListener dispatchEvent removeEventListener preventDefault stopPropagation onblur onclick oncontextmenu ondblclick
+			decodeURI decodeURIComponent encodeURI encodeURIComponent escape eval isFinite isNaN parseFloat parseInt unescape
 		</keyword-class>
 		<keyword-class name="js-additional-keywords5">
-			private public static native protected final
+			INDEX_SIZE_ERR DOMSTRING_SIZE_ERR HIERARCHY_REQUEST_ERR WRONG_DOCUMENT_ERR INVALID_CHARACTER_ERR NO_DATA_ALLOWED_ERR NO_MODIFICATION_ALLOWED_ERR NOT_FOUND_ERR 
+			NOT_SUPPORTED_ERR INUSE_ATTRIBUTE_ERR INVALID_STATE_ERR SYNTAX_ERR INVALID_MODIFICATION_ERR NAMESPACE_ERR INVALID_ACCESS_ERR ELEMENT_NODE ATTRIBUTE_NODE TEXT_NODE 
+			CDATA_SECTION_NODE ENTITY_REFERENCE_NODE ENTITY_NODE PROCESSING_INSTRUCTION_NODE COMMENT_NODE DOCUMENT_NODE DOCUMENT_TYPE_NODE DOCUMENT_FRAGMENT_NODE NOTATION_NODE
+			onblur onclick oncontextmenu ondblclick onfocus onkeydown onkeypress onkeyup onmousedown onmousemove onmouseout onmouseover onmouseup onresize 
+			onload onsubmit onreadystatechange insertBefore replaceChild removeChild appendChild hasChildNodes cloneNode normalize isSupported hasAttributes 
+			getAttribute setAttribute removeAttribute getAttributeNode setAttributeNode removeAttributeNode getElementsByTagName hasAttribute getElementById adoptNode 
+			close compareDocumentPosition createAttribute createCDATASection createComment createDocumentFragment createElementNS createEvent createExpression createNSResolver 
+			createProcessingInstruction createRange createTreeWalker elementFromPoint evaluate getBoxObjectFor getElementsByClassName getSelection getUserData hasFocus importNode
+			nodeName nodeValue nodeType parentNode childNodes firstChild lastChild previousSibling nextSibling attributes ownerDocument namespaceURI prefix localName tagName
+			readyState responseText responseXML statusText abort getAllResponseHeaders getResponseHeader open send setRequestHeader attachEvent detachEvent cancelBubble returnValue
+			className clientHeight clientLeft clientTop clientWidth dir href id innerHTML lang length offsetHeight offsetLeft offsetParent offsetTop offsetWidth scrollHeight scrollLeft 
+			scrollTop scrollWidth style tabIndex target title scrollIntoView addEventListener dispatchEvent removeEventListener preventDefault stopPropagation color font fontFamily 
+			fontSize fontSizeAdjust fontStretch fontStyle fontVariant fontWeight letterSpacing lineBreak lineHeight quotes rubyAlign rubyOverhang rubyPosition createTextNode createElement 
+			textAlign textAlignLast textAutospace textDecoration textIndent textJustify textJustifyTrim textKashidaSpace textOverflowW6 textShadow textTransform textUnderlinePosition
+			unicodeBidi whiteSpace wordBreak wordSpacing wordWrap writingMode bottom height left position right top width zIndex border borderBottom borderLeft borderRight borderTop 
+			borderBottomColor borderLeftColor borderTopColor borderBottomStyle borderLeftStyle borderRightStyle borderTopStyle borderBottomWidth borderLeftWidth borderRightWidth 
+			borderTopWidth borderColor borderStyle borderWidth borderCollapse borderSpacing captionSide emptyCells tableLayout margin marginBottom marginLeft marginRight marginTop 
+			outline outlineColor outlineStyle outlineWidth padding paddingBottom paddingLeft paddingRight paddingTop listStyle listStyleImage listStylePosition listStyleType
+			background backgroundAttachment backgroundColor backgroundImage gackgroundPosition backgroundPositionX backgroundPositionY backgroundRepeat clear clip clipBottom 
+			clipLeft clipRight clipTop content counterIncrement counterReset cssFloat cursor direction display filter layoutGrid layoutGridChar layoutGridLine layoutGridMode 
+			layoutGridType marks maxHeight maxWidth minHeight minWidth opacity MozOpacity overflow overflowX overflowY verticalAlign visibility zoom cssText scrollbar3dLightColor 
+			scrollbarArrowColor scrollbarBaseColor scrollbarDarkShadowColor scrollbarFaceColor scrollbarHighlightColor scrollbarShadowColor scrollbarTrackColor
+			window navigator screen history location document event netscape alert blur confirm prompt status self top parent clearInterval clearTimeout close
+			focus moveBy moveTo open print resizeBy resizeTo scroll scrollBy scrollTo setInterval setTimeout opener name frames defaultStatus closed innerHeight
+			innerWidth outerHeight outerWidth pageXOffset pageYOffset screenLeft screenTop screenX screenY createPopup appCodeName appName appVersion cookieEnabled
+			onLine platform userAgent javaEnabled taintEnabled availHeight availWidth colorDepth pixelDepth back forward go hash host hostname href pathname port
+			protocol search assign reload replace
 		</keyword-class>
 		<keyword-class name="js-documentation-keywords">
 			addon argument author base beta class constructor copy default deprecated description example exampleText exception exec extends file
@@ -82,9 +93,9 @@
 				<style name="regex" />
 				<style name="commentlinedoc" fore="0x008000" />
 				<style name="word2" fore="0x0080aa" />
-				<style name="word3" />
-				<style name="word4" />
-				<style name="word5" fore="0x0060ff" />
+				<style name="word3" fore="0x0060ff" />
+				<style name="word4" fore="0x0080aa" />
+				<style name="word5" />
 				<style name="commentdockeyword" fore="0x800000" />
 				<style name="commentdockeyworderror" fore="0xff0000" />
 				<style name="globalclass" fore="0x1518ff" />

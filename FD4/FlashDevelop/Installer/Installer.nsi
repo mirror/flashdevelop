@@ -12,13 +12,13 @@
 !define BUILD "RTM"
 
 ; Define AIR SDK version
-!define AIR "3.4.0"
+!define AIR "3.4.0.2710"
 
 ; Define Flex SDK version
 !define FLEX "4.6.0.23201B"
 
 ; Define Flash player version
-!define FLASH "11.4.402.265"
+!define FLASH "11.4.402.287"
 
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"

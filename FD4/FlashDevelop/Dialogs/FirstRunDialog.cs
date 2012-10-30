@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using PluginCore.Localization;
 using System.ComponentModel;
 using System.Windows.Forms;
+using FlashDevelop.Managers;
 using FlashDevelop.Helpers;
 using FlashDevelop.Settings;
 using PluginCore.Utilities;
@@ -206,6 +207,10 @@ namespace FlashDevelop.Dialogs
                         {
                             if (Directory.Exists(data)) Directory.Delete(data, true);
                             else if (File.Exists(data)) File.Delete(data);
+                        }
+                        else if (command.Action.ToLower() == "syntax")
+                        {
+                            CleanupManager.RevertConfiguration(false);
                         }
                         else if (command.Action.ToLower() == "create")
                         {

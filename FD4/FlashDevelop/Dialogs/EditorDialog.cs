@@ -11,6 +11,7 @@ using System.ComponentModel;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Collections.Generic;
 using FlashDevelop.Utilities;
+using FlashDevelop.Managers;
 using PluginCore.Localization;
 using PluginCore.Managers;
 using PluginCore.Helpers;
@@ -933,12 +934,6 @@ namespace FlashDevelop.Dialogs
         /// <summary>
         /// Constant xml file style paths
         /// </summary>
-        private const String coloringStart = "<!-- COLORING_START -->";
-        private const String coloringEnd = "<!-- COLORING_END -->";
-
-        /// <summary>
-        /// Constant xml file style paths
-        /// </summary>
         private const String stylePath = "Scintilla/languages/language/use-styles/style";
         private const String editorStylePath = "Scintilla/languages/language/editor-style";
         private const String defaultStylePath = "Scintilla/languages/language/use-styles/style[@name='default']";
@@ -1595,58 +1590,33 @@ namespace FlashDevelop.Dialogs
         {
             String caption = TextHelper.GetString("Title.ConfirmDialog");
             String message = TextHelper.GetString("Info.RevertSettingsFiles");
-            String appSettingDir = Path.Combine(PathHelper.AppDir, "Settings");
-            String appLanguageDir = Path.Combine(appSettingDir, "Languages");
             DialogResult result = MessageBox.Show(message, caption, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
             if (result == DialogResult.Yes)
             {
                 this.Enabled = false;
-                FolderHelper.CopyFolder(appLanguageDir, this.LangDir);
-                this.LoadLanguage(this.languageDropDown.Text, true);
-                if (this.itemListView.SelectedIndices.Count > 0)
-                {
-                    String language = this.itemListView.SelectedItems[0].Text;
-                    this.LoadLanguageItem(language);
-                }
+                CleanupManager.RevertConfiguration(true);
+                this.RefreshConfiguration();
                 this.Enabled = true;
             }
             else if (result == DialogResult.No)
             {
                 this.Enabled = false;
-                String[] userFiles = Directory.GetFiles(this.LangDir);
-                foreach (String userFile in userFiles)
-                {
-                    String appFile = Path.Combine(appLanguageDir, Path.GetFileName(userFile));
-                    if (File.Exists(appFile))
-                    {
-                        try
-                        {
-                            String appFileContents = FileHelper.ReadFile(appFile);
-                            String userFileContents = FileHelper.ReadFile(userFile);
-                            Int32 appFileColoringStart = appFileContents.IndexOf(coloringStart);
-                            Int32 appFileColoringEnd = appFileContents.IndexOf(coloringEnd);
-                            Int32 userFileColoringStart = userFileContents.IndexOf(coloringStart);
-                            Int32 userFileColoringEnd = userFileContents.IndexOf(coloringEnd);
-                            String replaceTarget = appFileContents.Substring(appFileColoringStart, appFileColoringEnd - appFileColoringStart);
-                            String replaceContent = userFileContents.Substring(userFileColoringStart, userFileColoringEnd - userFileColoringStart);
-                            String finalContent = appFileContents.Replace(replaceTarget, replaceContent);
-                            FileHelper.WriteFile(userFile, finalContent, Encoding.UTF8);
-                        }
-                        catch (Exception ex)
-                        {
-                            this.Enabled = true;
-                            String desc = TextHelper.GetString("Info.ColoringTagsMissing");
-                            ErrorManager.ShowError(desc, ex);
-                        }
-                    }
-                }
-                this.LoadLanguage(this.languageDropDown.Text, true);
-                if (this.itemListView.SelectedIndices.Count > 0)
-                {
-                    String language = this.itemListView.SelectedItems[0].Text;
-                    this.LoadLanguageItem(language);
-                }
+                CleanupManager.RevertConfiguration(false);
+                this.RefreshConfiguration();
                 this.Enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the langugage configuration
+        /// </summary>
+        private void RefreshConfiguration()
+        {
+            this.LoadLanguage(this.languageDropDown.Text, true);
+            if (this.itemListView.SelectedIndices.Count > 0)
+            {
+                String language = this.itemListView.SelectedItems[0].Text;
+                this.LoadLanguageItem(language);
             }
             Globals.MainForm.RefreshSciConfig();
         }
@@ -1685,14 +1655,8 @@ namespace FlashDevelop.Dialogs
                 doc.Save(xmlWriter);
                 xmlWriter.Close();
             }
-            this.LoadLanguage(this.languageDropDown.Text, true);
-            if (this.itemListView.SelectedIndices.Count > 0)
-            {
-                String language = this.itemListView.SelectedItems[0].Text;
-                this.LoadLanguageItem(language);
-            }
+            this.RefreshConfiguration();
             this.Enabled = true;
-            Globals.MainForm.RefreshSciConfig();
         }
 
         /// <summary>
