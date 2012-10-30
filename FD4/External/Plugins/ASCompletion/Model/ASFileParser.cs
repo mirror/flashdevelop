@@ -1148,6 +1148,7 @@ namespace ASCompletion.Model
                     }
                     //
                     valueLength = 0;
+                    valueMember = null;
                     if (!inParams && !(inConst && context != 0) && c1 != '{') continue;
                     else length = 0;
                 }
