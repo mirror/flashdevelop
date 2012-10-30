@@ -1224,7 +1224,7 @@ namespace ASCompletion.Completion
                 tempText = Sci.GetLine(tempLine).Trim();
                 if (tempText.IndexOf("class") >= 0 || tempText.IndexOf("interface") >=0 || tempText.IndexOf("enum") >= 0) 
                     break;
-                if (tempText.Length > 0 && IsDeclaration(tempText))
+                if (tempText.Length > 0 && (tempText.EndsWith("}") || IsDeclaration(tempText)))
                 {
                     tempIndent = Sci.GetLineIndentation(tempLine);
                     tab = tempIndent;
