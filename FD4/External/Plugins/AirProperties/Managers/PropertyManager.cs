@@ -35,8 +35,9 @@ namespace AirProperties
             V30 = 9,    // Version 3.0
             V31 = 10,   // Version 3.1
             V32 = 11,   // Version 3.2
-            V33 = 12,    // Version 3.3
-            V34 = 13    // Version 3.4
+            V33 = 12,   // Version 3.3
+            V34 = 13,   // Version 3.4
+            V35 = 14    // Version 3.5
         }
 
         public static Exception LastException
@@ -103,11 +104,12 @@ namespace AirProperties
                     else if (nsuri.StartsWith(_BaseAirNamespace + "3.2")) _version = AirVersion.V32;
                     else if (nsuri.StartsWith(_BaseAirNamespace + "3.3")) _version = AirVersion.V33;
                     else if (nsuri.StartsWith(_BaseAirNamespace + "3.4")) _version = AirVersion.V34;
+                    else if (nsuri.StartsWith(_BaseAirNamespace + "3.5")) _version = AirVersion.V35;
                     else
                     {
                         // Is a valid AIR descriptor, but version not supported so default to max supported version
                         _unsupportedVersion = true;
-                        _version = AirVersion.V33;
+                        _version = AirVersion.V34;
                     }
                 }
                 _namespaceManager = new XmlNamespaceManager(_descriptorFile.NameTable);

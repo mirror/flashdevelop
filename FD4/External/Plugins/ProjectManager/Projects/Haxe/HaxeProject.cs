@@ -306,7 +306,7 @@ namespace ProjectManager.Projects.Haxe
 
         private static void GuessFlashPlayerForNME(ref int majorVersion, ref int minorVersion)
         {
-            majorVersion = 10;
+            majorVersion = 11;
         }
 
         #region Load/Save
