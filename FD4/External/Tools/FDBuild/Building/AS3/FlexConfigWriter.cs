@@ -86,7 +86,12 @@ namespace FDBuild.Building.AS3
 
         private void AddCompilerOptions(MxmlcOptions options, bool debugMode)
         {
-            if (options.Locale.Length > 0) WriteElementString("locale", options.Locale);
+            if (options.Locale.Length > 0)
+            {
+                WriteStartElement("locale");
+                    WriteElementString("locale-element", options.Locale);
+                WriteEndElement();
+            }
             if (options.Accessible) WriteElementString("accessible", "true");
             if (options.AllowSourcePathOverlap) WriteElementString("allow-source-path-overlap", "true");
             if (options.ES)
