@@ -12,7 +12,7 @@ namespace ProjectManager.Projects.AS3
         AS3Project project;
         string mainApp;
         string outputPath;
-        string version;
+        string fpVersion;
         PathCollection applications;
 
         public IDictionary<string, string> EnvironmentPaths { get; set; }
@@ -26,7 +26,7 @@ namespace ProjectManager.Projects.AS3
         protected override void ProcessRootNode()
         {
             mainApp = GetAttribute("mainApplicationPath");
-            version = GetAttribute("version");
+            fpVersion = GetAttribute("version");
             project.HiddenPaths.Add(".settings");
         }
 
@@ -71,7 +71,7 @@ namespace ProjectManager.Projects.AS3
                 project.MovieOptions.Platform = AS3MovieOptions.FLASHPLAYER_PLATFORM;
                 project.TestMovieBehavior = TestMovieBehavior.Default;
             }
-            project.MovieOptions.Version = version ?? project.MovieOptions.DefaultVersion(project.MovieOptions.Platform);
+            project.MovieOptions.Version = fpVersion ?? project.MovieOptions.DefaultVersion(project.MovieOptions.Platform);
 
             if (Path.GetExtension(mainApp).ToLower() == ".mxml")
             {

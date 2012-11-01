@@ -63,8 +63,13 @@ namespace ProjectManager.Actions
             // save modified files
             mainForm.CallCommand("SaveAllModified", null);
 
-            InstalledSDK sdk = GetProjectSDK(project);
-            string compiler = GetCompilerPath(project, sdk);
+            string compiler = null;
+            InstalledSDK sdk = null;
+            if (project.IsCompilable)
+            {
+                sdk = GetProjectSDK(project);
+                compiler = GetCompilerPath(project, sdk);
+            }
             project.TraceEnabled = !releaseMode;
 
             if (project.OutputType == OutputType.OtherIDE)
@@ -100,7 +105,7 @@ namespace ProjectManager.Actions
                     TraceManager.Add(info);
                 }
             }
-            else
+            else if (project.IsCompilable)
             {
                 // ask the project to validate itself
                 string error;
@@ -173,7 +178,7 @@ namespace ProjectManager.Actions
 			string fdBuildPath = Path.Combine(fdBuildDir, "fdbuild.exe");
 
 			string arguments = " -ipc " + ipcName;
-            if (sdk.Version != null) arguments += " -version \"" + sdk.Version.Replace(',', ';') + "\"";
+            if (sdk != null && sdk.Version != null) arguments += " -version \"" + sdk.Version.Replace(',', ';') + "\"";
             arguments += " -compiler \"" + project.CurrentSDK + "\"";
 
             if (releaseMode) arguments += " -notrace";
@@ -193,11 +198,14 @@ namespace ProjectManager.Actions
             menus.DisabledForBuild = true;
 
             // Apache Flex compat
-            string playerglobalHome = Environment.ExpandEnvironmentVariables("%PLAYERGLOBAL_HOME%");
-            if (playerglobalHome.StartsWith("%")) setPlayerglobalHomeEnv = true;
-            if (setPlayerglobalHomeEnv)
-                Environment.SetEnvironmentVariable("PLAYERGLOBAL_HOME", 
-                    Path.Combine(project.CurrentSDK, "frameworks/libs/player"));
+            if (project.Language == "as3") 
+            {
+                string playerglobalHome = Environment.ExpandEnvironmentVariables("%PLAYERGLOBAL_HOME%");
+                if (playerglobalHome.StartsWith("%")) setPlayerglobalHomeEnv = true;
+                if (setPlayerglobalHomeEnv)
+                    Environment.SetEnvironmentVariable("PLAYERGLOBAL_HOME", 
+                        Path.Combine(project.CurrentSDK, "frameworks/libs/player"));
+            }
 
             // run FDBuild
             fdProcess.StartProcess(fdBuildPath, "\"" + project.ProjectPath + "\"" + arguments,

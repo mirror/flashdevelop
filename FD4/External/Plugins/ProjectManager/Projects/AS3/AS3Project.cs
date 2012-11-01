@@ -27,6 +27,7 @@ namespace ProjectManager.Projects.AS3
         }
 
         public override string Language { get { return "as3"; } }
+        public override bool IsCompilable { get { return true; } }
         public override bool ReadOnly { get { return FileInspector.IsFlexBuilderProject(ProjectPath); } }
         public override bool HasLibraries { get { return OutputType == OutputType.Application || OutputType == OutputType.Library; } }
         public override int MaxTargetsCount { get { return 1; } }

@@ -109,6 +109,21 @@
     <Compile Include="..\..\Plugins\ProjectManager\Projects\FileInspector.cs">
       <Link>Projects\FileInspector.cs</Link>
     </Compile>
+    <Compile Include="..\..\Plugins\ProjectManager\Projects\Generic\GenericMovieOptions.cs">
+      <Link>Projects\Generic\GenericMovieOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Plugins\ProjectManager\Projects\Generic\GenericOptions.cs">
+      <Link>Projects\Generic\GenericOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Plugins\ProjectManager\Projects\Generic\GenericProject.cs">
+      <Link>Projects\Generic\GenericProject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Plugins\ProjectManager\Projects\Generic\GenericProjectReader.cs">
+      <Link>Projects\Generic\GenericProjectReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Plugins\ProjectManager\Projects\Generic\GenericProjectWriter.cs">
+      <Link>Projects\Generic\GenericProjectWriter.cs</Link>
+    </Compile>
     <Compile Include="..\..\Plugins\ProjectManager\Projects\Haxe\HaxeMovieOptions.cs">
       <Link>Projects\Haxe\HaxeMovieOptions.cs</Link>
     </Compile>
@@ -155,6 +170,7 @@
     <Compile Include="Building\AS2\AS2ProjectBuilder.cs" />
     <Compile Include="Building\AS2\MtascArgumentBuilder.cs" />
     <Compile Include="Building\AS3\FlexConfigWriter.cs" />
+    <Compile Include="Building\Generic\GenericProjectBuilder.cs" />
     <Compile Include="Building\SwfmillLibraryBuilder.cs" />
     <Compile Include="Building\SwfmillLibraryWriter.cs" />
     <Compile Include="Building\AS3\AS3ProjectBuilder.cs" />

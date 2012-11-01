@@ -54,6 +54,7 @@ namespace ProjectManager.Helpers
             projectTypes["project.as2proj"] = typeof(ProjectManager.Projects.AS2.AS2Project);
             projectTypes["project.as3proj"] = typeof(ProjectManager.Projects.AS3.AS3Project);
             projectTypes["project.hxproj"] = typeof(ProjectManager.Projects.Haxe.HaxeProject);
+            projectTypes["project.fdproj"] = typeof(ProjectManager.Projects.Generic.GenericProject);
             projectTypesSet = true;
         }
 

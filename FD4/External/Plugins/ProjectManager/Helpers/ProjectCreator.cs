@@ -16,6 +16,7 @@ using ProjectManager.Projects.AS2;
 using ProjectManager.Projects.AS3;
 using ProjectManager.Projects.Haxe;
 using System.Windows.Forms;
+using ProjectManager.Projects.Generic;
 
 namespace ProjectManager.Helpers
 {
@@ -215,6 +216,7 @@ namespace ProjectManager.Helpers
 
         private static void SetInitialProjectHash()
         {
+            projectTypes["project.fdproj"] = typeof(GenericProject);
             projectTypes["project.fdp"] = typeof(AS2Project);
             projectTypes["project.as2proj"] = typeof(AS2Project);
             projectTypes["project.as3proj"] = typeof(AS3Project);
@@ -252,7 +254,7 @@ namespace ProjectManager.Helpers
 
         public static string GetProjectFilters()
         {
-            string filters = "FlashDevelop Projects (*.as2proj,*.as3proj,*.hxproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdp|Adobe Flex Builder Project (.actionScriptProperties)|.actionScriptProperties";
+            string filters = "FlashDevelop Projects (*.as2proj,*.as3proj,*.hxproj,*.fdproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdproj;*.fdp|Adobe Flex Builder Project (.actionScriptProperties)|.actionScriptProperties";
             string desc = "|Custom Projects ";
             string ext;
             string parens = "(";

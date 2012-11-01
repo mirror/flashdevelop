@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{78101C01-E186-4954-B1DD-DEBB7905FAD8}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -114,6 +114,11 @@
     <Compile Include="Projects\AS3\FlexProjectReader.cs" />
     <Compile Include="Projects\AS3\MxmlcOptions.cs" />
     <Compile Include="Projects\CompilerOptions.cs" />
+    <Compile Include="Projects\Generic\GenericMovieOptions.cs" />
+    <Compile Include="Projects\Generic\GenericOptions.cs" />
+    <Compile Include="Projects\Generic\GenericProject.cs" />
+    <Compile Include="Projects\Generic\GenericProjectReader.cs" />
+    <Compile Include="Projects\Generic\GenericProjectWriter.cs" />
     <Compile Include="Projects\Haxe\HaxeMovieOptions.cs" />
     <Compile Include="Projects\Haxe\HaxeProjectReader.cs" />
     <Compile Include="Projects\Haxe\HaxeProjectWriter.cs" />

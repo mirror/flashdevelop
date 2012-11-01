@@ -7,9 +7,11 @@ using ProjectManager.Projects;
 using ProjectManager.Projects.AS2;
 using ProjectManager.Projects.AS3;
 using ProjectManager.Projects.Haxe;
+using ProjectManager.Projects.Generic;
 using ProjectManager.Building.AS2;
 using ProjectManager.Building.AS3;
 using ProjectManager.Building.Haxe;
+using ProjectManager.Building.Generic;
 
 namespace ProjectManager.Building
 {
@@ -38,6 +40,8 @@ namespace ProjectManager.Building
                 return new AS3ProjectBuilder(project as AS3Project, compilerPath, ipcName);
             else if (project is HaxeProject)
                 return new HaxeProjectBuilder(project as HaxeProject, compilerPath);
+            else if (project is GenericProject)
+                return new GenericProjectBuilder(project as GenericProject, compilerPath);
             else
                 throw new Exception("FDBuild doesn't know how to build " + project.GetType().Name);
         }

@@ -915,10 +915,18 @@ namespace ProjectManager.Controls
             this.Text = " " + project.Name + " (" + project.Language.ToUpper() + ") " + TextHelper.GetString("Info.Properties");
 
             InitOutputTab();
-            InitSDKTab();
-            InitClasspathTab();
             InitBuildTab();
             InitOptionsTab();
+            if (project.IsCompilable)
+            {
+                InitSDKTab();
+                InitClasspathTab();
+            }
+            else
+            {
+                tabControl.TabPages.Remove(sdkTabPage);
+                tabControl.TabPages.Remove(classpathsTab);
+            }
 
 			btnApply.Enabled = false;
 		}
