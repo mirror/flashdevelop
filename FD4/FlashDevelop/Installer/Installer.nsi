@@ -573,7 +573,7 @@ Section "Registry Modifications" RegistryMods
 	DeleteRegKey /ifempty HKCU "Software\Classes\Applications\FlashDevelop.exe"
 	
 	!insertmacro APP_ASSOCIATE "fdp" "FlashDevelop.Project" "FlashDevelop Project" "${WIN32RES},2" "" "${EXECUTABLE}"
-	!insertmacro APP_ASSOCIATE "fdproj" "FlashDevelop.BasicProject" "FlashDevelop Basic Project" "${WIN32RES},2" "" "${EXECUTABLE}"
+	!insertmacro APP_ASSOCIATE "fdproj" "FlashDevelop.GenericProject" "FlashDevelop Generic Project" "${WIN32RES},2" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "hxproj" "FlashDevelop.HaXeProject" "FlashDevelop Haxe Project" "${WIN32RES},2" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "as2proj" "FlashDevelop.AS2Project" "FlashDevelop AS2 Project" "${WIN32RES},2" "" "${EXECUTABLE}"
 	!insertmacro APP_ASSOCIATE "as3proj" "FlashDevelop.AS3Project" "FlashDevelop AS3 Project" "${WIN32RES},2" "" "${EXECUTABLE}"
@@ -588,7 +588,7 @@ Section "Registry Modifications" RegistryMods
 	!insertmacro APP_ASSOCIATE "fdz" "FlashDevelop.Zip" "FlashDevelop Zip File" "${WIN32RES},1" "" "${EXECUTABLE}"
 	
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.Project" "ShellNew"
-	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.BasicProject" "ShellNew"
+	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.GenericProject" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.HaXeProject" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.AS2Project" "ShellNew"
 	!insertmacro APP_ASSOCIATE_REMOVEVERB "FlashDevelop.AS3Project" "ShellNew"
@@ -708,7 +708,7 @@ Section "un.FlashDevelop" UninstMain
 	RMDir "$INSTDIR"
 	
 	!insertmacro APP_UNASSOCIATE "fdp" "FlashDevelop.Project"
-	!insertmacro APP_UNASSOCIATE "fdproj" "FlashDevelop.BasicProject"
+	!insertmacro APP_UNASSOCIATE "fdproj" "FlashDevelop.GenericProject"
 	!insertmacro APP_UNASSOCIATE "hxproj" "FlashDevelop.HaXeProject"
 	!insertmacro APP_UNASSOCIATE "as2proj" "FlashDevelop.AS2Project"
 	!insertmacro APP_UNASSOCIATE "as3proj" "FlashDevelop.AS3Project"
