@@ -20,7 +20,7 @@ namespace ProjectManager.Projects.Generic
         {
             get
             {
-                if (OutputType == OutputType.Website) return "*.html;*.js";
+                if (OutputType == OutputType.Website) return "*.html;*.css;*.js";
                 else return "*.*";
             }
         }

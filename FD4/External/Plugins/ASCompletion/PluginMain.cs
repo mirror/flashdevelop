@@ -723,11 +723,18 @@ namespace ASCompletion
             ASFileParser parser = new ASFileParser();
             FileModel model = new FileModel(doc.FileName);
             parser.ParseSrc(model, doc.SciControl.Text);
-            if (model.Version == 1 && PluginBase.CurrentProject != null) return PluginBase.CurrentProject.Language;
+            if (model.Version == 1 && PluginBase.CurrentProject != null)
+            {
+                String lang = PluginBase.CurrentProject.Language;
+                if (lang == "*") return "as2";
+                else return lang;
+            }
             else if (model.Version > 2) return "as3";
             else if (model.Version > 1) return "as2";
             else if (settingObject.LastASVersion != null && settingObject.LastASVersion.StartsWith("as"))
+            {
                 return settingObject.LastASVersion;
+            }
             else return "as2";
         }
 
