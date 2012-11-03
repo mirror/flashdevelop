@@ -13,7 +13,7 @@ $(Clipboard) - Inhalt der Zwischenablage
 - DATEI -------------------------------------------------------------------------
 $(CurFile) - Aktuelle Datei
 $(CurFilename) - Dateiname der aktuellen Datei
-$(CurFilenameNoExt) - Dateiname der aktuellen Datei
+$(CurFilenameNoExt) - Dateiname der aktuellen Datei (ohne Endung)
 $(CurDir) - Dateiordner der aktuellen Datei
 - VERZEICHNIS -------------------------------------------------------------------------
 $(DesktopDir) - Desktop des Benutzers
@@ -29,6 +29,8 @@ $(TypPkg) - Paket der aktuellen Datei
 $(TypName) - Name des aktuellen Typs
 $(TypPkgName) - Paket + Name des aktuellen Typs
 $(TypKind) - Art des aktuellen Typs (interface, class)
+$(TypClosestListName) - Name des nächsten Array oder Vectors
+$(TypClosestListItemType) - Element-Typ des nächsten Vectors
 - FELDER -------------------------------------------------------------------------
 $(MbrName) - Aktuelles Feld, z.B. aktuelle Methode
 $(MbrKind) - Feld-Art (const, var, function)
@@ -44,3 +46,4 @@ $(ItmTypPkg) - Paket des Elements
 $(ItmTypName) - Name des Element-Typs
 $(ItmTypePkgName) - Qualifizierter Name des Element-Typs
 $(ItmTypKind) - Art des Element-Typs (interface, class)
+$(ItmUniqueVar) - Eindeutiger Variablenname (i, j... etc)

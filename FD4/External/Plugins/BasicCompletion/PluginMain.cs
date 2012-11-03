@@ -24,9 +24,9 @@ namespace BasicCompletion
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Adds global basic code completion support to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
+        private Hashtable workerTable = new Hashtable();
         private Hashtable baseTable = new Hashtable();
         private Hashtable fileTable = new Hashtable();
-        private BackgroundWorker updateWorker;
         private String settingFilename;
         private Settings settingObject;
 
@@ -99,7 +99,6 @@ namespace BasicCompletion
 		public void Initialize()
 		{
             this.InitBasics();
-            this.InitWorker();
             this.LoadSettings();
             this.AddEventHandlers();
         }
@@ -117,6 +116,7 @@ namespace BasicCompletion
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
+            BackgroundWorker updateWorker;
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (document == null || !document.IsEditable) return;
             switch (e.Type)
@@ -159,27 +159,23 @@ namespace BasicCompletion
                 }
                 case EventType.FileSave:
                 {
+                    String file = (e as TextEvent).Value;
+                    document = DocumentManager.FindDocument(file);
                     if (document != null && document.IsEditable && this.IsSupported(document))
                     {
-                        this.updateWorker.RunWorkerAsync(document);
+                        if (!this.workerTable.ContainsKey(document.FileName))
+                        {
+                            updateWorker = new BackgroundWorker();
+                            updateWorker.DoWork += new DoWorkEventHandler(this.UpdateWorkerDoWork);
+                            this.workerTable[document.FileName] = updateWorker;
+                        }
+                        else updateWorker = this.workerTable[document.FileName] as BackgroundWorker;
+                        if (!updateWorker.IsBusy) updateWorker.RunWorkerAsync(document);
                     }
                     break;
                 }
             }
 		}
-
-		#endregion
-
-        #region Custom Methods
-
-        /// <summary>
-        /// Initializes the background worker
-        /// </summary>
-        public void InitWorker()
-        {
-            this.updateWorker = new BackgroundWorker();
-            this.updateWorker.DoWork += new DoWorkEventHandler(this.UpdateWorkerDoWork);
-        }
 
         /// <summary>
         /// Updates the document keywords on a background worker
@@ -189,6 +185,10 @@ namespace BasicCompletion
             ITabbedDocument document = e.Argument as ITabbedDocument;
             this.AddDocumentKeywords(document);
         }
+
+		#endregion
+
+        #region Custom Methods
 
         /// <summary>
         /// Initializes important variables

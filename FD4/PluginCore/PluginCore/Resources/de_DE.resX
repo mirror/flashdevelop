@@ -4258,7 +4258,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidExtension" xml:space="preserve">
-    <value />
+    <value>Die ID der Erweiterung '{0}' ist ungültig.</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Validation.InvalidFileType" xml:space="preserve">
@@ -4821,7 +4821,7 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 4.0.0 Beta</comment>
   </data>
   <data name="ProjectManager.Label.SourcePath" xml:space="preserve">
-    <value>&amp;Source Path</value>
+    <value>&amp;Quellpfad</value>
     <comment>Added after 4.0.0 RC1</comment>
   </data>
   <data name="AirProperties.RenderMode.Direct" xml:space="preserve">
@@ -4829,15 +4829,15 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="HaXeContext.Description.CompletionMode" xml:space="preserve">
-    <value>The most complete completion will be provided by the Haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for Haxe completion.</value>
+    <value>Die kompletteste Vervollständigung wird vom Haxe Compiler angeboten, noch schneller durch die Verwendung des CompletionServers. Alternativ bietet FlashDevelop eine Grundunterstützung von Vervollständigung fur Haxe.</value>
     <comment>Added after 4.0</comment>
   </data>
   <data name="HaXeContext.Description.CompletionServerPort" xml:space="preserve">
-    <value>Define Haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
+    <value>Bestimme den Serverport des Haxe Compilers (gilt nur für den Vervollständigungs-Modus des CompletionServer).</value>
     <comment>Added after 4.0</comment>
   </data>
   <data name="ProjectManager.ToolTip.TargetBuild" xml:space="preserve">
-    <value>Select Target Build</value>
+    <value>Ziel für Build auswählen</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="BasicCompletion.Description.EnabledLanguages" xml:space="preserve">
@@ -4909,11 +4909,11 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added for 4.1</comment>
   </data>
   <data name="ProjectManager.Title.ImportPackagedProject" xml:space="preserve">
-    <value>Select destination folder for packaged project</value>
+    <value>Zielordner für gepacktes Projekt wählen</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="ProjectManager.Info.NotValidFlashBuilderProject" xml:space="preserve">
-    <value>The selected file was not a valid Flash Builder project</value>
+    <value>Die ausgewählte Datei ist kein gültiges Flash Builder Projekt</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionTagDesc" xml:space="preserve">
@@ -4925,11 +4925,11 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="ProjectManager.Description.TabHighlightColor" xml:space="preserve">
-    <value>Color of the tab highlight strip.</value>
+    <value>Farbe der Markierung für Tabs.</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="ProjectManager.Description.TabHighlightType" xml:space="preserve">
-    <value>Type of the tab highlight functionality.</value>
+    <value>Art der Markierung für Tabs.</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashConnect.Description.Commands" xml:space="preserve">
