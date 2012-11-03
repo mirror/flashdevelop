@@ -265,22 +265,26 @@ namespace BasicCompletion
         /// </summary>
         public void AddDocumentKeywords(ITabbedDocument document)
         {
-            List<String> keywords = new List<String>();
+            //DateTime startTime = DateTime.Now;
             String textLang = document.SciControl.ConfigurationLanguage;
             Language language = ScintillaControl.Configuration.GetLanguage(textLang);
             if (language.characterclass != null)
             {
-                String wordCharsRegex = "[" + language.characterclass.Characters + "]+";
+                String wordCharsRegex = "[" + language.characterclass.Characters + "]{2,}"; // 2+ chars words
                 MatchCollection matches = Regex.Matches(document.SciControl.Text, wordCharsRegex);
+                Dictionary<int, string> words = new Dictionary<int, string>();
                 for (Int32 i = 0; i < matches.Count; i++)
                 {
-                    if (!keywords.Contains(matches[i].Value) && matches[i].Value.Length > 3)
-                    {
-                        keywords.Add(matches[i].Value);
-                    }
+                    string word = matches[i].Value;
+                    int hash = word.GetHashCode();
+                    if (words.ContainsKey(hash)) continue; // unique words
+                    words.Add(hash, word);
                 }
+                string[] keywords = new string[words.Values.Count];
+                words.Values.CopyTo(keywords, 0);
                 this.fileTable[document.FileName] = keywords;
             }
+            //TraceManager.AddAsync("" + (DateTime.Now - startTime));
         }
 
         /// <summary>
@@ -296,8 +300,9 @@ namespace BasicCompletion
             }
             if (this.fileTable.ContainsKey(file))
             {
-                List<String> fileWords = this.fileTable[file] as List<String>;
-                for (Int32 i = 0; i < fileWords.Count; i++)
+                //List<String> fileWords = this.fileTable[file] as List<String>;
+                string[] fileWords = this.fileTable[file] as string[];
+                for (Int32 i = 0; i < fileWords.Length; i++)
                 {
                     if (!allWords.Contains(fileWords[i])) allWords.Add(fileWords[i]);
                 }
