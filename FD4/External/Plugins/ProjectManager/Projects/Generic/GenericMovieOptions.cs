@@ -6,13 +6,11 @@ namespace ProjectManager.Projects.Generic
 {
     public class GenericMovieOptions : MovieOptions
     {
-        public const string WEBSITE = "Website";
-        public const string DESKTOP = "Desktop";
-        public const string CONSOLE = "Console";
+        public const string DEFAULT = "Default";
 
         public override string[] TargetPlatforms
         {
-            get { return new string[] { WEBSITE, DESKTOP, CONSOLE }; }
+            get { return new string[] { DEFAULT }; }
         }
 
         public override string[] TargetVersions(string platform)
