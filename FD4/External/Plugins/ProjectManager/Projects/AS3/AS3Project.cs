@@ -267,6 +267,17 @@ namespace ProjectManager.Projects.AS3
 
         #endregion
 
+        static public string GuessFlashPlayerForAIR(string version)
+        {
+            string[] p = (version ?? "").Split('.');
+            int majorVersion = 10;
+            int minorVersion = 0;
+            if (p.Length > 0) int.TryParse(p[0], out majorVersion);
+            if (p.Length > 1) int.TryParse(p[1], out minorVersion);
+            GuessFlashPlayerForAIR(ref majorVersion, ref minorVersion);
+            return majorVersion + "." + minorVersion;
+        }
+
         static public void GuessFlashPlayerForAIR(ref int majorVersion, ref int minorVersion)
         {
             double v = majorVersion + (double)minorVersion / 10;

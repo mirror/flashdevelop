@@ -249,7 +249,7 @@ namespace HaXeContext
             {
                 if (path == null || !Directory.Exists(path))
                 {
-                    ErrorManager.ShowInfo("Path not found:\n" + sdk.Path);
+                    //ErrorManager.ShowInfo("Path not found:\n" + sdk.Path);
                     return false;
                 }
             }

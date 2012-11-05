@@ -71,7 +71,11 @@ namespace ProjectManager.Projects.AS3
         public string GetSWFVersion()
         {
             if (Platform != FLASHPLAYER_PLATFORM) return null;
-            int index = Array.IndexOf(TargetVersions(FLASHPLAYER_PLATFORM), Version);
+            return GetSWFVersion(Version);
+        }
+        public string GetSWFVersion(string version)
+        {
+            int index = Array.IndexOf(TargetVersions(FLASHPLAYER_PLATFORM), version);
             if (index < 0) return null;
             string[] versions = new string[] { "9", "10", "10", "11", "12", "13", "14", "15", "16", "17", "18" };
             return versions[index];

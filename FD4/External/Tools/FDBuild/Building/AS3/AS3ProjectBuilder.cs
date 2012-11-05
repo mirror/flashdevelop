@@ -125,7 +125,7 @@ namespace ProjectManager.Building.AS3
                 tempFile = GetTempProjectFile(project);
 
                 //create new config file
-                double sdkVersion = GetVersion(FDBuild.Program.BuildOptions.CompilerVersion ?? "4.0");
+                double sdkVersion = ParseVersion(FDBuild.Program.BuildOptions.CompilerVersion ?? "4.0");
 
                 // create compiler configuration file
                 string projectName = project.Name.Replace(" ", "");
@@ -173,7 +173,7 @@ namespace ProjectManager.Building.AS3
             finally { if (tempFile != null && File.Exists(tempFile)) File.Delete(tempFile); }
         }
 
-        private double GetVersion(string version)
+        static public double ParseVersion(string version)
         {
             string[] p = version.Split('.');
             if (p.Length == 0) return 0;
