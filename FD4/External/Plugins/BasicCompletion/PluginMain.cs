@@ -24,7 +24,7 @@ namespace BasicCompletion
         private String pluginHelp = "www.flashdevelop.org/community/";
         private String pluginDesc = "Adds global basic code completion support to FlashDevelop.";
         private String pluginAuth = "FlashDevelop Team";
-        private Hashtable workerTable = new Hashtable();
+        private Hashtable updateTable = new Hashtable();
         private Hashtable baseTable = new Hashtable();
         private Hashtable fileTable = new Hashtable();
         private String settingFilename;
@@ -116,7 +116,6 @@ namespace BasicCompletion
 		/// </summary>
 		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
 		{
-            BackgroundWorker updateWorker;
             ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
             if (document == null || !document.IsEditable) return;
             switch (e.Type)
@@ -154,37 +153,27 @@ namespace BasicCompletion
                         String language = document.SciControl.ConfigurationLanguage;
                         if (!this.baseTable.ContainsKey(language)) this.AddBaseKeywords(language);
                         if (!this.fileTable.ContainsKey(document.FileName)) this.AddDocumentKeywords(document);
+                        // Do we need to update this doc after save?
+                        if (this.updateTable.ContainsKey(document.FileName))
+                        {
+                            this.updateTable.Remove(document.FileName);
+                            this.AddDocumentKeywords(document);
+                        }
                     }
                     break;
                 }
                 case EventType.FileSave:
                 {
-                    String file = (e as TextEvent).Value;
-                    document = DocumentManager.FindDocument(file);
-                    if (document != null && document.IsEditable && this.IsSupported(document))
+                    TextEvent te = e as TextEvent;
+                    if (te.Value == document.FileName)
                     {
-                        if (!this.workerTable.ContainsKey(document.FileName))
-                        {
-                            updateWorker = new BackgroundWorker();
-                            updateWorker.DoWork += new DoWorkEventHandler(this.UpdateWorkerDoWork);
-                            this.workerTable[document.FileName] = updateWorker;
-                        }
-                        else updateWorker = this.workerTable[document.FileName] as BackgroundWorker;
-                        if (!updateWorker.IsBusy) updateWorker.RunWorkerAsync(document);
+                        if (this.IsSupported(document)) this.AddDocumentKeywords(document);
                     }
+                    else this.updateTable[te.Value] = true;
                     break;
                 }
             }
 		}
-
-        /// <summary>
-        /// Updates the document keywords on a background worker
-        /// </summary>
-        private void UpdateWorkerDoWork(Object sender, DoWorkEventArgs e)
-        {
-            ITabbedDocument document = e.Argument as ITabbedDocument;
-            this.AddDocumentKeywords(document);
-        }
 
 		#endregion
 
@@ -265,26 +254,24 @@ namespace BasicCompletion
         /// </summary>
         public void AddDocumentKeywords(ITabbedDocument document)
         {
-            //DateTime startTime = DateTime.Now;
             String textLang = document.SciControl.ConfigurationLanguage;
             Language language = ScintillaControl.Configuration.GetLanguage(textLang);
             if (language.characterclass != null)
             {
-                String wordCharsRegex = "[" + language.characterclass.Characters + "]{2,}"; // 2+ chars words
+                String wordCharsRegex = "[" + language.characterclass.Characters + "]{2,}";
                 MatchCollection matches = Regex.Matches(document.SciControl.Text, wordCharsRegex);
-                Dictionary<int, string> words = new Dictionary<int, string>();
+                Dictionary<Int32, String> words = new Dictionary<Int32, String>();
                 for (Int32 i = 0; i < matches.Count; i++)
                 {
-                    string word = matches[i].Value;
-                    int hash = word.GetHashCode();
-                    if (words.ContainsKey(hash)) continue; // unique words
+                    String word = matches[i].Value;
+                    Int32 hash = word.GetHashCode();
+                    if (words.ContainsKey(hash)) continue;
                     words.Add(hash, word);
                 }
-                string[] keywords = new string[words.Values.Count];
+                String[] keywords = new String[words.Values.Count];
                 words.Values.CopyTo(keywords, 0);
                 this.fileTable[document.FileName] = keywords;
             }
-            //TraceManager.AddAsync("" + (DateTime.Now - startTime));
         }
 
         /// <summary>
@@ -300,8 +287,7 @@ namespace BasicCompletion
             }
             if (this.fileTable.ContainsKey(file))
             {
-                //List<String> fileWords = this.fileTable[file] as List<String>;
-                string[] fileWords = this.fileTable[file] as string[];
+                String[] fileWords = this.fileTable[file] as string[];
                 for (Int32 i = 0; i < fileWords.Length; i++)
                 {
                     if (!allWords.Contains(fileWords[i])) allWords.Add(fileWords[i]);
