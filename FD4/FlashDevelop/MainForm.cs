@@ -586,6 +586,11 @@ namespace FlashDevelop
             else if (file.EndsWith(".fdz"))
             {
                 this.CallCommand("ExtractZip", file);
+                if (file.ToLower().IndexOf("theme") != -1)
+                {
+                    this.RefreshSciConfig();
+                    this.ApplyAllSettings();
+                }
                 return null;
             }
             try
