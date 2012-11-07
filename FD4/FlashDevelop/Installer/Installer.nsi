@@ -12,7 +12,7 @@
 !define BUILD "RTM"
 
 ; Define AIR SDK version
-!define AIR "3.4.0.2710"
+!define AIR "3.5.0.600"
 
 ; Define Flex SDK version
 !define FLEX "4.6.0.23201B"
@@ -468,7 +468,7 @@ Section "Install AIR SDK" InstallAirSDK
 	
 	; Download AIR SDK zip file. If the extract failed previously, use the old file.
 	IfFileExists "$TEMP\air_sdk_${AIR}.zip" +7 0
-	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.4/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
+	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.5/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
 	DetailPrint "AIR download cancel details: $R0"
