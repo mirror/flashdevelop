@@ -252,33 +252,41 @@ namespace CodeFormatter
 				doc.SciControl.BeginUndoAction();
 				Int32 oldPos = CurrentPos;
 				String source = doc.SciControl.Text;
-				switch (DocumentType)
+                try
                 {
-					case TYPE_AS3PURE:
-						ASPrettyPrinter asPrinter = new ASPrettyPrinter(true, source);
-                        FormatUtility.ConfigureASPrinter(asPrinter, this.settingObject, PluginBase.Settings.TabWidth);
-						String asResultData = asPrinter.Print(0);
-						if (asResultData == null)
-						{
-                            TraceManager.Add(TextHelper.GetString("Info.CouldNotFormat"), -3);
-							PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ShowResults");
-						}
-						else doc.SciControl.Text = asResultData;
-						break;
+                    switch (DocumentType)
+                    {
+                        case TYPE_AS3PURE:
+                            ASPrettyPrinter asPrinter = new ASPrettyPrinter(true, source);
+                            FormatUtility.ConfigureASPrinter(asPrinter, this.settingObject, PluginBase.Settings.TabWidth);
+                            String asResultData = asPrinter.Print(0);
+                            if (asResultData == null)
+                            {
+                                TraceManager.Add(TextHelper.GetString("Info.CouldNotFormat"), -3);
+                                PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ShowResults");
+                            }
+                            else doc.SciControl.Text = asResultData;
+                            break;
 
-					case TYPE_MXML:
-					case TYPE_XML:
-						MXMLPrettyPrinter mxmlPrinter = new MXMLPrettyPrinter(source);
-                        FormatUtility.ConfigureMXMLPrinter(mxmlPrinter, this.settingObject, PluginBase.Settings.TabWidth);
-						String mxmlResultData = mxmlPrinter.Print(0);
-						if (mxmlResultData == null)
-						{
-                            TraceManager.Add(TextHelper.GetString("Info.CouldNotFormat"), -3);
-							PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ShowResults");
-						}
-						else doc.SciControl.Text = mxmlResultData;
-						break;
-				}
+                        case TYPE_MXML:
+                        case TYPE_XML:
+                            MXMLPrettyPrinter mxmlPrinter = new MXMLPrettyPrinter(source);
+                            FormatUtility.ConfigureMXMLPrinter(mxmlPrinter, this.settingObject, PluginBase.Settings.TabWidth);
+                            String mxmlResultData = mxmlPrinter.Print(0);
+                            if (mxmlResultData == null)
+                            {
+                                TraceManager.Add(TextHelper.GetString("Info.CouldNotFormat"), -3);
+                                PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ShowResults");
+                            }
+                            else doc.SciControl.Text = mxmlResultData;
+                            break;
+                    }
+                } 
+                catch (Exception)
+                {
+                    TraceManager.Add(TextHelper.GetString("Info.CouldNotFormat"), -3);
+                    PluginBase.MainForm.CallCommand("PluginCommand", "ResultsPanel.ShowResults");
+                }
 				CurrentPos = oldPos;
 				doc.SciControl.EndUndoAction();
 			}
