@@ -18,7 +18,7 @@
 !define FLEX "4.6.0.23201B"
 
 ; Define Flash player version
-!define FLASH "11.4.402.287"
+!define FLASH "11.5.502.110"
 
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
@@ -515,16 +515,16 @@ Section "Install Flash Player" InstallFlashPlayer
 	Call ConnectInternet
 	
 	; Create player dir if not found
-	IfFileExists "$INSTDIR\Tools\flexlibs\runtimes\player\11.4\win\*.*" +2 0
-	CreateDirectory "$INSTDIR\Tools\flexlibs\runtimes\player\11.4\win\"
+	IfFileExists "$INSTDIR\Tools\flexlibs\runtimes\player\11.5\win\*.*" +2 0
+	CreateDirectory "$INSTDIR\Tools\flexlibs\runtimes\player\11.5\win\"
 	
 	; If the debug player exists in the installer directory then use that for bulk silent deployments.
 	IfFileExists "$EXEDIR\flashplayer_11_sa_debug.exe" 0 +3
-	CopyFiles "$EXEDIR\flashplayer_11_sa_debug.exe" "$INSTDIR\Tools\flexlibs\runtimes\player\11.4\win\FlashPlayerDebugger.exe"
+	CopyFiles "$EXEDIR\flashplayer_11_sa_debug.exe" "$INSTDIR\Tools\flexlibs\runtimes\player\11.5\win\FlashPlayerDebugger.exe"
 	Goto +9
 
 	; Download Flash debug player
-	NSISdl::download /TIMEOUT=30000 http://download.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug.exe "$INSTDIR\Tools\flexlibs\runtimes\player\11.4\win\FlashPlayerDebugger.exe"
+	NSISdl::download /TIMEOUT=30000 http://download.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug.exe "$INSTDIR\Tools\flexlibs\runtimes\player\11.5\win\FlashPlayerDebugger.exe"
 	Pop $R0
 	StrCmp $R0 "success" +4
 	DetailPrint "Flash debug player download cancel details: $R0"
