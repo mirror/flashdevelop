@@ -179,9 +179,10 @@ namespace CssCompletion
 								break;
 							}
 						}
+                        if (i >= aLen) i = aLen - 1; // overflow
 					}
 			}	// end while(aSkip)
-
+            
 			thePos = i;
             char c = theCss[i];
             if (IsTokenChar(c))
