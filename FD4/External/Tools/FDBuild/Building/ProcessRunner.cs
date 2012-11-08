@@ -21,8 +21,8 @@ namespace ProjectManager.Building
             process.StartInfo.StandardOutputEncoding = Encoding.Default;
             process.StartInfo.StandardErrorEncoding = Encoding.Default;
             process.StartInfo.CreateNoWindow = true;
-			process.StartInfo.FileName = fileName;
-			process.StartInfo.Arguments = arguments;
+			process.StartInfo.FileName = Environment.ExpandEnvironmentVariables(fileName);
+			process.StartInfo.Arguments = Environment.ExpandEnvironmentVariables(arguments);
 			process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
 			process.Start();
 
