@@ -153,8 +153,7 @@ namespace BasicCompletion
                         String language = document.SciControl.ConfigurationLanguage;
                         if (!this.baseTable.ContainsKey(language)) this.AddBaseKeywords(language);
                         if (!this.fileTable.ContainsKey(document.FileName)) this.AddDocumentKeywords(document);
-                        // Do we need to update this doc after save?
-                        if (this.updateTable.ContainsKey(document.FileName))
+                        if (this.updateTable.ContainsKey(document.FileName)) // Need to update after save?
                         {
                             this.updateTable.Remove(document.FileName);
                             this.AddDocumentKeywords(document);
@@ -165,11 +164,15 @@ namespace BasicCompletion
                 case EventType.FileSave:
                 {
                     TextEvent te = e as TextEvent;
-                    if (te.Value == document.FileName)
+                    if (te.Value == document.FileName && this.IsSupported(document)) this.AddDocumentKeywords(document);
+                    else
                     {
-                        if (this.IsSupported(document)) this.AddDocumentKeywords(document);
+                        ITabbedDocument saveDoc = DocumentManager.FindDocument(te.Value);
+                        if (saveDoc != null || saveDoc.IsEditable || this.IsSupported(saveDoc))
+                        {
+                            this.updateTable[te.Value] = true;
+                        }
                     }
-                    else this.updateTable[te.Value] = true;
                     break;
                 }
             }
