@@ -32,7 +32,7 @@ namespace CssCompletion
             }
             catch (Exception ex)
             {
-                ErrorManager.ShowInfo(ex.Message);
+                ErrorManager.ShowError(ex);
             }
         }
 
