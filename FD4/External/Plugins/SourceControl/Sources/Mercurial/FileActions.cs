@@ -14,24 +14,27 @@ namespace SourceControl.Sources.Mercurial
 
         public bool FileRename(string path, string newName)
         {
-            new RenameCommand(path, newName);
-            return true; // operation handled
+            return false;
+            /*new RenameCommand(path, newName);
+            return true; // operation handled*/
         }
 
         public bool FileDelete(string[] paths, bool confirm)
         {
-            if (confirm)
+            return false;
+            /*if (confirm)
             {
                 new DeleteCommand(paths);
                 return true; // operation handled
             }
-            else return false; // let cut/paste files
+            else return false; // let cut/paste files*/
         }
 
         public bool FileMove(string fromPath, string toPath)
         {
-            new MoveCommand(fromPath, toPath);
-            return true;
+            return false;
+            /*new MoveCommand(fromPath, toPath);
+            return true;*/
         }
 
         public bool FileNew(string path) { return false; }
