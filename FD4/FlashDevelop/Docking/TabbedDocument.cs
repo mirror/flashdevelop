@@ -275,7 +275,11 @@ namespace FlashDevelop.Docking
             if (!te.Handled)
             {
                 EncodingFileInfo info = FileHelper.GetEncodingFileInfo(this.FileName);
-                if (info.CodePage == -1) return; // If the files is locked, stop.
+                if (info.CodePage == -1)
+                {
+                    Globals.MainForm.ReloadingDocument = false;
+                    return; // If the files is locked, stop.
+                }
                 Encoding encoding = Encoding.GetEncoding(info.CodePage);
                 this.SciControl.IsReadOnly = false;
                 this.SciControl.Encoding = encoding;
