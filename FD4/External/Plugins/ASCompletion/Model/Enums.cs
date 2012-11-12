@@ -26,31 +26,32 @@ namespace ASCompletion.Model
         TypeDef = 1 << 9,
         Extends = 1 << 10,
         Implements = 1 << 11,
+        Using = 1 << 12,
 
-        Native = 1 << 12,
-        Intrinsic = 1 << 13,
-        Extern = 1 << 14,
-        Final = 1 << 15,
-        Dynamic = 1 << 16,
-        Static = 1 << 17,
-        Override = 1 << 18,
+        Native = 1 << 13,
+        Intrinsic = 1 << 14,
+        Extern = 1 << 15,
+        Final = 1 << 16,
+        Dynamic = 1 << 17,
+        Static = 1 << 18,
+        Override = 1 << 19,
 
-        Constant = 1 << 19,
-        Variable = 1 << 20,
-        Function = 1 << 21,
-        Getter = 1 << 22,
-        Setter = 1 << 23,
-        HXProperty = 1 << 24,
-        Constructor = 1 << 25,
+        Constant = 1 << 20,
+        Variable = 1 << 21,
+        Function = 1 << 22,
+        Getter = 1 << 23,
+        Setter = 1 << 24,
+        HXProperty = 1 << 25,
+        Constructor = 1 << 26,
 
-        LocalVar = 1 << 26,
-        ParameterVar = 1 << 27,
-        AutomaticVar = 1 << 28,
+        LocalVar = 1 << 27,
+        ParameterVar = 1 << 28,
+        AutomaticVar = 1 << 29,
 
-        Declaration = 1 << 29,
-        Template = 1 << 30,
-        DocTemplate = 1L << 31,
-        CodeTemplate = 1L << 32
+        Declaration = 1L << 30,
+        Template = 1L << 31,
+        DocTemplate = 1L << 32,
+        CodeTemplate = 1L << 33
     }
 
     public enum ASMetaKind

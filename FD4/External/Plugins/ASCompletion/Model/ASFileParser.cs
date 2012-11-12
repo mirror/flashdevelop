@@ -1764,7 +1764,7 @@ namespace ASCompletion.Model
                 }
 
                 // head declarations
-                else if (token == "import")
+                else if (token == features.importKey || (haXe && token == features.importKeyAlt))
                 {
                     foundKeyword = FlagType.Import;
                 }
@@ -2059,7 +2059,7 @@ namespace ASCompletion.Model
                         break;
 
                     case FlagType.Import:
-                        if (prevToken.Text == "import")
+                        if (prevToken.Text == features.importKey)
                         {
                             member = new MemberModel();
                             member.Name = LastStringToken(token, ".");
@@ -2067,6 +2067,16 @@ namespace ASCompletion.Model
                             member.LineFrom = prevToken.Line;
                             member.LineTo = curToken.Line;
                             member.Flags = (token.EndsWith("*")) ? FlagType.Package : FlagType.Class;
+                            model.Imports.Add(member);
+                        }
+                        else if (prevToken.Text == features.importKeyAlt)
+                        {
+                            member = new MemberModel();
+                            member.Name = LastStringToken(token, ".");
+                            member.Type = token;
+                            member.LineFrom = prevToken.Line;
+                            member.LineTo = curToken.Line;
+                            member.Flags = FlagType.Class | FlagType.Using;
                             model.Imports.Add(member);
                         }
                         break;
