@@ -362,7 +362,7 @@ namespace ProjectManager.Projects.Haxe
                 writer.WriteProject();
                 writer.Flush();
                 writer.Close();
-                if (saveHXML) {
+                if (saveHXML && OutputType != OutputType.CustomBuild) {
                     StreamWriter hxml = File.CreateText(Path.ChangeExtension(fileName, "hxml"));
                     foreach( string e in BuildHXML(new string[0],this.OutputPath,true) )
                         hxml.WriteLine(e);
