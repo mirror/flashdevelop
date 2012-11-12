@@ -2872,7 +2872,7 @@ namespace ASCompletion.Completion
                     type = type.Replace("/*", @"/\*\s*").Replace("*/", @"\s*\*/");
                 type = @":\s*" + type;
             }
-            Regex reDecl = new Regex(String.Format(@"[\s\(](var\s+{0}\s*{1})\s*", contextMember.Name, type));
+            Regex reDecl = new Regex(String.Format(@"[\s\(]((var|const)\s+{0}\s*{1})\s*", contextMember.Name, type));
             for (int i = contextMember.LineFrom; i <= contextMember.LineTo + 10; i++)
             {
                 string text = Sci.GetLine(i);
