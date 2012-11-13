@@ -81,7 +81,7 @@ namespace FlashDebugger
             NextMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Next"), imageList.Images["Next"], new EventHandler(debugManager.Next_Click), Keys.F10);
             PluginBase.MainForm.RegisterShortcutItem("DebugMenu.StepOver", NextMenu);
             FinishMenu = new ToolStripMenuItem(TextHelper.GetString("Label.Finish"), imageList.Images["Finish"], new EventHandler(debugManager.Finish_Click), Keys.Shift | Keys.F11);
-            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.Finish", FinishMenu);
+            PluginBase.MainForm.RegisterShortcutItem("DebugMenu.StepOut", FinishMenu);
 
             ToggleBreakPointMenu = new ToolStripMenuItem(TextHelper.GetString("Label.ToggleBreakpoint"), null, new EventHandler(ScintillaHelper.ToggleBreakPoint_Click), Keys.F9);
             PluginBase.MainForm.RegisterShortcutItem("DebugMenu.ToggleBreakpoint", ToggleBreakPointMenu);

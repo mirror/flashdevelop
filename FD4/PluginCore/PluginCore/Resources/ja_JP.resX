@@ -3384,6 +3384,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
   </data>
   <data name="FlashDebugger.Label.Finish" xml:space="preserve">
     <value>ステップアウト(&amp;F)</value>
+    <comment>Changed after 4.2</comment>
   </data>
   <data name="FlashDebugger.Label.Next" xml:space="preserve">
     <value>ステップオーバー(&amp;S)</value>

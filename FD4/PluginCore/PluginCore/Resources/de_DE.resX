@@ -3384,6 +3384,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
   </data>
   <data name="FlashDebugger.Label.Finish" xml:space="preserve">
     <value>&amp;Zurückspringen</value>
+    <comment>Changed after 4.2</comment>
   </data>
   <data name="FlashDebugger.Label.Next" xml:space="preserve">
     <value>Ü&amp;berspringen</value>

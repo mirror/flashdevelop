@@ -3372,6 +3372,7 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
   </data>
   <data name="FlashDebugger.Label.Finish" xml:space="preserve">
     <value>&amp;Bukatu</value>
+    <comment>Changed after 4.2</comment>
   </data>
   <data name="FlashDebugger.Label.Next" xml:space="preserve">
     <value>&amp;Urratsa aurrera</value>
