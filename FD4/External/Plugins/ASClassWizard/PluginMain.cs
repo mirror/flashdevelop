@@ -197,7 +197,31 @@ namespace ASClassWizard
             String package;
             try
             {
-                package = Path.GetDirectoryName(ProjectPaths.GetRelativePath(classpath, Path.Combine(inDirectory, "foo")));
+                package = GetPackage(classpath, inDirectory);
+                if (package == "")
+                {
+                    // search in Global classpath
+                    Hashtable info = new Hashtable();
+                    info["language"] = project.Language;
+                    DataEvent de = new DataEvent(EventType.Command, "ASCompletion.GetUserClasspath", info);
+                    EventManager.DispatchEvent(this, de);
+                    if (de.Handled && info.ContainsKey("cp"))
+                    {
+                        List<string> cps = info["cp"] as List<string>;
+                        if (cps != null)
+                        {
+                            foreach (string cp in cps)
+                            {
+                                package = GetPackage(cp, inDirectory);
+                                if (package != "")
+                                {
+                                    classpath = cp;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             catch (System.NullReferenceException)
             {
@@ -250,6 +274,14 @@ namespace ASClassWizard
                     ErrorManager.ShowError(ex);
                 }
             }
+        }
+
+        private string GetPackage(string classpath, string path)
+        {
+            if (!path.StartsWith(classpath, StringComparison.OrdinalIgnoreCase))
+                return "";
+            string subPath = path.Substring(classpath.Length).Trim(new char[] { '/', '\\', ' ', '.' });
+            return subPath.Replace(Path.DirectorySeparatorChar, '.');
         }
 
         public string ProcessArgs(Project project, string args)
