@@ -2,6 +2,7 @@
 
 :: Path to Flex SDK
 set FLEX_SDK=$(FlexSDK)
+set AUTO_INSTALL_IOS=yes
 
 :: Path to Android SDK
 set ANDROID_SDK=$(AppDir)\Tools\android
