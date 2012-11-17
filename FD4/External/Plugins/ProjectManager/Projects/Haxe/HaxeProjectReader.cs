@@ -24,8 +24,8 @@ namespace ProjectManager.Projects.Haxe
             if (version > 1)
             {
                 // old projects fix
-                if (project.MovieOptions.Platform == HaxeMovieOptions.NME_PLATFORM
-                    && project.TargetBuild == null && project.TestMovieCommand != "")
+                if (project.MovieOptions.Platform == HaxeMovieOptions.NME_PLATFORM && project.TargetBuild == null 
+                    && project.TestMovieCommand != "" && project.TestMovieBehavior != TestMovieBehavior.OpenDocument)
                 {
                     project.TestMovieCommand = "";
                     try { project.Save(); }
