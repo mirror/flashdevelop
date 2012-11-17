@@ -970,8 +970,11 @@ namespace ASCompletion.Model
                     }
                     else if (c1 == '{')
                     {
-                        paramBraceCount++;
-                        stopParser = true;
+                        if (!inType || valueLength == 0 || valueBuffer[valueLength - 1] == '<' || paramBraceCount > 0)
+                        {
+                            paramBraceCount++;
+                            stopParser = true;
+                        }
                     }
                     else if (c1 == '}')
                     {
@@ -1214,7 +1217,7 @@ namespace ASCompletion.Model
                             {
                                 addChar = true;
                             }
-                            // haXe generics
+                            // AS3/haXe generics
                             else if (features.hasGenerics && c1 == '<')
                             {
                                 if (!inValue && i > 2 && length > 1 && i < len - 3
