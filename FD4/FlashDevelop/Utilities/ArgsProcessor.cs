@@ -230,6 +230,15 @@ namespace FlashDevelop.Utilities
         }
 
         /// <summary>
+        /// Gets the space or tab character based on settings
+        /// </summary>
+        public static String GetSTC()
+        {
+            if (Globals.Settings.UseTabs) return "\t";
+            else return " ";
+        }
+
+        /// <summary>
         /// Gets the current syntax based on project or current file.
         /// </summary>
         public static String GetCurSyntax()
@@ -339,6 +348,7 @@ namespace FlashDevelop.Utilities
                 {
                     case "Quote" : return "\"";
                     case "CBI" : return GetCBI();
+                    case "STC" : return GetSTC();
                     case "AppDir" : return GetAppDir();
                     case "UserAppDir" : return GetUserAppDir();
                     case "BaseDir" : return GetBaseDir();
