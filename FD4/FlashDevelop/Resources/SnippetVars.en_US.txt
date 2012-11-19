@@ -5,6 +5,7 @@ $(ExitPoint) - Selection's end position.
 $(Boundary) - Keep all text between boundaries
 $(CSLB) - Coding style line break
 $(CBI) - Comment block indent
+$(STC) - Space or tab character
 - TEXT -------------------------------------------------------------------------
 $(SelText) - Selected text
 $(CurWord) - Word at cursor position
