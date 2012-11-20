@@ -85,7 +85,11 @@ namespace ASCompletion.Completion
 			// get EOL
 			int eolMode = Sci.EOLMode;
 			string newline = LineEndDetector.GetNewLineMarker(eolMode);
-            string star = PluginBase.Settings.CommentBlockStyle == CommentBlockStyle.Indented ? " *" : "*";
+
+            CommentBlockStyle cbs = PluginBase.Settings.CommentBlockStyle;
+            string star = cbs == CommentBlockStyle.Indented ? " *" : "*";
+            string parInd = cbs == CommentBlockStyle.Indented ? "\t" : " ";
+            if (!PluginBase.MainForm.Settings.UseTabs) parInd = " ";
 			
 			// empty box
             if (Context == null)
@@ -105,7 +109,7 @@ namespace ASCompletion.Completion
                     // parameters
                     MemberList list = ParseMethodParameters(mFun.Groups["params"].Value);
                     foreach (MemberModel param in list)
-                        box += newline + tab + star + " @param\t" + param.Name;
+                        box += newline + tab + star + " @param" + parInd + param.Name;
                     // return type
                     Match mType = re_variableType.Match(mFun.Groups["type"].Value);
                     if (mType.Success && !mType.Groups["type"].Value.Equals("void", StringComparison.OrdinalIgnoreCase))
