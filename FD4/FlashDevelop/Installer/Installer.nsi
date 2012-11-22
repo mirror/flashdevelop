@@ -53,6 +53,9 @@ InstallDirRegKey HKLM "Software\FlashDevelop" ""
 ; Define the Flex SDK extract path
 !define SDKPATH "$INSTDIR\Tools\flexsdk"
 
+; Define the JS Compiler extract path
+!define GPATH "$INSTDIR\Tools\google"
+
 ; Vista redirects $SMPROGRAMS to all users without this
 RequestExecutionLevel admin
 
@@ -543,6 +546,44 @@ Section "Install Flash Player" InstallFlashPlayer
 
 SectionEnd
 
+Section "Install JS Compiler" InstallClosureCompiler
+
+	SetOverwrite on
+	SetShellVarContext all
+
+	; Connect to internet
+	Call ConnectInternet
+
+	; If the Closure Compiler exists in the installer directory then copy that to $TEMP for bulk silent deployments.
+	IfFileExists "$EXEDIR\closure_compiler.zip" 0 +2
+	CopyFiles "$EXEDIR\closure_compiler.zip" $TEMP
+	
+	; Download Closure Compiler zip file. If the extract failed previously, use the old file.
+	IfFileExists "$TEMP\closure_compiler.zip" +7 0
+	NSISdl::download /TIMEOUT=30000 http://closure-compiler.googlecode.com/files/compiler-latest.zip "$TEMP\closure_compiler.zip"
+	Pop $R0
+	StrCmp $R0 "success" +4
+	DetailPrint "Closure Compiler download cancel details: $R0"
+	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
+	Goto Finish
+	
+	; Extract the Closure Compiler zip
+	IfFileExists "${GPATH}\*.*" +2 0
+	CreateDirectory "${GPATH}"
+	DetailPrint "Extracting Closure Compiler..."
+	nsisunz::Unzip "$TEMP\closure_compiler.zip" "${GPATH}"
+	Pop $R0
+	StrCmp $R0 "success" +3
+	MessageBox MB_OK "Archive extraction failed. The installer will now continue normally."
+	Goto Finish
+	
+	; Delete temporary Closure Compiler zip file
+	Delete "$TEMP\closure_compiler.zip"
+	
+	Finish:
+
+SectionEnd
+
 SectionGroup "Advanced"
 
 Section "Start Menu Group" StartMenuGroup
@@ -657,6 +698,7 @@ SectionGroupEnd
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallAirSDK} "Downloads and installs the latest free Adobe AIR SDK with FlashDevelop. The AIR SDK will be downloaded only if it isn't installed or it needs to be updated."
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallFlexSDK} "Downloads and installs the latest free Adobe Flex SDK with FlashDevelop. The Flex SDK will be downloaded only if it isn't installed or it needs to be updated."
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallFlashPlayer} "Downloads and installs the latest standalone Flash debug player with FlashDevelop. The player will be downloaded only if it isn't installed or it needs to be updated."
+!insertmacro MUI_DESCRIPTION_TEXT ${InstallClosureCompiler} "Downloads and installs the latest Google Closure Compiler with FlashDevelop. The compiler will be downloaded everytime you select it."
 !insertmacro MUI_DESCRIPTION_TEXT ${StartMenuGroup} "Creates a start menu group and adds default FlashDevelop links to the group."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
 !insertmacro MUI_DESCRIPTION_TEXT ${DesktopShortcut} "Installs a FlashDevelop shortcut to the desktop."
