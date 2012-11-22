@@ -26,7 +26,7 @@
     <!-- example: <hidden path="..." /> -->
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>%APPDATA%\npm\tsc.cmd --out "bin/$(ProjectName).js" "src/Main.ts"</preBuildCommand>
+  <preBuildCommand>"%APPDATA%\npm\tsc.cmd" --out "bin/$(ProjectID).js" "src/Main.ts"</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
