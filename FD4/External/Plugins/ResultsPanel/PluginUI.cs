@@ -418,11 +418,12 @@ namespace ResultsPanel
                 PluginBase.MainForm.OpenEditableDocument(file, false);
                 ScintillaControl sci = PluginBase.MainForm.CurrentDocument.SciControl;
 				if (!PluginBase.MainForm.CurrentDocument.IsEditable) return;
-                Int32 line = Convert.ToInt32(match.Groups["line"].Value) - 1;
-                Match mcaret = this.errorCharacters.Match(match.Groups["description"].Value);
-                Match mcaret2 = this.errorCharacter.Match(match.Groups["description"].Value);
-                Match mcaret3 = this.errorCharacters2.Match(match.Groups["description"].Value);
-                Match mcaret4 = this.lookupRange.Match(match.Groups["description"].Value);
+                Int32 line = Convert.ToInt32(item.SubItems[1].Text) - 1;
+                String description = item.SubItems[2].Text;
+                Match mcaret = this.errorCharacters.Match(description);
+                Match mcaret2 = this.errorCharacter.Match(description);
+                Match mcaret3 = this.errorCharacters2.Match(description);
+                Match mcaret4 = this.lookupRange.Match(description);
                 if (mcaret.Success)
                 {
                     Int32 start = Convert.ToInt32(mcaret.Groups["start"].Value);
@@ -600,7 +601,16 @@ namespace ResultsPanel
                             else icon = 0;
                             ListViewItem item = new ListViewItem("", icon);
                             item.Tag = match; // Save for later...
-                            item.SubItems.Add(match.Groups["line"].Value);
+                            
+                            String matchLine = match.Groups["line"].Value;
+                            if (matchLine.IndexOf(',') > 0)
+                            {
+                                Match split = Regex.Match(matchLine, "([0-9]+),\\s*([0-9]+)");
+                                if (!split.Success) continue; // invalid line
+                                matchLine = split.Groups[1].Value;
+                                description = "col: " + split.Groups[2].Value + " " + description;
+                            }
+                            item.SubItems.Add(matchLine);
                             item.SubItems.Add(description);
                             item.SubItems.Add(fileInfo.Name);
                             item.SubItems.Add(fileInfo.Directory.ToString());
@@ -743,8 +753,9 @@ namespace ResultsPanel
             if (!match.Success) match = errorCharacters2.Match(item.SubItems[2].Text);
             if (match.Success)
 			{
-				String fname = (item.SubItems[4].Text + "\\" + item.SubItems[3].Text).Replace('/','\\');
-				ITabbedDocument[] documents = PluginBase.MainForm.Documents;
+				String fname = (item.SubItems[4].Text + "\\" + item.SubItems[3].Text).Replace('/','\\').Trim();
+                Int32 line = Convert.ToInt32(item.SubItems[1].Text) - 1;
+                ITabbedDocument[] documents = PluginBase.MainForm.Documents;
                 foreach (ITabbedDocument document in documents)
 				{
                     if (!document.IsEditable) continue;
@@ -755,7 +766,6 @@ namespace ResultsPanel
                     if (fname == document.FileName)
 					{
                         Int32 end;
-                        Int32 line = Convert.ToInt32(((Match)item.Tag).Groups["line"].Value) - 1;
                         Int32 start = Convert.ToInt32(match.Groups["start"].Value);
                         // start column is (probably) a multibyte length
                         if (fixIndexes) start = this.MBSafeColumn(sci, line, start);
@@ -828,8 +838,10 @@ namespace ResultsPanel
         /**
         * Match MXMLC style errors
         * i.e. C:\path\to\src\Class.as(9): description
+        * Match TypeScript style errors
+        * i.e. C:\path\to\src\Class.as(9,20): description
         */
-        private Regex fileEntry2 = new Regex(@"^(?<filename>[^(]*)\((?<line>[0-9]+)\):(?<description>.*)$", RegexOptions.Compiled);
+        private Regex fileEntry2 = new Regex(@"^(?<filename>[^(]*)\((?<line>[0-9,]+)\):(?<description>.*)$", RegexOptions.Compiled);
         
         /**
         * Match find in files style ranges
