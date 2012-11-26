@@ -1,3 +1,6 @@
+/** @define {string} */
+var BUILD = "debug";
+
 (function(){
 
 /**
