@@ -114,9 +114,7 @@ namespace FlashDevelop.Managers
             for (Int32 i = 0; i < so.FoldedLines.Count; i++)
             {
                 Int32 foldedLine = so.FoldedLines[i];
-                Int32 parentFold = sci.FoldParent(foldedLine);
-                if (parentFold != -1) sci.ToggleFold(foldedLine);
-                else sci.FoldExpanded(foldedLine, false);
+                sci.ToggleFold(foldedLine);
             }
             if (so.BookmarkedLines != null)
             {
