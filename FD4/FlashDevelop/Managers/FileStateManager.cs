@@ -142,13 +142,17 @@ namespace FlashDevelop.Managers
             so.LineCount = sci.LineCount;
             so.Position = sci.CurrentPos;
             so.FileName = sci.FileName;
-            for (Int32 i = 0; i < sci.LineCount; i++)
+            for (Int32 line = 0;; line++)
             {
-                if (!sci.FoldExpanded(i)) so.FoldedLines.Add(i);
-                if ((sci.MarkerGet(i) & (1 << 0)) != 0)
-                {
-                    so.BookmarkedLines.Add(i);
-                }
+                Int32 lineNext = sci.ContractedFoldNext(line);
+                if ((line < 0) || (lineNext < line)) break;
+                line = lineNext;
+                so.FoldedLines.Add(line);
+            }
+            Int32 lineBookmark = -1;
+            while ((lineBookmark = sci.MarkerNext(lineBookmark + 1, 1 << 0)) >= 0)
+            {
+                so.BookmarkedLines.Add(lineBookmark);
             }
             return so;
         }

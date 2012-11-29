@@ -2249,6 +2249,7 @@ namespace ScintillaNet
 			SPerform(2459, 0, 0);
 		}
 		
+
 		/// <summary>
 		/// Retrieve the fold level of a line.
 		/// </summary>
@@ -4850,6 +4851,15 @@ namespace ScintillaNet
         public bool GetMultiSelectionTyping()
         {
             return SPerform(2566, 0, 0) != 0;
+        }
+
+        /// <summary>
+        /// Find the next line at or after lineStart that is a contracted fold header line.
+        /// Return -1 when no more lines.
+        /// </summary>
+        public int ContractedFoldNext(int lineStart)
+        {
+            return (int)SPerform(2618, (uint)lineStart, 0);
         }
 
 		#endregion
