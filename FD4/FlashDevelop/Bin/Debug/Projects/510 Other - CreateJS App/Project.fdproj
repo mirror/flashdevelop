@@ -26,7 +26,7 @@
     <!-- example: <hidden path="..." /> -->
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>java -jar "$(ToolsDir)\google\compiler.jar" --define BUILD='$(BuildConfig)' --compilation_level SIMPLE_OPTIMIZATIONS --js "src/js/*.js" --js_output_file "bin/$(ProjectID).js"
+  <preBuildCommand>build.cmd "$(ToolsDir)\google\compiler.jar" --define BUILD='$(BuildConfig)' --compilation_level SIMPLE_OPTIMIZATIONS --js_output_file "bin/$(ProjectID).js"
 </preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
