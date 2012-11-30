@@ -238,7 +238,7 @@ namespace BasicCompletion
                 KeywordClass kc = ScintillaControl.Configuration.GetKeywordClass(usekeyword.cls);
                 if (kc != null)
                 {
-                    String entry = Regex.Replace(kc.val, @"\t|\n|\r", "");
+                    String entry = Regex.Replace(kc.val, @"\t|\n|\r", " ");
                     String[] words = entry.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
                     for (Int32 j = 0; j < words.Length; j++)
                     {
