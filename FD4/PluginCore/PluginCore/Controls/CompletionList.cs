@@ -32,6 +32,7 @@ namespace PluginCore.Controls
         private static Boolean exactMatchInList;
         private static Boolean smartMatchInList;
         private static Boolean autoHideList;
+        private static Boolean noAutoInsert;
         private static Boolean isActive;
 		internal static Boolean listUp;
         private static Boolean fullList;
@@ -178,7 +179,8 @@ namespace PluginCore.Controls
 			}
 			// state
 			allItems = itemList;
-			autoHideList = autoHide;
+            autoHideList = autoHide;
+            noAutoInsert = false;
 			word = "";
 			if (currentWord != null)
 			{
@@ -233,6 +235,14 @@ namespace PluginCore.Controls
                 defaultItem = found;
                 completionList.SelectedItem = found;
             }
+        }
+
+        /// <summary>
+        /// Require that completion items are explicitely inserted (Enter, Tab, mouse-click)
+        /// </summary>
+        public static void DisableAutoInsertion()
+        {
+            noAutoInsert = true;
         }
 
         /// <summary>
@@ -835,6 +845,12 @@ namespace PluginCore.Controls
                 FindWordStartingWith(word);
 				return;
 			}
+            else if (noAutoInsert)
+            {
+                CompletionList.Hide('\0');
+                // handle this char
+                UITools.Manager.SendChar(sci, value);
+            }
             else
 			{
                 // check for fast typing

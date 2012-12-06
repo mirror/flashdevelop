@@ -4841,10 +4841,6 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Ziel für Build auswählen</value>
     <comment>Added after 4.0.1</comment>
   </data>
-  <data name="BasicCompletion.Description.EnabledLanguages" xml:space="preserve">
-    <value>List of languages that should use the basic code completion.</value>
-    <comment>Added after 4.0.1</comment>
-  </data>
   <data name="BasicCompletion.Info.CompletionItemDesc" xml:space="preserve">
     <value>Suggestion</value>
     <comment>Added after 4.0.1</comment>
@@ -4855,10 +4851,6 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
   </data>
   <data name="FlashDevelop.Description.DisableSimpleQuickFind" xml:space="preserve">
     <value>Disables the simple find when Quick Find control is hidden.</value>
-    <comment>Added after 4.0.1</comment>
-  </data>
-  <data name="BasicCompletion.Description.EnableAutoCompletion" xml:space="preserve">
-    <value>Enables auto-completion of keywords and words from the current file.</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableCompileOnSave" xml:space="preserve">
@@ -4944,5 +4936,13 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
   <data name="FlashDevelop.Label.CollapseRegions" xml:space="preserve">
     <value>Collapse Regions</value>
     <comment>Added after 4.0.4</comment>
+  </data>
+  <data name="BasicCompletion.Description.DisableAutoCompletion" xml:space="preserve">
+    <value>Disables auto-completion of keywords and words from the current file.</value>
+    <comment>Modified after 4.2.1</comment>
+  </data>
+  <data name="BasicCompletion.Description.SupportedLanguages" xml:space="preserve">
+    <value>Custom list of languages that should use the basic code completion. This overrides the builtin list of supported languages.</value>
+    <comment>Modified after 4.2.1</comment>
   </data>
 </root>

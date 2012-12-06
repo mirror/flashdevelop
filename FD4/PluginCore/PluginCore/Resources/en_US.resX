@@ -4841,9 +4841,9 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Select Target Build</value>
     <comment>Added after 4.0.1</comment>
   </data>
-  <data name="BasicCompletion.Description.EnabledLanguages" xml:space="preserve">
-    <value>List of languages that should use the basic code completion.</value>
-    <comment>Added after 4.0.1</comment>
+  <data name="BasicCompletion.Description.SupportedLanguages" xml:space="preserve">
+    <value>Custom list of languages that should use the basic code completion. This overrides the builtin list of supported languages.</value>
+    <comment>Modified after 4.2.1</comment>
   </data>
   <data name="BasicCompletion.Info.CompletionItemDesc" xml:space="preserve">
     <value>Suggestion</value>
@@ -4857,9 +4857,9 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Disables the simple find when Quick Find control is hidden.</value>
     <comment>Added after 4.0.1</comment>
   </data>
-  <data name="BasicCompletion.Description.EnableAutoCompletion" xml:space="preserve">
-    <value>Enables auto-completion of keywords and words from the current file.</value>
-    <comment>Added after 4.0.1</comment>
+  <data name="BasicCompletion.Description.DisableAutoCompletion" xml:space="preserve">
+    <value>Disables auto-completion of keywords and words from the current file.</value>
+    <comment>Modified after 4.2.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableAutoCompletion" xml:space="preserve">
     <value>Disable CSS attributes, values and variables auto-completion.</value>

@@ -4834,10 +4834,6 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>Eraikitze Helburua Aukeratu</value>
     <comment>Added after 4.0.1</comment>
   </data>
-  <data name="BasicCompletion.Description.EnabledLanguages" xml:space="preserve">
-    <value>Oinarrizko kode osaketa erabili behar luketen lengoaien zerrenda.</value>
-    <comment>Added after 4.0.1</comment>
-  </data>
   <data name="BasicCompletion.Info.CompletionItemDesc" xml:space="preserve">
     <value>Iradokizunak</value>
     <comment>Added after 4.0.1</comment>
@@ -4848,10 +4844,6 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
   </data>
   <data name="FlashDevelop.Description.DisableSimpleQuickFind" xml:space="preserve">
     <value>Bilaketa Azkarra kontrola gordetzean bilaketa sinplea desgaitu.</value>
-    <comment>Added after 4.0.1</comment>
-  </data>
-  <data name="BasicCompletion.Description.EnableAutoCompletion" xml:space="preserve">
-    <value>Uneko fitxategiko hitz-gako eta hitzen auto-osaketa gaitzen da.</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableCompileOnSave" xml:space="preserve">
@@ -4937,5 +4929,13 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
   <data name="FlashDevelop.Label.CollapseRegions" xml:space="preserve">
     <value>Eremuak bildu</value>
     <comment>Added after 4.0.4</comment>
+  </data>
+  <data name="BasicCompletion.Description.DisableAutoCompletion" xml:space="preserve">
+    <value>Disables auto-completion of keywords and words from the current file.</value>
+    <comment>Modified after 4.2.1</comment>
+  </data>
+  <data name="BasicCompletion.Description.SupportedLanguages" xml:space="preserve">
+    <value>Custom list of languages that should use the basic code completion. This overrides the builtin list of supported languages.</value>
+    <comment>Modified after 4.2.1</comment>
   </data>
 </root>

@@ -27,6 +27,7 @@ namespace BasicCompletion
         private Hashtable updateTable = new Hashtable();
         private Hashtable baseTable = new Hashtable();
         private Hashtable fileTable = new Hashtable();
+        private System.Timers.Timer updateTimer;
         private String settingFilename;
         private Settings settingObject;
 
@@ -98,6 +99,7 @@ namespace BasicCompletion
 		/// </summary>
 		public void Initialize()
 		{
+            this.InitTimer();
             this.InitBasics();
             this.LoadSettings();
             this.AddEventHandlers();
@@ -158,6 +160,7 @@ namespace BasicCompletion
                             this.updateTable.Remove(document.FileName);
                             this.AddDocumentKeywords(document);
                         }
+                        this.updateTimer.Stop();
                     }
                     break;
                 }
@@ -168,7 +171,7 @@ namespace BasicCompletion
                     else
                     {
                         ITabbedDocument saveDoc = DocumentManager.FindDocument(te.Value);
-                        if (saveDoc != null || saveDoc.IsEditable || this.IsSupported(saveDoc))
+                        if (saveDoc != null && saveDoc.IsEditable && this.IsSupported(saveDoc))
                         {
                             this.updateTable[te.Value] = true;
                         }
@@ -181,6 +184,29 @@ namespace BasicCompletion
 		#endregion
 
         #region Custom Methods
+
+        /// <summary>
+        /// Initializes the update timer
+        /// </summary>
+        public void InitTimer()
+        {
+            this.updateTimer = new System.Timers.Timer();
+            this.updateTimer.SynchronizingObject = PluginCore.PluginBase.MainForm as Form;
+            this.updateTimer.Elapsed += new System.Timers.ElapsedEventHandler(this.UpdateTimerElapsed);
+            this.updateTimer.Interval = 500;
+        }
+
+        /// <summary>
+        /// After the timer elapses, update doc keywords
+        /// </summary>
+        private void UpdateTimerElapsed(Object sender, System.Timers.ElapsedEventArgs e)
+        {
+            ITabbedDocument doc = PluginBase.MainForm.CurrentDocument;
+            if (doc != null && doc.IsEditable && this.IsSupported(doc))
+            {
+                this.AddDocumentKeywords(doc);
+            }
+        }
 
         /// <summary>
         /// Initializes important variables
@@ -199,6 +225,7 @@ namespace BasicCompletion
         public void AddEventHandlers()
         {
             UITools.Manager.OnCharAdded += new UITools.CharAddedHandler(this.SciControlCharAdded);
+            UITools.Manager.OnTextChanged += new UITools.TextChangedHandler(this.SciControlTextChanged);
             EventType eventTypes = EventType.Keys | EventType.FileSave | EventType.ApplySettings | EventType.SyntaxChange | EventType.FileSwitch;
             EventManager.AddEventHandler(this, eventTypes);
         }
@@ -306,20 +333,21 @@ namespace BasicCompletion
         /// </summary>
         private void SciControlCharAdded(ScintillaControl sci, Int32 value)
         {
-            String lang = sci.ConfigurationLanguage.ToLower();
-            if (this.settingObject.EnableAutoCompletion && this.settingObject.EnabledLanguages.Contains(lang))
+            String language = sci.ConfigurationLanguage.ToLower();
+            if (this.IsSupported(language))
             {
-                List<ICompletionListItem> items = this.GetCompletionListItems(lang, sci.FileName);
+                List<ICompletionListItem> items = this.GetCompletionListItems(language, sci.FileName);
                 if (items != null && items.Count > 0)
                 {
                     items.Sort();
                     String curWord = sci.GetWordFromPosition(sci.CurrentPos);
                     if (curWord != null && curWord.Length > 2)
                     {
-                        Language language = ScintillaControl.Configuration.GetLanguage(sci.ConfigurationLanguage);
-                        if (language.characterclass.Characters.Contains(Char.ToString((char)value)))
+                        Language config = ScintillaControl.Configuration.GetLanguage(sci.ConfigurationLanguage);
+                        if (config.characterclass.Characters.Contains(Char.ToString((char)value)))
                         {
                             CompletionList.Show(items, true, curWord);
+                            CompletionList.DisableAutoInsertion();
                         }
                     }
                 }
@@ -327,12 +355,33 @@ namespace BasicCompletion
         }
 
         /// <summary>
-        /// Checks if the language should use basic completion 
+        /// Starts the timer for the document keywords updating
         /// </summary>
+        private void SciControlTextChanged(ScintillaControl sci, int position, int length, int linesAdded)
+        {
+            String language = sci.ConfigurationLanguage.ToLower();
+            if (this.IsSupported(language))
+            {
+                this.updateTimer.Stop();
+                this.updateTimer.Interval = Math.Max(500, sci.Length / 10);
+                this.updateTimer.Start();
+            }
+        }
+
+        /// <summary>
+        /// Checks if the language/document should use basic completion 
+        /// </summary>
+        public Boolean IsSupported(String language)
+        {
+            var count = this.settingObject.SupportedLanguages.Count;
+            if (this.settingObject.DisableAutoCompletion) return false;
+            else if (count > 0) return this.settingObject.SupportedLanguages.Contains(language);
+            else return BasicCompletion.Settings.DEFAULT_LANGUAGES.Contains(language);
+        }
         public Boolean IsSupported(ITabbedDocument document)
         {
-            String lang = document.SciControl.ConfigurationLanguage;
-            return this.settingObject.EnabledLanguages.Contains(lang);
+            String language = document.SciControl.ConfigurationLanguage.ToLower();
+            return this.IsSupported(language);
         }
 
 		#endregion
