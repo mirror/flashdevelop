@@ -787,22 +787,22 @@ namespace AS2Context
                             Regex packagePattern = null;
                             if (isAs2)
                             {
-                                packagePattern = new Regex("class\\s+" + cFile.Package.Replace(".", "\\.") + "\\." + pClass.Name);
+                                packagePattern = new Regex("class\\s+(" + cFile.Package.Replace(".", "\\.") + "\\." + pClass.Name + ')');
                             }
                             else
                             {
-                                packagePattern = new Regex("package\\s+" + cFile.Package.Replace(".", "\\."));
+                                packagePattern = new Regex("package\\s+(" + cFile.Package.Replace(".", "\\.") + ')');
                             }
                             while (p < counter)
                             {
                                 char c = (char)CurSciControl.CharAt(p++);
                                 txt += c;
-                                if (txt.Length > cFile.Package.Length)
+                                if (txt.Length > 5 && c <= 32)
                                 {
                                     Match m = packagePattern.Match(txt);
                                     if (m.Success)
                                     {
-                                        pos = m.Index;
+                                        pos = m.Groups[1].Index;
                                         regexPackageLine = m.Value;
                                         break;
                                     }
@@ -830,8 +830,8 @@ namespace AS2Context
                                     if (correctPath != null)
                                     {
                                         correctPath = correctPath.Replace(Path.DirectorySeparatorChar, '.');
-                                        CurSciControl.SetSel(pos, pos + regexPackageLine.Length);
-                                        CurSciControl.ReplaceSel(regexPackageLine.Replace(cFile.Package, correctPath));
+                                        CurSciControl.SetSel(pos, pos + cFile.Package.Length);
+                                        CurSciControl.ReplaceSel(correctPath);
                                         orgid = "Info.PackageDidntMatchFilePath";
                                     }
                                 }
