@@ -28,6 +28,7 @@ namespace CssCompletion
                 string raw = File.ReadAllText(fileName);
                 string min = CssMinifier.Minify(raw);
                 string outFile = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName)) + ".min.css";
+                TraceManager.Add("minify " + Path.GetFileName(outFile));
                 File.WriteAllText(outFile, min);
             }
             catch (Exception ex)
@@ -67,7 +68,7 @@ namespace CssCompletion
             string args = parts[1].Replace("$(options)", options)
                 .Replace("$(in)", Path.GetFileName(fileName))
                 .Replace("$(out)", outFile);
-            TraceManager.Add(Path.GetFileNameWithoutExtension(cmd) + " " + args);
+            TraceManager.Add(Path.GetFileNameWithoutExtension(cmd) + " " + args.Trim());
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = cmd;
