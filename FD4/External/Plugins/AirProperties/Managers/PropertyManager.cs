@@ -769,6 +769,9 @@ namespace AirProperties
                 // Loop through collection of xml fileType nodes
                 foreach (XmlNode childNode in propertyNode.ChildNodes)
                 {
+                    if (childNode.NodeType != XmlNodeType.Element)
+                        continue;
+
                     // Create a new extension business object
                     extension = new AirExtension();
                     extension.ExtensionId = childNode.InnerText.Trim();
@@ -1017,14 +1020,12 @@ namespace AirProperties
 
         public class AirApplicationIconField
         {
-            private TextBox _field;
             private string _size = String.Empty;
             private AirVersion _minVersion = AirVersion.V10;
 
-            public AirApplicationIconField(string size, TextBox field, AirVersion minVersion)
+            public AirApplicationIconField(string size, AirVersion minVersion)
             {
                 _size = size;
-                _field = field;
                 _minVersion = minVersion;
             }
 
@@ -1033,10 +1034,7 @@ namespace AirProperties
                 get { return _size; }
             }
 
-            public TextBox Field
-            {
-                get { return _field; }
-            }
+            public TextBox Field { get; set; }
 
             public AirVersion MinVersion
             {

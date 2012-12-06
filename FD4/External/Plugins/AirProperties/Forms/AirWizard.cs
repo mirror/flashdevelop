@@ -58,16 +58,21 @@ namespace AirProperties
             this.TitleHeading.Font = new System.Drawing.Font(this.Font, System.Drawing.FontStyle.Bold);
             _iconFields = new List<PropertyManager.AirApplicationIconField> 
             { 
-                new PropertyManager.AirApplicationIconField("16", AppIconField16, PropertyManager.AirVersion.V10),
-                new PropertyManager.AirApplicationIconField("29", AppIconField29, PropertyManager.AirVersion.V20),
-                new PropertyManager.AirApplicationIconField("32", AppIconField32, PropertyManager.AirVersion.V10),
-                new PropertyManager.AirApplicationIconField("36", AppIconField36, PropertyManager.AirVersion.V25),
-                new PropertyManager.AirApplicationIconField("48", AppIconField48, PropertyManager.AirVersion.V10),
-                new PropertyManager.AirApplicationIconField("57", AppIconField57, PropertyManager.AirVersion.V20),
-                new PropertyManager.AirApplicationIconField("72", AppIconField72, PropertyManager.AirVersion.V20),
-                new PropertyManager.AirApplicationIconField("128", AppIconField128, PropertyManager.AirVersion.V10),
-                new PropertyManager.AirApplicationIconField("144", AppIconField144, PropertyManager.AirVersion.V33),
-                new PropertyManager.AirApplicationIconField("512", AppIconField512, PropertyManager.AirVersion.V20)
+                new PropertyManager.AirApplicationIconField("16", PropertyManager.AirVersion.V10),
+                new PropertyManager.AirApplicationIconField("29", PropertyManager.AirVersion.V20),
+                new PropertyManager.AirApplicationIconField("32", PropertyManager.AirVersion.V10),
+                new PropertyManager.AirApplicationIconField("36", PropertyManager.AirVersion.V25),
+                new PropertyManager.AirApplicationIconField("48", PropertyManager.AirVersion.V10),
+                new PropertyManager.AirApplicationIconField("50", PropertyManager.AirVersion.V34),
+                new PropertyManager.AirApplicationIconField("57", PropertyManager.AirVersion.V20),
+                new PropertyManager.AirApplicationIconField("58", PropertyManager.AirVersion.V34),
+                new PropertyManager.AirApplicationIconField("72", PropertyManager.AirVersion.V20),
+                new PropertyManager.AirApplicationIconField("100", PropertyManager.AirVersion.V34),
+                new PropertyManager.AirApplicationIconField("114", PropertyManager.AirVersion.V26),
+                new PropertyManager.AirApplicationIconField("128", PropertyManager.AirVersion.V10),
+                new PropertyManager.AirApplicationIconField("144", PropertyManager.AirVersion.V33),
+                new PropertyManager.AirApplicationIconField("512", PropertyManager.AirVersion.V20),
+                new PropertyManager.AirApplicationIconField("1024", PropertyManager.AirVersion.V34)
             };
             if (this._pluginMain.Settings.SelectPropertiesFileOnOpen) SelectAndLoadPropertiesFile();
             else
@@ -234,11 +239,6 @@ namespace AirProperties
         private void SetupUI()
         {
             // Remove unsupported properties
-            if (PropertyManager.MajorVersion < PropertyManager.AirVersion.V33)
-            {
-                // Remove 144x144
-                AppIconsPanel.RemoveRow(8);
-            }
             if (PropertyManager.MajorVersion < PropertyManager.AirVersion.V32)
             {
                 SupportedLanguagesLabel.Visible = false;
@@ -254,7 +254,6 @@ namespace AirProperties
                 ExtendedTvField.Visible = false;
                 ExtendedTvLabel.Visible = false;
                 // Remove 36x36
-                AppIconsPanel.RemoveRow(3);
                 FileTypeIconsPanel.RemoveRow(3);
                 AppPropertiesTabControl.TabPages.Remove(ExtensionsTabPage);
                 MobileAdditionsTabControl.TabPages.Remove(AndroidManifestAdditionsTabPage);
@@ -262,12 +261,8 @@ namespace AirProperties
             if (PropertyManager.MajorVersion < PropertyManager.AirVersion.V20)
             {
                 SupportedProfilesGroupBox.Visible = false;
-                // Remove 29x29, 57x57(app only), 72x72, 512x512
+                // Remove 29x29, 72x72, 512x512
                 // Each call reduces existing row numbers, hence multiple calls to same row
-                AppIconsPanel.RemoveRow(1);
-                AppIconsPanel.RemoveRow(3);
-                AppIconsPanel.RemoveRow(3);
-                AppIconsPanel.RemoveRow(4);
                 InitialWindowTabControl.TabPages.Remove(NonWindowedPlatformsTabPage);
                 FileTypeIconsPanel.RemoveRow(1);
                 FileTypeIconsPanel.RemoveRow(3);
@@ -278,6 +273,54 @@ namespace AirProperties
             {
                 PublisherIdLabel.Visible = false;
                 PublisherIdField.Visible = false;
+            }
+
+            // Add app icons fields
+            int i = 0;
+            foreach (PropertyManager.AirApplicationIconField icon in _iconFields)
+            {
+                if (icon.MinVersion <= PropertyManager.MajorVersion)
+                {
+                    Label appIconLabel = new Label();
+                    TextBox appIconField = new TextBox();
+                    Button appIconButton = new Button();
+
+                    icon.Field = appIconField;
+
+                    AppIconsPanel.Controls.Add(appIconLabel, 0, i);
+                    AppIconsPanel.Controls.Add(appIconField, 1, i);
+                    AppIconsPanel.Controls.Add(appIconButton, 2, i++);
+
+                    appIconLabel.Anchor = AnchorStyles.Left;
+                    appIconLabel.AutoSize = true;
+                    appIconLabel.ImeMode = ImeMode.NoControl;
+                    appIconLabel.Location = new Point(3, 6);
+                    appIconLabel.Size = new Size(43, 13);
+                    appIconLabel.TabIndex = 0;
+                    appIconLabel.Text = String.Format("{0} x {0}", icon.Size);
+
+                    appIconField.Anchor = AnchorStyles.Left;
+                    ValidationErrorProvider.SetIconPadding(appIconField, 36);
+                    appIconField.Location = new Point(74, 4);
+                    appIconField.Margin = new Padding(3, 3, 3, 0);
+                    appIconField.Name = "AppIconField" + icon.Size;
+                    appIconField.Size = new Size(343, 21);
+                    appIconField.TabIndex = 1;
+                    appIconField.Validating += ValidateAppIconField;
+
+                    appIconButton.Anchor = AnchorStyles.Left;
+                    appIconButton.ImeMode = ImeMode.NoControl;
+                    appIconButton.Location = new Point(423, 3);
+                    appIconButton.Margin = new Padding(3, 3, 3, 0);
+                    appIconButton.Name = "AppIconButton" + icon.Size;
+                    appIconButton.Size = new Size(29, 23);
+                    appIconButton.TabIndex = 2;
+                    appIconButton.Text = "...";
+                    appIconButton.UseVisualStyleBackColor = true;
+                    appIconButton.Click += AppIconButtonClick;
+
+                    AppIconsPanel.RowStyles.Add(new RowStyle());
+        }
             }
         }
 
