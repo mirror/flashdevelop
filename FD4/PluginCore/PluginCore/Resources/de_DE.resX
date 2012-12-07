@@ -4945,4 +4945,12 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Custom list of languages that should use the basic code completion. This overrides the builtin list of supported languages.</value>
     <comment>Modified after 4.2.1</comment>
   </data>
+  <data name="BasicCompletion.Description.DisableAutoCompletion" xml:space="preserve">
+    <value>Disables auto-completion of keywords and words from the current file.</value>
+    <comment>Modified after 4.2.1</comment>
+  </data>
+  <data name="BasicCompletion.Description.CustomLanguages" xml:space="preserve">
+    <value>Custom list of languages that should use the basic code completion.</value>
+    <comment>Modified after 4.2.1</comment>
+  </data>
 </root>

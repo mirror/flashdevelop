@@ -4841,8 +4841,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Select Target Build</value>
     <comment>Added after 4.0.1</comment>
   </data>
-  <data name="BasicCompletion.Description.SupportedLanguages" xml:space="preserve">
-    <value>Custom list of languages that should use the basic code completion. This overrides the builtin list of supported languages.</value>
+  <data name="BasicCompletion.Description.CustomLanguages" xml:space="preserve">
+    <value>Custom list of languages that should use the basic code completion.</value>
     <comment>Modified after 4.2.1</comment>
   </data>
   <data name="BasicCompletion.Info.CompletionItemDesc" xml:space="preserve">

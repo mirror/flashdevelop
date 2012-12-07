@@ -373,9 +373,9 @@ namespace BasicCompletion
         /// </summary>
         public Boolean IsSupported(String language)
         {
-            var count = this.settingObject.SupportedLanguages.Count;
+            var count = this.settingObject.CustomLanguages.Count;
             if (this.settingObject.DisableAutoCompletion) return false;
-            else if (count > 0) return this.settingObject.SupportedLanguages.Contains(language);
+            else if (count > 0) return this.settingObject.CustomLanguages.Contains(language);
             else return BasicCompletion.Settings.DEFAULT_LANGUAGES.Contains(language);
         }
         public Boolean IsSupported(ITabbedDocument document)
