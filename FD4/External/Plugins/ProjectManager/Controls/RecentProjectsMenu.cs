@@ -83,12 +83,20 @@ namespace ProjectManager.Controls
             if (name.Length == 0) 
             {
                 if (showPath) item.Text = PathHelper.GetCompactPath(Path.GetDirectoryName(projectPath));
-                else item.Text = Path.GetFileName(Path.GetDirectoryName(projectPath));
+                else
+                {
+                    item.ToolTipText = Path.GetDirectoryName(projectPath);
+                    item.Text = Path.GetFileName(Path.GetDirectoryName(projectPath));
+                }
             }
             else 
             {
                 if (showPath) item.Text = PathHelper.GetCompactPath(projectPath);
-                else item.Text = name;
+                else
+                {
+                    item.ToolTipText = Path.GetDirectoryName(projectPath);
+                    item.Text = name;
+                }
             }
             item.Tag = projectPath;
             item.Click += delegate { OnProjectSelected(projectPath); };
