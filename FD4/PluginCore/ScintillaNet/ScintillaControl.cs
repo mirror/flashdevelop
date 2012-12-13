@@ -6438,6 +6438,34 @@ namespace ScintillaNet
             else this.Cut();
         }
 
+        /// <summary>
+        /// Gets the word to the left of the cursor
+        /// </summary>
+        public string GetWordLeft(int position, bool skipWS)
+        {
+            char c;
+            string word = "";
+            string lang = this.ConfigurationLanguage;
+            Language config = ScintillaControl.Configuration.GetLanguage(lang);
+            string characterClass = config.characterclass.Characters;
+            while (position >= 0)
+            {
+                c = (char)this.CharAt(position);
+                if (c <= ' ')
+                {
+                    if (!skipWS) break;
+                }
+                else if (characterClass.IndexOf(c) < 0) break;
+                else
+                {
+                    word = c + word;
+                    skipWS = false;
+                }
+                position--;
+            }
+            return word;
+        }
+
 		#endregion
 
     }

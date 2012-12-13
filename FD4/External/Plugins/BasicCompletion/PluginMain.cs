@@ -132,8 +132,8 @@ namespace BasicCompletion
                         if (items != null && items.Count > 0)
                         {
                             items.Sort();
-                            Int32 curPos = document.SciControl.CurrentPos;
-                            String curWord = document.SciControl.GetWordFromPosition(curPos);
+                            Int32 curPos = document.SciControl.CurrentPos - 1;
+                            String curWord = document.SciControl.GetWordLeft(curPos, false);
                             if (curWord == null) curWord = String.Empty;
                             CompletionList.Show(items, false, curWord);
                             e.Handled = true;
@@ -340,7 +340,7 @@ namespace BasicCompletion
                 if (items != null && items.Count > 0)
                 {
                     items.Sort();
-                    String curWord = sci.GetWordFromPosition(sci.CurrentPos);
+                    String curWord = sci.GetWordLeft(sci.CurrentPos - 1, false);
                     if (curWord != null && curWord.Length > 2)
                     {
                         Language config = ScintillaControl.Configuration.GetLanguage(sci.ConfigurationLanguage);
