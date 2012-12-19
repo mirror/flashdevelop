@@ -1290,6 +1290,7 @@ namespace ProjectManager
             if (doc != null && doc.IsEditable && !doc.IsUntitled)
             {
                 Tree.Select(doc.FileName);
+                Tree.SelectedNode.EnsureVisible();
             }
         }
 
