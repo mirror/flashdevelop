@@ -18,7 +18,7 @@ using ProjectManager.Controls;
 
 namespace ProjectManager.Actions
 {
-	public delegate void BuildCompleteHandler(bool runOutput);
+	public delegate void BuildCompleteHandler(IProject project, bool runOutput);
 
 	/// <summary>
 	/// Provides methods for building a project inside FlashDevelop
@@ -220,26 +220,26 @@ namespace ProjectManager.Actions
                     {
                         SetStatusBar(TextHelper.GetString("Info.BuildSucceeded"));
                         AddTrustFile(project);
-                        OnBuildComplete(runOutput);
+                        OnBuildComplete(project, runOutput);
                     }
                     else
                     {
                         SetStatusBar(TextHelper.GetString("Info.BuildFailed"));
-                        OnBuildFailed(runOutput);
+                        OnBuildFailed(project, runOutput);
                     }
                     Environment.CurrentDirectory = directory;
                 });
             return true;
 		}
 
-        void OnBuildComplete(bool runOutput)
+        void OnBuildComplete(IProject project, bool runOutput)
         {
-            if (BuildComplete != null) BuildComplete(runOutput);
+            if (BuildComplete != null) BuildComplete(project, runOutput);
         }
 
-        void OnBuildFailed(bool runOutput)
+        void OnBuildFailed(IProject project, bool runOutput)
         {
-            if (BuildFailed != null) BuildFailed(runOutput);
+            if (BuildFailed != null) BuildFailed(project, runOutput);
         }
 
         void AddTrustFile(Project project)

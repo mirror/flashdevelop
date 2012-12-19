@@ -807,9 +807,9 @@ namespace ProjectManager
 
         #region Event Handlers
 
-        private void BuildComplete(bool runOutput)
+        private void BuildComplete(IProject project, bool runOutput)
         {
-            BroadcastBuildComplete();
+            BroadcastBuildComplete(project);
             if (buildQueue.Count > 0) ProcessBuildQueue();
             else if (this.buildingAll)
             {
@@ -823,12 +823,12 @@ namespace ProjectManager
             }
         }
 
-        private void BuildFailed(bool runOutput)
+        private void BuildFailed(IProject project, bool runOutput)
         {
             buildQueue.Clear();
             this.runOutput = false;
             this.buildingAll = false;
-            BroadcastBuildFailed();
+            BroadcastBuildFailed(project);
         }
 
         private bool ProjectBeforeSave(string fileName)
@@ -878,7 +878,7 @@ namespace ProjectManager
             if (de.Handled) return;
             if (!buildActions.Build(project, true, noTrace))
             {
-                BroadcastBuildFailed();
+                BroadcastBuildFailed(project);
             }
         }
 
@@ -890,7 +890,7 @@ namespace ProjectManager
             if (de.Handled) return;
             if (!buildActions.Build(project, false, noTrace))
             {
-                BroadcastBuildFailed();
+                BroadcastBuildFailed(project);
             }
         }
 
@@ -975,15 +975,15 @@ namespace ProjectManager
             EventManager.DispatchEvent(this, de);
         }
 
-        public void BroadcastBuildComplete()
+        public void BroadcastBuildComplete(IProject project)
         {
-            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.BuildComplete, null);
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.BuildComplete, project);
             EventManager.DispatchEvent(this, de);
         }
 
-        public void BroadcastBuildFailed()
+        public void BroadcastBuildFailed(IProject project)
         {
-            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.BuildFailed, null);
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.BuildFailed, project);
             EventManager.DispatchEvent(this, de);
         }
 
