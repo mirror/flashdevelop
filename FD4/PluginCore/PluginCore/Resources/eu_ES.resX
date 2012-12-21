@@ -4931,11 +4931,11 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="BasicCompletion.Description.DisableAutoCompletion" xml:space="preserve">
-    <value>Disables auto-completion of keywords and words from the current file.</value>
+    <value>Hitz-gakoen eta hitzen auto-osaketa desgaitzen du uneko fitxategian.</value>
     <comment>Modified after 4.2.1</comment>
   </data>
   <data name="BasicCompletion.Description.CustomLanguages" xml:space="preserve">
-    <value>Custom list of languages that should use the basic code completion.</value>
+    <value>Oinarrizko osaketa erabiliko duten lengoaien zerrenda pertsonalizatua.</value>
     <comment>Modified after 4.2.1</comment>
   </data>
 </root>
