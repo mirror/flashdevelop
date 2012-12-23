@@ -4887,119 +4887,119 @@ UseData:"</value>
     <comment>Added after 3.3.4</comment>
   </data>
   <data name="HaXeContext.Description.CompletionMode" xml:space="preserve">
-    <value>The most complete completion will be provided by the Haxe Compiler and faster using the CompletionServer. Alternatively FlashDevelop includes basic support for Haxe completion.</value>
+    <value>Haxe の補完方法を選択します。補完サーバー(CompletionServer)を使用することでHaxeコンパイラより高速な補完を行うことができます。FlashDevelop内にもベーシックな補完がサポートされています。</value>
     <comment>Added after 4.0</comment>
   </data>
   <data name="HaXeContext.Description.CompletionServerPort" xml:space="preserve">
-    <value>Define Haxe compiler server's port (only applies to CompletionServer Completion Mode).</value>
+    <value>Haxe のコンパイラーサーバーのポートを設定します。(Completion Mode で CompletionServer を選択した場合のみです)</value>
     <comment>Added after 4.0</comment>
   </data>
   <data name="ProjectManager.ToolTip.TargetBuild" xml:space="preserve">
-    <value>Select Target Build</value>
+    <value>ビルドターゲットを選択</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="BasicCompletion.Info.CompletionItemDesc" xml:space="preserve">
-    <value>Suggestion</value>
+    <value>サジェスト</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="BasicCompletion.Info.Description" xml:space="preserve">
-    <value>Adds global basic code completion support to FlashDevelop.</value>
+    <value>FlashDevelop にベーシックなコード補完を追加します。</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="FlashDevelop.Description.DisableSimpleQuickFind" xml:space="preserve">
-    <value>Disables the simple find when Quick Find control is hidden.</value>
+    <value>クイック検索を閉じているときシンプル検索を無効にする。</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableCompileOnSave" xml:space="preserve">
-    <value>Disable automatic compilation of special CSS languages (SCSS, LESS, HSS) on save. Note: also disables minification.</value>
+    <value>特別なCSS言語(SCSS, LESS, HSS) のセーブ時の自動コンパイルを無効にする。注意:CSSの圧縮も同様に無効になる。</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableMinifyOnSave" xml:space="preserve">
-    <value>Disable automatic minification of CSS files as "name.min.css" on save.</value>
+    <value>"name.min.css" CSSファイルのセーブ時の自動圧縮を無効にする。</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.EnableVerboseCompilation" xml:space="preserve">
-    <value>Display raw compilation result in Output panel (for debugging purpose).</value>
+    <value>出力パネルに生のコンパイル結果を出力する。(デバッグ用)</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionPrefixesDesc" xml:space="preserve">
-    <value>Browser prefix</value>
+    <value>ブラウザプレフィックス</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionPropertyDesc" xml:space="preserve">
-    <value>CSS property</value>
+    <value>CSS プロパティ</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionPseudoDesc" xml:space="preserve">
-    <value>CSS pseudo element or class</value>
+    <value>CSS 擬似要素またはクラス</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionValueDesc" xml:space="preserve">
-    <value>CSS value</value>
+    <value>CSS バリュー</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionVariableDesc" xml:space="preserve">
-    <value>Custom variable</value>
+    <value>変数</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.Description" xml:space="preserve">
-    <value>Adds CSS completion to FlashDevelop.</value>
+    <value>FlashDevelop に CSS の補完を追加します。</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableAutoCloseBraces" xml:space="preserve">
-    <value>By default CSS blocks' closing brace is inserted automatically after pressing &lt;Enter&gt;.</value>
+    <value>CSS ブロックのブレスの後ろで &lt;Enter&gt; キーを入力したときに自動的に閉じる。</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableInsertColon" xml:space="preserve">
-    <value>Disable automatic insertion of colon (:) character when completing attributes.</value>
+    <value>コロン(:)を入力したときの属性の自動補完を無効にする。</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="AirProperties.Locale.PortugueseSimple" xml:space="preserve">
-    <value>Portuguese (pt)</value>
+    <value>ポルトガル語 (pt)</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="ProjectManager.Title.ImportPackagedProject" xml:space="preserve">
-    <value>Select destination folder for packaged project</value>
+    <value>プロジェクトの送り先のフォルダを選択</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="ProjectManager.Info.NotValidFlashBuilderProject" xml:space="preserve">
-    <value>The selected file was not a valid Flash Builder project</value>
+    <value>選択されたファイルは有効なFlashBuilderプロジェクトではありません。</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionTagDesc" xml:space="preserve">
-    <value>HTML tag</value>
+    <value>HTML タグ</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="FlashDevelop.Description.DisableTabDifferentiation" xml:space="preserve">
-    <value>Disables the showing of directory names in document tabs.</value>
+    <value>ドキュメント名が同じでディレクトリが違う場合にディレクトリ名をタブに表示させない。</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="ProjectManager.Description.TabHighlightColor" xml:space="preserve">
-    <value>Color of the tab highlight strip.</value>
+    <value>タブのハイライトカラー</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="ProjectManager.Description.TabHighlightType" xml:space="preserve">
-    <value>Type of the tab highlight functionality.</value>
+    <value>タブのハイライトタイプ</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashConnect.Description.Commands" xml:space="preserve">
-    <value>List of allowed commands to be executed.</value>
+    <value>実行を許可するコマンドリスト</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashDevelop.Label.MakeAsDefault" xml:space="preserve">
-    <value>Make As Default Style</value>
+    <value>デフォルト値に戻す</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashDevelop.Label.CollapseRegions" xml:space="preserve">
-    <value>Collapse Regions</value>
+    <value>ブロック区分で閉じる</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="BasicCompletion.Description.DisableAutoCompletion" xml:space="preserve">
-    <value>Disables auto-completion of keywords and words from the current file.</value>
+    <value>現在のファイルのキーワードや単語の自動補完を無効にする。</value>
     <comment>Modified after 4.2.1</comment>
   </data>
   <data name="BasicCompletion.Description.CustomLanguages" xml:space="preserve">
-    <value>Custom list of languages that should use the basic code completion.</value>
+    <value>ベーシックコード補完を使用する言語リストをカスタマイズする。</value>
     <comment>Modified after 4.2.1</comment>
   </data>
 </root>
