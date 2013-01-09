@@ -4211,7 +4211,7 @@ Bitte bedenken Sie, dass Sie viele Projektoptionen nicht mehr nutzen können, so
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Portuguese" xml:space="preserve">
-    <value>Portugisisch Brasilien (pt-BR)</value>
+    <value>Portugiesisch Brasilien (pt-BR)</value>
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AirProperties.Locale.Russian" xml:space="preserve">
@@ -4842,63 +4842,63 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="BasicCompletion.Info.CompletionItemDesc" xml:space="preserve">
-    <value>Suggestion</value>
+    <value>Vorschlag</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="BasicCompletion.Info.Description" xml:space="preserve">
-    <value>Adds global basic code completion support to FlashDevelop.</value>
+    <value>Fügt eine globale Basiskomplettierung zu FlashDevelop hinzu.</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="FlashDevelop.Description.DisableSimpleQuickFind" xml:space="preserve">
-    <value>Disables the simple find when Quick Find control is hidden.</value>
+    <value>Deaktiviert die einfache Schnellsuche wenn die Schnellsuchleiste geschlossen wird.</value>
     <comment>Added after 4.0.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableCompileOnSave" xml:space="preserve">
-    <value>Disable automatic compilation of special CSS languages (SCSS, LESS, HSS) on save. Note: also disables minification.</value>
+    <value>Automatische Kompilierung von speziellen CSS Sprachen (SCSS, LESS, HSS) beim Speichern deaktivieren. Achtung: Deaktiviert auch die Minifizierung.</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableMinifyOnSave" xml:space="preserve">
-    <value>Disable automatic minification of CSS files as "name.min.css" on save.</value>
+    <value>Automatische Minifizierung von CSS Dateien als "name.min.css" beim Speichern deaktivieren.</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.EnableVerboseCompilation" xml:space="preserve">
-    <value>Display raw compilation result in Output panel (for debugging purpose).</value>
+    <value>Unbearbeitete Kompilierungsresultate im Ausgabefenster anzeigen (für Debugging).</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionPrefixesDesc" xml:space="preserve">
-    <value>Browser prefix</value>
+    <value>Browser Präfix</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionPropertyDesc" xml:space="preserve">
-    <value>CSS property</value>
+    <value>CSS Eigenschaft</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionPseudoDesc" xml:space="preserve">
-    <value>CSS pseudo element or class</value>
+    <value>CSS Pseudo-Element oder Klasse</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionValueDesc" xml:space="preserve">
-    <value>CSS value</value>
+    <value>CSS Wert</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionVariableDesc" xml:space="preserve">
-    <value>Custom variable</value>
+    <value>Benutezrdefinierte Variable</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.Description" xml:space="preserve">
-    <value>Adds CSS completion to FlashDevelop.</value>
+    <value>Fügt FlashDevelop CSS-Komplettierung hinzu.</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableAutoCloseBraces" xml:space="preserve">
-    <value>By default CSS blocks' closing brace is inserted automatically after pressing &lt;Enter&gt;.</value>
+    <value>Bei Drücken von &lt;Enter&gt; werden bei CSS Blöcken automatisch die schliessende Klammer eingefügt.</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Description.DisableInsertColon" xml:space="preserve">
-    <value>Disable automatic insertion of colon (:) character when completing attributes.</value>
+    <value>Automatisches Einfügen von Doppelpunkt (:) bei der Komplettierung von Attributen deaktivieren.</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="AirProperties.Locale.PortugueseSimple" xml:space="preserve">
-    <value>Portuguese (pt)</value>
+    <value>Portugiesisch (pt)</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="ProjectManager.Title.ImportPackagedProject" xml:space="preserve">
@@ -4910,11 +4910,11 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added for 4.1</comment>
   </data>
   <data name="CssCompletion.Info.CompletionTagDesc" xml:space="preserve">
-    <value>HTML tag</value>
+    <value>HTML Tag</value>
     <comment>Added for 4.1</comment>
   </data>
   <data name="FlashDevelop.Description.DisableTabDifferentiation" xml:space="preserve">
-    <value>Disables the showing of directory names in document tabs.</value>
+    <value>Deaktiviert die Anzeige von Verzeichnisnamen bei Dokument-Reitern.</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="ProjectManager.Description.TabHighlightColor" xml:space="preserve">
@@ -4926,23 +4926,23 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashConnect.Description.Commands" xml:space="preserve">
-    <value>List of allowed commands to be executed.</value>
+    <value>Liste von erlaubten Befehlen für die Ausführung.</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashDevelop.Label.MakeAsDefault" xml:space="preserve">
-    <value>Make As Default Style</value>
+    <value>Definiere als Standard Style</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="FlashDevelop.Label.CollapseRegions" xml:space="preserve">
-    <value>Collapse Regions</value>
+    <value>Regionen zusammenfalten</value>
     <comment>Added after 4.0.4</comment>
   </data>
   <data name="BasicCompletion.Description.DisableAutoCompletion" xml:space="preserve">
-    <value>Disables auto-completion of keywords and words from the current file.</value>
+    <value>Deaktiviert die automatische Komplettierung von Schlüsselwörtern und Wörter aus der selben Datei.</value>
     <comment>Modified after 4.2.1</comment>
   </data>
   <data name="BasicCompletion.Description.CustomLanguages" xml:space="preserve">
-    <value>Custom list of languages that should use the basic code completion.</value>
+    <value>Benutzerdefinierte Liste von Sprachen, für welche die Basiskomplettierung verwendet werden soll.</value>
     <comment>Modified after 4.2.1</comment>
   </data>
 </root>

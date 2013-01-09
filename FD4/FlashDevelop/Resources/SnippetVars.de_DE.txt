@@ -5,6 +5,7 @@ $(ExitPoint) - Endposition des Zeigers
 $(Boundary) - Behalte den Text zwischen den Abgrenzungen
 $(CSLB) - Code-Stil Zeilenumbruch
 $(CBI) - Kommentarblock-Einzug
+$(STC) - Lücken- oder Tabulatorzeichen
 - TEXT -------------------------------------------------------------------------
 $(SelText) - Markierter Text
 $(CurWord) - Das Wort bei der Zeigerposition
