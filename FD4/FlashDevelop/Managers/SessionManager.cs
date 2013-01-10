@@ -96,21 +96,22 @@ namespace FlashDevelop.Managers
         {
             try
             {
+                DockPane prevPane;
                 for (Int32 i = 0; i < session.Nested.Count; i++)
                 {
                     NestedDock nestedDock = session.Nested[i];
                     DockContent dockContent = DocumentManager.FindDocument(nestedDock.FileName) as DockContent;
                     if (dockContent != null && nestedDock.NestIndex > -1)
                     {
-                        DockPane prevPane = dockContent.DockPanel.Panes[nestedDock.NestIndex];
-                        if (prevPane != null)
+                        if (dockContent.DockPanel.Panes.Count > nestedDock.PaneIndex)
                         {
-                            DockStyle ds = DockStyle.Right;
-                            DockAlignment nd = nestedDock.Alignment;
-                            if (nd == DockAlignment.Top) ds = DockStyle.Top;
-                            else if (nd == DockAlignment.Left) ds = DockStyle.Left;
-                            else if (nd == DockAlignment.Bottom) ds = DockStyle.Bottom;
-                            dockContent.DockTo(prevPane, ds, -1);
+                            prevPane = dockContent.DockPanel.Panes[nestedDock.PaneIndex];
+                            dockContent.DockTo(prevPane, DockStyle.Fill, -1);
+                        }
+                        else
+                        {
+                            prevPane = dockContent.DockPanel.Panes[nestedDock.NestIndex];
+                            dockContent.Show(prevPane, nestedDock.Alignment, nestedDock.Proportion);
                         }
                     }
                 }
@@ -150,11 +151,13 @@ namespace FlashDevelop.Managers
             try
             {
                 DockContent content = document as DockContent;
+                double prop = content.Pane.NestedDockingStatus.Proportion;
                 DockAlignment align = content.Pane.NestedDockingStatus.Alignment;
+                Int32 paneIndex = content.DockPanel.Panes.IndexOf(content.Pane);
                 Int32 nestIndex = content.DockPanel.Panes.IndexOf(content.Pane.NestedDockingStatus.PreviousPane);
                 if (nestIndex > -1)
                 {
-                    NestedDock dock = new NestedDock(document.FileName, nestIndex, align);
+                    NestedDock dock = new NestedDock(document.FileName, nestIndex, paneIndex, align, prop);
                     session.Nested.Add(dock);
                 }
             }
@@ -209,20 +212,29 @@ namespace FlashDevelop.Managers
     public class NestedDock
     {
         private Int32 nest = -1;
+        private Int32 index = -1;
         private String file = "";
-        private DockAlignment align = DockAlignment.Left;
+        private double prop = 0.5f;
+        private DockAlignment align = DockAlignment.Right;
 
-        public NestedDock(){}
-        public NestedDock(String file, Int32 nest, DockAlignment align)
+        public NestedDock() { }
+        public NestedDock(String file, Int32 nest, Int32 index, DockAlignment align, double prop)
         {
             this.file = file;
             this.nest = nest;
+            this.index = index;
             this.align = align;
+            this.prop = prop;
         }
         public String FileName
         {
             get { return this.file; }
             set { this.file = value; }
+        }
+        public Int32 PaneIndex
+        {
+            get { return this.index; }
+            set { this.index = value; }
         }
         public Int32 NestIndex
         {
@@ -233,6 +245,11 @@ namespace FlashDevelop.Managers
         {
             get { return this.align; }
             set { this.align = value; }
+        }
+        public double Proportion
+        {
+            get { return this.prop; }
+            set { this.prop = value; }
         }
 
     }
