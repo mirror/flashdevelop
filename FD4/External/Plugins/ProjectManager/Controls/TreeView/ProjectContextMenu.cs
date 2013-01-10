@@ -329,15 +329,15 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(Browse, 0);
             menu.Add(FindInFiles, 0);
             menu.Add(ShellMenu, 0);
-
             AddCompileTargetItems(menu, path, true);
-            if (projectTree.SelectedPaths.Length == 1)
+            if (projectTree.SelectedPaths.Length == 1 && project.Language != "*")
             {
                 DirectoryNode node = projectTree.SelectedNode as DirectoryNode;
-                if (node.InsideClasspath == node)
-                    menu.Add(RemoveSourcePath, 2, true);
+                if (node.InsideClasspath == node) menu.Add(RemoveSourcePath, 2, true);
                 else if (node != null && (node.InsideClasspath == null || node.InsideClasspath is ProjectNode))
+                {
                     menu.Add(AddSourcePath, 2, false);
+                }
             }
             AddFileItems(menu, path, true);
         }
@@ -364,8 +364,9 @@ namespace ProjectManager.Controls.TreeView
                     else menu.Add(SetDocumentClass, 2, false);
                 }
                 if (!isMain && (result & CompileTargetType.AlwaysCompile) > 0)
+                {
                     menu.Add(AlwaysCompile, 2, project.IsCompileTarget(path));
-
+                }
                 if (!isFolder) menu.Add(CopyClassName, 2);
             }
         }
