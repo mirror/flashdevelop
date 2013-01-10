@@ -330,7 +330,7 @@ namespace ProjectManager.Controls.TreeView
             menu.Add(FindInFiles, 0);
             menu.Add(ShellMenu, 0);
             AddCompileTargetItems(menu, path, true);
-            if (projectTree.SelectedPaths.Length == 1 && project.Language != "*")
+            if (projectTree.SelectedPaths.Length == 1 && project.IsCompilable)
             {
                 DirectoryNode node = projectTree.SelectedNode as DirectoryNode;
                 if (node.InsideClasspath == node) menu.Add(RemoveSourcePath, 2, true);

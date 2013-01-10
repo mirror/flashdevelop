@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ProjectManager.Projects.Generic
 {
     public class GenericProject : Project
     {
-        public GenericProject(string path)
-            : base(path, new GenericOptions())
+        public GenericProject(string path) : base(path, new GenericOptions())
         {
             movieOptions = new GenericMovieOptions();
         }
@@ -25,20 +25,24 @@ namespace ProjectManager.Projects.Generic
             }
         }
 
+        public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
+        {
+            String inPath = Path.GetDirectoryName(inFile);
+            return ProjectPaths.GetRelativePath(inPath, path);
+        }
+
         #region Load/Save
 
         public static GenericProject Load(string path)
         {
             GenericProjectReader reader = new GenericProjectReader(path);
-
             try
             {
                 return reader.ReadProject();
             }
             catch (System.Xml.XmlException exception)
             {
-                string format = string.Format("Error in XML Document line {0}, position {1}.",
-                    exception.LineNumber, exception.LinePosition);
+                string format = string.Format("Error in XML Document line {0}, position {1}.", exception.LineNumber, exception.LinePosition);
                 throw new Exception(format, exception);
             }
             finally { reader.Close(); }
@@ -66,5 +70,8 @@ namespace ProjectManager.Projects.Generic
         }
 
         #endregion
+    
     }
+
 }
+
