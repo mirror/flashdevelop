@@ -138,7 +138,7 @@ namespace PluginCore.Controls
         /// </summary> 
         static public void Show(List<ICompletionListItem> itemList, Boolean autoHide, String select)
 		{
-            if (select.Length > 0)
+            if (!string.IsNullOrEmpty(select))
             {
                 int maxLen = 0;
                 foreach (ICompletionListItem item in itemList)

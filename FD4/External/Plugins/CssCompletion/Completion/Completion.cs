@@ -94,7 +94,8 @@ namespace CssCompletion
             var context = GetContext(sci, position);
             var mode = CompleteMode.None;
 
-            if (context.InBlock)
+            if (context.InComments) return;
+            else if (context.InBlock)
             {
                 if (context.Word == "-") mode = CompleteMode.Prefix;
                 else if (context.Word.Length >= 2 || (char)value == '-')
@@ -199,8 +200,12 @@ namespace CssCompletion
             var ctx = new LocalContext(sci);
             int i = position - 1;
             int style = sci.StyleAt(i-1);
-            if (style == 9) // inside comments
+
+            if (style == (int)ScintillaNet.Lexers.CSS.COMMENT) // inside comments
+            {
+                ctx.InComments = true;
                 return ctx;
+            }
 
             int inString = 0;
             if (style == 14) inString = 1;
