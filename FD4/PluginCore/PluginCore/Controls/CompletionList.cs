@@ -634,9 +634,7 @@ namespace PluginCore.Controls
         static public int SmartMatch(string label, string word, int len)
         {
             if (label.Length < len) return 0;
-            if (label.Contains("ArgumentError"))
-            {
-            }
+
             // simple matching
             if (disableSmartMatch)
             {
