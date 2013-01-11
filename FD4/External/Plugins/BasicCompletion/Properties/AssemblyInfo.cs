@@ -11,8 +11,8 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("BasicCompletion Plugin For FlashDevelop")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FlashDevelop.org")]
-[assembly: AssemblyProduct("SamplePlugin")]
-[assembly: AssemblyCopyright("FlashDevelop.org 2005-2012")]
+[assembly: AssemblyProduct("BasicCompletion")]
+[assembly: AssemblyCopyright("FlashDevelop.org 2005-2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

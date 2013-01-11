@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FlashDevelop.org")]
 [assembly: AssemblyProduct("MacroManager")]
-[assembly: AssemblyCopyright("FlashDevelop.org 2005-2012")]
+[assembly: AssemblyCopyright("FlashDevelop.org 2005-2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.0.0.0")]
