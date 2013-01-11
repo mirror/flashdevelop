@@ -111,7 +111,10 @@ namespace FlashDevelop.Managers
                         else
                         {
                             prevPane = dockContent.DockPanel.Panes[nestedDock.NestIndex];
-                            dockContent.Show(prevPane, nestedDock.Alignment, nestedDock.Proportion);
+                            if (prevPane != dockContent.Pane)
+                            {
+                                dockContent.Show(prevPane, nestedDock.Alignment, nestedDock.Proportion);
+                            }
                         }
                     }
                 }
