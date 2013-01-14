@@ -1048,16 +1048,24 @@ namespace ASCompletion
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.Handled = true;
-                if (findProcTxt.Text != searchInvitation)
+                if (outlineTree.Focused)
                 {
-                    TreeNode node = FindMatch(outlineTree.Nodes);
-                    if (node != null)
+                    e.Handled = true;
+                    ClassTreeSelect(outlineTree, outlineTree.SelectedNode);
+                }
+                else
+                {
+                    e.Handled = true;
+                    if (findProcTxt.Text != searchInvitation)
                     {
-                        outlineTree.SelectedNode = node;
-                        delayedClassTreeSelect(null, null);
+                        TreeNode node = FindMatch(outlineTree.Nodes);
+                        if (node != null)
+                        {
+                            outlineTree.SelectedNode = node;
+                            delayedClassTreeSelect(null, null);
+                        }
+                        findProcTxt.Text = "";
                     }
-                    findProcTxt.Text = "";
                 }
             }
             else if (e.KeyCode == Keys.Escape)
@@ -1077,7 +1085,7 @@ namespace ASCompletion
         {
             foreach (TreeNode node in nodes)
             {
-                if (node.BackColor == System.Drawing.Color.Aqua)
+                if (node.BackColor == System.Drawing.Color.LightSkyBlue)
                     return node;
                 if (node.Nodes.Count > 0)
                 {
