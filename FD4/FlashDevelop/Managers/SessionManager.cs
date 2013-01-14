@@ -108,13 +108,14 @@ namespace FlashDevelop.Managers
                             prevPane = dockContent.DockPanel.Panes[nestedDock.PaneIndex];
                             dockContent.DockTo(prevPane, DockStyle.Fill, -1);
                         }
-                        else
+                        else if (dockContent.DockPanel.Panes.Count > nestedDock.NestIndex)
                         {
+                            DockStyle ds = DockStyle.Right;
                             prevPane = dockContent.DockPanel.Panes[nestedDock.NestIndex];
-                            if (prevPane != dockContent.Pane)
-                            {
-                                dockContent.Show(prevPane, nestedDock.Alignment, nestedDock.Proportion);
-                            }
+                            if (nestedDock.Alignment == DockAlignment.Top) ds = DockStyle.Top;
+                            else if (nestedDock.Alignment == DockAlignment.Left) ds = DockStyle.Left;
+                            else if (nestedDock.Alignment == DockAlignment.Bottom) ds = DockStyle.Bottom;
+                            dockContent.DockTo(prevPane, ds, -1);
                         }
                     }
                 }
