@@ -30,6 +30,7 @@ namespace BasicCompletion
         private System.Timers.Timer updateTimer;
         private String settingFilename;
         private Settings settingObject;
+        private String[] projKeywords;
 
 	    #region Required Properties
 
@@ -178,6 +179,16 @@ namespace BasicCompletion
                     }
                     break;
                 }
+                case EventType.Command:
+                {
+                    DataEvent de = e as DataEvent;
+                    if (de.Action == "ProjectManager.Project")
+                    {
+                        IProject project = de.Data as IProject;
+                        if (project != null) this.LoadProjectKeywords(project);
+                    }
+                    break;
+                }
             }
 		}
 
@@ -226,7 +237,7 @@ namespace BasicCompletion
         {
             UITools.Manager.OnCharAdded += new UITools.CharAddedHandler(this.SciControlCharAdded);
             UITools.Manager.OnTextChanged += new UITools.TextChangedHandler(this.SciControlTextChanged);
-            EventType eventTypes = EventType.Keys | EventType.FileSave | EventType.ApplySettings | EventType.SyntaxChange | EventType.FileSwitch;
+            EventType eventTypes = EventType.Keys | EventType.FileSave | EventType.ApplySettings | EventType.SyntaxChange | EventType.FileSwitch | EventType.Command;
             EventManager.AddEventHandler(this, eventTypes);
         }
 
@@ -280,6 +291,36 @@ namespace BasicCompletion
         }
 
         /// <summary>
+        /// Load the current project's keywords from completion file
+        /// </summary>
+        public void LoadProjectKeywords(IProject project)
+        {
+            String projDir = Path.GetDirectoryName(project.ProjectPath);
+            String complFile = Path.Combine(projDir, "COMPLETION");
+            if (File.Exists(complFile))
+            {
+                try
+                {
+                    String text = File.ReadAllText(complFile);
+                    String wordCharsRegex = "[A-Za-z0-9_$]{2,}";
+                    MatchCollection matches = Regex.Matches(text, wordCharsRegex);
+                    Dictionary<Int32, String> words = new Dictionary<Int32, String>();
+                    for (Int32 i = 0; i < matches.Count; i++)
+                    {
+                        String word = matches[i].Value;
+                        Int32 hash = word.GetHashCode();
+                        if (words.ContainsKey(hash)) continue;
+                        words.Add(hash, word);
+                    }
+                    String[] keywords = new String[words.Values.Count];
+                    words.Values.CopyTo(keywords, 0);
+                    this.projKeywords = keywords;
+                }
+                catch { /* No errors please... */ }
+            }
+        }
+
+        /// <summary>
         /// Adds document keywords from config file to hashtable
         /// </summary>
         public void AddDocumentKeywords(ITabbedDocument document)
@@ -321,6 +362,13 @@ namespace BasicCompletion
                 for (Int32 i = 0; i < fileWords.Length; i++)
                 {
                     if (!allWords.Contains(fileWords[i])) allWords.Add(fileWords[i]);
+                }
+            }
+            if (PluginBase.CurrentProject != null && this.projKeywords != null)
+            {
+                for (Int32 i = 0; i < this.projKeywords.Length; i++)
+                {
+                    if (!allWords.Contains(this.projKeywords[i])) allWords.Add(this.projKeywords[i]);
                 }
             }
             List<ICompletionListItem> items = new List<ICompletionListItem>();
