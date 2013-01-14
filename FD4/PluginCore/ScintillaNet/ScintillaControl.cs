@@ -141,6 +141,7 @@ namespace ScintillaNet
         public event IndicatorReleaseHandler IndicatorRelease;
         public event AutoCCancelledHandler AutoCCancelled;
         public event AutoCCharDeletedHandler AutoCCharDeleted;
+        public event UpdateSyncHandler UpdateSync;
 		
 		#endregion
 
@@ -168,7 +169,7 @@ namespace ScintillaNet
         {
             get 
             { 
-                return this.configLanguage; 
+                return this.configLanguage;
             }
             set
             {
@@ -515,6 +516,7 @@ namespace ScintillaNet
                     KeywordClass kc = sciConfiguration.GetKeywordClass(usekeyword.cls);
                     if (kc != null) KeyWords(usekeyword.key, kc.val);
                 }
+                if (UpdateSync != null) this.UpdateSync(this);
             }
         }
 
@@ -544,7 +546,8 @@ namespace ScintillaNet
             }
             set 
             { 
-                fileName = value; 
+                fileName = value;
+                if (UpdateSync != null) this.UpdateSync(this);
             }
         }
 
@@ -570,7 +573,8 @@ namespace ScintillaNet
             }
             set 
             { 
-                ignoreAllKeys = value; 
+                ignoreAllKeys = value;
+                if (UpdateSync != null) this.UpdateSync(this);
             }
         }
 
@@ -586,6 +590,7 @@ namespace ScintillaNet
             set
             {
                 isHiliteSelected = value;
+                if (UpdateSync != null) this.UpdateSync(this);
             }
         }
 
@@ -600,7 +605,8 @@ namespace ScintillaNet
             }
 			set 
             { 
-                isBraceMatching = value; 
+                isBraceMatching = value;
+                if (UpdateSync != null) this.UpdateSync(this);
             }
 		}
 
@@ -616,6 +622,7 @@ namespace ScintillaNet
             set
             {
                 useHighlightGuides = value;
+                if (UpdateSync != null) this.UpdateSync(this);
             }
         }
 
@@ -630,7 +637,8 @@ namespace ScintillaNet
             }
 			set 
             { 
-                smartIndent = value; 
+                smartIndent = value;
+                if (UpdateSync != null) this.UpdateSync(this);
             }
 		}
 		
@@ -2175,7 +2183,7 @@ namespace ScintillaNet
 		#endregion
 
 		#region Scintilla Methods
-        
+
         /// <summary>
         /// Adds a new keys to ignore
         /// </summary> 
@@ -2193,19 +2201,19 @@ namespace ScintillaNet
         }
 
         /// <summary>
-        /// Does the container have keys?
-        /// </summary> 
-        public virtual bool ContainsIgnoredKeys(Keys keys)
-        {
-            return ignoredKeys.ContainsKey((int)keys);
-        }
-
-        /// <summary>
         /// Clears the ignored keys container
         /// </summary> 
         public virtual void ClearIgnoredKeys()
         {
             ignoredKeys.Clear();
+        }
+
+        /// <summary>
+        /// Does the container have keys?
+        /// </summary> 
+        public virtual bool ContainsIgnoredKeys(Keys keys)
+        {
+            return ignoredKeys.ContainsKey((int)keys);
         }
 
         /// <summary>
@@ -2273,7 +2281,7 @@ namespace ScintillaNet
 		/// </summary>
 		public int LastChild(int line, int level)
 		{
-				return (int)SPerform(2224, (uint)line, (uint)level);
+			return (int)SPerform(2224, (uint)line, (uint)level);
 		}	
 
 		/// <summary>
@@ -2774,8 +2782,7 @@ namespace ScintillaNet
 		public void ClearAll()
 		{
 			SPerform(2004, 0, 0);
-		}	
-						
+		}			
 
 		/// <summary>
 		/// Set all style bytes to 0, remove all folding information.
@@ -3466,7 +3473,7 @@ namespace ScintillaNet
 		/// </summary>
 		public int VisibleFromDocLine(int line)
 		{
-			return (int) SPerform(2220, (uint)line, 0);
+			return (int)SPerform(2220, (uint)line, 0);
 		}	
 
 		/// <summary>
@@ -3474,7 +3481,7 @@ namespace ScintillaNet
 		/// </summary>
 		public int DocLineFromVisible(int lineDisplay)
 		{
-			return (int) SPerform(2221, (uint)lineDisplay, 0);
+			return (int)SPerform(2221, (uint)lineDisplay, 0);
 		}			
 
 		/// <summary>
@@ -3531,7 +3538,7 @@ namespace ScintillaNet
 		/// </summary>
 		public int WordStartPosition(int pos, bool onlyWordCharacters)
 		{
-			return (int) SPerform(2266, (uint)pos, (uint)(onlyWordCharacters ? 1 : 0));
+			return (int)SPerform(2266, (uint)pos, (uint)(onlyWordCharacters ? 1 : 0));
 		}				
 
 		/// <summary>
@@ -3539,7 +3546,7 @@ namespace ScintillaNet
 		/// </summary>
 		public int WordEndPosition(int pos, bool onlyWordCharacters)
 		{
-			return (int) SPerform(2267, (uint)pos, (uint)(onlyWordCharacters ? 1 : 0));
+			return (int)SPerform(2267, (uint)pos, (uint)(onlyWordCharacters ? 1 : 0));
 		}			
 
 		/// <summary>
@@ -3552,7 +3559,7 @@ namespace ScintillaNet
 			if (text == null || text.Equals("")) text = "\0\0";
 			fixed (byte* b = Encoding.GetEncoding(this.CodePage).GetBytes(text)) 
 			{
-				return (int) SPerform(2276, (uint)style, (uint)b);
+				return (int)SPerform(2276, (uint)style, (uint)b);
 			}
 		}				
 
@@ -4085,7 +4092,7 @@ namespace ScintillaNet
 		/// </summary>
 		public int LineLength(int line)
 		{
-			return (int) SPerform(2350, (uint)line, 0);
+			return (int)SPerform(2350, (uint)line, 0);
 		}	
 						
 		/// <summary>
@@ -4109,7 +4116,7 @@ namespace ScintillaNet
 		/// </summary>
 		public int BraceMatch(int pos)
 		{
-			return (int) SPerform(2353, (uint)pos, 0);
+			return (int)SPerform(2353, (uint)pos, 0);
 		}	
 						
 		/// <summary>
@@ -5428,8 +5435,12 @@ namespace ScintillaNet
 		/// </summary>
 		public Encoding Encoding
 		{
-			set { this.encoding = value; }
 			get { return this.encoding; }
+            set
+            {
+                this.encoding = value;
+                if (UpdateSync != null) this.UpdateSync(this);
+            }
         }
 
         /// <summary>
@@ -5437,8 +5448,12 @@ namespace ScintillaNet
         /// </summary>
         public bool SaveBOM
         {
-            set { this.saveBOM = value; }
             get { return this.saveBOM; }
+            set 
+            { 
+                this.saveBOM = value;
+                if (UpdateSync != null) this.UpdateSync(this);
+            }
         }
 		
 		/// <summary>
@@ -5970,7 +5985,6 @@ namespace ScintillaNet
         public int MBSafeLengthFromBytes(string txt, int bytes)
         {
             if (this.CodePage != 65001) return bytes;
-
             byte[] raw = Encoding.UTF8.GetBytes(txt);
             return Encoding.UTF8.GetString(raw, 0, Math.Min(raw.Length, bytes)).Length;
         }
@@ -6081,15 +6095,19 @@ namespace ScintillaNet
         /// </summary>
         public void AddHighlights(List<SearchMatch> matches, Int32 highlightColor)
         {
-            if (matches == null) return;
+            ITabbedDocument doc = DocumentManager.FindDocument(this);
+            if (matches == null || doc == null) return;
             foreach (SearchMatch match in matches)
             {
                 Int32 start = this.MBSafePosition(match.Index);
                 Int32 end = start + this.MBSafeTextLength(match.Value);
                 Int32 line = this.LineFromPosition(start);
                 Int32 position = start; Int32 mask = 1 << this.StyleBits;
-                this.SetIndicStyle(0, (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox);
-                this.SetIndicFore(0, highlightColor);
+                // Define indics in both controls...
+                doc.SplitSci1.SetIndicStyle(0, (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox);
+                doc.SplitSci1.SetIndicFore(0, highlightColor);
+                doc.SplitSci2.SetIndicStyle(0, (Int32)ScintillaNet.Enums.IndicatorStyle.RoundBox);
+                doc.SplitSci2.SetIndicFore(0, highlightColor);
                 this.StartStyling(position, mask);
                 this.SetStyling(end - start, mask);
                 this.StartStyling(this.EndStyled, mask - 1);
@@ -6228,7 +6246,6 @@ namespace ScintillaNet
                 }
             }
             Colourise(PositionFromLine(line), PositionFromLine(startLine + nLines));
-
             // Scan pasted lines to find their indentation
             for (line = startLine; line < startLine + nLines; ++line)
             {

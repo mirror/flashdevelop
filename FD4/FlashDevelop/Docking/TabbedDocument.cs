@@ -24,6 +24,8 @@ namespace FlashDevelop.Docking
         private Timer backupTimer;
         private String previousText;
         private ScintillaControl editor;
+        private ScintillaControl editor2;
+        private SplitContainer splitContainer;
         private Boolean useCustomIcon;
         private Boolean isModified;
         private FileInfo fileInfo;
@@ -91,7 +93,28 @@ namespace FlashDevelop.Docking
         }
 
         /// <summary>
-        /// ScintillaControl of the document
+        /// Are we splitted in to two sci controls?
+        /// </summary>
+        public Boolean IsSplitted
+        {
+            get
+            {
+                if (!this.IsEditable || this.splitContainer.Panel2Collapsed) return false;
+                else return true;
+            }
+            set
+            {
+                if (this.IsEditable)
+                {
+                    this.splitContainer.Panel2Collapsed = !value;
+                    if (value) this.splitContainer.Panel2.Show();
+                    else this.splitContainer.Panel2.Hide();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Current ScintillaControl of the document
         /// </summary>
         public ScintillaControl SciControl
         {
@@ -99,12 +122,53 @@ namespace FlashDevelop.Docking
             {
                 foreach (Control ctrl in this.Controls)
                 {
-                    if (ctrl is ScintillaControl && !this.Disposing)
+                    if (ctrl is ScintillaControl && !this.Disposing) return ctrl as ScintillaControl;
+                    else if (ctrl is SplitContainer && ctrl.Name == "fdSplitView" && !this.Disposing)
                     {
-                        return ctrl as ScintillaControl;
+                        SplitContainer casted = ctrl as SplitContainer;
+                        ScintillaControl sci1 = casted.Panel1.Controls[0] as ScintillaControl;
+                        ScintillaControl sci2 = casted.Panel2.Controls[0] as ScintillaControl;
+                        if (sci2.IsFocus) return sci2;
+                        else return sci1;
                     }
                 }
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// First splitted ScintillaControl 
+        /// </summary>
+        public ScintillaControl SplitSci1
+        {
+            get
+            {
+                if (this.editor != null) return this.editor;
+                else return null;
+            }
+        }
+
+        /// <summary>
+        /// Second splitted ScintillaControl
+        /// </summary>
+        public ScintillaControl SplitSci2
+        {
+            get
+            {
+                if (this.editor2 != null) return this.editor2;
+                else return null;
+            }
+        }
+
+        /// <summary>
+        /// SplitContainer of the document
+        /// </summary>
+        public SplitContainer SplitContainer
+        {
+            get
+            {
+                if (this.splitContainer != null) return this.splitContainer;
+                else return null;
             }
         }
             
@@ -161,22 +225,71 @@ namespace FlashDevelop.Docking
         }
 
         /// <summary>
-        /// Adds scintilla control to the document
+        /// Adds a new scintilla control to the document
         /// </summary>
         public void AddEditorControls(String file, String text, Int32 codepage)
         {
             this.editor = ScintillaManager.CreateControl(file, text, codepage);
             this.editor.Dock = DockStyle.Fill;
-            this.editor.SavePointLeft += delegate 
+            this.editor2 = ScintillaManager.CreateControl(file, text, codepage);
+            this.editor2.Dock = DockStyle.Fill;
+            this.splitContainer = new SplitContainer();
+            this.splitContainer.Name = "fdSplitView";
+            this.splitContainer.Orientation = Orientation.Horizontal;
+            this.splitContainer.BackColor = SystemColors.Control;
+            this.splitContainer.Panel1.Controls.Add(this.editor);
+            this.splitContainer.Panel2.Controls.Add(this.editor2);
+            this.splitContainer.Dock = DockStyle.Fill;
+            this.splitContainer.Panel2Collapsed = true;
+            Int32 oldDoc = this.editor.DocPointer;
+            this.editor2.DocPointer = oldDoc;
+            this.editor.SavePointLeft += delegate
             {
                 Globals.MainForm.OnDocumentModify(this);
             };
-            this.editor.SavePointReached += delegate 
+            this.editor.SavePointReached += delegate
             {
                 this.editor.MarkerDeleteAll(2);
                 this.IsModified = false;
             };
-            this.Controls.Add(this.editor);
+            this.editor.FocusChanged += new FocusHandler(this.EditorFocusChanged);
+            this.editor2.FocusChanged += new FocusHandler(this.EditorFocusChanged);
+            this.editor.UpdateSync += new UpdateSyncHandler(this.EditorUpdateSync);
+            this.editor2.UpdateSync += new UpdateSyncHandler(this.EditorUpdateSync);
+            ScintillaManager.UpdateControlSyntax(this.editor2);
+            this.Controls.Add(this.splitContainer);
+        }
+
+        /// <summary>
+        /// Syncs both of the scintilla editors
+        /// </summary>
+        private void EditorUpdateSync(ScintillaControl sender)
+        {
+            if (!this.IsSplitted) return;
+            ScintillaControl e1 = editor;
+            ScintillaControl e2 = editor2;
+            if (sender == editor2)
+            {
+                 e1 = editor2;
+                 e2 = editor;
+            }
+            e2.UpdateSync -= new UpdateSyncHandler(this.EditorUpdateSync);
+            ScintillaManager.UpdateSyncProps(e1, e2);
+            ScintillaManager.ApplySciSettings(e2);
+            e2.UpdateSync += new UpdateSyncHandler(this.EditorUpdateSync);
+            Globals.MainForm.RefreshUI();
+        }
+
+        /// <summary>
+        /// When the user changes to sci, block events from inactive sci
+        /// </summary>
+        private void EditorFocusChanged(ScintillaControl sender)
+        {
+            if (sender.IsFocus)
+            {
+                this.editor.DisableAllSciEvents = (sender == editor2);
+                this.editor2.DisableAllSciEvents = (sender == editor);
+            }
         }
 
         /// <summary>

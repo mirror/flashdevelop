@@ -5,6 +5,7 @@ using PluginCore.Utilities;
 using ScintillaNet;
 using PluginCore;
 using ScintillaNet.Configuration;
+using PluginCore.Managers;
 
 namespace FlashDebugger
 {
@@ -25,7 +26,16 @@ namespace FlashDebugger
         /// </summary>
         static public void AddSciEvent(String value)
         {
-            ScintillaControl sci = GetScintillaControl(value);
+            ITabbedDocument document = DocumentManager.FindDocument(value);
+            if (document != null && document.IsEditable)
+            {
+                InitMarkers(document.SplitSci1);
+                InitMarkers(document.SplitSci2);
+            }
+        }
+
+        static public void InitMarkers(ScintillaControl sci)
+        {
             sci.ModEventMask |= (Int32)ScintillaNet.Enums.ModificationFlags.ChangeMarker;
             sci.MarkerChanged += new MarkerChangedHandler(SciControl_MarkerChanged);
 			sci.MarginSensitiveN(0, true);
@@ -60,7 +70,18 @@ namespace FlashDebugger
         static public void SciControl_MarkerChanged(ScintillaControl sender, Int32 line)
         {
             if (line < 0) return;
-			Boolean bCurrentLine = IsMarkerSet(sender, markerCurrentLine, line);
+            ITabbedDocument document = DocumentManager.FindDocument(sender);
+            if (document == null || !document.IsEditable) return;
+            ApplyHighlights(document.SplitSci1, line);
+            ApplyHighlights(document.SplitSci2, line);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        static public void ApplyHighlights(ScintillaControl sender, Int32 line)
+        {
+            Boolean bCurrentLine = IsMarkerSet(sender, markerCurrentLine, line);
 			Boolean bBpActive = IsMarkerSet(sender, markerBPEnabled, line);
 			Boolean bBpDisabled = IsMarkerSet(sender, markerBPDisabled, line);
 			if (bCurrentLine)
@@ -110,9 +131,14 @@ namespace FlashDebugger
         /// </summary>
         static public void RemoveSciEvent(String value)
         {
-            ScintillaControl sci = GetScintillaControl(Path.GetFileName(value));
-			sci.ModEventMask |= (Int32)ScintillaNet.Enums.ModificationFlags.ChangeMarker;
-            sci.MarkerChanged -= new MarkerChangedHandler(SciControl_MarkerChanged);
+            ITabbedDocument document = DocumentManager.FindDocument(Path.GetFileName(value));
+            if (document != null && document.IsEditable)
+            {
+                document.SplitSci1.ModEventMask |= (Int32)ScintillaNet.Enums.ModificationFlags.ChangeMarker;
+                document.SplitSci1.MarkerChanged -= new MarkerChangedHandler(SciControl_MarkerChanged);
+                document.SplitSci2.ModEventMask |= (Int32)ScintillaNet.Enums.ModificationFlags.ChangeMarker;
+                document.SplitSci2.MarkerChanged -= new MarkerChangedHandler(SciControl_MarkerChanged);
+            }
         }
 
         #endregion

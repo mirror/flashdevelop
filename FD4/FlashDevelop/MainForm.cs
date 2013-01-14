@@ -2622,6 +2622,18 @@ namespace FlashDevelop
         }
 
         /// <summary>
+        /// Toggles the currect document to and from split view
+        /// </summary>
+        public void ToggleSplitView(Object sender, System.EventArgs e)
+        {
+            if (this.CurrentDocument.IsEditable)
+            {
+                this.CurrentDocument.IsSplitted = !this.CurrentDocument.IsSplitted;
+                ButtonManager.UpdateFlaggedButtons();
+            }
+        }
+
+        /// <summary>
         /// Moves the user to the matching brace
         /// </summary>
         public void GoToMatchingBrace(Object sender, System.EventArgs e)

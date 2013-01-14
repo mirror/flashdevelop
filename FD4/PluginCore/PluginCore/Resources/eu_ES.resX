@@ -4938,4 +4938,8 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <value>Oinarrizko osaketa erabiliko duten lengoaien zerrenda pertsonalizatua.</value>
     <comment>Modified after 4.2.1</comment>
   </data>
+  <data name="FlashDevelop.Label.SplitView" xml:space="preserve">
+    <value>&amp;Split View</value>
+    <comment>Added after 4.2.3</comment>
+  </data>
 </root>

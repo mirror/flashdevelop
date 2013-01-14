@@ -627,9 +627,13 @@ namespace AS3Context
             Match m = re_syntaxError.Match(error);
             if (!m.Success) return;
 
-            ScintillaNet.ScintillaControl sci = CurSciControl;
-            if (sci == null || m.Groups["filename"].Value != CurrentFile) 
-                return;
+            ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+            if (document == null || !document.IsEditable) return;
+
+            ScintillaNet.ScintillaControl sci = document.SplitSci1;
+            ScintillaNet.ScintillaControl sci2 = document.SplitSci2;
+
+            if (m.Groups["filename"].Value != CurrentFile) return;
             try
             {
                 int line = int.Parse(m.Groups["line"].Value) - 1;
@@ -637,6 +641,7 @@ namespace AS3Context
                 int start = MBSafeColumn(sci, line, int.Parse(m.Groups["col"].Value) - 1);
                 if (line == sci.LineCount && start == 0 && line > 0) start = -1;
                 AddSquiggles(sci, line, start, start + 1);
+                AddSquiggles(sci2, line, start, start + 1);
             }
             catch { }
         }

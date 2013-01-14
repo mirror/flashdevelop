@@ -4945,4 +4945,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Benutzerdefinierte Liste von Sprachen, für welche die Basiskomplettierung verwendet werden soll.</value>
     <comment>Modified after 4.2.1</comment>
   </data>
+  <data name="FlashDevelop.Label.SplitView" xml:space="preserve">
+    <value>&amp;Split View</value>
+    <comment>Added after 4.2.3</comment>
+  </data>
 </root>

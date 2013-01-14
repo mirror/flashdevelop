@@ -45,6 +45,22 @@ namespace FlashDevelop.Managers
         }
 
         /// <summary>
+        /// Update the manually syncable properties.
+        /// </summary>
+        public static void UpdateSyncProps(ScintillaControl e1, ScintillaControl e2)
+        {
+            e2.SaveBOM = e1.SaveBOM;
+            e2.Encoding = e1.Encoding;
+            e2.FileName = e1.FileName;
+            e2.SmartIndentType = e1.SmartIndentType;
+            e2.UseHighlightGuides = e1.UseHighlightGuides;
+            e2.ConfigurationLanguage = e1.ConfigurationLanguage;
+            e2.IsHiliteSelected = e1.IsHiliteSelected;
+            e2.IsBraceMatching = e1.IsBraceMatching;
+            e2.IgnoreAllKeys = e1.IgnoreAllKeys;
+        }
+
+        /// <summary>
         /// Detect syntax, ask from plugins if its correct and update
         /// </summary>
         public static void UpdateControlSyntax(ScintillaControl sci)

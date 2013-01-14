@@ -785,8 +785,11 @@ namespace ResultsPanel
                             Int32 position = sci.PositionFromLine(line) + start;
                             Int32 es = sci.EndStyled;
                             Int32 mask = 1 << sci.StyleBits;
-							sci.SetIndicStyle(0, indic);
-							sci.SetIndicFore(0, fore);
+                            // Define indics in both controls...
+                            document.SplitSci1.SetIndicStyle(0, indic);
+                            document.SplitSci1.SetIndicFore(0, fore);
+                            document.SplitSci2.SetIndicStyle(0, indic);
+                            document.SplitSci2.SetIndicFore(0, fore);
 							sci.StartStyling(position, mask);
 							sci.SetStyling(end - start, mask);
 							sci.StartStyling(es, mask - 1);

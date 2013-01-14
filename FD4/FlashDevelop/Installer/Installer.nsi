@@ -8,7 +8,7 @@
 ;--------------------------------
 
 ; Define version info
-!define VERSION "4.2.3"
+!define VERSION "4.3.0"
 !define BUILD "RTM"
 
 ; Define AIR SDK version

@@ -42,5 +42,6 @@ namespace ScintillaNet
     public delegate void IndicatorReleaseHandler(ScintillaControl sender, int position);
     public delegate void AutoCCancelledHandler(ScintillaControl sender);
     public delegate void AutoCCharDeletedHandler(ScintillaControl sender);
+    public delegate void UpdateSyncHandler(ScintillaControl sender);
 
 }

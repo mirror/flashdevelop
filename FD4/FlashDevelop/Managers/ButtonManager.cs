@@ -50,6 +50,14 @@ namespace FlashDevelop.Managers
             {
                 if (!document.IsEditable) return false;
             }
+            if (action.Contains("!IsSplitted"))
+            {
+                if (document.IsSplitted) return false;
+            }
+            else if (action.Contains("IsSplitted"))
+            {
+                if (!document.IsSplitted) return false;
+            }
             if (action.Contains("!IsModified"))
             {
                 if (document.IsModified) return false;
