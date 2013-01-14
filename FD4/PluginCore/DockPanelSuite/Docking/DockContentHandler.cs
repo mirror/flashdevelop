@@ -993,6 +993,11 @@ namespace WeifenLuo.WinFormsUI.Docking
 
         public void DockTo(DockPane pane, DockStyle dockStyle, int contentIndex)
         {
+            DockTo(pane, dockStyle, contentIndex, 0.5);
+        }
+
+        public void DockTo(DockPane pane, DockStyle dockStyle, int contentIndex, double proportion)
+        {
 			if (dockStyle == DockStyle.Fill)
 			{
 				bool samePane = (Pane == pane);
@@ -1020,13 +1025,13 @@ namespace WeifenLuo.WinFormsUI.Docking
 				DockPane paneFrom = DockPanel.DockPaneFactory.CreateDockPane(Content, pane.DockState, true);
 				INestedPanesContainer container = pane.NestedPanesContainer;
 				if (dockStyle == DockStyle.Left)
-					paneFrom.DockTo(container, pane, DockAlignment.Left, 0.5);
-				else if (dockStyle == DockStyle.Right) 
-					paneFrom.DockTo(container, pane, DockAlignment.Right, 0.5);
+                    paneFrom.DockTo(container, pane, DockAlignment.Left, proportion);
+				else if (dockStyle == DockStyle.Right)
+                    paneFrom.DockTo(container, pane, DockAlignment.Right, proportion);
 				else if (dockStyle == DockStyle.Top)
-					paneFrom.DockTo(container, pane, DockAlignment.Top, 0.5);
-				else if (dockStyle == DockStyle.Bottom) 
-					paneFrom.DockTo(container, pane, DockAlignment.Bottom, 0.5);
+                    paneFrom.DockTo(container, pane, DockAlignment.Top, proportion);
+				else if (dockStyle == DockStyle.Bottom)
+                    paneFrom.DockTo(container, pane, DockAlignment.Bottom, proportion);
 
 				paneFrom.DockState = pane.DockState;
 			}

@@ -115,7 +115,7 @@ namespace FlashDevelop.Managers
                             if (nestedDock.Alignment == DockAlignment.Top) ds = DockStyle.Top;
                             else if (nestedDock.Alignment == DockAlignment.Left) ds = DockStyle.Left;
                             else if (nestedDock.Alignment == DockAlignment.Bottom) ds = DockStyle.Bottom;
-                            dockContent.DockTo(prevPane, ds, -1);
+                            dockContent.DockTo(prevPane, ds, -1, nestedDock.Proportion);
                         }
                     }
                 }
@@ -218,7 +218,7 @@ namespace FlashDevelop.Managers
         private Int32 nest = -1;
         private Int32 index = -1;
         private String file = "";
-        private double prop = 0.5f;
+        private double prop = 0.5;
         private DockAlignment align = DockAlignment.Right;
 
         public NestedDock() { }

@@ -250,6 +250,11 @@ namespace WeifenLuo.WinFormsUI.Docking
             DockHandler.DockTo(paneTo, dockStyle, contentIndex);
         }
 
+        public void DockTo(DockPane paneTo, DockStyle dockStyle, int contentIndex, double proportion)
+        {
+            DockHandler.DockTo(paneTo, dockStyle, contentIndex, proportion);
+        }
+
         public void DockTo(DockPanel panel, DockStyle dockStyle)
         {
             DockHandler.DockTo(panel, dockStyle);
