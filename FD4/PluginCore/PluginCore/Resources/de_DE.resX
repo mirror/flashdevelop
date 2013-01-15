@@ -4949,4 +4949,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>&amp;Split View</value>
     <comment>Added after 4.2.3</comment>
   </data>
+  <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
+    <value>Add prefix to fields when generating from parameters.</value>
+    <comment>Added after 4.2.3</comment>
+  </data>
 </root>

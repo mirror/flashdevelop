@@ -405,6 +405,7 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         private void FilterPropertySheet()
         {
+            LocalizedDescriptionAttribute lda = null;
             Object settingsObj = this.itemPropertyGrid.SelectedObject;
             String text = this.filterText.Text;
             if (settingsObj != null)
@@ -414,7 +415,9 @@ namespace FlashDevelop.Dialogs
                 PropertyInfo[] props = settingsObj.GetType().GetProperties();
                 foreach (PropertyInfo prop in props)
                 {
-                    if (prop.Name.ToLower().Contains(text.ToLower()))
+                    var atts = prop.GetCustomAttributes(typeof(LocalizedDescriptionAttribute), true);
+                    if (atts.Length > 0) lda = atts[0] as LocalizedDescriptionAttribute;
+                    if (prop.Name.ToLower().ToLower().Contains(text.ToLower()) || lda != null && lda.Description.ToLower().Contains(text.ToLower()))
                     {
                         Array.Resize(ref browsables, i + 1);
                         browsables.SetValue(prop.Name, i);

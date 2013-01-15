@@ -373,7 +373,7 @@ namespace ASCompletion.Settings
             set { addClosingBraces = value; }
         }
 
-        [DisplayName("Prefix fields when generating from parameters")]
+        [DisplayName("Prefix Fields When Generating From Params")]
         [LocalizedCategory("ASCompletion.Category.Generation"), LocalizedDescription("ASCompletion.Description.PrefixFields"),
         DefaultValue(DEFAULT_GENERATE_PREFIXFIELDS)]
         public string PrefixFields
