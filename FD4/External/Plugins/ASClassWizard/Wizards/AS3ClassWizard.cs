@@ -90,15 +90,18 @@ namespace ASClassWizard.Wizards
                     this.internalRadio.Enabled = false;
                     this.finalCheck.Enabled = false;
                     this.titleLabel.Text = TextHelper.GetString("Wizard.Label.NewAs2Class");
+                    this.Text = TextHelper.GetString("Wizard.Label.NewAs2Class");
                 }
                 if (project.Language == "haxe")
                 {
                     this.finalCheck.Enabled = false;
                     this.titleLabel.Text = TextHelper.GetString("Wizard.Label.NewHaxeClass");
+                    this.Text = TextHelper.GetString("Wizard.Label.NewHaxeClass");
                 }
                 else
                 {
                     this.titleLabel.Text = TextHelper.GetString("Wizard.Label.NewAs3Class");
+                    this.Text = TextHelper.GetString("Wizard.Label.NewAs3Class");
                 }
             }
         }
