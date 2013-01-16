@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using PluginCore.Localization;
 using FlashDevelop.Utilities;
+using PluginCore.Utilities;
 using PluginCore.Controls;
 using PluginCore.FRService;
 using PluginCore.Managers;
@@ -263,6 +264,7 @@ namespace FlashDevelop.Dialogs
             this.folderComboBox.Name = "folderComboBox";
             this.folderComboBox.Size = new System.Drawing.Size(293, 21);
             this.folderComboBox.TabIndex = 4;
+            this.folderComboBox.Text = "<Project>";
             // 
             // folderLabel
             // 
@@ -458,6 +460,7 @@ namespace FlashDevelop.Dialogs
         /// </summary>
         public void UpdateSettings()
         {
+            FRDialogGenerics.UpdateComboBoxItems(this.folderComboBox);
             Boolean useGroups = Globals.MainForm.Settings.UseListViewGrouping;
             this.resultsView.ShowGroups = useGroups;
             this.resultsView.GridLines = !useGroups;
@@ -521,9 +524,10 @@ namespace FlashDevelop.Dialogs
             Boolean recursive = this.subDirectoriesCheckBox.Checked;
             if (this.findComboBox.Text.Trim() != "")
             {
-                this.UpdateUIState(true);
-                FRConfiguration config = new FRConfiguration(path, mask, recursive, this.GetFRSearch());
+                FRConfiguration config = this.GetFRConfig(path, mask, recursive);
+                if (config == null) return;
                 config.CacheDocuments = true;
+                this.UpdateUIState(true);
                 this.runner = new FRRunner();
                 this.runner.ProgressReport += new FRProgressReportHandler(this.RunnerProgress);
                 this.runner.Finished += new FRFinishedHandler(this.FindFinished);
@@ -552,11 +556,12 @@ namespace FlashDevelop.Dialogs
                     DialogResult result = MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                     if (result == DialogResult.Cancel) return;
                 }
-                this.UpdateUIState(true);
-                FRConfiguration config = new FRConfiguration(path, mask, recursive, this.GetFRSearch());
+                FRConfiguration config = this.GetFRConfig(path, mask, recursive);
+                if (config == null) return;
                 config.CacheDocuments = true;
                 config.UpdateSourceFileOnly = false;
                 config.Replacement = this.replaceComboBox.Text;
+                this.UpdateUIState(true);
                 this.runner = new FRRunner();
                 this.runner.ProgressReport += new FRProgressReportHandler(this.RunnerProgress);
                 this.runner.Finished += new FRFinishedHandler(this.ReplaceFinished);
@@ -909,7 +914,38 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
-        /// Gets seartch object for find and replace
+        /// Gets search config for find and replace
+        /// </summary>
+        private FRConfiguration GetFRConfig(String path, String mask, Boolean recursive)
+        {
+            if (path.Trim() == "<Project>")
+            {
+                if (PluginBase.CurrentProject != null)
+                {
+                    PathWalker walker;
+                    List<String> allFiles = new List<String>();
+                    IProject project = PluginBase.CurrentProject;
+                    String projPath = Path.GetDirectoryName(project.ProjectPath);
+                    walker = new PathWalker(projPath, mask, recursive);
+                    allFiles.AddRange(walker.GetFiles());
+                    for (var i = 0; i < project.SourcePaths.Length; i++)
+                    {
+                        String sourcePath = project.GetAbsolutePath(project.SourcePaths[i]);
+                        if (Directory.Exists(sourcePath) && !sourcePath.StartsWith(projPath))
+                        {
+                            walker = new PathWalker(sourcePath, mask, recursive);
+                            allFiles.AddRange(walker.GetFiles());
+                        }
+                    }
+                    return new FRConfiguration(allFiles, this.GetFRSearch());
+                }
+                else return null;
+            }
+            else return new FRConfiguration(path, mask, recursive, this.GetFRSearch());
+        }
+
+        /// <summary>
+        /// Gets search object for find and replace
         /// </summary>
         private FRSearch GetFRSearch()
         {

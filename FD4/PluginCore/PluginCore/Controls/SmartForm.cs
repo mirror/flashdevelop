@@ -16,6 +16,10 @@ namespace PluginCore.Controls
         private String formGuid;
         private String helpLink;
         private FormProps formProps;
+        public event SavePropsHandler SaveProps;
+        public event ApplyPropsHandler ApplyProps;
+        public delegate void ApplyPropsHandler(SmartForm form);
+        public delegate void SavePropsHandler(SmartForm form);
 
         public SmartForm()
         {
@@ -95,6 +99,7 @@ namespace PluginCore.Controls
                 this.HelpButton = true;
                 this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.SmartFormHelpButtonClick);
             }
+            if (this.ApplyProps != null) this.ApplyProps(this);
         }
 
         /// <summary>
@@ -102,6 +107,7 @@ namespace PluginCore.Controls
         /// </summary>
         private void SmartFormClosing(Object sender, FormClosingEventArgs e)
         {
+            if (this.SaveProps != null) this.SaveProps(this);
             if (!String.IsNullOrEmpty(this.formGuid) && !this.Size.IsEmpty)
             {
                 this.formProps.WindowSize = this.Size;
@@ -117,16 +123,50 @@ namespace PluginCore.Controls
             PluginBase.MainForm.CallCommand("Browse", this.helpLink);
         }
 
+        /// <summary>
+        /// Get custom property value
+        /// </summary>
+        public String GetPropValue(String key)
+        {
+            Argument argument;
+            for (var i = 0; i < this.formProps.ExtraProps.Count; i++)
+            {
+                argument = this.formProps.ExtraProps[i];
+                if (argument.Key == key) return argument.Value;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Set custom property value
+        /// </summary>
+        public void SetPropValue(String key, String value)
+        {
+            Argument argument;
+            for (var i = 0; i < this.formProps.ExtraProps.Count; i++)
+            {
+                argument = this.formProps.ExtraProps[i];
+                if (argument.Key == key)
+                {
+                    argument.Value = value;
+                    return;
+                }
+            }
+            argument = new Argument(key, value);
+            this.formProps.ExtraProps.Add(argument);
+        }
     }
 
     [Serializable]
     public class FormProps
     {
         public Size WindowSize;
+        public List<Argument> ExtraProps;
 
         public FormProps()
         {
             this.WindowSize = Size.Empty;
+            this.ExtraProps = new List<Argument>();
         }
     }
 
