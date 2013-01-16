@@ -117,16 +117,18 @@ namespace FlashDebugger
                 {
                     BridgeSetup bridgeSetup = null;
                     bridgeSetup = new BridgeSetup();
+
                     string flexSDKPath = null;
                     if (currentProject != null) flexSDKPath = currentProject.CurrentSDK;
                     else flexSDKPath = PluginCore.Helpers.PathHelper.ResolvePath(PluginBase.MainForm.ProcessArgString("$(FlexSDK)"));
+
                     if (flexSDKPath != null && Directory.Exists(flexSDKPath))
                     {
-                        Dictionary<string, string> jvmConfig = JvmConfigHelper.ReadConfig(Path.Combine(flexSDKPath, "bin\\jvm.config"));
-                        String javaHome = JvmConfigHelper.GetJavaHome(jvmConfig, flexSDKPath);
-                        if (!String.IsNullOrEmpty(javaHome)) bridgeSetup.JavaHome = javaHome;
-                        else bridgeSetup.IgnoreJavaHome = true;
+                        Dictionary<string, string> jvmConfig =
+                            JvmConfigHelper.ReadConfig(Path.Combine(flexSDKPath, "bin\\jvm.config"));
+                        bridgeSetup.JavaHome = JvmConfigHelper.GetJavaHome(jvmConfig, flexSDKPath);
                     }
+
                     bridgeSetup.AddAllJarsClassPath(PluginCore.Helpers.PathHelper.PluginDir);
                     bridgeSetup.AddAllJarsClassPath(Path.Combine(PluginCore.Helpers.PathHelper.ToolDir, @"flexlibs\lib"));
                     Bridge.CreateJVM(bridgeSetup);
