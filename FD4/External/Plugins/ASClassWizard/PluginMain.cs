@@ -132,7 +132,7 @@ namespace ASClassWizard
                     {
                         Hashtable table = evt.Data as Hashtable;
                         project = PluginBase.CurrentProject as Project;
-                        if ((project.Language.StartsWith("as")) && IsWizardTemplate(table["templatePath"] as String))
+                        if ((project.Language.StartsWith("as") || project.Language == "haxe") && IsWizardTemplate(table["templatePath"] as String))
                         {
                             evt.Handled = true;
                             String className = table.ContainsKey("className") ? table["className"] as String : TextHelper.GetString("Wizard.Label.NewClass");
@@ -160,7 +160,7 @@ namespace ASClassWizard
                 case EventType.ProcessArgs:
                     TextEvent te = e as TextEvent;
                     project = PluginBase.CurrentProject as Project;
-                    if (lastFileFromTemplate != null && project != null && (project.Language.StartsWith("as")))
+                    if (lastFileFromTemplate != null && project != null && (project.Language.StartsWith("as") || project.Language == "haxe"))
                     {
                         te.Value = ProcessArgs(project, te.Value);
                     }
@@ -228,6 +228,7 @@ namespace ASClassWizard
                 package = "";
             }
             AS3ClassWizard dialog = new AS3ClassWizard();
+            bool isHaxe = project.Language == "haxe";
             dialog.Project = project;
             dialog.Directory = inDirectory;
 			dialog.StartupClassName = className;
@@ -240,7 +241,7 @@ namespace ASClassWizard
             {
                 string cPackage = dialog.getPackage();
                 string path = Path.Combine(classpath, dialog.getPackage().Replace('.', Path.DirectorySeparatorChar));
-                string newFilePath  = Path.ChangeExtension(Path.Combine(path, dialog.getClassName()), ".as");
+                string newFilePath  = Path.ChangeExtension(Path.Combine(path, dialog.getClassName()), isHaxe ? ".hx" : ".as");
                 if (File.Exists(newFilePath))
                 {
                     string title = " " + TextHelper.GetString("FlashDevelop.Title.ConfirmDialog");
@@ -323,6 +324,7 @@ namespace ASClassWizard
             // resolve imports
             if (lastFileOptions.interfaces != null && lastFileOptions.interfaces.Count > 0)
             {
+                bool isHaxe = lastFileOptions.Language == "haxe";
                 implements = " implements ";
                 string[] _implements;
                 index = 0;
@@ -330,7 +332,7 @@ namespace ASClassWizard
                 {
                     if (item.Split('.').Length > 1) imports.Add(item);
                     _implements = item.Split('.');
-                    implements += (index > 0 ? ", " : "") + _implements[_implements.Length - 1];
+                    implements += (index > 0 ? (isHaxe ? ", implements " : ", ") : "") + _implements[_implements.Length - 1];
                     if (lastFileOptions.createInheritedMethods)
                     {
                         processOnSwitch = lastFileFromTemplate; 
@@ -390,6 +392,11 @@ namespace ASClassWizard
                 access = lastFileOptions.isPublic ? "public " : "internal ";
                 access += lastFileOptions.isDynamic ? "dynamic " : "";
                 access += lastFileOptions.isFinal ? "final " : "";
+            }
+            else if (lastFileOptions.Language == "haxe")
+            {
+                access = lastFileOptions.isPublic ? "public " : "internal ";
+                access += lastFileOptions.isDynamic ? "dynamic " : "";
             }
             else
             {

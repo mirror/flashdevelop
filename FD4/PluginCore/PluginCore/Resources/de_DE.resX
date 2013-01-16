@@ -4953,4 +4953,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Add prefix to fields when generating from parameters.</value>
     <comment>Added after 4.2.3</comment>
   </data>
+  <data name="ASClassWizard.Wizard.Label.NewHaxeClass" xml:space="preserve">
+    <value>New Haxe Class</value>
+    <comment>Added after 4.2.3</comment>
+  </data>
 </root>

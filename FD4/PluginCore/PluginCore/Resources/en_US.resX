@@ -2957,7 +2957,8 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Defines whether to add closing brace (or quote) after opening brace (or quote) automatically for ( and [ and quotes.</value>
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
-    <value>Adds an ActionScript class wizard to FlashDevelop.</value>
+    <value>Adds an ActionScript and Haxe class wizard to FlashDevelop.</value>
+    <comment>Modified after 4.2.3</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Add" xml:space="preserve">
     <value>&amp;Add</value>
@@ -4956,6 +4957,10 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
   </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
     <value>Add prefix to fields when generating from parameters.</value>
+    <comment>Added after 4.2.3</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.NewHaxeClass" xml:space="preserve">
+    <value>New Haxe Class</value>
     <comment>Added after 4.2.3</comment>
   </data>
 </root>

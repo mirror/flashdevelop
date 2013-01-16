@@ -2959,6 +2959,7 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
   </data>
   <data name="ASClassWizard.Info.Description" xml:space="preserve">
     <value>FlashDevelop に ActionScript クラスウイザード機能を追加します。</value>
+    <comment>Modified after 4.2.3</comment>
   </data>
   <data name="ASClassWizard.Wizard.Button.Add" xml:space="preserve">
     <value>追加(&amp;A)</value>
@@ -5008,6 +5009,10 @@ UseData:"</value>
   </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
     <value>Add prefix to fields when generating from parameters.</value>
+    <comment>Added after 4.2.3</comment>
+  </data>
+  <data name="ASClassWizard.Wizard.Label.NewHaxeClass" xml:space="preserve">
+    <value>New Haxe Class</value>
     <comment>Added after 4.2.3</comment>
   </data>
 </root>
