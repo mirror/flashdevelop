@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
@@ -23,6 +24,12 @@ namespace FlashDevelop
 
         [DllImport("user32.dll")]
         public static extern void SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, Int32 x, Int32 y, Int32 width, Int32 height, UInt32 flags);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, Int32 msg, IntPtr wp, IntPtr lp);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr WindowFromPoint(Point pt);
 
         /// <summary>
         /// Sets the window specified by handle to fullscreen

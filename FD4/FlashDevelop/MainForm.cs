@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 using ScintillaNet.Configuration;
 using PluginCore.Localization;
 using FlashDevelop.Controls;
@@ -37,7 +38,7 @@ using PluginCore;
 
 namespace FlashDevelop
 {
-    public class MainForm : Form, IMainForm
+    public class MainForm : Form, IMainForm, IMessageFilter
     {
         #region Constructor
 
@@ -56,6 +57,7 @@ namespace FlashDevelop
                 this.InitializeSmartDialogs();
                 this.InitializeMainForm();
                 this.InitializeGraphics();
+                Application.AddMessageFilter(this);
             }
             else this.Load += new EventHandler(this.MainFormLoaded);
         }
@@ -1347,6 +1349,25 @@ namespace FlashDevelop
                 if (Control.ModifierKeys == Keys.Control) MarkerManager.ToggleMarker(sci, 0, line);
                 else sci.ToggleFold(line);
             }
+        }
+
+        /// <summary>
+        /// Handles the mouse wheel on hover
+        /// </summary>
+        public Boolean PreFilterMessage(ref Message m)
+        {
+            if (m.Msg == 0x20a)
+            {
+                // WM_MOUSEWHEEL, find the control at screen position m.LParam
+                Point pos = new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16);
+                IntPtr hWnd = Win32.WindowFromPoint(pos);
+                if (hWnd != IntPtr.Zero && Control.FromHandle(hWnd) != null)
+                {
+                    Win32.SendMessage(hWnd, m.Msg, m.WParam, m.LParam);
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>

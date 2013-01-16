@@ -65,39 +65,6 @@ namespace ScintillaNet
             SetWindowPos(this.hwndScintilla, 0, this.ClientRectangle.X, this.ClientRectangle.Y, this.ClientRectangle.Width, this.ClientRectangle.Height, 0);
         }
 
-        public override bool PreProcessMessage(ref Message m)
-        {
-            switch (m.Msg)
-            {
-                case WM_KEYDOWN:
-                {
-                    if (!IsFocus || ignoreAllKeys || ignoredKeys.ContainsKey((Int32)Control.ModifierKeys + (Int32)m.WParam))
-                    {
-                        if (base.PreProcessMessage(ref m)) return true;
-                    }
-                    if (((Control.ModifierKeys & Keys.Control) != 0) && ((Control.ModifierKeys & Keys.Alt) == 0))
-                    {
-                        Int32 code = (Int32)m.WParam;
-                        if ((code >= 65) && (code <= 90)) return true; // Eat non-writable characters
-                        else if ((code == 9) || (code == 33) || (code == 34)) // Transmit Ctrl with Tab, PageUp/PageDown
-                        {
-                            return base.PreProcessMessage(ref m);
-                        }
-                    }
-                    break;
-                }
-                case WM_SYSKEYDOWN:
-                {
-                    return base.PreProcessMessage(ref m);
-                }
-                case WM_SYSCHAR:
-                {
-                    return base.PreProcessMessage(ref m);
-                }
-            }
-            return false;
-        }
-
 		#endregion
 
 		#region Scintilla Event Members
@@ -4889,7 +4856,10 @@ namespace ScintillaNet
 		#endregion
 		
 		#region Scintilla External
-		
+
+        // Stops all sci events from firing...
+        public bool DisableAllSciEvents = false;
+
 		[DllImport("gdi32.dll")] 
 		public static extern int GetDeviceCaps(IntPtr hdc, Int32 capindex);
 		
@@ -4926,10 +4896,40 @@ namespace ScintillaNet
 			return (UInt32)Perform(directPointer, message, wParam, lParam);
 		}
 
-        // Stops all sci events from firing...
-        public bool DisableAllSciEvents = false;
+        public override bool PreProcessMessage(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_KEYDOWN:
+                {
+                    if (!IsFocus || ignoreAllKeys || ignoredKeys.ContainsKey((Int32)Control.ModifierKeys + (Int32)m.WParam))
+                    {
+                        if (base.PreProcessMessage(ref m)) return true;
+                    }
+                    if (((Control.ModifierKeys & Keys.Control) != 0) && ((Control.ModifierKeys & Keys.Alt) == 0))
+                    {
+                        Int32 code = (Int32)m.WParam;
+                        if ((code >= 65) && (code <= 90)) return true; // Eat non-writable characters
+                        else if ((code == 9) || (code == 33) || (code == 34)) // Transmit Ctrl with Tab, PageUp/PageDown
+                        {
+                            return base.PreProcessMessage(ref m);
+                        }
+                    }
+                    break;
+                }
+                case WM_SYSKEYDOWN:
+                {
+                    return base.PreProcessMessage(ref m);
+                }
+                case WM_SYSCHAR:
+                {
+                    return base.PreProcessMessage(ref m);
+                }
+            }
+            return false;
+        }
 
-		protected override void WndProc(ref System.Windows.Forms.Message m )
+		protected override void WndProc(ref System.Windows.Forms.Message m)
 		{
             if (m.Msg == WM_COMMAND)
             {
