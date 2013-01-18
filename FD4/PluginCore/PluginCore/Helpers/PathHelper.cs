@@ -336,6 +336,23 @@ namespace PluginCore.Helpers
 				return path;
 			}
 		}
+
+        /// <summary>
+        /// Gets the 32-bit Java install path
+        /// </summary>
+        public static String GetJavaInstallPath()
+        {
+            String javaKey = "SOFTWARE\\JavaSoft\\Java Runtime Environment\\";
+            using (Microsoft.Win32.RegistryKey rk = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(javaKey))
+            {
+                String currentVersion = rk.GetValue("CurrentVersion").ToString();
+                using (Microsoft.Win32.RegistryKey key = rk.OpenSubKey(currentVersion))
+                {
+                    return key.GetValue("JavaHome").ToString();
+                }
+            }
+        }
+
     }
 
 }

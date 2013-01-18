@@ -124,9 +124,9 @@ namespace FlashDebugger
 
                     if (flexSDKPath != null && Directory.Exists(flexSDKPath))
                     {
-                        Dictionary<string, string> jvmConfig =
-                            JvmConfigHelper.ReadConfig(Path.Combine(flexSDKPath, "bin\\jvm.config"));
-                        bridgeSetup.JavaHome = JvmConfigHelper.GetJavaHome(jvmConfig, flexSDKPath);
+                        Dictionary<string, string> jvmConfig = JvmConfigHelper.ReadConfig(Path.Combine(flexSDKPath, "bin\\jvm.config"));
+                        String javaHome = JvmConfigHelper.GetJavaHome(jvmConfig, flexSDKPath);
+                        if (!String.IsNullOrEmpty(javaHome)) bridgeSetup.JavaHome = javaHome;
                     }
 
                     bridgeSetup.AddAllJarsClassPath(PluginCore.Helpers.PathHelper.PluginDir);
@@ -138,7 +138,9 @@ namespace FlashDebugger
                 }
                 catch (Exception ex)
                 {
-                    TraceManager.Add("Debugger startup error: "+ex.ToString());
+
+                    String msg = "Debugger startup error. For troubleshooting see: http://www.flashdevelop.org/wikidocs/index.php?title=F.A.Q\n";
+                    TraceManager.Add(msg + "Error details: " + ex.ToString()); 
                     return false;
                 }
             }
