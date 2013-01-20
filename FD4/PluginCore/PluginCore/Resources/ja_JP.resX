@@ -3469,10 +3469,10 @@ AfterSimilarAccessorMethod: 同様のアクセサメソッドの後に配置。"
     <value>コンストラクタの生成</value>
   </data>
   <data name="ASCompletion.Label.GeneratePrivateFieldFromPatameter" xml:space="preserve">
-    <value>Generate private field</value>
+    <value>プライベート変数を作成</value>
   </data>
   <data name="ASCompletion.Label.GeneratePublicFieldFromPatameter" xml:space="preserve">
-    <value>Generate public field</value>
+    <value>パブリック変数を作成</value>
   </data>
   <data name="ASCompletion.Label.GenerateToString" xml:space="preserve">
     <value>toString() の生成</value>
@@ -5004,11 +5004,11 @@ UseData:"</value>
     <comment>Modified after 4.2.1</comment>
   </data>
   <data name="FlashDevelop.Label.SplitView" xml:space="preserve">
-    <value>&amp;Split View</value>
+    <value>分割表示(&amp;S)</value>
     <comment>Added after 4.2.3</comment>
   </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
-    <value>Add prefix to fields when generating from parameters.</value>
+    <value>引数からメンバー変数を作成する際に変数名の頭につける文字列。</value>
     <comment>Added after 4.2.3</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.NewHaxeClass" xml:space="preserve">
