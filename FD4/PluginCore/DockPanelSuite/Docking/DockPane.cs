@@ -159,13 +159,13 @@ namespace WeifenLuo.WinFormsUI.Docking
 
 				if (value != null)
 				{
-					if (!DisplayingContents.Contains(value))
-						throw(new InvalidOperationException(Strings.DockPane_ActiveContent_InvalidValue));
+                    if (!DisplayingContents.Contains(value)) return;
+						//throw(new InvalidOperationException(Strings.DockPane_ActiveContent_InvalidValue));
 				}
 				else
 				{
-					if (DisplayingContents.Count != 0)
-						throw(new InvalidOperationException(Strings.DockPane_ActiveContent_InvalidValue));
+					if (DisplayingContents.Count != 0) return;
+						//throw(new InvalidOperationException(Strings.DockPane_ActiveContent_InvalidValue));
 				}
 
 				IDockContent oldValue = m_activeContent;
