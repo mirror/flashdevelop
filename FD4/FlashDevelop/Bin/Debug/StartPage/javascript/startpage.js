@@ -180,6 +180,7 @@ function getProjectType(extension)
 		case ".fdp" : return getLocaleString("projectTypeFDP");
 		case ".as2proj" : return getLocaleString("projectTypeAS2");
 		case ".as3proj" : return getLocaleString("projectTypeAS3");
+		case ".fdproj" : return getLocaleString("projectTypeGeneric");
 		case ".hxproj" : return getLocaleString("projectTypeHaXe");
 		default : return getLocaleString("projectTypeUnknown");
 	}
