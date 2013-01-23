@@ -490,6 +490,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PluginCore\Resources\MessageBarClose.bmp" />
+    <EmbeddedResource Include="PluginCore\Resources\zh_CN.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DockPanelSuite\Resources\DockIndicator_PaneDiamond.bmp" />

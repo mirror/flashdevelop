@@ -118,3 +118,32 @@ locale["eu_ES.projectTypeUnknown"] = "Ezezaguna";
 locale["eu_ES.tooltipTextModified"] = "Aldatua:";
 locale["eu_ES.tooltipTextCreated"] = "Sortua:";
 locale["eu_ES.tooltipTextType"] = "Mota:";
+
+/**
+* Locale strings for Chinese.
+*/
+locale["zh_CN.mainLinkHome"] = "首页";
+locale["zh_CN.mainLinkDocs"] = "文档";
+locale["zh_CN.mainLinkNotes"] = "发布说明";
+locale["zh_CN.mainLinkAbout"] = "关于";
+locale["zh_CN.createNewProject"] = "新建工程...";
+locale["zh_CN.openProjectDialog"] = "打开工程...";
+locale["zh_CN.recentProjectsTitle"] = "最近的工程";
+locale["zh_CN.loadingRecentProjects"] = "加载最近的工程...";
+locale["zh_CN.recentProjectsNotFound"] = "无最近的工程.";
+locale["zh_CN.versionInfoTitle"] = "最新版本";
+locale["zh_CN.loadingVersionInfo"] = "加载版本信息...";
+locale["zh_CN.versionInfoNotAvailable"] = "无版本信息.";
+locale["zh_CN.yourVersionIsOutOfDate"] = "你的版本 ({0}) 太老了.";
+locale["zh_CN.downloadVersionHere"] = "点此下载!";
+locale["zh_CN.loadingRssFeed"] = "加载RSS订阅...";
+locale["zh_CN.rssFeedNotAvailable"] = "无RSS订阅.";
+locale["zh_CN.projectTypeFDP"] = "无法确定";
+locale["zh_CN.projectTypeAS2"] = "ActionScript 2 工程";
+locale["zh_CN.projectTypeAS3"] = "ActionScript 3 工程";
+locale["zh_CN.projectTypeGeneric"] = "Generic Project";
+locale["zh_CN.projectTypeHaXe"] = "HaXe 工程";
+locale["zh_CN.projectTypeUnknown"] = "未知";
+locale["zh_CN.tooltipTextModified"] = "修改:";
+locale["zh_CN.tooltipTextCreated"] = "创建:";
+locale["zh_CN.tooltipTextType"] = "类型:";
