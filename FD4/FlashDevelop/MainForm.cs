@@ -125,6 +125,7 @@ namespace FlashDevelop
 
         /* Form State */
         private FormState formState;
+        private Hashtable fullScreenDocks;
         private Boolean isFullScreen = false;
         private Boolean panelIsActive = false;
         private Boolean savingMultiple = false;
@@ -2496,34 +2497,35 @@ namespace FlashDevelop
         {
             if (this.isFullScreen)
             {
-                LayoutManager.RestoreLayout(FileNameHelper.FullScreen);
-                if (!this.closeAllCanceled)
+                this.formState.Restore(this);
+                if (this.appSettings.ViewToolBar) this.toolStrip.Visible = true;
+                foreach (DockPane pane in this.dockPanel.Panes)
                 {
-                    this.formState.Restore(this);
-                    if (this.appSettings.ViewToolBar) this.toolStrip.Visible = true;
-                    this.isFullScreen = false;
+                    pane.DockState = (DockState)fullScreenDocks[pane];
                 }
+                this.isFullScreen = false;
             } 
             else 
             {
                 this.formState.Maximize(this);
                 this.toolStrip.Visible = false;
-                this.dockPanel.SaveAsXml(FileNameHelper.FullScreen);
-                foreach (DockContent content in this.dockPanel.Contents)
+                this.fullScreenDocks = new Hashtable();
+                foreach (DockPane pane in this.dockPanel.Panes)
                 {
-                    switch (content.DockState)
+                    fullScreenDocks[pane] = pane.DockState;
+                    switch (pane.DockState)
                     {
                         case DockState.DockLeft:
-                            content.DockState = DockState.DockLeftAutoHide;
+                            pane.DockState = DockState.DockLeftAutoHide;
                             break;
                         case DockState.DockRight:
-                            content.DockState = DockState.DockRightAutoHide;
+                            pane.DockState = DockState.DockRightAutoHide;
                             break;
                         case DockState.DockBottom:
-                            content.DockState = DockState.DockBottomAutoHide;
+                            pane.DockState = DockState.DockBottomAutoHide;
                             break;
                         case DockState.DockTop:
-                            content.DockState = DockState.DockTopAutoHide;
+                            pane.DockState = DockState.DockTopAutoHide;
                             break;
                     }
                 }

@@ -630,7 +630,10 @@ namespace ProjectManager
             using (ClasspathDialog dialog = new ClasspathDialog(Settings))
             {
                 dialog.Language = "as2";
-                if (project != null) dialog.Language = project.Language;
+                if (project != null && project.Language != "*")
+                {
+                    dialog.Language = project.Language;
+                }
                 dialog.ShowDialog(pluginUI);
             }
         }
