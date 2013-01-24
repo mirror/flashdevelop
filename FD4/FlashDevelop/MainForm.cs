@@ -1357,15 +1357,23 @@ namespace FlashDevelop
         /// </summary>
         public Boolean PreFilterMessage(ref Message m)
         {
-            if (m.Msg == 0x20a)
+            if (m.Msg == 0x20a) // WM_MOUSEWHEEL
             {
-                // WM_MOUSEWHEEL, find the control at screen position m.LParam
                 Point pos = new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16);
                 IntPtr hWnd = Win32.WindowFromPoint(pos);
-                if (hWnd != IntPtr.Zero && Control.FromHandle(hWnd) != null)
+                if (hWnd != IntPtr.Zero)
                 {
-                    Win32.SendMessage(hWnd, m.Msg, m.WParam, m.LParam);
-                    return true;
+                    ITabbedDocument doc = Globals.CurrentDocument;
+                    if (Control.FromHandle(hWnd) != null)
+                    {
+                        Win32.SendMessage(hWnd, m.Msg, m.WParam, m.LParam);
+                        return true;
+                    }
+                    else if (doc != null && doc.IsEditable && (hWnd == doc.SplitSci1.HandleSci || hWnd == doc.SplitSci2.HandleSci))
+                    {
+                        Win32.SendMessage(hWnd, m.Msg, m.WParam, m.LParam);
+                        return true;
+                    }
                 }
             }
             return false;

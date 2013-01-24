@@ -115,6 +115,14 @@ namespace ScintillaNet
 		#region Scintilla Properties
 
         /// <summary>
+        /// Gets the sci handle
+        /// </summary>
+        public IntPtr HandleSci
+        {
+            get { return hwndScintilla; }
+        }
+
+        /// <summary>
         /// Current used configuration
         /// </summary> 
         static public Scintilla Configuration
