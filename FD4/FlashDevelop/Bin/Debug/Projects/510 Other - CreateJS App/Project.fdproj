@@ -23,11 +23,10 @@
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
-    <!-- example: <hidden path="..." /> -->
+    <hidden path="COMPLETION" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>build.cmd "$(ToolsDir)\google\compiler.jar" --define BUILD='$(BuildConfig)' --compilation_level SIMPLE_OPTIMIZATIONS --js_output_file "bin/$(ProjectID).js"
-</preBuildCommand>
+  <preBuildCommand>build.cmd "$(ToolsDir)\google\compiler.jar" --define BUILD='$(BuildConfig)' --compilation_level SIMPLE_OPTIMIZATIONS --js_output_file "bin/$(ProjectID).js"</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
