@@ -2985,7 +2985,7 @@
     <value>代码生成选项:</value>
   </data>
   <data name="ASClassWizard.Wizard.Label.GenerateConstructor" xml:space="preserve">
-    <value>从超类生成构造函数</value>
+    <value>从父类生成构造函数</value>
   </data>
   <data name="ASClassWizard.Wizard.Label.GenerateInherited" xml:space="preserve">
     <value>生成从接口继承的函数</value>
@@ -3015,7 +3015,7 @@
     <value>选择包</value>
   </data>
   <data name="ASClassWizard.Wizard.Label.SuperClass" xml:space="preserve">
-    <value>超类:</value>
+    <value>父类:</value>
   </data>
   <data name="CodeRefactor.Info.Description" xml:space="preserve">
     <value>向 FlashDevelop 添加重构功能。</value>
@@ -4729,7 +4729,7 @@
     <value>即时面板</value>
   </data>
   <data name="FlashDebugger.Title.Immediate" xml:space="preserve">
-    <value>立即</value>
+    <value>即时</value>
   </data>
   <data name="ProjectManager.Label.SetDocumentClass" xml:space="preserve">
     <value>设为文档类(&amp;C)</value>
