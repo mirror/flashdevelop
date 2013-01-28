@@ -1765,8 +1765,8 @@ namespace FlashDevelop
                 if (document.IsEditable) ScintillaManager.ApplySciSettings(document.SciControl);
             }
             this.frInFilesDialog.UpdateSettings();
-            this.toolStrip.Visible = this.appSettings.ViewToolBar;
             this.statusStrip.Visible = this.appSettings.ViewStatusBar;
+            this.toolStrip.Visible = this.isFullScreen ? false : this.appSettings.ViewToolBar;
             ButtonManager.UpdateFlaggedButtons();
             TabTextManager.UpdateTabTexts();
         }
@@ -1791,12 +1791,7 @@ namespace FlashDevelop
                     if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
                 }
                 ObjectSerializer.Serialize(FileNameHelper.SettingData, this.appSettings);
-                if (this.isFullScreen)
-                {
-                    File.Delete(FileNameHelper.LayoutData);
-                    File.Copy(FileNameHelper.FullScreen, FileNameHelper.LayoutData);
-                }
-                else this.dockPanel.SaveAsXml(FileNameHelper.LayoutData);
+                this.dockPanel.SaveAsXml(FileNameHelper.LayoutData);
             }
             catch (Exception ex)
             {

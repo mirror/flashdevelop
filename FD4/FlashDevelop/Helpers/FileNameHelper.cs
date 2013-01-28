@@ -65,17 +65,6 @@ namespace FlashDevelop.Helpers
         }
 
         /// <summary>
-        /// Path to the main fullscreen file
-        /// </summary>
-        public static String FullScreen
-        {
-            get
-            {
-                return Path.Combine(PathHelper.SettingDir, "FullScreen.fdl");
-            }
-        }
-
-        /// <summary>
         /// Path to the session file
         /// </summary>
         public static String SessionData
