@@ -62,13 +62,19 @@ namespace System.Windows.Forms
 
         protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
         {
+            if (e.ToolStrip is StatusStrip) return;
             ToolStripRenderEventArgs ea = new ToolStripRenderEventArgs(e.Graphics, e.ToolStrip, new Rectangle(-10, -3, e.AffectedBounds.Width + 20, e.AffectedBounds.Height + 6), e.BackColor);
             renderer.DrawToolStripBackground(ea);
         }
 
         protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
         {
-            if (e.ToolStrip is ToolStripDropDownMenu)
+            if (e.ToolStrip is StatusStrip)
+            {
+                e.Graphics.DrawLine(SystemPens.ControlDark, 0, 0, e.ToolStrip.Width, 0);
+                e.Graphics.DrawLine(SystemPens.ButtonHighlight, 1, 1, e.ToolStrip.Width, 1);
+            }
+            else if (e.ToolStrip is ToolStripDropDownMenu)
             {
                 renderer.DrawToolStripBorder(e);
                 if (renderer is ToolStripProfessionalRenderer && e.ConnectedArea.Width > 0)
@@ -87,10 +93,16 @@ namespace System.Windows.Forms
         {
             if (renderer is ToolStripSystemRenderer)
             {
-                if (e.ToolStrip is ToolStripDropDownMenu) renderer.DrawSeparator(e);
+                if (e.ToolStrip is ToolStripDropDownMenu)
+                {
+                    renderer.DrawSeparator(e);
+                    Pen pen = new Pen(SystemColors.ControlDark);
+                    e.Graphics.DrawLine(pen, e.Item.ContentRectangle.Left, e.Item.ContentRectangle.Top, e.Item.ContentRectangle.Right, e.Item.ContentRectangle.Top);
+                    pen.Dispose();
+                }
                 else
                 {
-                    Pen pen = new Pen(SystemColors.InactiveBorder);
+                    Pen pen = new Pen(SystemColors.ControlDark);
                     Int32 middle = e.Item.ContentRectangle.Left + e.Item.ContentRectangle.Width / 2;
                     e.Graphics.DrawLine(pen, middle, e.Item.ContentRectangle.Top + 1, middle, e.Item.ContentRectangle.Bottom - 2);
                     pen.Dispose();

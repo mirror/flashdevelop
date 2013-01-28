@@ -893,6 +893,7 @@ namespace FlashDevelop
             this.statusStrip.Items.Add(this.toolStripProgressLabel);
             this.statusStrip.Items.Add(this.toolStripProgressBar);
             this.statusStrip.Font = Globals.Settings.DefaultFont;
+            this.statusStrip.Renderer = new DockPanelStripRenderer(false);
             this.statusStrip.Stretch = true;
             // 
             // MainForm
