@@ -1058,6 +1058,10 @@ namespace FlashDevelop
                 this.closingEntirely = false;
                 e.Cancel = true;
             }
+            if (!e.Cancel && this.isFullScreen)
+            {
+                this.ToggleFullScreen(null, null);
+            }
             if (!e.Cancel && this.Documents.Length == 0)
             {
                 NotifyEvent fe = new NotifyEvent(EventType.FileEmpty);
@@ -2505,7 +2509,7 @@ namespace FlashDevelop
                 if (this.appSettings.ViewToolBar) this.toolStrip.Visible = true;
                 foreach (DockPane pane in this.dockPanel.Panes)
                 {
-                    pane.DockState = (DockState)fullScreenDocks[pane];
+                    pane.DockState = (DockState)this.fullScreenDocks[pane];
                 }
                 this.isFullScreen = false;
             } 
@@ -2516,7 +2520,7 @@ namespace FlashDevelop
                 this.fullScreenDocks = new Hashtable();
                 foreach (DockPane pane in this.dockPanel.Panes)
                 {
-                    fullScreenDocks[pane] = pane.DockState;
+                    this.fullScreenDocks[pane] = pane.DockState;
                     switch (pane.DockState)
                     {
                         case DockState.DockLeft:
