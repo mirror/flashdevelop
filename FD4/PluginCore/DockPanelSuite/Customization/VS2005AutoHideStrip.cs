@@ -145,7 +145,12 @@ namespace WeifenLuo.WinFormsUI.Docking
 
 		private static Brush BrushTabBackground
 		{
-			get	{	return SystemBrushes.Control;	}
+			get	
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005AutoHideStrip.BackColor");
+                if (color != Color.Empty) return new SolidBrush(color);
+                return SystemBrushes.Control;	
+            }
 		}
 
 		private static Pen PenTabBorder
@@ -155,7 +160,12 @@ namespace WeifenLuo.WinFormsUI.Docking
 
 		private static Brush BrushTabText
 		{
-			get	{	return SystemBrushes.FromSystemColor(SystemColors.ControlDarkDark);	}
+			get	
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005AutoHideStrip.ForeColor");
+                if (color != Color.Empty) return new SolidBrush(color);
+                else return SystemBrushes.FromSystemColor(SystemColors.ControlDarkDark);	
+            }
 		}
 		#endregion
 

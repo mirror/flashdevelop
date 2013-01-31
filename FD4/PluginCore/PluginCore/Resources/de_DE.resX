@@ -901,6 +901,7 @@ Ansonsten kann Adobe Flash Professional auch zum Überprüfen der Syntax verwend
   </data>
   <data name="FlashDevelop.Label.ApplicationFiles" xml:space="preserve">
     <value>&amp;Anwendungsdateien...</value>
+    <comment>Modified after 4.2.4</comment>
   </data>
   <data name="FlashDevelop.Label.ASDocGen" xml:space="preserve">
     <value>&amp;Erstelle Dokumentation...</value>
@@ -4956,5 +4957,13 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
   <data name="ASClassWizard.Wizard.Label.NewHaxeClass" xml:space="preserve">
     <value>New Haxe Class</value>
     <comment>Added after 4.2.3</comment>
+  </data>
+  <data name="FlashDevelop.Info.ThemesFilter" xml:space="preserve">
+    <value>FlashDevelop Theme Files|*.fdi</value>
+    <comment>Added after 4.2.4</comment>
+  </data>
+  <data name="FlashDevelop.Label.SelectTheme" xml:space="preserve">
+    <value>Select UI Theme...</value>
+    <comment>Added after 4.2.4</comment>
   </data>
 </root>

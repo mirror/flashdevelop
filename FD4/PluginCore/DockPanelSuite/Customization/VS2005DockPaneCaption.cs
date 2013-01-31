@@ -285,19 +285,29 @@ namespace WeifenLuo.WinFormsUI.Docking
 
 		private static Color ActiveBackColorGradientBegin
 		{
-            get { return SystemColors.GradientActiveCaption; }
+            get 
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneCaption.TabGradientStart");
+                return color == Color.Empty ? SystemColors.GradientActiveCaption : color;
+            }
         }
 
         private static Color ActiveBackColorGradientEnd
         {
-            get { return SystemColors.ActiveCaption; }
+            get 
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneCaption.TabGradientEnd");
+                return color == Color.Empty ? SystemColors.ActiveCaption : color;
+            }
         }
 
 		private static Color InactiveBackColor
 		{
             get
             {
-                if (PluginCore.PluginBase.Settings.UseSystemColors)
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneCaption.BackColor");
+                if (color != Color.Empty) return color;
+                else if (PluginCore.PluginBase.Settings.UseSystemColors)
                 {
                     return SystemColors.InactiveCaption;
                 }
@@ -317,7 +327,12 @@ namespace WeifenLuo.WinFormsUI.Docking
 
         private Color TextColor
         {
-            get { return DockPane.IsActivated ? ActiveTextColor : InactiveTextColor; }
+            get 
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneCaption.ForeColor");
+                if (color != Color.Empty) return color;
+                else return DockPane.IsActivated ? ActiveTextColor : InactiveTextColor; 
+            }
         }
 
 		private static TextFormatFlags _textFormat =

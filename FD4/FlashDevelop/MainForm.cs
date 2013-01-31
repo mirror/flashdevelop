@@ -1021,6 +1021,11 @@ namespace FlashDevelop
                 if (!ne.Handled) this.New(null, null);
             }
             /**
+            * Load and apply current active theme
+            */ 
+            String currentTheme = Path.Combine(PathHelper.ThemesDir, "CURRENT");
+            if (File.Exists(currentTheme)) ThemeManager.LoadTheme(currentTheme);
+            /**
             * Notify plugins that the application is ready
             */
             EventManager.DispatchEvent(this, new NotifyEvent(EventType.UIStarted));
@@ -1528,7 +1533,31 @@ namespace FlashDevelop
             AvailablePlugin plugin = PluginServices.Find(guid);
             return plugin.Instance;
         }
-        
+
+        /// <summary>
+        /// Themes the controls from the parent
+        /// </summary>
+        public void ThemeControls(Object parent)
+        {
+            ThemeManager.WalkControls(parent);
+        }
+
+        /// <summary>
+        /// Gets a theme property color
+        /// </summary>
+        public Color GetThemeColor(String id)
+        {
+            return ThemeManager.GetThemeColor(id);
+        }
+
+        /// <summary>
+        /// Gets a theme property value
+        /// </summary>
+        public String GetThemeValue(String id)
+        {
+            return ThemeManager.GetThemeValue(id);
+        }
+
         /// <summary>
         /// Finds the specified menu item by name
         /// </summary>
@@ -2876,20 +2905,35 @@ namespace FlashDevelop
         {
             try
             {
+                Boolean hasPrefix = true;
+                Boolean isAsterisk = false;
                 ScintillaControl sci = Globals.SciControl;
                 if (sci.SelText.Length > 0)
                 {
-                    String foundColor = sci.SelText.Replace("#", "0x");
-                    if (foundColor.StartsWith("0x") && foundColor.Length == 8)
+                    isAsterisk = sci.SelText.StartsWith("#");
+                    if (sci.SelText.StartsWith("0x") && sci.SelText.Length == 8)
                     {
+                        Int32 convertedColor = DataConverter.StringToColor(sci.SelText);
+                        this.colorDialog.Color = ColorTranslator.FromWin32(convertedColor);
+                    }
+                    else if (sci.SelText.StartsWith("#") && sci.SelText.Length == 7)
+                    {
+                        String foundColor = sci.SelText.Replace("#", "0x");
                         Int32 convertedColor = DataConverter.StringToColor(foundColor);
+                        this.colorDialog.Color = ColorTranslator.FromWin32(convertedColor);
+                    }
+                    else if (sci.SelText.Length == 6)
+                    {
+                        hasPrefix = false;
+                        Int32 convertedColor = DataConverter.StringToColor("0x" + sci.SelText);
                         this.colorDialog.Color = ColorTranslator.FromWin32(convertedColor);
                     }
                 }
                 if (this.colorDialog.ShowDialog(this) == DialogResult.OK)
                 {
                     String colorText = DataConverter.ColorToHex(this.colorDialog.Color);
-                    if (sci.ConfigurationLanguage == "xml" || sci.ConfigurationLanguage == "html" || sci.ConfigurationLanguage == "css")
+                    if (!hasPrefix) colorText = colorText.Replace("0x", "");
+                    else if (isAsterisk || sci.ConfigurationLanguage == "css")
                     {
                         colorText = colorText.Replace("0x", "#");
                     }
@@ -3294,6 +3338,36 @@ namespace FlashDevelop
             ScintillaControl sci = Globals.SciControl;
             if (sci.SelText.Length > 0) this.CommentSelection(null, null);
             else this.UncommentBlock(null, null);
+        }
+
+        /// <summary>
+        /// Lets user browse for an theme file
+        /// </summary>
+        public void SelectTheme(Object sender, System.EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = PathHelper.ThemesDir;
+            ofd.Title = " " + TextHelper.GetString("Title.OpenFileDialog");
+            ofd.Filter = TextHelper.GetString("Info.ThemesFilter");
+            if (ofd.ShowDialog(this) == DialogResult.OK)
+            {
+                ThemeManager.LoadTheme(ofd.FileName);
+                if (Path.GetFileName(ofd.FileName) == "Default.fdi")
+                {
+                    String message = TextHelper.GetString("Info.RequiresRestart");
+                    ErrorManager.ShowInfo(message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loads an theme file and applies it
+        /// </summary>
+        public void LoadThemeFile(Object sender, System.EventArgs e)
+        {
+            ToolStripItem button = (ToolStripItem)sender;
+            String file = this.ProcessArgString(((ItemData)button.Tag).Tag);
+            ThemeManager.LoadTheme(file);
         }
 
         /// <summary>

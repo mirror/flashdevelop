@@ -108,6 +108,7 @@
     <Compile Include="Managers\OldTabsManager.cs" />
     <Compile Include="Managers\ShortcutManager.cs" />
     <Compile Include="Managers\TabTextManager.cs" />
+    <Compile Include="Managers\ThemeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\Browser.cs">
       <SubType>UserControl</SubType>

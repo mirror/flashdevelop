@@ -429,7 +429,9 @@ namespace WeifenLuo.WinFormsUI.Docking
         {
             get 
             {
-                if (PluginCore.PluginBase.Settings.UseSystemColors)
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.ToolActiveBackColor");
+                if (color != Color.Empty) return new SolidBrush(color);
+                else if (PluginCore.PluginBase.Settings.UseSystemColors)
                 {
                     return SystemBrushes.Control;
                 }
@@ -442,7 +444,9 @@ namespace WeifenLuo.WinFormsUI.Docking
         {
             get 
             {
-                if (PluginCore.PluginBase.Settings.UseSystemColors)
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.DocActiveBackColor");
+                if (color != Color.Empty) return new SolidBrush(color);
+                else if (PluginCore.PluginBase.Settings.UseSystemColors)
                 {
                     return SystemBrushes.ControlLightLight;
                 }
@@ -457,22 +461,42 @@ namespace WeifenLuo.WinFormsUI.Docking
 
         private static Color ColorToolWindowActiveText
         {
-            get { return SystemColors.ControlText; }
+            get 
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.ForeColor");
+                if (color != Color.Empty) return color;
+                else return SystemColors.ControlText; 
+            }
         }
 
         private static Color ColorDocumentActiveText
         {
-            get { return SystemColors.ControlText; }
+            get 
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.ForeColor");
+                if (color != Color.Empty) return color;
+                else return SystemColors.ControlText; 
+            }
         }
 
         private static Color ColorToolWindowInactiveText
         {
-            get { return SystemColors.ControlDarkDark; }
+            get 
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.ForeColor");
+                if (color != Color.Empty) return color;
+                else return SystemColors.ControlDarkDark; 
+            }
         }
 
         private static Color ColorDocumentInactiveText
         {
-            get { return SystemColors.ControlText; }
+            get 
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.ForeColor");
+                if (color != Color.Empty) return color;
+                else return SystemColors.ControlText; 
+            }
         }
 
 		#endregion
@@ -596,27 +620,30 @@ namespace WeifenLuo.WinFormsUI.Docking
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-            // CHANGED
             if (Appearance == DockPane.AppearanceStyle.Document)
             {
-                if (PluginCore.PluginBase.Settings.UseSystemColors)
-                {
-                    if (BackColor != SystemColors.ControlLight)
-                    {
-                        BackColor = SystemColors.ControlLight;
-                    }
-                }
-                else if (BackColor != Color.FromArgb(228, 226, 213))
-                {
-                    BackColor = Color.FromArgb(228, 226, 213);
-                }
+               Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.DocBackColor");
+               if (color != Color.Empty)  BackColor = color;
+               else if (PluginCore.PluginBase.Settings.UseSystemColors)
+               {
+                   if (BackColor != SystemColors.ControlLight)
+                   {
+                       BackColor = SystemColors.ControlLight;
+                   }
+               }
+               else if (BackColor != Color.FromArgb(228, 226, 213))
+               {
+                   BackColor = Color.FromArgb(228, 226, 213);
+               }
             }
             else
             {
-                if (BackColor != SystemColors.Control)
-                {
-                    BackColor = SystemColors.Control;
-                }
+               Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.ToolBackColor");
+               if (color != Color.Empty) BackColor = color;
+               else if (BackColor != SystemColors.Control)
+               {
+                   BackColor = SystemColors.Control;
+               }
             }
 			base.OnPaint(e);
 			CalculateTabs();
@@ -1165,12 +1192,13 @@ namespace WeifenLuo.WinFormsUI.Docking
             rectText = DrawHelper.RtlTransform(this, rectText);
             rectIcon = DrawHelper.RtlTransform(this, rectIcon);
             GraphicsPath path = GetTabOutline(tab, true, false);
+            Color stripColor = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.TabStripColor");
             if (DockPane.ActiveContent == tab.Content)
             {
                 g.FillPath(BrushDocumentActiveBackground, path);
 
                 // Change by Mika: add color strip to tabs
-                SolidBrush stripBrush = new SolidBrush(tab.Content.DockHandler.TabColor);
+                SolidBrush stripBrush = new SolidBrush(stripColor == Color.Empty ? tab.Content.DockHandler.TabColor : stripColor);
                 Rectangle stripRect = rectTab;
                 stripRect.X = stripRect.X + stripRect.Width - 2;
                 stripRect.Height -= 1;
@@ -1180,39 +1208,51 @@ namespace WeifenLuo.WinFormsUI.Docking
 
                 g.DrawPath(PenDocumentTabActiveBorder, path);
 
+                Color sepColor = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.TabSeparatorColor");
+
                 // CHANGED to eliminate line between selected tab and content - NICK
                 RectangleF r = path.GetBounds();
                 float right = tab.Content.DockHandler.TabColor == Color.Transparent ? r.Right - 1 : r.Right - 3;
-                if (PluginCore.PluginBase.Settings.UseSystemColors)
+
+                // Choose color
+                if (sepColor == Color.Empty)
                 {
-                    using (Pen pen = new Pen(SystemColors.ControlLight))
+                    if (PluginCore.PluginBase.Settings.UseSystemColors)
                     {
-                        g.DrawLine(pen, r.Left + 2, r.Bottom - 1, right, r.Bottom - 1);
+                        sepColor = SystemColors.ControlLight;
                     }
+                    else sepColor = Color.FromArgb(240, 239, 243);
                 }
-                else
+                
+                // Draw separator
+                using (Pen pen = new Pen(sepColor))
                 {
-                    using (Pen pen = new Pen(Color.FromArgb(240, 239, 243)))
-                    {
-                        g.DrawLine(pen, r.Left + 2, r.Bottom - 1, right, r.Bottom - 1);
-                    }
+                    g.DrawLine(pen, r.Left + 2, r.Bottom - 1, right, r.Bottom - 1);
                 }
+
                 if (DockPane.IsActiveDocumentPane)
+                {
                     TextRenderer.DrawText(g, tab.Content.DockHandler.TabText, BoldFont, rectText, ColorDocumentActiveText, DocumentTextFormat);
-                else
-                    TextRenderer.DrawText(g, tab.Content.DockHandler.TabText, Font, rectText, ColorDocumentInactiveText, DocumentTextFormat);
+                }
+                else TextRenderer.DrawText(g, tab.Content.DockHandler.TabText, Font, rectText, ColorDocumentInactiveText, DocumentTextFormat);
             }
             else
             {
                 // CHANGE by NICK: emulate VS-style inactive tab gradient
-                Brush tabBrush = new LinearGradientBrush(rectTab,
-                    SystemColors.ControlLightLight, SystemColors.ControlLight, LinearGradientMode.Vertical);
+                Brush tabBrush = new LinearGradientBrush(rectTab, SystemColors.ControlLightLight, SystemColors.ControlLight, LinearGradientMode.Vertical);
+
+                // Choose color
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.DocInactiveBackColor");
+                if (color != Color.Empty)
+                {
+                    tabBrush = new SolidBrush(color);
+                }
 
                 //g.FillPath(BrushDocumentInactiveBackground, path);
                 g.FillPath(tabBrush, path);
 
                 // Change by Mika: add color strip to tabs
-                SolidBrush stripBrush = new SolidBrush(tab.Content.DockHandler.TabColor);
+                SolidBrush stripBrush = new SolidBrush(color == Color.Empty ? tab.Content.DockHandler.TabColor : stripColor);
                 Rectangle stripRect = rectTab;
                 stripRect.X = stripRect.X + stripRect.Width - 2;
                 stripRect.Height -= 2;

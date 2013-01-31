@@ -40,7 +40,7 @@ namespace ProjectManager.Controls
             GlobalClasspaths = new ToolStripMenuItem(TextHelper.GetString("Label.GlobalClasspaths"));
 			GlobalClasspaths.ShortcutKeys = Keys.F9 | Keys.Control;
             GlobalClasspaths.Image = Icons.Classpath.Img;
-            toolsMenu.DropDownItems.Insert(toolsMenu.DropDownItems.Count - 3, GlobalClasspaths);
+            toolsMenu.DropDownItems.Insert(toolsMenu.DropDownItems.Count - 6, GlobalClasspaths);
             PluginBase.MainForm.RegisterShortcutItem("ToolsMenu.GlobalClasspaths", GlobalClasspaths);
 
 			ProjectMenu = new ProjectMenu();

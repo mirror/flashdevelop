@@ -121,6 +121,17 @@ namespace PluginCore.Helpers
         }
 
         /// <summary>
+        /// Path to the themes directory
+        /// </summary>
+        public static String ThemesDir
+        {
+            get
+            {
+                return Path.Combine(SettingDir, "Themes");
+            }
+        }
+
+        /// <summary>
         /// Path to the user project templates directory
         /// </summary>
         public static String UserProjectsDir
