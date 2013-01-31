@@ -593,6 +593,9 @@ namespace FlashDevelop
                 {
                     this.RefreshSciConfig();
                     this.ApplyAllSettings();
+                    // Reload active UI theme also...
+                    String currentTheme = Path.Combine(PathHelper.ThemesDir, "CURRENT");
+                    if (File.Exists(currentTheme)) ThemeManager.LoadTheme(currentTheme);
                 }
                 return null;
             }
