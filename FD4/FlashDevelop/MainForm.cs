@@ -591,11 +591,11 @@ namespace FlashDevelop
                 this.CallCommand("ExtractZip", file);
                 if (file.ToLower().IndexOf("theme") != -1)
                 {
-                    this.RefreshSciConfig();
-                    this.ApplyAllSettings();
-                    // Reload active UI theme also...
                     String currentTheme = Path.Combine(PathHelper.ThemesDir, "CURRENT");
                     if (File.Exists(currentTheme)) ThemeManager.LoadTheme(currentTheme);
+                    this.RefreshSciConfig();
+                    this.ApplyAllSettings();
+                    this.Refresh();
                 }
                 return null;
             }
@@ -2596,7 +2596,7 @@ namespace FlashDevelop
                 if (!File.Exists(zipFile)) return; // Skip missing file...
                 String caption = TextHelper.GetString("Title.ConfirmDialog");
                 String message = TextHelper.GetString("Info.ZipConfirmExtract") + "\n" + zipFile;
-                if (MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                if (silentInstall || MessageBox.Show(message, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     ZipEntry entry = null;
                     zipLog += "FDZ: " + zipFile + "\r\n";
@@ -2606,7 +2606,7 @@ namespace FlashDevelop
                         Int32 size = 2048;
                         Byte[] data = new Byte[2048];
                         String fdpath = this.ProcessArgString(entry.Name, false).Replace("/", "\\");
-                        if (Path.HasExtension(fdpath))
+                        if (File.Exists(fdpath))
                         {
                             String ext = Path.GetExtension(fdpath);
                             if (File.Exists(fdpath) && (ext == ".dll" || ext == ".fdb" || ext == ".fdl"))
@@ -3354,7 +3354,17 @@ namespace FlashDevelop
             ofd.Filter = TextHelper.GetString("Info.ThemesFilter");
             if (ofd.ShowDialog(this) == DialogResult.OK)
             {
-                ThemeManager.LoadTheme(ofd.FileName);
+                String ext = Path.GetExtension(ofd.FileName).ToLower();
+                if (ext == ".fdi") ThemeManager.LoadTheme(ofd.FileName);
+                else
+                {
+                    this.CallCommand("ExtractZip", ofd.FileName + ";true");
+                    String currentTheme = Path.Combine(PathHelper.ThemesDir, "CURRENT");
+                    if (File.Exists(currentTheme)) ThemeManager.LoadTheme(currentTheme);
+                    this.RefreshSciConfig();
+                    this.ApplyAllSettings();
+                    this.Refresh();
+                }
             }
         }
 

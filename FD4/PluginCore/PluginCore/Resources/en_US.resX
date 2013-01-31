@@ -2663,7 +2663,7 @@ Please note that with injection enabled, you will not be able to use many projec
     <value>Italics</value>
   </data>
   <data name="FlashDevelop.Info.ZipFilter" xml:space="preserve">
-    <value>FlashDevelop Zip Files|*.fdz</value>
+    <value>FlashDevelop Zip Files (*.fdz)|*.fdz</value>
   </data>
   <data name="FlashDevelop.Info.EditorStyle" xml:space="preserve">
     <value>Editor Style</value>
@@ -4965,7 +4965,7 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <comment>Added after 4.2.3</comment>
   </data>
   <data name="FlashDevelop.Info.ThemesFilter" xml:space="preserve">
-    <value>FlashDevelop Theme Files|*.fdi</value>
+    <value>FlashDevelop Theme Files (*.fdi, *.fdz)|*.fdi;*.fdz</value>
     <comment>Added after 4.2.4</comment>
   </data>
   <data name="FlashDevelop.Label.SelectTheme" xml:space="preserve">

@@ -4952,7 +4952,7 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 4.2.3</comment>
   </data>
   <data name="FlashDevelop.Info.ThemesFilter" xml:space="preserve">
-    <value>FlashDevelop Theme Files|*.fdi</value>
+    <value>FlashDevelop Theme Files (*.fdi, *.fdz)|*.fdi;*.fdz</value>
     <comment>Added after 4.2.4</comment>
   </data>
   <data name="FlashDevelop.Label.SelectTheme" xml:space="preserve">
