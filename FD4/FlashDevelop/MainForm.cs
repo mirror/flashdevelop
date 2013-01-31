@@ -3352,11 +3352,6 @@ namespace FlashDevelop
             if (ofd.ShowDialog(this) == DialogResult.OK)
             {
                 ThemeManager.LoadTheme(ofd.FileName);
-                if (Path.GetFileName(ofd.FileName) == "Default.fdi")
-                {
-                    String message = TextHelper.GetString("Info.RequiresRestart");
-                    ErrorManager.ShowInfo(message);
-                }
             }
         }
 

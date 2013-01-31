@@ -473,7 +473,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         {
             get 
             {
-                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.ForeColor");
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.TabForeColor");
                 if (color != Color.Empty) return color;
                 else return SystemColors.ControlText; 
             }
@@ -493,7 +493,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         {
             get 
             {
-                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.ForeColor");
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.TabForeColor");
                 if (color != Color.Empty) return color;
                 else return SystemColors.ControlText; 
             }

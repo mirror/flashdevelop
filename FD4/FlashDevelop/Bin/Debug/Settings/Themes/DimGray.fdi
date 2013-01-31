@@ -77,6 +77,7 @@ VS2005DockPaneCaption.TabGradientStart=#A8C2DD
 VS2005DockPaneCaption.TabGradientEnd=#9BB6D3
 
 VS2005DockPaneStrip.ForeColor=#333333
+VS2005DockPaneStrip.TabForeColor=#222222
 VS2005DockPaneStrip.DocBackColor=#BBBBBB
 VS2005DockPaneStrip.ToolBackColor=#D6D6D6
 VS2005DockPaneStrip.ToolActiveBackColor=#FEFEFE
