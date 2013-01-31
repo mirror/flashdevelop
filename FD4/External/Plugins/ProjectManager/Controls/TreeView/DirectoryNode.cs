@@ -74,6 +74,10 @@ namespace ProjectManager.Controls.TreeView
 
             SelectedImageIndex = ImageIndex;
 
+            Color color = PluginCore.PluginBase.MainForm.GetThemeColor("ProjectTreeView.ForeColor");
+            if (color != Color.Empty) ForeColorRequest = color;
+            else ForeColorRequest = SystemColors.ControlText;
+
 			// make the plus/minus sign correct
             bool empty = !Directory.Exists(BackingPath) || PathIsDirectoryEmpty(BackingPath);
 

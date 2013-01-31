@@ -84,7 +84,7 @@ namespace ProjectManager.Controls.TreeView
             {
                 Color color = PluginCore.PluginBase.MainForm.GetThemeColor("ProjectTreeView.ForeColor");
                 if (color != Color.Empty) ForeColorRequest = color;
-                else ForeColorRequest = SystemColors.WindowText;
+                else ForeColorRequest = SystemColors.ControlText;
             }
 
             // hook for plugins
