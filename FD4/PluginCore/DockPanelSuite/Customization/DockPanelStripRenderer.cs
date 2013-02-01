@@ -72,7 +72,8 @@ namespace System.Windows.Forms
             if (e.ToolStrip is StatusStrip)
             {
                 e.Graphics.DrawLine(SystemPens.ControlDark, 0, 0, e.ToolStrip.Width, 0);
-                e.Graphics.DrawLine(SystemPens.ButtonHighlight, 1, 1, e.ToolStrip.Width, 1);
+                Color fore = PluginBase.MainForm.GetThemeColor("ToolStrip.3dLightColor");
+                e.Graphics.DrawLine(fore == Color.Empty ? SystemPens.ButtonHighlight : new Pen(fore), 1, 1, e.ToolStrip.Width, 1);
             }
             else if (e.ToolStrip is ToolStripDropDownMenu)
             {
@@ -108,6 +109,22 @@ namespace System.Windows.Forms
                     pen.Dispose();
                 }
             }
+            else if (e.Item is ToolStripSeparator && e.Vertical)
+            {
+                Color light = PluginBase.MainForm.GetThemeColor("ToolStrip.3dLightColor");
+                Color dark = PluginBase.MainForm.GetThemeColor("ToolStrip.3dDarkColor");
+                if (dark != Color.Empty && light != Color.Empty)
+                {
+                    Pen pen = new Pen(dark);
+                    Int32 middle = e.Item.ContentRectangle.Left + e.Item.ContentRectangle.Width / 2;
+                    e.Graphics.DrawLine(pen, middle - 1, e.Item.ContentRectangle.Top + 2, middle - 1, e.Item.ContentRectangle.Bottom - 4);
+                    pen.Dispose();
+                    Pen pen2 = new Pen(light);
+                    e.Graphics.DrawLine(pen2, middle, e.Item.ContentRectangle.Top + 2, middle, e.Item.ContentRectangle.Bottom - 4);
+                    pen2.Dispose();
+                } 
+                else renderer.DrawSeparator(e);
+            }
             else renderer.DrawSeparator(e);
         }
 
@@ -116,7 +133,8 @@ namespace System.Windows.Forms
             if (renderer is ToolStripProfessionalRenderer)
             {
                 if (e.GripStyle == ToolStripGripStyle.Hidden) return;
-                using (Brush lightBrush = new SolidBrush(this.colorTable.GripLight))
+                Color fore = PluginBase.MainForm.GetThemeColor("ToolStrip.3dLightColor");
+                using (Brush lightBrush = new SolidBrush(fore == Color.Empty ? this.colorTable.GripLight : fore))
                 {
                     Rectangle r = new Rectangle(e.GripBounds.Left, e.GripBounds.Top + 6, 2, 2);
                     for (Int32 i = 0; i < e.GripBounds.Height - 11; i += 4)
@@ -125,7 +143,8 @@ namespace System.Windows.Forms
                         r.Offset(0, 4);
                     }
                 }
-                using (Brush darkBrush = new SolidBrush(this.colorTable.GripDark))
+                Color back = PluginBase.MainForm.GetThemeColor("ToolStrip.3dDarkColor");
+                using (Brush darkBrush = new SolidBrush(back == Color.Empty ? this.colorTable.GripDark: back))
                 {
                     Rectangle r = new Rectangle(e.GripBounds.Left - 1, e.GripBounds.Top + 5, 2, 2);
                     for (Int32 i = 0; i < e.GripBounds.Height - 11; i += 4)
@@ -252,6 +271,49 @@ namespace System.Windows.Forms
             else renderer.DrawItemCheck(e);
         }
 
+        protected override void OnRenderStatusStripSizingGrip(ToolStripRenderEventArgs e)
+        {
+            Color dark = PluginBase.MainForm.GetThemeColor("ToolStrip.3dDarkColor");
+            Color light = PluginBase.MainForm.GetThemeColor("ToolStrip.3dLightColor");
+            if (dark != Color.Empty && light != Color.Empty)
+            {
+                using (SolidBrush darkBrush = new SolidBrush(dark), lightBrush = new SolidBrush(light))
+                {
+                    // Do we need to invert the drawing edge?
+                    bool rtl = (e.ToolStrip.RightToLeft == RightToLeft.Yes);
+
+                    // Find vertical position of the lowest grip line
+                    int y = e.AffectedBounds.Bottom - 3 * 2 + 1;
+
+                    // Draw three lines of grips
+                    for (int i = 3; i >= 1; i--)
+                    {
+                        // Find the rightmost grip position on the line
+                        int x = (rtl ? e.AffectedBounds.Left + 1 : e.AffectedBounds.Right - 3 * 2 + 1);
+
+                        // Draw grips from right to left on line
+                        for (int j = 0; j < i; j++)
+                        {
+                            // Just the single grip glyph
+                            DrawGripGlyph(e.Graphics, x, y, darkBrush, lightBrush);
+
+                            // Move left to next grip position
+                            x -= (rtl ? -4 : 4);
+                        }
+                        // Move upwards to next grip line
+                        y -= 4;
+                    }
+                }
+            }
+            else renderer.DrawStatusStripSizingGrip(e);
+        }
+
+        private void DrawGripGlyph(Graphics g, int x, int y, Brush darkBrush, Brush lightBrush)
+        {
+            g.FillRectangle(lightBrush, x + 1, y + 1, 2, 2);
+            g.FillRectangle(darkBrush, x, y, 2, 2);
+        }
+
         #region Reuse Some Renderer Stuff
 
         protected override void OnRenderItemBackground(ToolStripItemRenderEventArgs e)
@@ -287,11 +349,6 @@ namespace System.Windows.Forms
         protected override void OnRenderSplitButtonBackground(ToolStripItemRenderEventArgs e)
         {
             renderer.DrawSplitButton(e);
-        }
-
-        protected override void OnRenderStatusStripSizingGrip(ToolStripRenderEventArgs e)
-        {
-            renderer.DrawStatusStripSizingGrip(e);
         }
 
         protected override void OnRenderToolStripContentPanelBackground(ToolStripContentPanelRenderEventArgs e)

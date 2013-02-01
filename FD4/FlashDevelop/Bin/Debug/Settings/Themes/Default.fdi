@@ -60,6 +60,8 @@ MenuStrip.BackColor=#F2F2F2
 
 ToolStrip.ForeColor=#000000
 ToolStrip.BackColor=#FBFBFB
+ToolStrip.3dLightColor=#FFFFFF
+ToolStrip.3dDarkColor=#BDBDBD
 
 ToolStripComboBoxControl.ForeColor=#000000
 ToolStripComboBoxControl.BackColor=#FFFFFF
