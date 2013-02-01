@@ -4965,11 +4965,11 @@
     <comment>Added after 4.2.3</comment>
   </data>
   <data name="FlashDevelop.Info.ThemesFilter" xml:space="preserve">
-    <value>FlashDevelop Theme Files (*.fdi, *.fdz)|*.fdi;*.fdz</value>
+    <value>FlashDevelop主题文件(*.fdi, *.fdz)|*.fdi;*.fdz</value>
     <comment>Added after 4.2.4</comment>
   </data>
   <data name="FlashDevelop.Label.SelectTheme" xml:space="preserve">
-    <value>Select UI Theme...</value>
+    <value>选择UI主题...</value>
     <comment>Added after 4.2.4</comment>
   </data>
 </root>
