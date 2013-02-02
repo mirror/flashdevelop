@@ -14,6 +14,8 @@ namespace HaXeContext
     {
         private static readonly Regex reListEntry = new Regex("<i n=\"([^\"]+)\"><t>([^<]*)</t><d>([^<]*)</d></i>",
                                                               RegexOptions.Compiled | RegexOptions.Singleline);
+        private static readonly Regex reArg = new Regex("^(-[a-z0-9-]+)\\s*([^\"'].*)$", 
+                                                        RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly int position;
         private readonly IHaxeCompletionHandler handler;
@@ -83,6 +85,17 @@ namespace HaXeContext
             // Build haXe command
             var paths = ProjectManager.PluginMain.Settings.GlobalClasspaths.ToArray();
             var hxmlArgs = new List<String>(hp.BuildHXML(paths, "__nothing__", true));
+            // quote
+            for (int i = 0; i < hxmlArgs.Count; i++)
+            {
+                string arg = hxmlArgs[i];
+                if (!string.IsNullOrEmpty(arg))
+                {
+                    Match m = reArg.Match(arg);
+                    if (m.Success)
+                        hxmlArgs[i] = m.Groups[1].Value + " \"" + m.Groups[2].Value.Trim() + "\"";
+                }
+            }
 
             // Get the current class edited (ensure completion even if class not reference in the project)
             var start = file.LastIndexOf("\\") + 1;

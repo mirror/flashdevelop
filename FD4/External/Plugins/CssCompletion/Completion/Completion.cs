@@ -112,7 +112,7 @@ namespace CssCompletion
                 else if (context.Word.Length == 1 && "abcdefghijklmnopqrstuvwxyz".IndexOf(context.Word[0]) >= 0)
                     mode = CompleteMode.Value;
             }
-            else if (c == ':') mode = CompleteMode.Pseudo;
+            else if (c == ':' && !context.IsVar) mode = CompleteMode.Pseudo;
 
             HandleCompletion(mode, context, autoInsert, true);
         }
@@ -256,10 +256,15 @@ namespace CssCompletion
                     ctx.Separator = c;
                     ctx.Position = lastCharPos;
                     string attr = ReadAttribute(sci, i);
-                    if (attr.Length > 1 && !IsTag(attr) && attr[0] != features.Trigger && !IsVarDecl(sci, i))
+                    if (attr.Length > 1)
                     {
-                        ctx.InValue = true;
-                        ctx.Property = attr;
+                        if (attr[0] == features.Trigger || IsVarDecl(sci, i))
+                            ctx.IsVar = true;
+                        else if (!IsTag(attr))
+                        {
+                            ctx.InValue = true;
+                            ctx.Property = attr;
+                        }
                     }
                     break;
                 }
