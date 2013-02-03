@@ -770,12 +770,7 @@ namespace AS3Context
 
         public override bool OnCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text, char trigger)
         {
-            bool isVector = false;
             if (text == "Vector")
-            {
-                isVector = true;
-            }
-            if (isVector)
             {
                 string insert = null;
                 string line = sci.GetLine(sci.LineFromPosition(position));
@@ -786,7 +781,7 @@ namespace AS3Context
                 }
                 else
                 {
-                    m = Regex.Match(line, @"\s*=");
+                    m = Regex.Match(line, @"\s*=\s*new");
                     if (m.Success)
                     {
                         ASResult result = ASComplete.GetExpressionType(sci, sci.PositionFromLine(sci.LineFromPosition(position)) + m.Index);

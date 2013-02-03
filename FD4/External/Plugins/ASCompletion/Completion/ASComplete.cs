@@ -889,42 +889,18 @@ namespace ASCompletion.Completion
             foreach (MemberModel m in expr.LocalVars)
             {
                 if (m.LineFrom > lineNum)
-                {
                     continue;
-                }
-                if (closestList != null
-                        && (lineNum - m.LineFrom) >= (lineNum - closestList.LineFrom))
-                {
+                if (closestList != null && (lineNum - m.LineFrom) >= (lineNum - closestList.LineFrom))
                     continue;
-                }
+
                 ClassModel aType2 = ASContext.Context.ResolveType(m.Type, context.CurrentModel);
-                while (!aType2.IsVoid() && aType2.QualifiedName != "Object")
+                string objType = ASContext.Context.Features.objectKey;
+                while (!aType2.IsVoid() && aType2.QualifiedName != objType)
                 {
-                    if (aType2.QualifiedName == "Array" || aType2.QualifiedName.StartsWith("Array@"))
+                    if (aType2.IndexType != null)
                     {
                         closestList = m;
-                        if (aType2.IndexType == null)
-                        {
-                            closestListItemType = null;
-                        }
-                        else
-                        {
-                            if (aType2.IndexType.LastIndexOf(".") > -1)
-                            {
-                                closestListItemType = aType2.IndexType.Substring(aType2.IndexType.LastIndexOf(".") + 1);
-                            }
-                            else
-                            {
-                                closestListItemType = aType2.IndexType;
-                            }
-                        }
-                        break;
-                    }
-                    else if (aType2.QualifiedName.StartsWith("Vector.<T>@"))
-                    {
-                        closestList = m;
-                        int ind = Math.Max(aType2.QualifiedName.LastIndexOf("."), aType2.QualifiedName.LastIndexOf("@"));
-                        closestListItemType = aType2.QualifiedName.Substring(ind + 1);
+                        closestListItemType = aType2.IndexType;
                         break;
                     }
                     aType2 = aType2.Extends;
@@ -2135,11 +2111,7 @@ namespace ASCompletion.Completion
                 if ((member.Flags & mask) == 0 || prev == member.Name) 
                     if (!showClassVars || member.Type != "Class") continue;
                 prev = member.Name;
-                var item = new MemberItem(member);
-                if (item.Label.EndsWith("BitmapData"))
-                {
-                }
-                list.Add(item);
+                list.Add(new MemberItem(member));
             }
 
             CompletionList.Show(list, false, tail);
