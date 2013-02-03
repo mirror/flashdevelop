@@ -1192,13 +1192,20 @@ namespace WeifenLuo.WinFormsUI.Docking
             rectText = DrawHelper.RtlTransform(this, rectText);
             rectIcon = DrawHelper.RtlTransform(this, rectIcon);
             GraphicsPath path = GetTabOutline(tab, true, false);
-            Color stripColor = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.TabStripColor");
+
+            Color stripColor = tab.Content.DockHandler.TabColor;
+            if (stripColor != Color.Transparent)
+            {
+                Color temp = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005DockPaneStrip.TabStripColor");
+                if (temp != Color.Empty) stripColor = temp;
+            }
+
             if (DockPane.ActiveContent == tab.Content)
             {
                 g.FillPath(BrushDocumentActiveBackground, path);
 
                 // Change by Mika: add color strip to tabs
-                SolidBrush stripBrush = new SolidBrush(stripColor == Color.Empty ? tab.Content.DockHandler.TabColor : stripColor);
+                SolidBrush stripBrush = new SolidBrush(stripColor);
                 Rectangle stripRect = rectTab;
                 stripRect.X = stripRect.X + stripRect.Width - 2;
                 stripRect.Height -= 1;
@@ -1212,7 +1219,7 @@ namespace WeifenLuo.WinFormsUI.Docking
 
                 // CHANGED to eliminate line between selected tab and content - NICK
                 RectangleF r = path.GetBounds();
-                float right = tab.Content.DockHandler.TabColor == Color.Transparent ? r.Right - 1 : r.Right - 3;
+                float right = stripColor == Color.Transparent ? r.Right - 1 : r.Right - 3;
 
                 // Choose color
                 if (sepColor == Color.Empty)
@@ -1252,7 +1259,7 @@ namespace WeifenLuo.WinFormsUI.Docking
                 g.FillPath(tabBrush, path);
 
                 // Change by Mika: add color strip to tabs
-                SolidBrush stripBrush = new SolidBrush(color == Color.Empty ? tab.Content.DockHandler.TabColor : stripColor);
+                SolidBrush stripBrush = new SolidBrush(stripColor);
                 Rectangle stripRect = rectTab;
                 stripRect.X = stripRect.X + stripRect.Width - 2;
                 stripRect.Height -= 2;

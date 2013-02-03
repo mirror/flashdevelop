@@ -63,6 +63,9 @@ ToolStrip.BackColor=#FBFBFB
 ToolStrip.3dLightColor=#FFFFFF
 ToolStrip.3dDarkColor=#BDBDBD
 
+#ToolStripItem.BackColor=#E4EFFA
+#ToolStripItem.BorderColor=#83AAD1
+
 ToolStripComboBoxControl.ForeColor=#000000
 ToolStripComboBoxControl.BackColor=#FFFFFF
 
@@ -71,6 +74,9 @@ ToolStripTextBoxControl.BackColor=#FFFFFF
 
 ### DOCK SYSTEM
 
+DockPanel.BackColor=#F0F0F0
+
+AutoHideWindowControl.ForeColor=#FF0000
 AutoHideWindowControl.BackColor=#F0F0F0
 
 VS2005DockPaneCaption.ForeColor=#000000
