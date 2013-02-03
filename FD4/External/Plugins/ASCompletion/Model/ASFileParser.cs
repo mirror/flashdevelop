@@ -486,6 +486,7 @@ namespace ASCompletion.Model
         private int line;
         private int modifiersLine;
         private bool foundColon;
+        private bool foundConstant;
         private bool inParams;
         private bool inEnum;
         private bool inTypedef;
@@ -494,7 +495,7 @@ namespace ASCompletion.Model
         private bool inConst;
         private bool inType;
         private bool inAnonType;
-        private bool flattenNextBlock;
+        private int flattenNextBlock;
         private FlagType foundKeyword;
         private Token valueKeyword;
         private MemberModel valueMember;
@@ -1346,9 +1347,14 @@ namespace ASCompletion.Model
                                 paramTempCount = 0;
                                 continue;
                             }
-                            else if (flattenNextBlock || ScriptMode) // not in a class, parse if/for/while/do blocks
+                            else if (foundConstant) // start config block
                             {
-                                flattenNextBlock = false;
+                                flattenNextBlock++;
+                                foundConstant = false;
+                                context = 0;
+                            }
+                            else if (ScriptMode) // not in a class, parse if/for/while/do blocks
+                            {
                                 context = 0;
                             }
                             else braceCount++; // ignore block
@@ -1358,8 +1364,16 @@ namespace ASCompletion.Model
                         else if (c1 == '}')
                         {
                             curComment = null;
+                            foundColon = false;
+                            foundConstant = false;
+
+                            if (flattenNextBlock > 0) // content of this block was parsed
+                            {
+                                flattenNextBlock--;
+                            }
+
                             // outside of a method, the '}' ends the current class
-                            if (curClass != null)
+                            else if (curClass != null)
                             {
                                 if (curClass != null) curClass.LineTo = line;
                                 curClass = null;
@@ -1369,8 +1383,6 @@ namespace ASCompletion.Model
                             else
                             {
                                 if (hasPackageSection && model.PrivateSectionIndex == 0) model.PrivateSectionIndex = line + 1;
-                                flattenNextBlock = false;
-                                foundColon = false;
                             }
                         }
 
@@ -1378,6 +1390,10 @@ namespace ASCompletion.Model
                         else if (c1 == ':' && !inValue && !inGeneric)
                         {
                             foundColon = curMember != null && curMember.Type == null;
+                            // recognize compiler config block
+                            if (!foundColon && braceCount == 0 
+                                && i < len - 2 && ba[i] == ':' && Char.IsLetter(ba[i + 1]))
+                                foundConstant = true;
                         }
 
                         // next variable declaration
@@ -1939,6 +1955,7 @@ namespace ASCompletion.Model
                 inConst = false;
                 if (token != "function") valueMember = null;
                 foundColon = false;
+                foundConstant = false;
                 context = foundKeyword;
                 curModifiers = modifiers;
                 if (!isBlockComment) lastComment = null;
@@ -1952,20 +1969,6 @@ namespace ASCompletion.Model
             else
             {
                 // when not in a class, parse if/for/while blocks
-                /*if (ScriptMode &&
-                    (token == "if" || token == "else" || token == "for" || token == "while" || token == "do"
-                     || token == "switch" || token == "with" || token == "case"
-                     || token == "try" || token == "catch" || token == "finally"))
-                {
-                    flattenNextBlock = true;
-                    if (token == "catch" || (haXe && token == "for"))
-                    {
-                        curModifiers = 0;
-                        foundKeyword = FlagType.Variable;
-                        context = FlagType.Variable;
-                    }
-                    return false;
-                }*/
                 if (ScriptMode)
                 {
                     if (token == "catch" || (haXe && token == "for"))
@@ -2070,6 +2073,8 @@ namespace ASCompletion.Model
                             member.LineFrom = prevToken.Line;
                             member.LineTo = curToken.Line;
                             member.Flags = (token.EndsWith("*")) ? FlagType.Package : FlagType.Class;
+                            if (flattenNextBlock > 0) // this declaration is inside a config block
+                                member.Flags |= FlagType.Constant; 
                             model.Imports.Add(member);
                         }
                         else if (prevToken.Text == features.importKeyAlt)
@@ -2330,7 +2335,6 @@ namespace ASCompletion.Model
                 modifiers = 0;
                 modifiersLine = 0;
                 inGeneric = false;
-                //flattenNextBlock = false;
                 tryPackage = false;
             }
             return false;

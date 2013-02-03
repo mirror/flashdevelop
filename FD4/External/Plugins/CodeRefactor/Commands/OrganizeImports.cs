@@ -35,7 +35,7 @@ namespace CodeRefactor.Commands
             List<MemberModel> imports = new List<MemberModel>(context.CurrentModel.Imports.Count);
             imports.AddRange(context.CurrentModel.Imports.Items);
             for (Int32 i = imports.Count - 1; i >= 0; i--)
-                if ((imports[i].Flags & FlagType.Using) != 0) imports.RemoveAt(i);
+                if ((imports[i].Flags & (FlagType.Using | FlagType.Constant)) != 0) imports.RemoveAt(i);
             ImportsComparerLine comparerLine = new ImportsComparerLine();
             imports.Sort(comparerLine);
             sci.SetSel(sci.PositionFromLine(context.CurrentModel.GetPublicClass().LineFrom), sci.PositionFromLine(context.CurrentModel.GetPublicClass().LineTo));

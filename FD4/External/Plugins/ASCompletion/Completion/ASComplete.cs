@@ -2041,8 +2041,18 @@ namespace ASCompletion.Completion
                         coma = ComaExpression.FunctionDeclaration;
                 }
             }
-            // function declaration
-            else coma = DisambiguateComa(Sci, position, 0);
+            // needs more guessing
+            else
+            {
+                // config constant, or namespace access
+                if (keyword == "" && position > 0 && (char)Sci.CharAt(position) == ':')
+                {
+                    int pos = position - 1;
+                    keyword = GetWordLeft(Sci, ref pos);
+                    if (keyword != "" && autoHide) return true;
+                }
+                coma = DisambiguateComa(Sci, position, 0);
+            }
 
             if (coma != ComaExpression.FunctionDeclaration && coma != ComaExpression.VarDeclaration)
                 return false;
