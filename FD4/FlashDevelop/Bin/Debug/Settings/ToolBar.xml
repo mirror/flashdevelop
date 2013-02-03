@@ -1,18 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <toolbar>
-	<!--<button label="Label.New" click="New" image="275" />
+	<button label="Label.New" click="New" image="275" />
 	<button label="Label.Open" click="Open" image="214" />
 	<button label="Label.Save" click="Save" image="168" flags="Enable:IsEditable|IsModified" />
 	<button label="Label.SaveAll" click="SaveAll" image="169" flags="Enable:HasModified" />
 	<button label="Label.Print" click="Print" image="343" flags="Enable:IsEditable" />
 	<separator />
-	<button label="Label.Undo" click="ScintillaCommand" tag="Undo" image="73" flags="Enable:IsEditable|CanUndo" />
-	<button label="Label.Redo" click="ScintillaCommand" tag="Redo" image="65" flags="Enable:IsEditable|CanRedo" />
-	<separator />
-	<button label="Label.Cut" click="ScintillaCommand" tag="Cut" image="158" flags="Enable:IsEditable|HasSelection" />
-	<button label="Label.Copy" click="ScintillaCommand" tag="Copy" image="278" flags="Enable:IsEditable|HasSelection" />
-	<button label="Label.Paste" click="ScintillaCommand" tag="Paste" image="283" flags="Enable:IsEditable|CanPaste" />
-	<separator />-->
 	<button label="Label.ToggleBookmark" click="ToggleBookmark" image="402" flags="Enable:IsEditable" />
 	<button label="Label.NextBookmark" click="NextBookmark" image="402|9|3|3" flags="Enable:IsEditable" />
 	<button label="Label.PrevBookmark" click="PrevBookmark" image="402|1|-3|3" flags="Enable:IsEditable" />
