@@ -157,7 +157,6 @@ namespace FlashDevelop.Managers
                     Color color = GetThemeColor(key);
                     if (color != Color.Empty)
                     {
-                        TraceManager.Add(obj.ToString());
                         ground.SetValue(obj, color, null);
                     }
                 }
