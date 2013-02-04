@@ -195,6 +195,10 @@ namespace FlashDevelop.Dialogs
             this.itemGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.SuspendLayout();
+            //
+            // colorDialog
+            //
+            this.colorDialog.FullOpen = true;
             // 
             // okButton
             // 

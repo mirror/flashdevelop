@@ -243,7 +243,7 @@ namespace FlashDevelop.Utilities
         /// </summary>
         public static String GetCurSyntax()
         {
-            if (PluginBase.CurrentProject != null)
+            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language != "*")
             {
                 String syntax = PluginBase.CurrentProject.Language;
                 return syntax.ToLower();
