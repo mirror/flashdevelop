@@ -31,12 +31,13 @@ DataTreeControl.BackColor=#F6F6F6
 
 DataGridView.ForeColor=#333333
 DataGridView.BackColor=#F6F6F6
+DataGridView.BackgroundColor=#F6F6F6
 
 TreeViewAdv.ForeColor=#333333
 TreeViewAdv.BackColor=#F6F6F6
 
-LinkLabel.ForeColor=#333333
-LinkLabel.BackColor=#D6D6D6
+Panel.BackColor=#333333
+Panel.BackColor=#F6F6F6
 
 ### MAIN INTERFACE
 
@@ -46,6 +47,9 @@ QuickFind.BackColor=#D6D6D6
 SplitterControl.BackColor=#D6D6D6
 SplitContainer.BackColor=#D6D6D6
 SplitterPanel.BackColor=#D6D6D6
+
+LinkLabel.ForeColor=#333333
+LinkLabel.BackColor=#D6D6D6
 
 ### MENUS AND TOOLBARS
 

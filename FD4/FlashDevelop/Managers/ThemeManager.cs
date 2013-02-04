@@ -132,6 +132,7 @@ namespace FlashDevelop.Managers
                 Type type = obj.GetType();
                 PropertyInfo back = type.GetProperty("BackColor");
                 PropertyInfo fore = type.GetProperty("ForeColor");
+                PropertyInfo ground = type.GetProperty("BackgroundColor");
                 if (back != null)
                 {
                     String key = type.Name + ".BackColor";
@@ -148,6 +149,16 @@ namespace FlashDevelop.Managers
                     if (color != Color.Empty)
                     {
                         fore.SetValue(obj, color, null);
+                    }
+                }
+                if (ground != null)
+                {
+                    String key = type.Name + ".BackgroundColor";
+                    Color color = GetThemeColor(key);
+                    if (color != Color.Empty)
+                    {
+                        TraceManager.Add(obj.ToString());
+                        ground.SetValue(obj, color, null);
                     }
                 }
             }
