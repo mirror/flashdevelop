@@ -281,11 +281,18 @@ namespace PluginCore.Controls
             }
 			if (!cl.Visible)
 			{
-				cl.Show();
+                Redraw();
+                cl.Show();
                 cl.BringToFront();
                 if (UITools.CallTip.CallTipActive) UITools.CallTip.PositionControl(sci);
 			}
 		}
+
+        static public void Redraw()
+        {
+            Color back = PluginBase.MainForm.GetThemeColor("CompletionList.BackColor");
+            completionList.BackColor = back == Color.Empty ? System.Drawing.SystemColors.Window : back;
+        }
 
         /// <summary>
         /// Hide completion list
@@ -346,10 +353,11 @@ namespace PluginCore.Controls
         /// </summary>
         static private void CLDrawListItem(Object sender, System.Windows.Forms.DrawItemEventArgs e)
 		{
-			ICompletionListItem item = completionList.Items[e.Index] as ICompletionListItem;
+            ICompletionListItem item = completionList.Items[e.Index] as ICompletionListItem;
 			e.DrawBackground();
+            Color fore = PluginBase.MainForm.GetThemeColor("CompletionList.ForeColor");
             bool selected = (e.State & DrawItemState.Selected) > 0;
-			Brush textBrush = (selected) ? SystemBrushes.HighlightText : SystemBrushes.WindowText;
+			Brush textBrush = (selected) ? SystemBrushes.HighlightText : fore == Color.Empty ? SystemBrushes.WindowText : new SolidBrush(fore);
             Brush packageBrush = Brushes.Gray;
 			Rectangle tbounds = new Rectangle(18, e.Bounds.Top + 1, e.Bounds.Width, e.Bounds.Height);
 			if (item != null)

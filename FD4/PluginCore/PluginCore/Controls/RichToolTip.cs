@@ -26,8 +26,6 @@ namespace PluginCore.Controls
 		protected Dictionary<String, String> rtfCache;
 		protected List<String> rtfCacheList;
 
-
-
 		#region Public Properties
 		
 		public bool Visible 
@@ -214,6 +212,13 @@ namespace PluginCore.Controls
 		{
             toolTipRTB.Rtf = getRtfFor(rawText);
 
+            Color fore = PluginBase.MainForm.GetThemeColor("RichToolTip.ForeColor");
+            Color back = PluginBase.MainForm.GetThemeColor("RichToolTip.BackColor");
+            toolTip.BackColor = back == Color.Empty ? System.Drawing.SystemColors.Info : back;
+            toolTip.ForeColor = fore == Color.Empty ? System.Drawing.SystemColors.InfoText : fore;
+            toolTipRTB.ForeColor = fore == Color.Empty ? System.Drawing.SystemColors.InfoText : fore;
+            toolTipRTB.BackColor = back == Color.Empty ? System.Drawing.SystemColors.Info : back;
+
 			if (autoSize)
 				AutoSize();
 		}
@@ -242,5 +247,7 @@ namespace PluginCore.Controls
 		}
 
 		#endregion
+
 	}
+
 }

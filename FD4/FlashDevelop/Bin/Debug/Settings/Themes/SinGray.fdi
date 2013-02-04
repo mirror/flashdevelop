@@ -36,6 +36,15 @@ DataGridView.BackgroundColor=#DDDDDD
 TreeViewAdv.ForeColor=#333333
 TreeViewAdv.BackColor=#DDDDDD
 
+RichToolTip.ForeColor=#333333
+RichToolTip.BackColor=#F7F7EF
+
+CompletionList.ForeColor=#333333
+CompletionList.BackColor=#DDDDDD
+
+MessageBar.ForeColor=#333333
+MessageBar.BackColor=#F7F7EF
+
 Panel.BackColor=#333333
 Panel.BackColor=#DDDDDD
 

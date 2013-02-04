@@ -129,6 +129,11 @@ namespace PluginCore.Controls
 			if (p < 0) p = message.IndexOf('\n');
 			if (p >= 0) message = message.Substring(0, p) + " ...";
 			label.Text = "      " + message;
+            Color fore = PluginBase.MainForm.GetThemeColor("MessageBar.ForeColor");
+            Color back = PluginBase.MainForm.GetThemeColor("MessageBar.BackColor");
+            label.ForeColor = fore == Color.Empty ? System.Drawing.SystemColors.InfoText : fore;
+            this.ForeColor = fore == Color.Empty ? System.Drawing.SystemColors.InfoText : fore;
+            this.BackColor = back == Color.Empty ? System.Drawing.SystemColors.Info : back;
 		}
 		
 		public void ButtonCloseClick(Object sender, System.EventArgs e)
