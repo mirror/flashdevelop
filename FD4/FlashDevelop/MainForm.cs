@@ -2541,7 +2541,10 @@ namespace FlashDevelop
                 if (this.appSettings.ViewToolBar) this.toolStrip.Visible = true;
                 foreach (DockPane pane in this.dockPanel.Panes)
                 {
-                    pane.DockState = (DockState)this.fullScreenDocks[pane];
+                    if (this.fullScreenDocks[pane] != null)
+                    {
+                        pane.DockState = (DockState)this.fullScreenDocks[pane];
+                    }
                 }
                 this.isFullScreen = false;
             } 

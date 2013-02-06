@@ -109,3 +109,4 @@ VS2005DockPaneStrip.TabStripColor=#FFBE3C
 
 VS2005AutoHideStrip.ForeColor=#333333
 VS2005AutoHideStrip.BackColor=#F0F0F0
+VS2005AutoHideStrip.BorderColor=#A0A0A0

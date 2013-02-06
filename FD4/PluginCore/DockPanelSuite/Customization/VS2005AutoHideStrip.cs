@@ -155,7 +155,12 @@ namespace WeifenLuo.WinFormsUI.Docking
 
 		private static Pen PenTabBorder
 		{
-            get { return SystemPens.ControlDark; }
+            get 
+            {
+                Color color = PluginCore.PluginBase.MainForm.GetThemeColor("VS2005AutoHideStrip.BorderColor");
+                if (color != Color.Empty) return new Pen(color);
+                else return SystemPens.ControlDark; 
+            }
 		}
 
 		private static Brush BrushTabText
