@@ -87,7 +87,7 @@ ToolStripTextBoxControl.BackColor=#FFFFFF
 
 ### DOCK SYSTEM
 
-DockPanel.BackColor=#F0F0F0
+DockPanel.BackColor=#A0A0A0
 
 AutoHideWindowControl.ForeColor=#FF0000
 AutoHideWindowControl.BackColor=#F0F0F0
