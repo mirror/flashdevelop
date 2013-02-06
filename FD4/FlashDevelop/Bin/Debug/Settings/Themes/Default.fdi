@@ -45,7 +45,7 @@ CompletionList.BackColor=#FFFFFF
 MessageBar.ForeColor=#000000
 MessageBar.BackColor=#FFFFE1
 
-Panel.BackColor=#000000
+Panel.ForeColor=#000000
 Panel.BackColor=#FFFFFF
 
 ### MAIN INTERFACE
