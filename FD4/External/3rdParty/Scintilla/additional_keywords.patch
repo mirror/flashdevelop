@@ -1,27 +1,20 @@
-# HG changeset patch
-# User pelsass
-# Date 1338972102 -7200
-# Node ID f92c6a1446440daad5c627a68ccfe6a86599ff54
-# Parent  ae4d2f897a8fd92294f61d4d56e90e7700a912df
-Additional LexCPP keyword classes
-
-diff -r ae4d2f897a8f -r f92c6a144644 include/SciLexer.h
---- a/include/SciLexer.h	Wed May 30 09:10:54 2012 +1000
-+++ b/include/SciLexer.h	Wed Jun 06 10:41:42 2012 +0200
-@@ -160,6 +160,9 @@
- #define SCE_C_STRINGRAW 20
+diff -r 1092d3d24959 include/SciLexer.h
+--- a/include/SciLexer.h	Tue Jan 15 09:51:15 2013 +1100
++++ b/include/SciLexer.h	Wed Feb 06 22:13:27 2013 +0100
+@@ -161,6 +161,9 @@
  #define SCE_C_TRIPLEVERBATIM 21
  #define SCE_C_HASHQUOTEDSTRING 22
-+#define SCE_C_WORD3 23
-+#define SCE_C_WORD4 24
-+#define SCE_C_WORD5 25
+ #define SCE_C_PREPROCESSORCOMMENT 23
++#define SCE_C_WORD3 24
++#define SCE_C_WORD4 25
++#define SCE_C_WORD5 26
  #define SCE_D_DEFAULT 0
  #define SCE_D_COMMENT 1
  #define SCE_D_COMMENTLINE 2
-diff -r ae4d2f897a8f -r f92c6a144644 lexers/LexCPP.cxx
---- a/lexers/LexCPP.cxx	Wed May 30 09:10:54 2012 +1000
-+++ b/lexers/LexCPP.cxx	Wed Jun 06 10:41:42 2012 +0200
-@@ -244,6 +244,9 @@
+diff -r 1092d3d24959 lexers/LexCPP.cxx
+--- a/lexers/LexCPP.cxx	Tue Jan 15 09:51:15 2013 +1100
++++ b/lexers/LexCPP.cxx	Wed Feb 06 22:13:27 2013 +0100
+@@ -247,6 +247,9 @@
              "Documentation comment keywords",
              "Global classes and typedefs",
              "Preprocessor definitions",
@@ -31,7 +24,7 @@ diff -r ae4d2f897a8f -r f92c6a144644 lexers/LexCPP.cxx
              0,
  };
  
-@@ -320,6 +323,9 @@
+@@ -323,6 +326,9 @@
  	WordList keywords2;
  	WordList keywords3;
  	WordList keywords4;
@@ -41,7 +34,7 @@ diff -r ae4d2f897a8f -r f92c6a144644 lexers/LexCPP.cxx
  	WordList ppDefinitions;
  	std::map<std::string, std::string> preprocessorDefinitionsStart;
  	OptionsCPP options;
-@@ -402,6 +408,15 @@
+@@ -411,6 +417,15 @@
  	case 4:
  		wordListN = &ppDefinitions;
  		break;
@@ -57,18 +50,16 @@ diff -r ae4d2f897a8f -r f92c6a144644 lexers/LexCPP.cxx
  	}
  	int firstModification = -1;
  	if (wordListN) {
-@@ -588,7 +603,13 @@
+@@ -605,6 +620,12 @@
  						sc.ChangeState(SCE_C_WORD2|activitySet);
  					} else if (keywords4.InList(s)) {
  						sc.ChangeState(SCE_C_GLOBALCLASS|activitySet);
--					}
-+                    } else if (keywords5.InList(s)) {
++					} else if (keywords5.InList(s)) {
 +                        sc.ChangeState(SCE_C_WORD3|activitySet);
 +                    } else if (keywords6.InList(s)) {
 +                        sc.ChangeState(SCE_C_WORD4|activitySet);
 +                    } else if (keywords7.InList(s)) {
 +                        sc.ChangeState(SCE_C_WORD5|activitySet);
-+                    }
+ 					}
  					const bool literalString = sc.ch == '\"';
  					if (literalString || sc.ch == '\'') {
- 						size_t lenS = strlen(s);
