@@ -14,7 +14,7 @@ namespace HaXeContext
     {
         private static readonly Regex reListEntry = new Regex("<i n=\"([^\"]+)\"><t>([^<]*)</t><d>([^<]*)</d></i>",
                                                               RegexOptions.Compiled | RegexOptions.Singleline);
-        private static readonly Regex reArg = new Regex("^(-[a-z0-9-]+)\\s*([^\"'].*)$", 
+        private static readonly Regex reArg = new Regex("^(-cp)\\s*([^\"'].*)$", 
                                                         RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly int position;
@@ -85,7 +85,7 @@ namespace HaXeContext
             // Build haXe command
             var paths = ProjectManager.PluginMain.Settings.GlobalClasspaths.ToArray();
             var hxmlArgs = new List<String>(hp.BuildHXML(paths, "__nothing__", true));
-            // quote
+            // quote paths
             for (int i = 0; i < hxmlArgs.Count; i++)
             {
                 string arg = hxmlArgs[i];
