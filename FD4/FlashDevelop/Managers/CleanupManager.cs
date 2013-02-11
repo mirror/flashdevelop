@@ -38,8 +38,8 @@ namespace FlashDevelop.Managers
                             Int32 appFileColoringEnd = appFileContents.IndexOf(coloringEnd);
                             Int32 userFileColoringStart = userFileContents.IndexOf(coloringStart);
                             Int32 userFileColoringEnd = userFileContents.IndexOf(coloringEnd);
-                            String replaceTarget = appFileContents.Substring(appFileColoringStart, appFileColoringEnd - appFileColoringStart);
-                            String replaceContent = userFileContents.Substring(userFileColoringStart, userFileColoringEnd - userFileColoringStart);
+                            String replaceTarget = appFileContents.Substring(appFileColoringStart, appFileColoringEnd - appFileColoringStart + coloringEnd.Length);
+                            String replaceContent = userFileContents.Substring(userFileColoringStart, userFileColoringEnd - userFileColoringStart + coloringEnd.Length);
                             String finalContent = appFileContents.Replace(replaceTarget, replaceContent);
                             FileHelper.WriteFile(userFile, finalContent, Encoding.UTF8);
                         }

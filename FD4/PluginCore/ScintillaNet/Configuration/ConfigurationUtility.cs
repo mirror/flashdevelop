@@ -13,6 +13,9 @@ namespace ScintillaNet.Configuration
     {
         protected Assembly _assembly;
 
+        private const String coloringStart = "<!-- COLORING_START -->";
+        private const String coloringEnd = "<!-- COLORING_END -->";
+
         protected virtual byte[] LoadFile(string filename, ConfigFile parent)
         {
 			System.IO.Stream res;
@@ -29,18 +32,12 @@ namespace ScintillaNet.Configuration
 
         protected virtual Stream OpenFile(string filename, ConfigFile parent)
         {
-			System.IO.Stream res;
+			Stream res;
             filename = filename.Replace("$(AppDir)", PathHelper.AppDir);
             filename = filename.Replace("$(UserAppDir)", PathHelper.UserAppDir);
             filename = filename.Replace("$(BaseDir)", PathHelper.BaseDir);
-            if (System.IO.File.Exists(filename))
-			{
-                res = new System.IO.FileStream(filename, FileMode.Open, FileAccess.Read);
-			}
-			else
-			{
-				res = _assembly.GetManifestResourceStream(String.Format( "{0}.{1}" , _assembly.GetName().Name, filename.Replace("\\" , "." )));
-			}
+            if (File.Exists(filename)) res = new FileStream(filename, FileMode.Open, FileAccess.Read);
+			else res = _assembly.GetManifestResourceStream(String.Format( "{0}.{1}" , _assembly.GetName().Name, filename.Replace("\\" , "." )));
 			if (res == null && parent != null && parent.filename != null)
 			{
 				int p = parent.filename.LastIndexOf('\\');
@@ -51,8 +48,8 @@ namespace ScintillaNet.Configuration
 
         protected object Deserialize(TextReader reader, Type aType)
         {
-            XmlSerializer xmlSerializer = null;
             object local = null;
+            XmlSerializer xmlSerializer = null;
             xmlSerializer = new XmlSerializer(aType);
             local = xmlSerializer.Deserialize(reader);
             reader.Close();
@@ -82,19 +79,32 @@ namespace ScintillaNet.Configuration
         public virtual object LoadConfiguration(Type configType, string filename, ConfigFile parent)
         {
             ConfigFile configFile = null;
-            Stream stream = null;
             TextReader textReader = null;
-            configFile = null;
+            filename = filename.Replace("$(AppDir)", PathHelper.AppDir);
+            filename = filename.Replace("$(UserAppDir)", PathHelper.UserAppDir);
+            filename = filename.Replace("$(BaseDir)", PathHelper.BaseDir);
             if (typeof(ConfigFile).IsAssignableFrom(configType))
             {
-                stream = OpenFile(filename, parent);
-                if (stream != null)
+                if (File.Exists(filename + ".override"))
                 {
-                    textReader = new StreamReader(stream);
-                    configFile = Deserialize(textReader, configType) as ConfigFile;
-                    configFile.filename = filename;
-                    configFile.init(this, parent);
+                    try
+                    {
+                        String original = File.ReadAllText(filename);
+                        String overriding = File.ReadAllText(filename + ".override");
+                        String tabContent = overriding.Replace("\n", "\n\t\t\t");
+                        Int32 indexStart = original.IndexOf(coloringStart);
+                        Int32 indexEnd = original.IndexOf(coloringEnd);
+                        String replaceTarget = original.Substring(indexStart, indexEnd - indexStart + coloringEnd.Length);
+                        String finalContent = original.Replace(replaceTarget, tabContent);
+                        File.WriteAllText(filename, finalContent);
+                        File.Delete(filename + ".override");
+                    }
+                    catch { /* NO ERRORS... */ }
                 }
+                textReader = new StreamReader(filename);
+                configFile = Deserialize(textReader, configType) as ConfigFile;
+                configFile.filename = filename;
+                configFile.init(this, parent);
             }
             return configFile;
         }

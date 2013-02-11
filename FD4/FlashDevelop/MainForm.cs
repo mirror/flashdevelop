@@ -2609,7 +2609,7 @@ namespace FlashDevelop
                         Int32 size = 2048;
                         Byte[] data = new Byte[2048];
                         String fdpath = this.ProcessArgString(entry.Name, false).Replace("/", "\\");
-                        if (File.Exists(fdpath))
+                        if (entry.IsFile)
                         {
                             String ext = Path.GetExtension(fdpath);
                             if (File.Exists(fdpath) && (ext == ".dll" || ext == ".fdb" || ext == ".fdl"))

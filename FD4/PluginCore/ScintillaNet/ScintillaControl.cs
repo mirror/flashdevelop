@@ -149,350 +149,359 @@ namespace ScintillaNet
             set
             {
                 if (value == null || value.Equals("")) return;
-                Language lang = sciConfiguration.GetLanguage(value);
-                if (lang == null) return;
-                StyleClearAll();
-                try
-                {
-                    lang.lexer.key = (int)Enum.Parse(typeof(Enums.Lexer), lang.lexer.name, true);
-                }
-                catch { /* If not found, uses the lang.lexer.key directly. */ }
-                this.configLanguage = value;
-                Lexer = lang.lexer.key;
-                if (lang.lexer.stylebits > 0) StyleBits = lang.lexer.stylebits;
-                if (lang.editorstyle != null)
-                {
-                    EdgeColour = lang.editorstyle.PrintMarginColor;
-                    CaretFore = lang.editorstyle.CaretForegroundColor;
-                    CaretLineBack = lang.editorstyle.CaretLineBackgroundColor;
-                    SetSelBack(true, lang.editorstyle.SelectionBackgroundColor);
-                    SetSelFore(true, lang.editorstyle.SelectionForegroundColor);
-                    SetFoldMarginHiColour(true, lang.editorstyle.MarginForegroundColor);
-                    SetFoldMarginColour(true, lang.editorstyle.MarginBackgroundColor);
-                    Int32 markerForegroundColor = lang.editorstyle.MarkerForegroundColor;
-                    Int32 markerBackgroundColor = lang.editorstyle.MarkerBackgroundColor;
-                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerBackgroundColor);
-                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerForegroundColor);
-                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerBackgroundColor);
-                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerForegroundColor);
-                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerBackgroundColor);
-                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerForegroundColor);
-                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerBackgroundColor);
-                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerForegroundColor);
-                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerBackgroundColor);
-                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerForegroundColor);
-                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerBackgroundColor);
-                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerForegroundColor);
-                    MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerBackgroundColor);
-                    MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerForegroundColor);
-                    MarkerSetBack(0, lang.editorstyle.BookmarkLineColor);
-                    MarkerSetBack(2, lang.editorstyle.ModifiedLineColor);
-                }
-                if (lang.characterclass != null)
-                {
-                    WordChars(lang.characterclass.Characters);
-                }
-                for (int j = 0; j < lang.usestyles.Length; j++)
-                {
-                    UseStyle usestyle = lang.usestyles[j];
-                    if (usestyle.key == 0)
-                    {
-                        System.Type theType = null;
-                        switch ((Enums.Lexer)lang.lexer.key)
-                        {
-                            case Enums.Lexer.PYTHON:
-	                            theType = typeof(Lexers.PYTHON);
-	                            break;
-                            case Enums.Lexer.CPP:
-	                            theType = typeof(Lexers.CPP);
-	                            break;
-                            case Enums.Lexer.HTML:
-	                            theType = typeof(Lexers.HTML);
-	                            break;
-                            case Enums.Lexer.XML:
-                                theType = typeof(Lexers.XML);
-	                            break;
-                            case Enums.Lexer.PERL:
-	                            theType = typeof(Lexers.PERL);
-	                            break;
-                            case Enums.Lexer.SQL:
-	                            theType = typeof(Lexers.SQL);
-	                            break;
-                            case Enums.Lexer.VB:
-	                            theType = typeof(Lexers.VB);
-	                            break;
-                            case Enums.Lexer.PROPERTIES:
-	                            theType = typeof(Lexers.PROPERTIES);
-	                            break;
-                            case Enums.Lexer.ERRORLIST:
-	                            theType = typeof(Lexers.ERRORLIST);
-	                            break;
-                            case Enums.Lexer.MAKEFILE:
-	                            theType = typeof(Lexers.MAKEFILE);
-	                            break;
-                            case Enums.Lexer.BATCH:
-	                            theType = typeof(Lexers.BATCH);
-	                            break;
-                            case Enums.Lexer.LATEX:
-	                            theType = typeof(Lexers.LATEX);
-	                            break;
-                            case Enums.Lexer.LUA:
-	                            theType = typeof(Lexers.LUA);
-	                            break;
-                            case Enums.Lexer.DIFF:
-	                            theType = typeof(Lexers.DIFF);
-	                            break;
-                            case Enums.Lexer.CONF:
-	                            theType = typeof(Lexers.CONF);
-	                            break;
-                            case Enums.Lexer.PASCAL:
-	                            theType = typeof(Lexers.PASCAL);
-	                            break;
-                            case Enums.Lexer.AVE:
-	                            theType = typeof(Lexers.AVE);
-	                            break;
-                            case Enums.Lexer.ADA:
-	                            theType = typeof(Lexers.ADA);
-	                            break;
-                            case Enums.Lexer.LISP:
-	                            theType = typeof(Lexers.LISP);
-	                            break;
-                            case Enums.Lexer.RUBY:
-	                            theType = typeof(Lexers.RUBY);
-	                            break;
-                            case Enums.Lexer.EIFFEL:
-	                            theType = typeof(Lexers.EIFFEL);
-	                            break;
-                            case Enums.Lexer.EIFFELKW:
-	                            theType = typeof(Lexers.EIFFELKW);
-	                            break;
-                            case Enums.Lexer.TCL:
-	                            theType = typeof(Lexers.TCL);
-	                            break;
-                            case Enums.Lexer.NNCRONTAB:
-	                            theType = typeof(Lexers.NNCRONTAB);
-	                            break;
-                            case Enums.Lexer.BULLANT:
-                                theType = typeof(Lexers.BULLANT);
-	                            break;
-                            case Enums.Lexer.VBSCRIPT:
-	                            theType = typeof(Lexers.VBSCRIPT);
-	                            break;
-                            case Enums.Lexer.BAAN:
-	                            theType = typeof(Lexers.BAAN);
-	                            break;
-                            case Enums.Lexer.MATLAB:
-	                            theType = typeof(Lexers.MATLAB);
-	                            break;
-                            case Enums.Lexer.SCRIPTOL:
-	                            theType = typeof(Lexers.SCRIPTOL);
-	                            break;
-                            case Enums.Lexer.ASM:
-	                            theType = typeof(Lexers.ASM);
-	                            break;
-                            case Enums.Lexer.FORTRAN:
-	                            theType = typeof(Lexers.FORTRAN);
-	                            break;
-                            case Enums.Lexer.F77:
-                                theType = typeof(Lexers.F77);
-	                            break;
-                            case Enums.Lexer.CSS:
-	                            theType = typeof(Lexers.CSS);
-	                            break;
-                            case Enums.Lexer.POV:
-	                            theType = typeof(Lexers.POV);
-	                            break;
-                            case Enums.Lexer.LOUT:
-	                            theType = typeof(Lexers.LOUT);
-	                            break;
-                            case Enums.Lexer.ESCRIPT:
-	                            theType = typeof(Lexers.ESCRIPT);
-	                            break;
-                            case Enums.Lexer.PS:
-	                            theType = typeof(Lexers.PS);
-	                            break;
-                            case Enums.Lexer.NSIS:
-	                            theType = typeof(Lexers.NSIS);
-	                            break;
-                            case Enums.Lexer.MMIXAL:
-	                            theType = typeof(Lexers.MMIXAL);
-	                            break;
-                            case Enums.Lexer.LOT:
-	                            theType = typeof(Lexers.LOT);
-	                            break;
-                            case Enums.Lexer.YAML:
-	                            theType = typeof(Lexers.YAML);
-	                            break;
-                            case Enums.Lexer.TEX:
-	                            theType = typeof(Lexers.TEX);
-	                            break;
-                            case Enums.Lexer.METAPOST:
-	                            theType = typeof(Lexers.METAPOST);
-	                            break;
-                            case Enums.Lexer.POWERBASIC:
-	                            theType = typeof(Lexers.POWERBASIC);
-	                            break;
-                            case Enums.Lexer.FORTH:
-	                            theType = typeof(Lexers.FORTH);
-	                            break;
-                            case Enums.Lexer.ERLANG:
-	                            theType = typeof(Lexers.ERLANG);
-	                            break;
-                            case Enums.Lexer.OCTAVE:
-	                            theType = typeof(Lexers.OCTAVE);
-	                            break;
-                            case Enums.Lexer.MSSQL:
-	                            theType = typeof(Lexers.MSSQL);
-	                            break;
-                            case Enums.Lexer.VERILOG:
-	                            theType = typeof(Lexers.VERILOG);
-	                            break;
-                            case Enums.Lexer.KIX:
-	                            theType = typeof(Lexers.KIX);
-	                            break;
-                            case Enums.Lexer.GUI4CLI:
-                                theType = typeof(Lexers.GUI4CLI);
-	                            break;
-                            case Enums.Lexer.SPECMAN:
-	                            theType = typeof(Lexers.SPECMAN);
-	                            break;
-                            case Enums.Lexer.AU3:
-                                theType = typeof(Lexers.AU3);
-	                            break;
-                            case Enums.Lexer.APDL:
-	                            theType = typeof(Lexers.APDL);
-	                            break;
-                            case Enums.Lexer.BASH:
-	                            theType = typeof(Lexers.BASH);
-	                            break;
-                            case Enums.Lexer.ASN1:
-                                theType = typeof(Lexers.ASN1);
-	                            break;
-                            case Enums.Lexer.VHDL:
-	                            theType = typeof(Lexers.VHDL);
-	                            break;
-                            case Enums.Lexer.CAML:
-	                            theType = typeof(Lexers.CAML);
-	                            break;
-                            case Enums.Lexer.HASKELL:
-	                            theType = typeof(Lexers.HASKELL);
-	                            break;
-                            case Enums.Lexer.TADS3:
-                                theType = typeof(Lexers.TADS3);
-	                            break;
-                            case Enums.Lexer.REBOL:
-	                            theType = typeof(Lexers.REBOL);
-	                            break;
-                            case Enums.Lexer.SMALLTALK:
-	                            theType = typeof(Lexers.SMALLTALK);
-	                            break;
-                            case Enums.Lexer.FLAGSHIP:
-	                            theType = typeof(Lexers.FLAGSHIP);
-	                            break;
-                            case Enums.Lexer.CSOUND:
-	                            theType = typeof(Lexers.CSOUND);
-	                            break;
-                            case Enums.Lexer.INNOSETUP:
-	                            theType = typeof(Lexers.INNOSETUP);
-	                            break;
-                            case Enums.Lexer.OPAL:
-	                            theType = typeof(Lexers.OPAL);
-	                            break;
-                            case Enums.Lexer.SPICE:
-	                            theType = typeof(Lexers.SPICE);
-	                            break;
-                            case Enums.Lexer.D:
-	                            theType = typeof(Lexers.D);
-	                            break;
-                            case Enums.Lexer.CMAKE:
-	                            theType = typeof(Lexers.CMAKE);
-	                            break;
-                            case Enums.Lexer.GAP:
-	                            theType = typeof(Lexers.GAP);
-	                            break;
-                            case Enums.Lexer.PLM:
-	                            theType = typeof(Lexers.PLM);
-	                            break;
-                            case Enums.Lexer.PROGRESS:
-	                            theType = typeof(Lexers.PROGRESS);
-	                            break;
-                            case Enums.Lexer.ABAQUS:
-	                            theType = typeof(Lexers.ABAQUS);
-	                            break;
-                            case Enums.Lexer.ASYMPTOTE:
-	                            theType = typeof(Lexers.ASYMPTOTE);
-	                            break;
-                            case Enums.Lexer.R:
-	                            theType = typeof(Lexers.R);
-	                            break;
-                            case Enums.Lexer.MAGIK:
-	                            theType = typeof(Lexers.MAGIK);
-	                            break;
-                            case Enums.Lexer.POWERSHELL:
-	                            theType = typeof(Lexers.POWERSHELL);
-	                            break;
-                            case Enums.Lexer.MYSQL:
-	                            theType = typeof(Lexers.MYSQL);
-	                            break;
-                            case Enums.Lexer.PO:
-	                            theType = typeof(Lexers.PO);
-	                            break;
-                            case Enums.Lexer.SORCUS:
-	                            theType = typeof(Lexers.SORCUS);
-	                            break;
-                            case Enums.Lexer.POWERPRO:
-	                            theType = typeof(Lexers.POWERPRO);
-	                            break;
-                            case Enums.Lexer.NIMROD:
-                                theType = typeof(Lexers.NIMROD);
-	                            break;
-                            case Enums.Lexer.SML:
-	                            theType = typeof(Lexers.SML);
-	                            break;
-                        }
-                        try
-                        {
-                            usestyle.key = (int)Enum.Parse(theType, usestyle.name, true);
-                        }
-                        catch (Exception ex)
-                        {
-                            String info;
-                            if (theType == null)
-                            {
-                                info = String.Format("Lexer '{0}' ({1}) unknown.", lang.lexer.name, lang.lexer.key);
-                                ErrorManager.ShowWarning(info, ex);
-                                break;
-                            }
-                            else
-                            {
-                                info = String.Format("Style '{0}' in syntax file is not used by lexer '{1}'.", usestyle.name, theType.Name);
-                                ErrorManager.ShowWarning(info, ex);
-                            }
-                        }
-                    }
-                    // Set whitespace fore color to indentguide color
-                    if (usestyle.key == (Int32)ScintillaNet.Enums.StylesCommon.IndentGuide)
-                    {
-                        SetWhitespaceFore(true, usestyle.ForegroundColor);
-                    }
-                    if (usestyle.HasForegroundColor) StyleSetFore(usestyle.key, usestyle.ForegroundColor);
-                    if (usestyle.HasBackgroundColor) StyleSetBack(usestyle.key, usestyle.BackgroundColor);
-                    if (usestyle.HasFontName) StyleSetFont(usestyle.key, usestyle.FontName);
-                    if (usestyle.HasFontSize) StyleSetSize(usestyle.key, usestyle.FontSize);
-                    if (usestyle.HasBold) StyleSetBold(usestyle.key, usestyle.IsBold);
-                    if (usestyle.HasItalics) StyleSetItalic(usestyle.key, usestyle.IsItalics);
-                    if (usestyle.HasEolFilled) StyleSetEOLFilled(usestyle.key, usestyle.IsEolFilled);
-                }
-                // Clear the keywords lists	
-                for (int j = 0; j < 9; j++) KeyWords(j, "");
-                for (int j = 0; j < lang.usekeywords.Length; j++)
-                {
-                    UseKeyword usekeyword = lang.usekeywords[j];
-                    KeywordClass kc = sciConfiguration.GetKeywordClass(usekeyword.cls);
-                    if (kc != null) KeyWords(usekeyword.key, kc.val);
-                }
-                if (UpdateSync != null) this.UpdateSync(this);
+                this.SetLanguage(value);
+                
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SetLanguage(String value)
+        {
+            Language lang = sciConfiguration.GetLanguage(value);
+            if (lang == null) return;
+            StyleClearAll();
+            try
+            {
+                lang.lexer.key = (int)Enum.Parse(typeof(Enums.Lexer), lang.lexer.name, true);
+            }
+            catch { /* If not found, uses the lang.lexer.key directly. */ }
+            this.configLanguage = value;
+            Lexer = lang.lexer.key;
+            if (lang.lexer.stylebits > 0) StyleBits = lang.lexer.stylebits;
+            if (lang.editorstyle != null)
+            {
+                EdgeColour = lang.editorstyle.PrintMarginColor;
+                CaretFore = lang.editorstyle.CaretForegroundColor;
+                CaretLineBack = lang.editorstyle.CaretLineBackgroundColor;
+                SetSelBack(true, lang.editorstyle.SelectionBackgroundColor);
+                SetSelFore(true, lang.editorstyle.SelectionForegroundColor);
+                SetFoldMarginHiColour(true, lang.editorstyle.MarginForegroundColor);
+                SetFoldMarginColour(true, lang.editorstyle.MarginBackgroundColor);
+                Int32 markerForegroundColor = lang.editorstyle.MarkerForegroundColor;
+                Int32 markerBackgroundColor = lang.editorstyle.MarkerBackgroundColor;
+                MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerBackgroundColor);
+                MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.Folder, markerForegroundColor);
+                MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerBackgroundColor);
+                MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpen, markerForegroundColor);
+                MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerBackgroundColor);
+                MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderSub, markerForegroundColor);
+                MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerBackgroundColor);
+                MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderTail, markerForegroundColor);
+                MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerBackgroundColor);
+                MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderEnd, markerForegroundColor);
+                MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerBackgroundColor);
+                MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderOpenMid, markerForegroundColor);
+                MarkerSetBack((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerBackgroundColor);
+                MarkerSetFore((Int32)ScintillaNet.Enums.MarkerOutline.FolderMidTail, markerForegroundColor);
+                MarkerSetBack(0, lang.editorstyle.BookmarkLineColor);
+                MarkerSetBack(2, lang.editorstyle.ModifiedLineColor);
+            }
+            if (lang.characterclass != null)
+            {
+                WordChars(lang.characterclass.Characters);
+            }
+            for (int j = 0; j < lang.usestyles.Length; j++)
+            {
+                UseStyle usestyle = lang.usestyles[j];
+                if (usestyle.key == 0)
+                {
+                    System.Type theType = null;
+                    switch ((Enums.Lexer)lang.lexer.key)
+                    {
+                        case Enums.Lexer.PYTHON:
+                            theType = typeof(Lexers.PYTHON);
+                            break;
+                        case Enums.Lexer.CPP:
+                            theType = typeof(Lexers.CPP);
+                            break;
+                        case Enums.Lexer.HTML:
+                            theType = typeof(Lexers.HTML);
+                            break;
+                        case Enums.Lexer.XML:
+                            theType = typeof(Lexers.XML);
+                            break;
+                        case Enums.Lexer.PERL:
+                            theType = typeof(Lexers.PERL);
+                            break;
+                        case Enums.Lexer.SQL:
+                            theType = typeof(Lexers.SQL);
+                            break;
+                        case Enums.Lexer.VB:
+                            theType = typeof(Lexers.VB);
+                            break;
+                        case Enums.Lexer.PROPERTIES:
+                            theType = typeof(Lexers.PROPERTIES);
+                            break;
+                        case Enums.Lexer.ERRORLIST:
+                            theType = typeof(Lexers.ERRORLIST);
+                            break;
+                        case Enums.Lexer.MAKEFILE:
+                            theType = typeof(Lexers.MAKEFILE);
+                            break;
+                        case Enums.Lexer.BATCH:
+                            theType = typeof(Lexers.BATCH);
+                            break;
+                        case Enums.Lexer.LATEX:
+                            theType = typeof(Lexers.LATEX);
+                            break;
+                        case Enums.Lexer.LUA:
+                            theType = typeof(Lexers.LUA);
+                            break;
+                        case Enums.Lexer.DIFF:
+                            theType = typeof(Lexers.DIFF);
+                            break;
+                        case Enums.Lexer.CONF:
+                            theType = typeof(Lexers.CONF);
+                            break;
+                        case Enums.Lexer.PASCAL:
+                            theType = typeof(Lexers.PASCAL);
+                            break;
+                        case Enums.Lexer.AVE:
+                            theType = typeof(Lexers.AVE);
+                            break;
+                        case Enums.Lexer.ADA:
+                            theType = typeof(Lexers.ADA);
+                            break;
+                        case Enums.Lexer.LISP:
+                            theType = typeof(Lexers.LISP);
+                            break;
+                        case Enums.Lexer.RUBY:
+                            theType = typeof(Lexers.RUBY);
+                            break;
+                        case Enums.Lexer.EIFFEL:
+                            theType = typeof(Lexers.EIFFEL);
+                            break;
+                        case Enums.Lexer.EIFFELKW:
+                            theType = typeof(Lexers.EIFFELKW);
+                            break;
+                        case Enums.Lexer.TCL:
+                            theType = typeof(Lexers.TCL);
+                            break;
+                        case Enums.Lexer.NNCRONTAB:
+                            theType = typeof(Lexers.NNCRONTAB);
+                            break;
+                        case Enums.Lexer.BULLANT:
+                            theType = typeof(Lexers.BULLANT);
+                            break;
+                        case Enums.Lexer.VBSCRIPT:
+                            theType = typeof(Lexers.VBSCRIPT);
+                            break;
+                        case Enums.Lexer.BAAN:
+                            theType = typeof(Lexers.BAAN);
+                            break;
+                        case Enums.Lexer.MATLAB:
+                            theType = typeof(Lexers.MATLAB);
+                            break;
+                        case Enums.Lexer.SCRIPTOL:
+                            theType = typeof(Lexers.SCRIPTOL);
+                            break;
+                        case Enums.Lexer.ASM:
+                            theType = typeof(Lexers.ASM);
+                            break;
+                        case Enums.Lexer.FORTRAN:
+                            theType = typeof(Lexers.FORTRAN);
+                            break;
+                        case Enums.Lexer.F77:
+                            theType = typeof(Lexers.F77);
+                            break;
+                        case Enums.Lexer.CSS:
+                            theType = typeof(Lexers.CSS);
+                            break;
+                        case Enums.Lexer.POV:
+                            theType = typeof(Lexers.POV);
+                            break;
+                        case Enums.Lexer.LOUT:
+                            theType = typeof(Lexers.LOUT);
+                            break;
+                        case Enums.Lexer.ESCRIPT:
+                            theType = typeof(Lexers.ESCRIPT);
+                            break;
+                        case Enums.Lexer.PS:
+                            theType = typeof(Lexers.PS);
+                            break;
+                        case Enums.Lexer.NSIS:
+                            theType = typeof(Lexers.NSIS);
+                            break;
+                        case Enums.Lexer.MMIXAL:
+                            theType = typeof(Lexers.MMIXAL);
+                            break;
+                        case Enums.Lexer.LOT:
+                            theType = typeof(Lexers.LOT);
+                            break;
+                        case Enums.Lexer.YAML:
+                            theType = typeof(Lexers.YAML);
+                            break;
+                        case Enums.Lexer.TEX:
+                            theType = typeof(Lexers.TEX);
+                            break;
+                        case Enums.Lexer.METAPOST:
+                            theType = typeof(Lexers.METAPOST);
+                            break;
+                        case Enums.Lexer.POWERBASIC:
+                            theType = typeof(Lexers.POWERBASIC);
+                            break;
+                        case Enums.Lexer.FORTH:
+                            theType = typeof(Lexers.FORTH);
+                            break;
+                        case Enums.Lexer.ERLANG:
+                            theType = typeof(Lexers.ERLANG);
+                            break;
+                        case Enums.Lexer.OCTAVE:
+                            theType = typeof(Lexers.OCTAVE);
+                            break;
+                        case Enums.Lexer.MSSQL:
+                            theType = typeof(Lexers.MSSQL);
+                            break;
+                        case Enums.Lexer.VERILOG:
+                            theType = typeof(Lexers.VERILOG);
+                            break;
+                        case Enums.Lexer.KIX:
+                            theType = typeof(Lexers.KIX);
+                            break;
+                        case Enums.Lexer.GUI4CLI:
+                            theType = typeof(Lexers.GUI4CLI);
+                            break;
+                        case Enums.Lexer.SPECMAN:
+                            theType = typeof(Lexers.SPECMAN);
+                            break;
+                        case Enums.Lexer.AU3:
+                            theType = typeof(Lexers.AU3);
+                            break;
+                        case Enums.Lexer.APDL:
+                            theType = typeof(Lexers.APDL);
+                            break;
+                        case Enums.Lexer.BASH:
+                            theType = typeof(Lexers.BASH);
+                            break;
+                        case Enums.Lexer.ASN1:
+                            theType = typeof(Lexers.ASN1);
+                            break;
+                        case Enums.Lexer.VHDL:
+                            theType = typeof(Lexers.VHDL);
+                            break;
+                        case Enums.Lexer.CAML:
+                            theType = typeof(Lexers.CAML);
+                            break;
+                        case Enums.Lexer.HASKELL:
+                            theType = typeof(Lexers.HASKELL);
+                            break;
+                        case Enums.Lexer.TADS3:
+                            theType = typeof(Lexers.TADS3);
+                            break;
+                        case Enums.Lexer.REBOL:
+                            theType = typeof(Lexers.REBOL);
+                            break;
+                        case Enums.Lexer.SMALLTALK:
+                            theType = typeof(Lexers.SMALLTALK);
+                            break;
+                        case Enums.Lexer.FLAGSHIP:
+                            theType = typeof(Lexers.FLAGSHIP);
+                            break;
+                        case Enums.Lexer.CSOUND:
+                            theType = typeof(Lexers.CSOUND);
+                            break;
+                        case Enums.Lexer.INNOSETUP:
+                            theType = typeof(Lexers.INNOSETUP);
+                            break;
+                        case Enums.Lexer.OPAL:
+                            theType = typeof(Lexers.OPAL);
+                            break;
+                        case Enums.Lexer.SPICE:
+                            theType = typeof(Lexers.SPICE);
+                            break;
+                        case Enums.Lexer.D:
+                            theType = typeof(Lexers.D);
+                            break;
+                        case Enums.Lexer.CMAKE:
+                            theType = typeof(Lexers.CMAKE);
+                            break;
+                        case Enums.Lexer.GAP:
+                            theType = typeof(Lexers.GAP);
+                            break;
+                        case Enums.Lexer.PLM:
+                            theType = typeof(Lexers.PLM);
+                            break;
+                        case Enums.Lexer.PROGRESS:
+                            theType = typeof(Lexers.PROGRESS);
+                            break;
+                        case Enums.Lexer.ABAQUS:
+                            theType = typeof(Lexers.ABAQUS);
+                            break;
+                        case Enums.Lexer.ASYMPTOTE:
+                            theType = typeof(Lexers.ASYMPTOTE);
+                            break;
+                        case Enums.Lexer.R:
+                            theType = typeof(Lexers.R);
+                            break;
+                        case Enums.Lexer.MAGIK:
+                            theType = typeof(Lexers.MAGIK);
+                            break;
+                        case Enums.Lexer.POWERSHELL:
+                            theType = typeof(Lexers.POWERSHELL);
+                            break;
+                        case Enums.Lexer.MYSQL:
+                            theType = typeof(Lexers.MYSQL);
+                            break;
+                        case Enums.Lexer.PO:
+                            theType = typeof(Lexers.PO);
+                            break;
+                        case Enums.Lexer.SORCUS:
+                            theType = typeof(Lexers.SORCUS);
+                            break;
+                        case Enums.Lexer.POWERPRO:
+                            theType = typeof(Lexers.POWERPRO);
+                            break;
+                        case Enums.Lexer.NIMROD:
+                            theType = typeof(Lexers.NIMROD);
+                            break;
+                        case Enums.Lexer.SML:
+                            theType = typeof(Lexers.SML);
+                            break;
+                    }
+                    try
+                    {
+                        usestyle.key = (int)Enum.Parse(theType, usestyle.name, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        String info;
+                        if (theType == null)
+                        {
+                            info = String.Format("Lexer '{0}' ({1}) unknown.", lang.lexer.name, lang.lexer.key);
+                            ErrorManager.ShowWarning(info, ex);
+                            break;
+                        }
+                        else
+                        {
+                            info = String.Format("Style '{0}' in syntax file is not used by lexer '{1}'.", usestyle.name, theType.Name);
+                            ErrorManager.ShowWarning(info, ex);
+                        }
+                    }
+                }
+                // Set whitespace fore color to indentguide color
+                if (usestyle.key == (Int32)ScintillaNet.Enums.StylesCommon.IndentGuide)
+                {
+                    SetWhitespaceFore(true, usestyle.ForegroundColor);
+                }
+                if (usestyle.HasForegroundColor) StyleSetFore(usestyle.key, usestyle.ForegroundColor);
+                if (usestyle.HasBackgroundColor) StyleSetBack(usestyle.key, usestyle.BackgroundColor);
+                if (usestyle.HasFontName) StyleSetFont(usestyle.key, usestyle.FontName);
+                if (usestyle.HasFontSize) StyleSetSize(usestyle.key, usestyle.FontSize);
+                if (usestyle.HasBold) StyleSetBold(usestyle.key, usestyle.IsBold);
+                if (usestyle.HasItalics) StyleSetItalic(usestyle.key, usestyle.IsItalics);
+                if (usestyle.HasEolFilled) StyleSetEOLFilled(usestyle.key, usestyle.IsEolFilled);
+            }
+            // Clear the keywords lists	
+            for (int j = 0; j < 9; j++) KeyWords(j, "");
+            for (int j = 0; j < lang.usekeywords.Length; j++)
+            {
+                UseKeyword usekeyword = lang.usekeywords[j];
+                KeywordClass kc = sciConfiguration.GetKeywordClass(usekeyword.cls);
+                if (kc != null) KeyWords(usekeyword.key, kc.val);
+            }
+            if (UpdateSync != null) this.UpdateSync(this);
         }
 
         /// <summary>
