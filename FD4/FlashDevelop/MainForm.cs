@@ -1047,11 +1047,15 @@ namespace FlashDevelop
         /// </summary>
         public void OnMainFormClosing(Object sender, System.ComponentModel.CancelEventArgs e)
         {
+            this.closingEntirely = true;
             Session session = SessionManager.GetCurrentSession();
             NotifyEvent ne = new NotifyEvent(EventType.UIClosing);
             EventManager.DispatchEvent(this, ne);
-            this.closingEntirely = true;
-            if (ne.Handled) e.Cancel = true;
+            if (ne.Handled)
+            {
+                this.closingEntirely = false;
+                e.Cancel = true;
+            }
             if (!e.Cancel && Globals.Settings.ConfirmOnExit)
             {
                 String title = TextHelper.GetString("Title.ConfirmDialog");
