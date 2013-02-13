@@ -552,6 +552,13 @@ namespace AS3Context
             }
 
             string descriptor = Path.Combine(path, "flex-sdk-description.xml");
+
+            // AIR SDK descriptor?
+            if (!File.Exists(descriptor)) 
+            {
+                descriptor = Path.Combine(path, "air-sdk-description.xml");
+            }
+
             if (File.Exists(descriptor))
             {
                 string raw = File.ReadAllText(descriptor);
