@@ -97,6 +97,33 @@ namespace HaXeContext
             else return "";
         }
 
+        static public void Clean(IProject project)
+        {
+            if (!(project is HaxeProject))
+                return;
+            HaxeProject hxproj = project as HaxeProject;
+            if (hxproj.MovieOptions.Platform != HaxeMovieOptions.NME_PLATFORM)
+                return;
+            string nmmlProj = hxproj.OutputPathAbsolute;
+            if (!File.Exists(nmmlProj))
+                return;
+
+            string haxelib = GetHaxelib(hxproj);
+            string config = hxproj.TargetBuild;
+            if (String.IsNullOrEmpty(config)) config = "flash";
+
+            ProcessStartInfo pi = new ProcessStartInfo();
+            pi.FileName = haxelib;
+            pi.Arguments = " run nme clean \"" + hxproj.GetRelativePath(nmmlProj) + "\" " + config;
+            pi.UseShellExecute = false;
+            pi.CreateNoWindow = true;
+            pi.WorkingDirectory = Path.GetDirectoryName(hxproj.ProjectPath);
+            pi.WindowStyle = ProcessWindowStyle.Hidden;
+            Process p = Process.Start(pi);
+            p.WaitForExit(5000);
+            p.Close();
+        }
+
         /// <summary>
         /// Watch NME projects to update the configuration & HXML command using 'nme display'
         /// </summary>

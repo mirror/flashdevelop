@@ -10,28 +10,49 @@ $(CBI)* @author $(DefaultUser)
 $(CBI)*/
 
 class Main extends Sprite $(CSLB){
+	var inited:Bool;
+
+	/* ENTRY POINT */
 	
-	public function new() $(CSLB){
-		super();
-		#if iphone
-		Lib.current.stage.addEventListener(Event.RESIZE, init);
-		#else
-		addEventListener(Event.ADDED_TO_STAGE, init);
-		#end
+	function resize(e) $(CSLB){
+		if (!inited) init();
+		// else (resize or orientation change)
+	}
+	
+	function init() $(CSLB){
+		if (inited) return;
+		inited = true;
+
+		// (your code here)
+		
+		// Stage:
+		// stage.stageWidth x stage.stageHeight @ stage.dpiScale
+		
+		// Assets:
+		// nme.Assets.getBitmapData("img/assetname.jpg");
 	}
 
-	private function init(e) $(CSLB){
-		// entry point
-		
-		// new to Haxe NME? please read *carefully* the readme.txt file!
+	/* SETUP */
+
+	public function new() $(CSLB){
+		super();	
+		addEventListener(Event.ADDED_TO_STAGE, added);
+	}
+
+	function added(e) $(CSLB){
+		removeEventListener(Event.ADDED_TO_STAGE, added);
+		stage.addEventListener(Event.RESIZE, resize);
+		#if ios
+		haxe.Timer.delay(init, 100); // iOS 6
+		#else
+		init();
+		#end
 	}
 	
-	static public function main() $(CSLB){
-		var stage = Lib.current.stage;
-		stage.scaleMode = nme.display.StageScaleMode.NO_SCALE;
-		stage.align = nme.display.StageAlign.TOP_LEFT;
-		
+	public static function main() $(CSLB){
+		// static entry point
+		Lib.current.stage.align = nme.display.StageAlign.TOP_LEFT;
+		Lib.current.stage.scaleMode = nme.display.StageScaleMode.NO_SCALE;
 		Lib.current.addChild(new Main());
 	}
-	
 }

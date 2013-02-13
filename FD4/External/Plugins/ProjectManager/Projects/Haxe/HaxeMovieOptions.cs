@@ -18,7 +18,7 @@ namespace ProjectManager.Projects.Haxe
         public const string CSHARP_PLATFORM = "C#";
         public const string JAVA_PLATFORM = "Java";
         public static string[] NME_TARGETS = new string[] { 
-            "flash", "html5", "windows", "android", "webos", "blackberry" };
+            "flash", "html5", "windows", "neko", "android", "webos", "blackberry" };
         
         public HaxeMovieOptions()
         {

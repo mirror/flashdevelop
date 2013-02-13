@@ -59,6 +59,20 @@ namespace ProjectManager.Projects.AS2
             return CompileTargetType.None;
         }
 
+        public override bool Clean()
+        {
+            try
+            {
+                if (OutputPath != null && OutputPath.Length > 0 && File.Exists(GetAbsolutePath(OutputPath)))
+                    File.Delete(GetAbsolutePath(OutputPath));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public override string GetOtherIDE(bool runOutput, bool releaseMode, out string error)
         {
             error = null;

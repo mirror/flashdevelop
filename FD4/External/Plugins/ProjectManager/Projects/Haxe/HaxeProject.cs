@@ -155,6 +155,21 @@ namespace ProjectManager.Projects.Haxe
                 }
         }
 
+        public override bool Clean()
+        {
+            try
+            {
+                if (OutputPath != null && OutputPath.Length > 0 && File.Exists(GetAbsolutePath(OutputPath)))
+                    if (movieOptions.Platform != HaxeMovieOptions.NME_PLATFORM)
+                        File.Delete(GetAbsolutePath(OutputPath));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         string Quote(string s)
         {
             if (s.IndexOf(" ") >= 0)

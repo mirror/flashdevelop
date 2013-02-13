@@ -46,6 +46,7 @@ namespace ProjectManager
         public const string Menu = "ProjectManager.Menu";
         public const string ToolBar = "ProjectManager.ToolBar";
         public const string Project = "ProjectManager.Project";
+        public const string CleanProject = "ProjectManager.CleanProject";
         public const string TestProject = "ProjectManager.TestingProject";
         public const string BuildProject = "ProjectManager.BuildingProject";
         public const string BuildComplete = "ProjectManager.BuildComplete";
@@ -899,6 +900,10 @@ namespace ProjectManager
 
         private void CleanProject()
         {
+            DataEvent de = new DataEvent(EventType.Command, ProjectManagerEvents.CleanProject, project);
+            EventManager.DispatchEvent(this, de);
+            if (de.Handled) return;
+
             FlexCompilerShell.Cleanup();
             if (!project.Clean())
                 ErrorManager.ShowInfo(TextHelper.GetString("Info.UnableToCleanProject"));

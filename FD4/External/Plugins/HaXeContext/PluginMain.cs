@@ -129,6 +129,10 @@ namespace HaXeContext
                         if (completionHandler != null && !completionHandler.IsRunning())
                             completionHandler.StartServer();
                     }
+                    else if (de.Action == "ProjectManager.CleanProject")
+                    {
+                        NMEHelper.Clean(de.Data as IProject);
+                    }
                     else if (de.Action == "ProjectManager.Project")
                     {
                         NMEHelper.Monitor(de.Data as IProject);
