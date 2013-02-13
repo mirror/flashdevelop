@@ -104,7 +104,7 @@ VS2005DockPaneStrip.ToolActiveBackColor=#F0EDEC
 VS2005DockPaneStrip.DocActiveBackColor=#E8E8E8
 VS2005DockPaneStrip.DocInactiveBackColor=#D6D3D1
 VS2005DockPaneStrip.TabSeparatorColor=#9A8A81
-VS2005DockPaneStrip.TabStripColor=#776D66
+VS2005DockPaneStrip.TabStripColor=#678CB1
 
 VS2005AutoHideStrip.ForeColor=#222222
 VS2005AutoHideStrip.BackColor=#948E8D
