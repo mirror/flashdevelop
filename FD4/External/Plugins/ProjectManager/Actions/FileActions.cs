@@ -423,7 +423,7 @@ namespace ProjectManager.Actions
                     if (oldPathFixed.Equals(newPathFixed, StringComparison.OrdinalIgnoreCase))
                     {
                         // name casing changed
-                        string tmpPath = newPathFixed.Substring(newPathFixed.Length - 1) + "$renaming$\\";
+                        string tmpPath = newPathFixed.Substring(0, newPathFixed.Length - 1) + "$renaming$\\";
                         Directory.Move(oldPathFixed, tmpPath);
                         oldPathFixed = tmpPath;
                     }

@@ -400,7 +400,7 @@ namespace HaXeContext
                     if (src.IndexOf("<project name=\"nme\"") >= 0)
                     {
                         ManualExploration(path, new string[] { 
-                            "js", "jeash", "neash", "flash", "neko", "tools", "samples", "project" });
+                            "js", "jeash", "neash", "native", "browser", "flash", "neko", "tools", "samples", "project" });
                     }
                 }
             }
