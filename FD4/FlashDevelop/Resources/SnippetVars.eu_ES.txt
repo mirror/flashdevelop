@@ -5,6 +5,7 @@ $(ExitPoint) - Hautaketaren bukaera posizioa.
 $(Boundary) - Testu guztia mugen artean mantendu
 $(CSLB) - Kodetze estiloaren lerro saltoa
 $(CBI) - Iruzkin blokea
+$(STC) - Space or tab character
 - TEXT -------------------------------------------------------------------------
 $(SelText) - Hautatutako testua
 $(CurWord) - Kursorearen posizioko hitza
