@@ -37,13 +37,13 @@ TreeViewAdv.ForeColor=#222222
 TreeViewAdv.BackColor=#D0CDCC
 
 RichToolTip.ForeColor=#222222
-RichToolTip.BackColor=#E4E9E6
+RichToolTip.BackColor=#E9E7E4
 
 CompletionList.ForeColor=#222222
-CompletionList.BackColor=#E4E9E6
+CompletionList.BackColor=#E9E7E4
 
 MessageBar.ForeColor=#222222
-MessageBar.BackColor=#E4E9E6
+MessageBar.BackColor=#E9E7E4
 
 Panel.ForeColor=#222222
 Panel.BackColor=#D0CDCC

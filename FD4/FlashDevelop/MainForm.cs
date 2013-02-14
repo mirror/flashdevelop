@@ -1802,7 +1802,11 @@ namespace FlashDevelop
             for (Int32 i = 0; i < this.Documents.Length; i++)
             {
                 ITabbedDocument document = this.Documents[i];
-                if (document.IsEditable) ScintillaManager.ApplySciSettings(document.SciControl);
+                if (document.IsEditable)
+                {
+                    ScintillaManager.ApplySciSettings(document.SplitSci1);
+                    ScintillaManager.ApplySciSettings(document.SplitSci2);
+                }
             }
             this.frInFilesDialog.UpdateSettings();
             this.statusStrip.Visible = this.appSettings.ViewStatusBar;
