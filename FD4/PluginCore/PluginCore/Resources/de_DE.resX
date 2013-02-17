@@ -4947,23 +4947,23 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Modified after 4.2.1</comment>
   </data>
   <data name="FlashDevelop.Label.SplitView" xml:space="preserve">
-    <value>&amp;Split View</value>
+    <value>Anzeige &amp;Teilen</value>
     <comment>Added after 4.2.3</comment>
   </data>
   <data name="ASCompletion.Description.PrefixFields" xml:space="preserve">
-    <value>Add prefix to fields when generating from parameters.</value>
+    <value>Füge Prefix zu aus Parametern generierten Feldern hinzu.</value>
     <comment>Added after 4.2.3</comment>
   </data>
   <data name="ASClassWizard.Wizard.Label.NewHaxeClass" xml:space="preserve">
-    <value>New Haxe Class</value>
+    <value>Neue Haxe Klasse</value>
     <comment>Added after 4.2.3</comment>
   </data>
   <data name="FlashDevelop.Info.ThemesFilter" xml:space="preserve">
-    <value>FlashDevelop Theme Files (*.fdi, *.fdz)|*.fdi;*.fdz</value>
+    <value>FlashDevelop Theme Dateien (*.fdi, *.fdz)|*.fdi;*.fdz</value>
     <comment>Added after 4.2.4</comment>
   </data>
   <data name="FlashDevelop.Label.SelectTheme" xml:space="preserve">
-    <value>Select UI Theme...</value>
+    <value>Wähle UI Theme...</value>
     <comment>Added after 4.2.4</comment>
   </data>
 </root>

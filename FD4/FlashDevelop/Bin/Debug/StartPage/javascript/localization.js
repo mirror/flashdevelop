@@ -66,7 +66,7 @@ locale["ja_JP.tooltipTextType"] = "タイプ:";
 */
 locale["de_DE.mainLinkHome"] = "Projektseite";
 locale["de_DE.mainLinkDocs"] = "Dokumentation";
-locale["de_DE.mainLinkNotes"] = "Release Notes";
+locale["de_DE.mainLinkNotes"] = "Ausgabe-Informationen";
 locale["de_DE.mainLinkAbout"] = "Über";
 locale["de_DE.createNewProject"] = "Neues Projekt...";
 locale["de_DE.openProjectDialog"] = "Projekt öffnen...";
@@ -83,7 +83,7 @@ locale["de_DE.rssFeedNotAvailable"] = "RSS feed nicht verfügbar.";
 locale["de_DE.projectTypeFDP"] = "Nicht bestimmbar";
 locale["de_DE.projectTypeAS2"] = "ActionScript 2 Projekt";
 locale["de_DE.projectTypeAS3"] = "ActionScript 3 Projekt";
-locale["de_DE.projectTypeGeneric"] = "Generic Project";
+locale["de_DE.projectTypeGeneric"] = "Generische Projekt";
 locale["de_DE.projectTypeHaXe"] = "Haxe Projekt";
 locale["de_DE.projectTypeUnknown"] = "Unbekannt";
 locale["de_DE.tooltipTextModified"] = "Verändert:";
