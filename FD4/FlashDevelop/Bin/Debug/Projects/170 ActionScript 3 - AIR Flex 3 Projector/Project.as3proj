@@ -35,7 +35,7 @@
     <option warnings="True" />
     <option verboseStackTraces="False" />
     <option staticLinkRSL="True" />
-    <option additional="+configname=air" />
+    <option additional="" />
     <option customSDK="" />
   </build>
   <!-- SWC Include Libraries -->

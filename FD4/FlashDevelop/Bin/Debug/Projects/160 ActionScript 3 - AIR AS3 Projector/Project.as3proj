@@ -34,7 +34,7 @@
     <option useResourceBundleMetadata="True" />
     <option warnings="True" />
     <option verboseStackTraces="False" />
-    <option additional="+configname=air" />
+    <option additional="" />
     <option customSDK="" />
   </build>
   <!-- SWC Include Libraries -->
