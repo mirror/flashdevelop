@@ -41,6 +41,12 @@ namespace ProjectManager.Building.AS3
 
             MxmlcOptions options = project.CompilerOptions;
 
+            if (asc2 && options.AdvancedTelemetry)
+            {
+                AddEq("-advanced-telemetry", true);
+                if (!string.IsNullOrEmpty(options.AdvancedTelemetryPassword))
+                    AddEq("-advanced-telemetry-password", options.AdvancedTelemetryPassword);
+            }
             if (options.LinkReport.Length > 0) Add("-link-report", options.LinkReport);
             if (options.LoadExterns.Length > 0) Add("-load-externs", options.LoadExterns);
 

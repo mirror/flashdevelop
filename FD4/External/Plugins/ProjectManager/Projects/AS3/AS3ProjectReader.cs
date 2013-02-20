@@ -147,6 +147,8 @@ namespace ProjectManager.Projects.AS3
                 switch (Name)
                 {
                     case "accessible": options.Accessible = BoolValue; break;
+                    case "advancedTelemetry": options.AdvancedTelemetry = BoolValue; break;
+                    case "advancedTelemetryPassword": options.AdvancedTelemetryPassword = Value; break;
                     case "allowSourcePathOverlap": options.AllowSourcePathOverlap = BoolValue; break;
                     case "benchmark": options.Benchmark = BoolValue; break;
                     case "es": options.ES = BoolValue; break;

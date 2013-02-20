@@ -4966,4 +4966,12 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Wähle UI Theme...</value>
     <comment>Added after 4.2.4</comment>
   </data>
+  <data name="ProjectManager.Description.AdvancedTelemetry" xml:space="preserve">
+    <value>Enable Advanced Telemetry (ASC2 SDK only)</value>
+    <comment>Added after 4.3</comment>
+  </data>
+  <data name="ProjectManager.Description.AdvancedTelemetryPassword" xml:space="preserve">
+    <value>Require a password to profile the application</value>
+    <comment>Added after 4.3</comment>
+  </data>
 </root>

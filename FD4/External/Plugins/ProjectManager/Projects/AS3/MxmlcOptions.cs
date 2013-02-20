@@ -143,6 +143,20 @@ namespace ProjectManager.Projects.AS3
         [DefaultValue(new string[] { })]
         public string[] Additional { get { return additional; } set { additional = value; } }
 
+        bool advancedTelemetry = false;
+        [LocalizedCategory("ProjectManager.Category.Advanced")]
+        [DisplayName("Advanced Telemetry")]
+        [LocalizedDescription("ProjectManager.Description.AdvancedTelemetry")]
+        [DefaultValue(false)]
+        public bool AdvancedTelemetry { get { return advancedTelemetry; } set { advancedTelemetry = value; } }
+
+        string advancedTelemetryPassword = "";
+        [LocalizedCategory("ProjectManager.Category.Advanced")]
+        [DisplayName("Advanced Telemetry Password")]
+        [LocalizedDescription("ProjectManager.Description.AdvancedTelemetryPassword")]
+        [DefaultValue("")]
+        public string AdvancedTelemetryPassword { get { return advancedTelemetryPassword; } set { advancedTelemetryPassword = value; } }
+        
         string[] compilerConstants = new string[] { };
         [LocalizedCategory("ProjectManager.Category.Advanced")]
         [DisplayName("Compiler Constants")]

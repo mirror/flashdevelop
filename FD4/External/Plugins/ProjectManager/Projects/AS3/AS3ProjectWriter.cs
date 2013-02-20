@@ -71,6 +71,9 @@ namespace ProjectManager.Projects.AS3
             MxmlcOptions options = project.CompilerOptions;
 
             WriteOption("accessible", options.Accessible);
+            WriteOption("advancedTelemetry", options.AdvancedTelemetry);
+            if (!string.IsNullOrEmpty(options.AdvancedTelemetryPassword))
+                WriteOption("advancedTelemetryPassword", options.AdvancedTelemetryPassword);
             WriteOption("allowSourcePathOverlap", options.AllowSourcePathOverlap);
             WriteOption("benchmark", options.Benchmark);
             WriteOption("es", options.ES);
