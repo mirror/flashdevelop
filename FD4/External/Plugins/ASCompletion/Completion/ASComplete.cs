@@ -3182,7 +3182,12 @@ namespace ASCompletion.Completion
                         position--;
                         string word1 = GetWordLeft(Sci, ref position);
                         c = (word1.Length > 0) ? word1[word1.Length - 1] : (char)Sci.CharAt(position);
-                        if (":,(=".IndexOf(c) >= 0) return ComaExpression.AnonymousObjectParam;
+                        if (":,(=".IndexOf(c) >= 0)
+                        {
+                            string line = Sci.GetLine(Sci.LineFromPosition(position));
+                            if (Regex.IsMatch(line, @"\b(case|default)\b.*:")) break; // case: code block
+                            return ComaExpression.AnonymousObjectParam;
+                        }
                         else if (c != ')' && c != '}' && !Char.IsLetterOrDigit(c)) return ComaExpression.AnonymousObject;
                         break;
                     }
