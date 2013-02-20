@@ -9,6 +9,7 @@ using FDBuild.Building.AS3;
 using System.Collections;
 using PluginCore.Helpers;
 using ProjectManager.Projects;
+using System.Text.RegularExpressions;
 
 
 namespace ProjectManager.Building.AS3
@@ -20,7 +21,9 @@ namespace ProjectManager.Building.AS3
         string VMARGS = "-Xmx384m -Xmx1024m -Dsun.io.useCanonCaches=false -Duser.language=en";
         string sdkPath;
         string mxmlcPath;
+        string asc2Path;
         string fcshPath;
+        bool asc2Mode;
         Dictionary<string, string> jvmConfig;
 
         public AS3ProjectBuilder(AS3Project project, string compilerPath, string ipcName)
@@ -30,9 +33,10 @@ namespace ProjectManager.Building.AS3
 			
             DetectFlexSdk(compilerPath);
 
-            bool hostedInFD = (ipcName != null && ipcName != "");
+            asc2Mode = File.Exists(asc2Path);
             bool mxmlcExists = File.Exists(mxmlcPath);
             bool fcshExists = File.Exists(fcshPath);
+            bool hostedInFD = !asc2Mode && ipcName != null && ipcName != "";
 
             if (hostedInFD)
             {
@@ -43,7 +47,8 @@ namespace ProjectManager.Building.AS3
             if (project.OutputType == OutputType.Application || project.OutputType == OutputType.Library)
             {
                 if (fcsh != null && !fcshExists) throw new Exception("Could not locate lib\\fcsh.jar in Flex SDK.");
-                if (fcsh == null && !mxmlcExists) throw new Exception("Could not locate lib\\mxmlc.jar in Flex SDK.");
+                if (fcsh == null && !mxmlcExists && !asc2Mode) 
+                    throw new Exception("Could not locate lib\\mxmlc.jar or lib\\mxmlc-cli.jar in Flex SDK.");
             }
         }
 
@@ -58,6 +63,7 @@ namespace ProjectManager.Building.AS3
             sdkPath = flexsdkPath;
             mxmlcPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "mxmlc.jar");
             fcshPath = Path.Combine(Path.Combine(flexsdkPath, "lib"), "fcsh.jar");
+            asc2Path = Path.Combine(Path.Combine(flexsdkPath, "lib"), "mxmlc-cli.jar");
             jvmConfig = PluginCore.Helpers.JvmConfigHelper.ReadConfig(Path.Combine(flexsdkPath, "bin\\jvm.config"));
 
             if (jvmConfig.ContainsKey("java.args") && jvmConfig["java.args"].Trim().Length > 0)
@@ -126,6 +132,7 @@ namespace ProjectManager.Building.AS3
 
                 //create new config file
                 double sdkVersion = ParseVersion(FDBuild.Program.BuildOptions.CompilerVersion ?? "4.0");
+                if (asc2Mode) sdkVersion -= 1.6;
 
                 // create compiler configuration file
                 string projectName = project.Name.Replace(" ", "");
@@ -160,7 +167,12 @@ namespace ProjectManager.Building.AS3
 
                 string mxmlcArgs = mxmlc.ToString();
 
-                Console.WriteLine("mxmlc " + mxmlcArgs);
+                if (asc2Mode)
+                {
+                    mxmlcArgs = AddBaseConfig(mxmlcArgs);
+                    Console.WriteLine("mxmlc-cli " + mxmlcArgs);
+                }
+                else Console.WriteLine("mxmlc " + mxmlcArgs);
 
                 CompileWithMxmlc(project.Directory, mxmlcArgs, configChanged);
 
@@ -171,6 +183,17 @@ namespace ProjectManager.Building.AS3
                 File.Copy(tempFile, output, true);
             }
             finally { if (tempFile != null && File.Exists(tempFile)) File.Delete(tempFile); }
+        }
+
+        private string AddBaseConfig(string args)
+        {
+            Match m = Regex.Match(args, "configname[\\s=]+([a-z0-9_-]+)", RegexOptions.IgnoreCase);
+            string baseConfig = "flex";
+            if (m.Success) baseConfig = m.Groups[1].Value;
+            string configFile = sdkPath + "/frameworks/" + baseConfig + "-config.xml";
+            if (File.Exists(configFile))
+                args = "-load-config=\"" + configFile + "\" " + args;
+            return args;
         }
 
         static public double ParseVersion(string version)
@@ -211,9 +234,12 @@ namespace ProjectManager.Building.AS3
             }
             else
             {
-                string jvmarg = VMARGS + " -jar \"" + mxmlcPath + "\" +flexlib=\"" + Path.Combine(sdkPath, "frameworks") + "\" ";
-                if (!ProcessRunner.Run(JvmConfigHelper.GetJavaEXE(jvmConfig, sdkPath), jvmarg + arguments, false))
-                    throw new BuildException("Build halted with errors (mxmlc).");
+                string jar = asc2Mode ? asc2Path : mxmlcPath;
+                string javaExe = JvmConfigHelper.GetJavaEXE(jvmConfig, sdkPath);
+                Console.WriteLine("Running java as: " + javaExe);
+                string jvmarg = VMARGS + " -jar \"" + jar + "\" +flexlib=\"" + Path.Combine(sdkPath, "frameworks") + "\" ";
+                if (!ProcessRunner.Run(javaExe, jvmarg + arguments, false))
+                    throw new BuildException("Build halted with errors (" + (asc2Mode ? "mxmlc-cli" : "mxmlc") + ").");
             }
         }
 

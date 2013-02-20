@@ -13,6 +13,7 @@ namespace FDBuild.Building.AS3
     {
         AS3Project project;
         bool flex4;
+        bool asc2;
 
         public FlexConfigWriter(string libraryPath): base(libraryPath, new UTF8Encoding(false))
         {
@@ -25,6 +26,7 @@ namespace FDBuild.Building.AS3
             project.UpdateVars();
 
             flex4 = sdkVersion >= 4;
+            asc2 = sdkVersion < 3;
 
             try { InternalWriteConfig(extraClasspaths, debugMode); }
             finally { Close(); }
@@ -115,11 +117,14 @@ namespace FDBuild.Building.AS3
 
         private void AddBaseOptions(MxmlcOptions options)
         {
-            if (!options.Benchmark) WriteElementString("benchmark", "false");
-            else WriteElementString("benchmark", "true");
+            if (!asc2)
+            {
+                if (!options.Benchmark) WriteElementString("benchmark", "false");
+                else WriteElementString("benchmark", "true");
+                WriteElementString("static-link-runtime-shared-libraries", options.StaticLinkRSL ? "true" : "false");
+            }
             if (!options.UseNetwork) WriteElementString("use-network", "false");
             if (!options.Warnings) WriteElementString("warnings", "false");
-            WriteElementString("static-link-runtime-shared-libraries", options.StaticLinkRSL ? "true" : "false");
         }
 
         private void AddTargetPlayer(MxmlcOptions options)

@@ -11,11 +11,13 @@ namespace ProjectManager.Building.AS3
     {
         AS3Project project;
         bool flex45;
+        bool asc2;
 
         public MxmlcArgumentBuilder(AS3Project project, double sdkVersion)
         {
             this.project = project;
-            this.flex45 = sdkVersion >= 4.5;
+            flex45 = sdkVersion >= 4.5;
+            asc2 = sdkVersion < 3;
         }
 
         public void AddConfig(string path)
@@ -35,7 +37,7 @@ namespace ProjectManager.Building.AS3
         public void AddOptions(bool releaseMode, bool incremental)
         {
             if (!releaseMode) AddEq("-debug", true);
-            if (incremental) AddEq("-incremental", true);
+            if (!asc2 && incremental) AddEq("-incremental", true);
 
             MxmlcOptions options = project.CompilerOptions;
 
@@ -63,7 +65,7 @@ namespace ProjectManager.Building.AS3
                     AddEq("+configname", "airmobile");
                 }
             }
-            if (flex45 && !hasVersion)
+            if ((asc2 || flex45) && !hasVersion)
             {
                 string version = project.MovieOptions.Version;
                 if (isAIR) version = AS3Project.GuessFlashPlayerForAIR(version);

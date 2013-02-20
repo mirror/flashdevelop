@@ -552,12 +552,8 @@ namespace AS3Context
             }
 
             string descriptor = Path.Combine(path, "flex-sdk-description.xml");
-
-            // AIR SDK descriptor?
             if (!File.Exists(descriptor)) 
-            {
                 descriptor = Path.Combine(path, "air-sdk-description.xml");
-            }
 
             if (File.Exists(descriptor))
             {
@@ -570,7 +566,7 @@ namespace AS3Context
                     sdk.Version = mVer.Groups[1].Value;
 
                     descriptor = Path.Combine(path, "AIR SDK Readme.txt");
-                    if (File.Exists(descriptor))
+                    if (sdk.Name.StartsWith("Flex") && File.Exists(descriptor))
                     {
                         raw = File.ReadAllText(descriptor);
                         Match mAIR = Regex.Match(raw, "Adobe AIR ([0-9.]+) SDK");
