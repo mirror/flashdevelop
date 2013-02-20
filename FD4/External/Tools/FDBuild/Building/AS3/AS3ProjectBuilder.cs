@@ -33,9 +33,11 @@ namespace ProjectManager.Building.AS3
 			
             DetectFlexSdk(compilerPath);
 
-            asc2Mode = File.Exists(asc2Path);
             bool mxmlcExists = File.Exists(mxmlcPath);
             bool fcshExists = File.Exists(fcshPath);
+            bool asc2Exixts = File.Exists(asc2Path);
+            asc2Mode = asc2Exixts && !fcshExists;
+ 
             bool hostedInFD = !asc2Mode && ipcName != null && ipcName != "";
 
             if (hostedInFD)
