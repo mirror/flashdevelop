@@ -5025,11 +5025,11 @@ UseData:"</value>
     <comment>Added after 4.2.4</comment>
   </data>
   <data name="ProjectManager.Description.AdvancedTelemetry" xml:space="preserve">
-    <value>Enable Advanced Telemetry (ASC2 SDK only)</value>
+    <value>詳細な Telemetry を有効にする(ASC2 SDK のみ)</value>
     <comment>Added after 4.3</comment>
   </data>
   <data name="ProjectManager.Description.AdvancedTelemetryPassword" xml:space="preserve">
-    <value>Require a password to profile the application</value>
+    <value>プロファイルに使用するパスワードを設定</value>
     <comment>Added after 4.3</comment>
   </data>
 </root>
