@@ -14,6 +14,9 @@
 ; Define AIR SDK version
 !define AIR "3.6.0"
 
+; Define AIR+ASC SDK version
+!define ASC "3.6.0"
+
 ; Define Flex SDK version
 !define FLEX "4.6.0.23201B"
 
@@ -50,6 +53,9 @@ InstallDir "$PROGRAMFILES\FlashDevelop\"
 ; Get installation folder from registry if available
 InstallDirRegKey HKLM "Software\FlashDevelop" ""
 
+; Define the AIR+ASC SDK extract path
+!define ASCPATH "$INSTDIR\Tools\ascsdk"
+
 ; Define the Flex SDK extract path
 !define SDKPATH "$INSTDIR\Tools\flexsdk"
 
@@ -75,6 +81,7 @@ XPStyle on
 
 !define MUI_HEADERIMAGE
 !define MUI_ABORTWARNING
+!define MUI_COMPONENTSPAGE_SMALLDESC
 !define MUI_HEADERIMAGE_BITMAP "Graphics\Banner.bmp"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "Graphics\Wizard.bmp"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "Graphics\Wizard.bmp"
@@ -179,6 +186,18 @@ Function GetAirSDKVersion
 	ClearErrors
 	IfFileExists "$INSTDIR\.local" +3 0
 	ReadRegStr $0 HKLM Software\FlashDevelop "AirSDKVersion"
+	IfErrors 0 +2
+	StrCpy $0 "not_found"
+	Exch $0
+	
+FunctionEnd
+
+Function GetAscSDKVersion
+	
+	Push $0
+	ClearErrors
+	IfFileExists "$INSTDIR\.local" +3 0
+	ReadRegStr $0 HKLM Software\FlashDevelop "AscSDKVersion"
 	IfErrors 0 +2
 	StrCpy $0 "not_found"
 	Exch $0
@@ -359,24 +378,6 @@ Section "FlashDevelop" Main
 	
 SectionEnd
 
-Section "Desktop Shortcut" DesktopShortcut
-	
-	SetOverwrite on
-	SetShellVarContext all
-	
-	CreateShortCut "$DESKTOP\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
-	
-SectionEnd
-
-Section "Quick Launch Item" QuickShortcut
-			
-	SetOverwrite on
-	SetShellVarContext all
-	
-	CreateShortCut "$QUICKLAUNCH\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
-	
-SectionEnd
-
 Section "Install Flex SDK" InstallFlexSDK
 
 	SectionIn 1
@@ -400,7 +401,7 @@ Section "Install Flex SDK" InstallFlexSDK
 	NSISdl::download /TIMEOUT=30000 http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_${FLEX}.zip "$TEMP\flex_sdk_${FLEX}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
-	DetailPrint "FLEX download cancel details: $R0"
+	DetailPrint "Flex SDK download cancel details: $R0"
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
 	
@@ -474,7 +475,7 @@ Section "Install AIR SDK" InstallAirSDK
 	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.6/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
-	DetailPrint "AIR download cancel details: $R0"
+	DetailPrint "AIR SDK download cancel details: $R0"
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
 	
@@ -493,6 +494,58 @@ Section "Install AIR SDK" InstallAirSDK
 	
 	; Delete temporary AIR SDK zip file
 	Delete "$TEMP\air_sdk_${AIR}.zip"
+
+	; Notify FD about the update
+	Call RefreshConfig
+	
+	Finish:
+	
+	${EndIf}
+
+SectionEnd
+
+Section "Install AIR SDK (ASC2)" InstallAscSDK
+
+	SectionIn 1
+	SetOverwrite on
+	SetShellVarContext all
+	
+	Call GetAscSDKVersion
+	Pop $0
+	
+	${If} $0 != ${ASC}
+
+	; Connect to internet
+	Call ConnectInternet
+
+	; If the AIR+ASC SDK exists in the installer directory then copy that to $TEMP for bulk silent deployments.
+	IfFileExists "$EXEDIR\asc_sdk_${ASC}.zip" 0 +2
+	CopyFiles "$EXEDIR\asc_sdk_${ASC}.zip" $TEMP
+	
+	; Download AIR+ASC SDK zip file. If the extract failed previously, use the old file.
+	IfFileExists "$TEMP\asc_sdk_${ASC}.zip" +7 0
+	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.6/AIRSDK_Compiler.zip "$TEMP\asc_sdk_${ASC}.zip"
+	Pop $R0
+	StrCmp $R0 "success" +4
+	DetailPrint "AIR SDK (ASC2) download cancel details: $R0"
+	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
+	Goto Finish
+	
+	; Extract the AIR+ASC SDK zip
+	IfFileExists "${ASCPATH}\*.*" +2 0
+	CreateDirectory "${ASCPATH}"
+	DetailPrint "Extracting AIR SDK (ASC2)..."
+	nsisunz::Unzip "$TEMP\asc_sdk_${ASC}.zip" "${ASCPATH}"
+	Pop $R0
+	StrCmp $R0 "success" +3
+	MessageBox MB_OK "Archive extraction failed. The installer will now continue normally."
+	Goto Finish
+	
+	; Save version to registry
+	WriteRegStr HKLM "Software\FlashDevelop" "AscSDKVersion" "${ASC}"
+	
+	; Delete temporary AIR+ASC SDK zip file
+	Delete "$TEMP\asc_sdk_${ASC}.zip"
 
 	; Notify FD about the update
 	Call RefreshConfig
@@ -583,6 +636,28 @@ Section "Install JS Compiler" InstallClosureCompiler
 	Finish:
 
 SectionEnd
+
+SectionGroup "Shortcuts"
+
+Section "Desktop Shortcut" DesktopShortcut
+	
+	SetOverwrite on
+	SetShellVarContext all
+	
+	CreateShortCut "$DESKTOP\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
+	
+SectionEnd
+
+Section "Quick Launch Item" QuickShortcut
+	
+	SetOverwrite on
+	SetShellVarContext all
+	
+	CreateShortCut "$QUICKLAUNCH\FlashDevelop.lnk" "${EXECUTABLE}" "" "${EXECUTABLE}" 0
+	
+SectionEnd
+
+SectionGroupEnd
 
 SectionGroup "Advanced"
 
@@ -695,12 +770,13 @@ SectionGroupEnd
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
 !insertmacro MUI_DESCRIPTION_TEXT ${Main} "Installs the main program and other required files."
 !insertmacro MUI_DESCRIPTION_TEXT ${RegistryMods} "Associates integral file types and adds the required uninstall configuration."
-!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Runs as a standalone application using only local setting files. WARNING: Standard users might not be able to use standalone mode and upgrading needs some manual work."
-!insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed. WARNING: There are issues with saving application settings with multiple instances."
-!insertmacro MUI_DESCRIPTION_TEXT ${InstallAirSDK} "Downloads and installs the latest free Adobe AIR SDK with FlashDevelop. The AIR SDK will be downloaded only if it isn't installed or it needs to be updated."
-!insertmacro MUI_DESCRIPTION_TEXT ${InstallFlexSDK} "Downloads and installs the latest free Adobe Flex SDK with FlashDevelop. The Flex SDK will be downloaded only if it isn't installed or it needs to be updated."
-!insertmacro MUI_DESCRIPTION_TEXT ${InstallFlashPlayer} "Downloads and installs the latest standalone Flash debug player with FlashDevelop. The player will be downloaded only if it isn't installed or it needs to be updated."
-!insertmacro MUI_DESCRIPTION_TEXT ${InstallClosureCompiler} "Downloads and installs the latest Google Closure Compiler with FlashDevelop. The compiler will be downloaded everytime you select it."
+!insertmacro MUI_DESCRIPTION_TEXT ${StandaloneMode} "Runs as standalone using only local setting files. NOTE: Not for standard users and manual upgrade only."
+!insertmacro MUI_DESCRIPTION_TEXT ${MultiInstanceMode} "Allows multiple instances of FlashDevelop to be executed. NOTE: There are some open issues with this."
+!insertmacro MUI_DESCRIPTION_TEXT ${InstallAirSDK} "Downloads and installs, if needed, the Adobe AIR SDK with FlashDevelop."
+!insertmacro MUI_DESCRIPTION_TEXT ${InstallAscSDK} "Downloads and installs, if needed, the Adobe AIR SDK (ASC2) with FlashDevelop."
+!insertmacro MUI_DESCRIPTION_TEXT ${InstallFlexSDK} "Downloads and installs, if needed, the Adobe Flex SDK with FlashDevelop."
+!insertmacro MUI_DESCRIPTION_TEXT ${InstallFlashPlayer} "Downloads and installs, if needed, the standalone Flash debug player with FlashDevelop."
+!insertmacro MUI_DESCRIPTION_TEXT ${InstallClosureCompiler} "Downloads and installs the Google Closure Compiler with FlashDevelop."
 !insertmacro MUI_DESCRIPTION_TEXT ${StartMenuGroup} "Creates a start menu group and adds default FlashDevelop links to the group."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
 !insertmacro MUI_DESCRIPTION_TEXT ${DesktopShortcut} "Installs a FlashDevelop shortcut to the desktop."
