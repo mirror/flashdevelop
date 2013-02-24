@@ -601,7 +601,8 @@ namespace HaXeContext
             foreach (MemberModel item in inFile.Imports)
             {
                 if (filterImports && (item.LineFrom < lineMin || item.LineFrom > lineMax)) continue;
-                if (settings.LazyClasspathExploration) {
+                if (settings.LazyClasspathExploration)
+                {
                     imports.Add(item);
                     continue;
                 }
@@ -616,11 +617,12 @@ namespace HaXeContext
                         fileName = FLASH_OLD + fileName.Substring(5);
                 }
 
-                foreach (PathModel aPath in classPath) 
+                foreach (PathModel aPath in classPath)
                     if (aPath.IsValid && !aPath.Updating)
                     {
                         string path;
-                        try {
+                        try
+                        {
                             path = Path.Combine(aPath.Path, fileName);
                         }
                         catch { continue; }
@@ -649,6 +651,8 @@ namespace HaXeContext
                                     imports.Add(c);
                     }
             }
+            // haxe3: type resolution from bottom to top
+            imports.Items.Reverse();
             return imports;
         }
 
