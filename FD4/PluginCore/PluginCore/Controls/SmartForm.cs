@@ -26,7 +26,7 @@ namespace PluginCore.Controls
             this.formProps = new FormProps();
             this.Load += new EventHandler(this.SmartFormLoad);
             this.Shown += new EventHandler(this.SmartFormShown);
-            this.FormClosing += new FormClosingEventHandler(this.SmartFormClosing);
+            this.FormClosed += new FormClosedEventHandler(this.SmartFormClosed);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace PluginCore.Controls
         /// <summary>
         /// Saves the current form state to a setting file
         /// </summary>
-        private void SmartFormClosing(Object sender, FormClosingEventArgs e)
+        private void SmartFormClosed(Object sender, FormClosedEventArgs e)
         {
             if (this.SaveProps != null) this.SaveProps(this);
             if (!String.IsNullOrEmpty(this.formGuid) && !this.Size.IsEmpty)
