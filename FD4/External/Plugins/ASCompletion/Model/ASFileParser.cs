@@ -490,6 +490,7 @@ namespace ASCompletion.Model
         private bool inParams;
         private bool inEnum;
         private bool inTypedef;
+        private bool inAbstract;
         private bool inGeneric;
         private bool inValue;
         private bool inConst;
@@ -617,6 +618,7 @@ namespace ASCompletion.Model
             inParams = false;
             inEnum = false;
             inTypedef = false;
+            inAbstract = false;
             inValue = false;
             inConst = false;
             inType = false;
@@ -1334,6 +1336,17 @@ namespace ASCompletion.Model
                                     braceCount++; // ignore block
                                 }
                             }
+                            else if (context == FlagType.Abstract) // parse abstract block
+                            {
+                                if (curClass != null && (curClass.Flags & FlagType.Abstract) > 0)
+                                    inAbstract = true;
+                                else
+                                {
+                                    context = 0;
+                                    curModifiers = 0;
+                                    braceCount++; // ignore block
+                                }
+                            }
                             else if (foundColon && haXe && length == 0) // copy haXe anonymous type
                             {
                                 inValue = true;
@@ -1379,6 +1392,7 @@ namespace ASCompletion.Model
                                 curClass = null;
                                 inEnum = false;
                                 inTypedef = false;
+                                inAbstract = false;
                             }
                             else
                             {
@@ -1491,6 +1505,13 @@ namespace ASCompletion.Model
                                 curMethod.Parameters = new List<MemberModel>();
                                 //
                                 if (curClass != null && curMember == null) curClass.Members.Add(curMethod);
+                            }
+
+                            // an Abstract "opaque type"
+                            else if (context == FlagType.Abstract && prevToken.Text == "abstract") 
+                            {
+                                foundKeyword = FlagType.Class;
+                                curModifiers = FlagType.Extends;
                             }
 
                             else if (curMember == null && curToken.Text != "catch" && (!haXe || curToken.Text != "for"))
@@ -1776,6 +1797,11 @@ namespace ASCompletion.Model
                     foundKeyword = FlagType.TypeDef;
                     modifiers |= FlagType.TypeDef;
                 }
+                else if (features.hasTypeDefs && token == "abstract")
+                {
+                    foundKeyword = FlagType.Abstract;
+                    modifiers |= FlagType.Abstract;
+                }
                 else if (features.hasEnums && token == "enum")
                 {
                     foundKeyword = FlagType.Enum;
@@ -1803,6 +1829,16 @@ namespace ASCompletion.Model
                         {
                             foundKeyword = FlagType.Class;
                             curModifiers = FlagType.Implements;
+                            return true;
+                        }
+                    }
+
+                    else if (context == FlagType.Abstract) 
+                    {
+                        if (features.hasTypeDefs && token == "from")
+                        {
+                            foundKeyword = FlagType.Class;
+                            curModifiers = FlagType.Extends;
                             return true;
                         }
                     }
@@ -1911,6 +1947,7 @@ namespace ASCompletion.Model
                         inParams = false;
                         inEnum = false;
                         inTypedef = false;
+                        inAbstract = false;
                         inValue = false;
                         inConst = false;
                         inType = false;
@@ -1950,6 +1987,7 @@ namespace ASCompletion.Model
                 inParams = false;
                 inEnum = false;
                 inTypedef = false;
+                inAbstract = false;
                 inGeneric = false;
                 inValue = false;
                 inConst = false;
@@ -2222,6 +2260,45 @@ namespace ASCompletion.Model
                             curClass.Type = (model.Package.Length > 0) ? model.Package + "." + token : token;
                             curClass.Name = token;
                             curClass.Flags = FlagType.Class | FlagType.TypeDef;
+                            curClass.Access = (curAccess == 0) ? features.typedefModifierDefault : curAccess;
+                            curClass.Namespace = curNamespace;
+                            curClass.LineFrom = (modifiersLine != 0) ? modifiersLine : curToken.Line;
+                            curClass.LineTo = curToken.Line;
+                        }
+                        break;
+
+                    case FlagType.Abstract:
+                        if (inAbstract && curClass != null && prevToken.Text != "abstract")
+                        {
+                            member = new MemberModel();
+                            member.Comments = curComment;
+                            member.Name = token;
+                            member.Flags = curModifiers | FlagType.Variable | FlagType.Dynamic;
+                            member.Access = Visibility.Public;
+                            member.Namespace = curNamespace;
+                            member.LineFrom = member.LineTo = curToken.Line;
+                            curClass.Members.Add(member);
+                            //
+                            curMember = member;
+                        }
+                        else if (!inAbstract && curClass != null && (curClass.Flags & FlagType.Abstract) > 0)
+                        {
+                            if (prevToken.Text == "to") { /* can be casted to X */ }
+                            else curClass.ExtendsType = curToken.Text;
+                        }
+                        else
+                        {
+                            if (curClass != null)
+                            {
+                                curClass.LineTo = (modifiersLine != 0) ? modifiersLine - 1 : curToken.Line - 1;
+                            }
+                            curClass = new ClassModel();
+                            model.Classes.Add(curClass);
+                            curClass.InFile = model;
+                            curClass.Comments = curComment;
+                            curClass.Type = (model.Package.Length > 0) ? model.Package + "." + token : token;
+                            curClass.Name = token;
+                            curClass.Flags = FlagType.Class | FlagType.Abstract;
                             curClass.Access = (curAccess == 0) ? features.typedefModifierDefault : curAccess;
                             curClass.Namespace = curNamespace;
                             curClass.LineFrom = (modifiersLine != 0) ? modifiersLine : curToken.Line;

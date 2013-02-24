@@ -102,7 +102,7 @@ namespace HaXeContext
                 "enum", "typedef", "class", "interface", "var", "function", "new", "cast", "return", "break", 
                 "continue", "callback", "if", "else", "for", "while", "do", "switch", "case", "default", "type",
                 "null", "untyped", "true", "false", "try", "catch", "throw", "inline", "dynamic",
-                "extends", "using", "import", "implements"
+                "extends", "using", "import", "implements", "abstract"
             };
             features.varKey = "var";
             features.overrideKey = "override";
@@ -1024,7 +1024,7 @@ namespace HaXeContext
                 {
                     elements.Add(baseElements.Imports);
                     foreach(MemberModel decl in baseElements.Members)
-                        if ((decl.Flags & (FlagType.Class | FlagType.Enum | FlagType.TypeDef)) > 0)
+                        if ((decl.Flags & (FlagType.Class | FlagType.Enum | FlagType.TypeDef | FlagType.Abstract)) > 0)
                             elements.Add(decl);
                 }
                 elements.Add(new MemberModel(features.voidKey, features.voidKey, FlagType.Class | FlagType.Intrinsic, 0));

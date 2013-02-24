@@ -257,7 +257,8 @@ namespace ASCompletion.Model
 
             if (ExtendsType != null)
             {
-                sb.Append(" extends ").Append(extendsType);
+                if ((this.Flags & FlagType.Abstract) > 0) sb.Append(" from ").Append(extendsType);
+                else sb.Append(" extends ").Append(extendsType);
             }
             if (Implements != null)
             {
@@ -394,6 +395,7 @@ namespace ASCompletion.Model
                 string classType = "class";
                 if ((ofClass.Flags & FlagType.Interface) > 0) classType = "interface";
                 else if ((ofClass.Flags & FlagType.Enum) > 0) classType = "enum";
+                else if ((ofClass.Flags & FlagType.Abstract) > 0) classType = "abstract";
                 else if ((ofClass.Flags & FlagType.TypeDef) > 0) classType = "typedef";
 
                 // signature
@@ -449,7 +451,8 @@ namespace ASCompletion.Model
 					modifiers += "dynamic ";
 				string classType = "class";
 				if ((member.Flags & FlagType.Interface) > 0) classType = "interface";
-				else if ((member.Flags & FlagType.Enum) > 0) classType = "enum";
+                else if ((member.Flags & FlagType.Enum) > 0) classType = "enum";
+                else if ((member.Flags & FlagType.Abstract) > 0) classType = "abstract";
 				else if ((member.Flags & FlagType.TypeDef) > 0) classType = "typedef";
 				return String.Format("{0}{1} {2}", modifiers, classType, member.Type);
 			}
