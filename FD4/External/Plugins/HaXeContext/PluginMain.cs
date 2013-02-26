@@ -190,22 +190,49 @@ namespace HaXeContext
         /// </summary>
         private void ValidateSettings()
         {
-            if (settingObject.InstalledSDKs == null || settingObject.InstalledSDKs.Length == 0)
+            if (settingObject.InstalledSDKs == null || PluginBase.MainForm.RefreshConfig)
             {
-                string includedSDK = System.Environment.GetEnvironmentVariable("HAXEPATH");
-                if (includedSDK == null)
+                string programFiles = System.Environment.GetEnvironmentVariable("ProgramFiles");
+                string externalSDK;
+                InstalledSDK sdk;
+                List<InstalledSDK> sdks = new List<InstalledSDK>();
+
+                if (Directory.Exists(Path.Combine(programFiles, @"HaxeFoundation\haxe")))
+                    externalSDK = Path.Combine(programFiles, @"HaxeFoundation\haxe");
+                else if (Directory.Exists(@"C:\HaxeFoundation\haxe")) externalSDK = @"C:\HaxeFoundation\haxe";
+                else externalSDK = null;
+                if (externalSDK != null && Directory.Exists(PathHelper.ResolvePath(externalSDK)))
                 {
-                    string programFiles = System.Environment.GetEnvironmentVariable("ProgramFiles");
-                    if (Directory.Exists(Path.Combine(programFiles, @"Motion-Twin\haxe")))
-                        includedSDK = Path.Combine(programFiles, @"Motion-Twin\haxe");
-                    else if (Directory.Exists(@"C:\Motion-Twin\haxe")) includedSDK = @"C:\Motion-Twin\haxe";
+                    InstalledSDKContext.Current = this;
+                    sdk = new InstalledSDK(this);
+                    sdk.Path = externalSDK;
+                    sdks.Add(sdk);
                 }
-                if (includedSDK != null)
+
+                if (Directory.Exists(Path.Combine(programFiles, @"Motion-Twin\haxe")))
+                    externalSDK = Path.Combine(programFiles, @"Motion-Twin\haxe");
+                else if (Directory.Exists(@"C:\Motion-Twin\haxe")) externalSDK = @"C:\Motion-Twin\haxe";
+                else externalSDK = null;
+                if (externalSDK != null && Directory.Exists(PathHelper.ResolvePath(externalSDK)))
                 {
-                    InstalledSDK sdk = new InstalledSDK(this);
-                    sdk.Path = includedSDK;
-                    settingObject.InstalledSDKs = new InstalledSDK[] { sdk };
+                    InstalledSDKContext.Current = this;
+                    sdk = new InstalledSDK(this);
+                    sdk.Path = externalSDK;
+                    sdks.Add(sdk);
                 }
+
+                if (settingObject.InstalledSDKs != null)
+                {
+                    foreach (InstalledSDK oldSdk in settingObject.InstalledSDKs)
+                        foreach (InstalledSDK newSdk in sdks)
+                            if (newSdk.Path == oldSdk.Path)
+                            {
+                                sdks.Remove(newSdk);
+                                break;
+                            }
+                    sdks.InsertRange(0, settingObject.InstalledSDKs);
+                }
+                settingObject.InstalledSDKs = sdks.ToArray();
             }
             else foreach (InstalledSDK sdk in settingObject.InstalledSDKs) ValidateSDK(sdk);
 

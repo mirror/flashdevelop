@@ -430,24 +430,39 @@ namespace AS3Context
         /// </summary>
         private void ValidateSettings()
         {
-            if (settingObject.InstalledSDKs == null || settingObject.InstalledSDKs.Length == 0)
+            if (settingObject.InstalledSDKs == null || PluginBase.MainForm.RefreshConfig)
             {
+                InstalledSDK sdk;
                 List<InstalledSDK> sdks = new List<InstalledSDK>();
+
                 string includedSDK = "Tools\\ascsdk";
                 if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
                 {
                     InstalledSDKContext.Current = this;
-                    InstalledSDK sdk = new InstalledSDK(this);
+                    sdk = new InstalledSDK(this);
                     sdk.Path = includedSDK;
                     sdks.Add(sdk);
                 }
+
                 includedSDK = "Tools\\flexsdk";
                 if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
                 {
                     InstalledSDKContext.Current = this;
-                    InstalledSDK sdk = new InstalledSDK(this);
+                    sdk = new InstalledSDK(this);
                     sdk.Path = includedSDK;
                     sdks.Add(sdk);
+                }
+
+                if (settingObject.InstalledSDKs != null)
+                {
+                    foreach(InstalledSDK oldSdk in settingObject.InstalledSDKs)
+                        foreach(InstalledSDK newSdk in sdks)
+                            if (newSdk.Path == oldSdk.Path)
+                            {
+                                sdks.Remove(newSdk);
+                                break;
+                            }
+                    sdks.InsertRange(0, settingObject.InstalledSDKs);
                 }
                 settingObject.InstalledSDKs = sdks.ToArray();
             }

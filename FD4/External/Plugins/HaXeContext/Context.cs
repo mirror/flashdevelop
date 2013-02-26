@@ -720,7 +720,7 @@ namespace HaXeContext
             if (aClass.QualifiedName == "Dynamic<T>")
             {
                 ClassModel indexClass = ResolveType(indexType, inFile);
-                if (!indexClass.IsVoid()) return indexClass;
+                //if (!indexClass.IsVoid()) return indexClass;
                 return MakeCustomObjectClass(aClass, indexType);
             }
 
