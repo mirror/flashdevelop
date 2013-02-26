@@ -146,7 +146,7 @@ namespace CssCompletion
                         features = enabledLanguages.ContainsKey(ext) ? enabledLanguages[ext] : null;
                         if (completion == null) completion = new Completion(config, settingObject);
                         completion.OnFileChanged(features);
-                        if (features.Syntax != null)
+                        if (features != null && features.Syntax != null)
                         {
                             ScintillaControl sci = document.SciControl;
                             sci.SetProperty(features.Syntax, features != null ? "1" : "0");
