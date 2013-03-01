@@ -12,16 +12,16 @@
 !define BUILD "RTM"
 
 ; Define AIR SDK version
-!define AIR "3.6.0"
+!define AIR "3.6.0.5990"
 
 ; Define AIR+ASC SDK version
-!define ASC "3.6.0"
+!define ASC "3.6.0.5990"
 
 ; Define Flex SDK version
 !define FLEX "4.6.0.23201B"
 
 ; Define Flash player version
-!define FLASH "11.6.602.168"
+!define FLASH "11.6.602.171"
 
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
@@ -530,6 +530,13 @@ Section "Install AIR SDK (ASC2)" InstallAscSDK
 	DetailPrint "AIR SDK (ASC2) download cancel details: $R0"
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
+	
+	; Delete AIR+ASC dir on update
+	RMDir /r "${ASCPATH}"
+		
+	; Create SDK dir if not found
+	IfFileExists "${ASCPATH}\*.*" +2 0
+	CreateDirectory "${ASCPATH}"
 	
 	; Extract the AIR+ASC SDK zip
 	IfFileExists "${ASCPATH}\*.*" +2 0
