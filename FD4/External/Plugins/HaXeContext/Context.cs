@@ -840,6 +840,8 @@ namespace HaXeContext
                 completionModeHandler = null;
             }
 
+            Environment.SetEnvironmentVariable("HAXEPATH", currentSDK);
+
             var haxeSettings = (settings as HaXeSettings);
             switch (haxeSettings.CompletionMode)
             {
