@@ -97,7 +97,7 @@ namespace ProjectManager.Building
                         break;
 
                     default:
-                        if (!ProcessRunner.Run(command, args, false))
+                        if (!ProcessRunner.Run(command, args, false, false))
                             throw new BuildException("Build halted with errors.");
                         break;
                 }

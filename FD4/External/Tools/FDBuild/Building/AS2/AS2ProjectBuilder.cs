@@ -89,7 +89,7 @@ namespace ProjectManager.Building.AS2
 				if (project.CompilerOptions.Verbose)
 					Console.WriteLine("mtasc " + mtascArgs);
 
-				if (!ProcessRunner.Run(MtascPath, mtascArgs, false))
+				if (!ProcessRunner.Run(MtascPath, mtascArgs, false, false))
 					throw new BuildException("Build halted with errors (mtasc).");
 			}
 		}

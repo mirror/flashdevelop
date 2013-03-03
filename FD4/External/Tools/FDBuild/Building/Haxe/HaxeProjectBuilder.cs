@@ -39,7 +39,7 @@ namespace ProjectManager.Building.Haxe
                 string config = project.TargetBuild;
                 string haxeNmeArgs = String.Join(" ", BuildNmeCommand(extraClasspaths, output, config, noTrace, null));
                 Console.WriteLine("haxelib " + haxeNmeArgs);
-                if (!ProcessRunner.Run(haxePath, haxeNmeArgs, false))
+                if (!ProcessRunner.Run(haxePath, haxeNmeArgs, false, false))
                     throw new BuildException("Build halted with errors (haxelib.exe).");
                 return;
             }
@@ -68,7 +68,7 @@ namespace ProjectManager.Building.Haxe
             
             Console.WriteLine("haxe " + haxeArgs);
 
-            if (!ProcessRunner.Run(haxePath, haxeArgs, false))
+            if (!ProcessRunner.Run(haxePath, haxeArgs, false, false))
                 throw new BuildException("Build halted with errors (haxe.exe).");
         }
 

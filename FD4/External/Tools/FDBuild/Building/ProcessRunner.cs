@@ -4,12 +4,13 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ProjectManager.Building
 {
 	public class ProcessRunner
 	{
-		public static bool Run(string fileName, string arguments, bool ignoreExitCode)
+		public static bool Run(string fileName, string arguments, bool ignoreExitCode, bool mergeErrors)
 		{
 			//if (!File.Exists(fileName))
 			//	throw new FileNotFoundException("The program '"+fileName+"' was not found.",fileName);
@@ -27,8 +28,8 @@ namespace ProjectManager.Building
 			process.Start();
 
 			// capture output in a separate thread
-			LineFilter stdoutFilter = new LineFilter(process.StandardOutput,Console.Out);
-			LineFilter stderrFilter = new LineFilter(process.StandardError,Console.Error);
+			LineFilter stdoutFilter = new LineFilter(process.StandardOutput, Console.Out, false);
+			LineFilter stderrFilter = new LineFilter(process.StandardError, Console.Error, mergeErrors);
 
 			Thread outThread = new Thread(new ThreadStart(stdoutFilter.Filter));
 			Thread errThread = new Thread(new ThreadStart(stderrFilter.Filter));
@@ -47,14 +48,18 @@ namespace ProjectManager.Building
 
 	class LineFilter
 	{
+        static Regex reSplitError = new Regex(@"\.[a-z]+:[0-9]+$");
 		TextReader reader;
-		TextWriter writer;
+        TextWriter writer;
+        bool mergeErrors;
+        string unsplit = null;
 		public int Lines;
 
-		public LineFilter(TextReader reader, TextWriter writer)
+		public LineFilter(TextReader reader, TextWriter writer, bool mergeErrors)
 		{
 			this.reader = reader;
 			this.writer = writer;
+            this.mergeErrors = mergeErrors;
 		}
 
 		public void Filter()
@@ -63,7 +68,12 @@ namespace ProjectManager.Building
 			{
 				string line = reader.ReadLine();
 				if (line == null) break;
-				
+
+                if (mergeErrors)
+                {
+                    if (unsplit != null) { line = unsplit + ":" + line; unsplit = null; }
+                    else if (reSplitError.IsMatch(line)) { unsplit = line; continue; }
+                }
 				writer.WriteLine(line);
 				writer.Flush();
 				

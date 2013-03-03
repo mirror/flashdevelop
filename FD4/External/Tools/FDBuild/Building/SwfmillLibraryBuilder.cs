@@ -92,7 +92,7 @@ namespace FDBuild.Building
                     if (verbose)
                         Console.WriteLine("swfmill " + arguments);
 
-                    if (!ProcessRunner.Run(ExecutablePath, arguments, true))
+                    if (!ProcessRunner.Run(ExecutablePath, arguments, true, false))
                         throw new BuildException("Build halted with errors (swfmill).");
 
                     // ok, we just generated a swf with all our resources ... save it for

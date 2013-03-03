@@ -240,7 +240,7 @@ namespace ProjectManager.Building.AS3
                 string javaExe = JvmConfigHelper.GetJavaEXE(jvmConfig, sdkPath);
                 Console.WriteLine("Running java as: " + javaExe);
                 string jvmarg = VMARGS + " -jar \"" + jar + "\" +flexlib=\"" + Path.Combine(sdkPath, "frameworks") + "\" ";
-                if (!ProcessRunner.Run(javaExe, jvmarg + arguments, false))
+                if (!ProcessRunner.Run(javaExe, jvmarg + arguments, false, asc2Mode))
                     throw new BuildException("Build halted with errors (" + (asc2Mode ? "mxmlc-cli" : "mxmlc") + ").");
             }
         }
