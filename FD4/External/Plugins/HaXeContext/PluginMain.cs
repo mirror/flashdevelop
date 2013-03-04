@@ -192,28 +192,12 @@ namespace HaXeContext
         {
             if (settingObject.InstalledSDKs == null || PluginBase.MainForm.RefreshConfig)
             {
-                string programFiles = System.Environment.GetEnvironmentVariable("ProgramFiles");
                 string externalSDK;
                 InstalledSDK sdk;
                 List<InstalledSDK> sdks = new List<InstalledSDK>();
 
-                if (Directory.Exists(Path.Combine(programFiles, @"HaxeFoundation\haxe")))
-                    externalSDK = Path.Combine(programFiles, @"HaxeFoundation\haxe");
-                else if (Directory.Exists(@"C:\HaxeFoundation\haxe")) externalSDK = @"C:\HaxeFoundation\haxe";
-                else externalSDK = null;
-                if (externalSDK != null && Directory.Exists(PathHelper.ResolvePath(externalSDK)))
-                {
-                    InstalledSDKContext.Current = this;
-                    sdk = new InstalledSDK(this);
-                    sdk.Path = externalSDK;
-                    sdks.Add(sdk);
-                }
-
-                if (Directory.Exists(Path.Combine(programFiles, @"Motion-Twin\haxe")))
-                    externalSDK = Path.Combine(programFiles, @"Motion-Twin\haxe");
-                else if (Directory.Exists(@"C:\Motion-Twin\haxe")) externalSDK = @"C:\Motion-Twin\haxe";
-                else externalSDK = null;
-                if (externalSDK != null && Directory.Exists(PathHelper.ResolvePath(externalSDK)))
+                externalSDK = Environment.ExpandEnvironmentVariables("%HAXEPATH%");
+                if (!String.IsNullOrEmpty(externalSDK) && Directory.Exists(PathHelper.ResolvePath(externalSDK)))
                 {
                     InstalledSDKContext.Current = this;
                     sdk = new InstalledSDK(this);
@@ -223,13 +207,20 @@ namespace HaXeContext
 
                 if (settingObject.InstalledSDKs != null)
                 {
+                    char[] slashes = new char[] { '/', '\\' };
                     foreach (InstalledSDK oldSdk in settingObject.InstalledSDKs)
+                    {
+                        string oldPath = oldSdk.Path.TrimEnd(slashes);
                         foreach (InstalledSDK newSdk in sdks)
-                            if (newSdk.Path == oldSdk.Path)
+                        {
+                            string newPath = newSdk.Path.TrimEnd(slashes);
+                            if (newPath.Equals(oldPath, StringComparison.OrdinalIgnoreCase))
                             {
                                 sdks.Remove(newSdk);
                                 break;
                             }
+                        }
+                    }
                     sdks.InsertRange(0, settingObject.InstalledSDKs);
                 }
                 settingObject.InstalledSDKs = sdks.ToArray();

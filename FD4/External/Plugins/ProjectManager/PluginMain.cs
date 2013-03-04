@@ -603,6 +603,7 @@ namespace ProjectManager
                 
                 PluginBase.CurrentSolution = null;
                 PluginBase.CurrentProject = null;
+                PluginBase.CurrentSDK = null;
                 PluginBase.MainForm.RefreshUI();
 
                 BroadcastProjectInfo();

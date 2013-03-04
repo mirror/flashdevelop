@@ -434,15 +434,7 @@ namespace AS3Context
             {
                 InstalledSDK sdk;
                 List<InstalledSDK> sdks = new List<InstalledSDK>();
-
-                string includedSDK = "Tools\\ascsdk";
-                if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
-                {
-                    InstalledSDKContext.Current = this;
-                    sdk = new InstalledSDK(this);
-                    sdk.Path = includedSDK;
-                    sdks.Add(sdk);
-                }
+                string includedSDK;
 
                 includedSDK = "Tools\\flexsdk";
                 if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
@@ -453,15 +445,31 @@ namespace AS3Context
                     sdks.Add(sdk);
                 }
 
+                includedSDK = "Tools\\ascsdk";
+                if (Directory.Exists(PathHelper.ResolvePath(includedSDK)))
+                {
+                    InstalledSDKContext.Current = this;
+                    sdk = new InstalledSDK(this);
+                    sdk.Path = includedSDK;
+                    sdks.Add(sdk);
+                }
+
                 if (settingObject.InstalledSDKs != null)
                 {
-                    foreach(InstalledSDK oldSdk in settingObject.InstalledSDKs)
-                        foreach(InstalledSDK newSdk in sdks)
-                            if (newSdk.Path == oldSdk.Path)
+                    char[] slashes = new char[] { '/', '\\' };
+                    foreach (InstalledSDK oldSdk in settingObject.InstalledSDKs)
+                    {
+                        string oldPath = oldSdk.Path.TrimEnd(slashes);
+                        foreach (InstalledSDK newSdk in sdks)
+                        {
+                            string newPath = newSdk.Path.TrimEnd(slashes);
+                            if (newPath.Equals(oldPath, StringComparison.OrdinalIgnoreCase))
                             {
                                 sdks.Remove(newSdk);
                                 break;
                             }
+                        }
+                    }
                     sdks.InsertRange(0, settingObject.InstalledSDKs);
                 }
                 settingObject.InstalledSDKs = sdks.ToArray();

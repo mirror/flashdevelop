@@ -9,6 +9,7 @@ namespace PluginCore
     {
         private static IProject project;
         private static IProject solution;
+        private static InstalledSDK sdk;
         private static IMainForm instance;
         
         /// <summary>
@@ -54,6 +55,15 @@ namespace PluginCore
         {
             get { return solution; }
             set { solution = value; }
+        }
+
+        /// <summary>
+        /// Sets and gets the current project's SDK
+        /// </summary>
+        public static InstalledSDK CurrentSDK
+        {
+            get { return sdk; }
+            set { sdk = value; }
         }
 
     }

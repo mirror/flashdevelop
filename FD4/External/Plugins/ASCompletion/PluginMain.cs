@@ -323,7 +323,7 @@ namespace ASCompletion
                                 {
                                     case "AS2": name = "AS2Context"; filter = "SDK"; break;
                                     case "AS3": name = "AS3Context"; filter = "SDK"; break;
-                                    case "HAXE": name = "HaXeContext"; filter = "SDK"; break;
+                                    case "HAXE": name = "HaxeContext"; filter = "SDK"; break;
                                     default: name = cmdData.ToUpper() + "Context"; break;
                                 }
                                 PluginBase.MainForm.ShowSettingsDialog(name, filter);

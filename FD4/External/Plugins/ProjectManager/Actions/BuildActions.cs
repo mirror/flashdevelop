@@ -273,6 +273,7 @@ namespace ProjectManager.Actions
         {
             if (project == null) return null;
             project.CurrentSDK = PathHelper.ResolvePath(sdk.Path, project.Directory);
+            if (project == PluginBase.CurrentProject) PluginBase.CurrentSDK = sdk;
             return project.CurrentSDK;
         }
 
