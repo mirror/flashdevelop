@@ -194,10 +194,11 @@ namespace CodeRefactor.Provider
         /// <returns>True if the SearchMatch does point to the target source.</returns>
         static public bool DoesMatchPointToTarget(ScintillaNet.ScintillaControl Sci, SearchMatch match, ASResult target, DocumentHelper associatedDocumentHelper)
         {
-            if (Sci == null || target == null || target.InFile == null || target.Member == null)
-            {
-                return false;
-            }
+            if (Sci == null || target == null) return false;
+            bool matchMember = target.InFile != null && target.Member != null;
+            bool matchType = target.Member == null && target.IsStatic && target.Type != null;
+            if (!matchMember && !matchType) return false;
+
             ASResult result = null;
             // get type at match position
             if (match.Index < Sci.Text.Length) // TODO: find out rare cases of incorrect index reported
@@ -210,13 +211,19 @@ namespace CodeRefactor.Provider
                 }
             }
             // check if the result matches the target
-            // TODO: this method of checking their equality seems pretty crude -- is there a better way?
-            if (result == null || result.InFile == null || result.Member == null)
+            if (result == null || (result.InFile == null && result.Type == null)) return false;
+            if (matchMember)
             {
+                if (result.Member == null) return false;
+                return result.InFile.BasePath == target.InFile.BasePath && result.InFile.FileName == target.InFile.FileName 
+                    && result.Member.LineFrom == target.Member.LineFrom && result.Member.Name == target.Member.Name;
+            }
+            else // type
+            {
+                if (result.Type == null) return false;
+                if (result.Type.QualifiedName == target.Type.QualifiedName) return true;
                 return false;
             }
-            Boolean doesMatch = result.InFile.BasePath == target.InFile.BasePath && result.InFile.FileName == target.InFile.FileName && result.Member.LineFrom == target.Member.LineFrom && result.Member.Name == target.Member.Name;
-            return (doesMatch);
         }
 
         /// <summary>
@@ -234,7 +241,8 @@ namespace CodeRefactor.Provider
         {
             Boolean currentFileOnly = false;
             // checks target is a member
-            if (target == null || ((target.Member == null || target.Member.Name == null || target.Member.Name == String.Empty) && (target.Type == null || CheckFlag(FlagType.Class, target.Type.Flags))))
+            if (target == null || ((target.Member == null || String.IsNullOrEmpty(target.Member.Name)) 
+                && (target.Type == null || CheckFlag(FlagType.Class, target.Type.Flags))))
             {
                 return null;
             }
@@ -268,7 +276,15 @@ namespace CodeRefactor.Provider
                     return null;
                 }
             }
-            else config = new FRConfiguration(GetAllProjectRelatedFiles(project), GetFRSearch(target.Member.Name));
+            else if (target.Member != null && !CheckFlag(target.Member.Flags, FlagType.Constructor))
+            {
+                config = new FRConfiguration(GetAllProjectRelatedFiles(project), GetFRSearch(target.Member.Name));
+            }
+            else
+            {
+                target.Member = null;
+                config = new FRConfiguration(GetAllProjectRelatedFiles(project), GetFRSearch(target.Type.Name));
+            }
             config.CacheDocuments = true;
             FRRunner runner = new FRRunner();
             if (progressReportHandler != null)
@@ -370,6 +386,7 @@ namespace CodeRefactor.Provider
         /// </summary>
         public static void SelectMatch(ScintillaControl sci, SearchMatch match)
         {
+            if (sci == null || match == null) return;
             Int32 start = sci.MBSafePosition(match.Index); // wchar to byte position
             Int32 end = start + sci.MBSafeTextLength(match.Value); // wchar to byte text length
             Int32 line = sci.LineFromPosition(start);

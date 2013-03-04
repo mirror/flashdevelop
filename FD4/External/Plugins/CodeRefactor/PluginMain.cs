@@ -236,16 +236,16 @@ namespace CodeRefactor
                 this.refactorMainMenu.DelegateMenuItem.Enabled = false;
                 this.refactorContextMenu.DelegateMenuItem.Enabled = false;
                 ASResult result = isValid ? resolved.Result : null;
-                if (result != null && result.Member != null)
+                if (result != null && !result.IsNull())
                 {
                     Boolean isVoid = result.Type.IsVoid();
-                    Boolean isClass = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Class);
-                    Boolean isVariable = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
-                    Boolean isConstructor = RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
+                    Boolean isClass = !isVoid && result.IsStatic && result.Member == null;
+                    Boolean isVariable = !isVoid && !isClass && RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Variable);
+                    Boolean isConstructor = !isVoid && !isClass && RefactoringHelper.CheckFlag(result.Member.Flags, FlagType.Constructor);
                     this.refactorContextMenu.RenameMenuItem.Enabled = !(isClass || isConstructor || isVoid);
                     this.refactorMainMenu.RenameMenuItem.Enabled = !(isClass || isConstructor || isVoid);
                     this.editorReferencesItem.Enabled = this.viewReferencesItem.Enabled = true;
-                    if (result.Type != null && result.InClass != null && result.InFile != null)
+                    if (result.Member != null && result.Type != null && result.InClass != null && result.InFile != null)
                     {
                         FlagType flags = result.Member.Flags;
                         if ((flags & FlagType.Variable) > 0 && (flags & FlagType.LocalVar) == 0 && (flags & FlagType.ParameterVar) == 0)

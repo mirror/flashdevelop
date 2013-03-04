@@ -112,6 +112,21 @@ namespace CodeRefactor.Commands
             this.Results = ResolveActualMatches(results, currentTarget);
             if (this.outputResults) this.ReportResults();
             UserInterfaceManager.ProgressDialog.Hide();
+            // Select first match
+            if (this.Results.Count > 0)
+            {
+                foreach (var fileEntries in this.Results)
+                {
+
+                    if (fileEntries.Value.Count > 0 && System.IO.File.Exists(fileEntries.Key))
+                    {
+                        SearchMatch entry = fileEntries.Value[0];
+                        PluginBase.MainForm.OpenEditableDocument(fileEntries.Key, false);
+                        RefactoringHelper.SelectMatch(PluginBase.MainForm.CurrentDocument.SciControl, entry);
+                        break;
+                    }
+                }
+            }
             this.FireOnRefactorComplete();
         }
 
