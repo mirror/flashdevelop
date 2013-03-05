@@ -324,7 +324,7 @@ namespace ASClassWizard
             // resolve imports
             if (lastFileOptions.interfaces != null && lastFileOptions.interfaces.Count > 0)
             {
-                bool isHaxe = lastFileOptions.Language == "haxe";
+                bool isHaxe2 = PluginBase.CurrentSDK != null && PluginBase.CurrentSDK.Name.ToLower().Contains("haxe 2");
                 implements = " implements ";
                 string[] _implements;
                 index = 0;
@@ -332,7 +332,7 @@ namespace ASClassWizard
                 {
                     if (item.Split('.').Length > 1) imports.Add(item);
                     _implements = item.Split('.');
-                    implements += (index > 0 ? (isHaxe ? ", implements " : ", ") : "") + _implements[_implements.Length - 1];
+                    implements += (index > 0 ? (isHaxe2 ? ", implements " : ", ") : "") + _implements[_implements.Length - 1];
                     if (lastFileOptions.createInheritedMethods)
                     {
                         processOnSwitch = lastFileFromTemplate; 
