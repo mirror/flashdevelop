@@ -3356,7 +3356,7 @@
     <value>复制全部(&amp;A)</value>
   </data>
   <data name="FlashDebugger.Label.CopyExp" xml:space="preserve">
-    <value>复制经验值(&amp;E)</value>
+    <value>复制条件(&amp;E)</value>
   </data>
   <data name="FlashDebugger.Label.CopyValue" xml:space="preserve">
     <value>复制值(&amp;V)</value>
@@ -3377,7 +3377,7 @@
     <value>启用所有断点</value>
   </data>
   <data name="FlashDebugger.Label.Exp" xml:space="preserve">
-    <value>经验值</value>
+    <value>条件</value>
   </data>
   <data name="FlashDebugger.Label.Finish" xml:space="preserve">
     <value>完成(&amp;F)</value>
