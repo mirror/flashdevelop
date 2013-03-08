@@ -242,7 +242,7 @@ namespace CodeRefactor.Provider
             Boolean currentFileOnly = false;
             // checks target is a member
             if (target == null || ((target.Member == null || String.IsNullOrEmpty(target.Member.Name)) 
-                && (target.Type == null || CheckFlag(FlagType.Class, target.Type.Flags))))
+                && (target.Type == null || !CheckFlag(FlagType.Class, target.Type.Flags))))
             {
                 return null;
             }
@@ -266,7 +266,6 @@ namespace CodeRefactor.Provider
             {
                 String mask = Path.GetFileName(file);
                 String path = Path.GetDirectoryName(file);
-                config = new FRConfiguration(path, mask, false, GetFRSearch(target.Member != null ? target.Member.Name : target.Type.Name));
                 if (mask.Contains("[model]"))
                 {
                     if (findFinishedHandler != null)
@@ -275,6 +274,7 @@ namespace CodeRefactor.Provider
                     }
                     return null;
                 }
+                config = new FRConfiguration(path, mask, false, GetFRSearch(target.Member != null ? target.Member.Name : target.Type.Name));
             }
             else if (target.Member != null && !CheckFlag(target.Member.Flags, FlagType.Constructor))
             {
@@ -302,6 +302,7 @@ namespace CodeRefactor.Provider
 
         /// <summary>
         /// Checks if files is related to the project
+        /// TODO support SWCs -> refactor test as IProject method
         /// </summary>
         public static Boolean IsProjectRelatedFile(IProject project, String file)
         {
