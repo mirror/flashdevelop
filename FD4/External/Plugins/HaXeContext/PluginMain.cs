@@ -190,12 +190,11 @@ namespace HaXeContext
         /// </summary>
         private void ValidateSettings()
         {
-            if (settingObject.InstalledSDKs == null || PluginBase.MainForm.RefreshConfig)
+            if (settingObject.InstalledSDKs == null || settingObject.InstalledSDKs.Length == 0 || PluginBase.MainForm.RefreshConfig)
             {
                 string externalSDK;
                 InstalledSDK sdk;
                 List<InstalledSDK> sdks = new List<InstalledSDK>();
-
                 externalSDK = Environment.ExpandEnvironmentVariables("%HAXEPATH%");
                 if (!String.IsNullOrEmpty(externalSDK) && Directory.Exists(PathHelper.ResolvePath(externalSDK)))
                 {
@@ -204,7 +203,6 @@ namespace HaXeContext
                     sdk.Path = externalSDK;
                     sdks.Add(sdk);
                 }
-
                 if (settingObject.InstalledSDKs != null)
                 {
                     char[] slashes = new char[] { '/', '\\' };
@@ -226,13 +224,11 @@ namespace HaXeContext
                 settingObject.InstalledSDKs = sdks.ToArray();
             }
             else foreach (InstalledSDK sdk in settingObject.InstalledSDKs) ValidateSDK(sdk);
-
             if (settingObject.CompletionServerPort == 0)
             {
                 settingObject.CompletionServerPort = 6000;
                 settingObject.CompletionMode = HaxeCompletionModeEnum.CompletionServer;
             }
-
             settingObject.OnClasspathChanged += SettingObjectOnClasspathChanged;
         }
 

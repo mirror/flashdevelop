@@ -266,7 +266,7 @@ namespace CodeRefactor.Provider
             {
                 String mask = Path.GetFileName(file);
                 String path = Path.GetDirectoryName(file);
-                config = new FRConfiguration(path, mask, false, GetFRSearch(target.Member.Name));
+                config = new FRConfiguration(path, mask, false, GetFRSearch(target.Member != null ? target.Member.Name : target.Type.Name));
                 if (mask.Contains("[model]"))
                 {
                     if (findFinishedHandler != null)
