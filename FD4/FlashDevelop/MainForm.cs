@@ -1835,7 +1835,13 @@ namespace FlashDevelop
                     if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
                 }
                 ObjectSerializer.Serialize(FileNameHelper.SettingData, this.appSettings);
-                this.dockPanel.SaveAsXml(FileNameHelper.LayoutData);
+                try { this.dockPanel.SaveAsXml(FileNameHelper.LayoutData); }
+                catch (Exception ex2)
+                {
+                    // Ignore errors on multi instance full close...
+                    if (this.MultiInstanceMode && this.ClosingEntirely) return;
+                    else throw ex2;
+                }
             }
             catch (Exception ex)
             {

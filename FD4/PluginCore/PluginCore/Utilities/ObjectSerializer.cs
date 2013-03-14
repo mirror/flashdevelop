@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Text;
 using System.Drawing;
+using System.Threading;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -44,21 +45,27 @@ namespace PluginCore.Utilities
         /// </summary>
         public static void Serialize(String file, Object obj)
         {
-            try
+            Int32 count = 0;
+            while (true)
             {
-                using (FileStream stream = File.Create(file))
+                try
                 {
-                    formatter.Serialize(stream, obj);
+                    using (FileStream stream = File.Create(file))
+                    {
+                        formatter.Serialize(stream, obj);
+                    }
+                    return;
                 }
-            }
-            catch (Exception ex)
-            {
-                IMainForm mainForm = PluginBase.MainForm;
-                if (mainForm.MultiInstanceMode && mainForm.ClosingEntirely)
+                catch (Exception ex)
                 {
-                    ErrorManager.AddToLog("Skipping errors on multi full close.", ex);
+                    count++;
+                    if (count > 10)
+                    {
+                        ErrorManager.ShowError(ex);
+                        return;
+                    }
+                    Thread.Sleep(100);
                 }
-                else ErrorManager.ShowError(ex);
             }
         }
 
