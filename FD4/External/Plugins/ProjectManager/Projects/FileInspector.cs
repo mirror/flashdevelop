@@ -61,7 +61,7 @@ namespace ProjectManager.Projects
 
         public static bool IsSwc(string path, string ext)
         {
-            return ext == ".swc" || ext == ".ane";
+            return ext == ".swc" || ext == ".ane" || ext == ".jar";
         }
 
         public static bool IsFont(string path, string ext)

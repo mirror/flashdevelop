@@ -160,7 +160,7 @@ namespace ProjectManager.Controls.TreeView
 		public SwfFileNode(string filePath) : base(filePath)
 		{
             string ext = Path.GetExtension(filePath).ToLower();
-            explorable = FileInspector.IsSwf(filePath, ext) || FileInspector.IsSwc(filePath);
+            explorable = FileInspector.IsSwf(filePath, ext) || ext == ".swc" || ext == ".ane";
             if (explorable)
             {
                 isRefreshable = true;

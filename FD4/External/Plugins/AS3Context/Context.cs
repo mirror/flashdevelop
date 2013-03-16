@@ -183,7 +183,7 @@ namespace AS3Context
                 sdkLibs = PathHelper.ResolvePath(PathHelper.ToolDir + S + "flexlibs" + S + "frameworks" + S + "libs" + S + "player");
             }
 
-            if (!String.IsNullOrEmpty(sdkLibs) && Directory.Exists(sdkLibs))
+            if (majorVersion > 0 && !String.IsNullOrEmpty(sdkLibs) && Directory.Exists(sdkLibs))
             {
                 // core API SWC
                 if (!hasCustomAPI)
