@@ -265,7 +265,7 @@ namespace FlashDevelop.Docking
         /// </summary>
         private void EditorUpdateSync(ScintillaControl sender)
         {
-            if (!this.IsSplitted) return;
+            if (!this.IsEditable) return;
             ScintillaControl e1 = editor;
             ScintillaControl e2 = editor2;
             if (sender == editor2)
