@@ -256,7 +256,6 @@ namespace FlashDevelop.Docking
             this.editor2.FocusChanged += new FocusHandler(this.EditorFocusChanged);
             this.editor.UpdateSync += new UpdateSyncHandler(this.EditorUpdateSync);
             this.editor2.UpdateSync += new UpdateSyncHandler(this.EditorUpdateSync);
-            ScintillaManager.UpdateControlSyntax(this.editor2);
             this.Controls.Add(this.splitContainer);
         }
 

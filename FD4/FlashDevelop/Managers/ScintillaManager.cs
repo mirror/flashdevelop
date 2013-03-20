@@ -57,7 +57,6 @@ namespace FlashDevelop.Managers
             e2.ConfigurationLanguage = e1.ConfigurationLanguage;
             e2.IsHiliteSelected = e1.IsHiliteSelected;
             e2.IsBraceMatching = e1.IsBraceMatching;
-            e2.IgnoreAllKeys = e1.IgnoreAllKeys;
         }
 
         /// <summary>
@@ -251,8 +250,6 @@ namespace FlashDevelop.Managers
                         sci.AddIgnoredKeys(keys);
                     }
                 }
-                String lang = sci.ConfigurationLanguage;
-                sci.ConfigurationLanguage = lang;
                 sci.Colourise(0, -1);
                 sci.Refresh();
             }

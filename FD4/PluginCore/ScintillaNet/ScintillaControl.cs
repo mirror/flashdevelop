@@ -558,7 +558,6 @@ namespace ScintillaNet
             set 
             { 
                 ignoreAllKeys = value;
-                if (UpdateSync != null) this.UpdateSync(this);
             }
         }
 
@@ -2517,7 +2516,7 @@ namespace ScintillaNet
 		/// </summary>
 		unsafe public void KeyWords(int keywordSet, string keyWords)
 		{
-			if (keyWords == null || keyWords.Equals("")) keyWords = "\0\0";
+            if (keyWords == null || keyWords.Equals("")) keyWords = "\0\0";
 			fixed (byte* b = Encoding.GetEncoding(this.CodePage).GetBytes(keyWords))
 			{
 				SPerform(4005, (uint)keywordSet, (uint)b);
