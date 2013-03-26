@@ -247,6 +247,21 @@ namespace ASCompletion.Model
             string tab = (caching) ? "" : ((InFile.Version == 3) ? "\t\t" : "\t");
 			bool preventVis = (bool)((this.Flags & FlagType.Interface) > 0);
 
+            // SPECIAL DELEGATE
+            /*if ((Flags & FlagType.Delegate) > 0)
+            {
+                if (Members.Count > 0)
+                {
+                    MemberModel ctor = Members[0].Clone() as MemberModel;
+                    ctor.Flags |= FlagType.Delegate;
+                    ctor.Access = Access;
+                    String comment = CommentDeclaration(ctor.Comments, tab0);
+                    sb.Append(comment);
+                    sb.Append(tab0).Append(MemberDeclaration(ctor, preventVis)).Append(semi).Append(nl);
+                    return sb.ToString();
+                }
+            }*/
+
             // CLASS
             sb.Append(CommentDeclaration(Comments, tab0)).Append(tab0);
             if (!caching && InFile.Version != 3 && (this.Flags & (FlagType.Intrinsic | FlagType.Interface)) == 0)
@@ -397,6 +412,8 @@ namespace ASCompletion.Model
                 else if ((ofClass.Flags & FlagType.Enum) > 0) classType = "enum";
                 else if ((ofClass.Flags & FlagType.Abstract) > 0) classType = "abstract";
                 else if ((ofClass.Flags & FlagType.TypeDef) > 0) classType = "typedef";
+                else if ((ofClass.Flags & FlagType.Struct) > 0) classType = "struct";
+                else if ((ofClass.Flags & FlagType.Delegate) > 0) classType = "delegate";
 
                 // signature
                 if (qualified)
@@ -453,7 +470,9 @@ namespace ASCompletion.Model
 				if ((member.Flags & FlagType.Interface) > 0) classType = "interface";
                 else if ((member.Flags & FlagType.Enum) > 0) classType = "enum";
                 else if ((member.Flags & FlagType.Abstract) > 0) classType = "abstract";
-				else if ((member.Flags & FlagType.TypeDef) > 0) classType = "typedef";
+                else if ((member.Flags & FlagType.TypeDef) > 0) classType = "typedef";
+                else if ((member.Flags & FlagType.Struct) > 0) classType = "struct";
+                else if ((member.Flags & FlagType.Delegate) > 0) classType = "delegate";
 				return String.Format("{0}{1} {2}", modifiers, classType, member.Type);
 			}
 			else if ((ft & FlagType.Enum) == 0)
@@ -482,13 +501,11 @@ namespace ASCompletion.Model
 				else return String.Format("{0}var {1}", modifiers, member.ToDeclarationString());
             }
 			else if ((ft & (FlagType.Getter | FlagType.Setter)) > 0)
-			{
 				return String.Format("{0}property {1}", modifiers, member.ToString());
-			}
-			else if ((ft & FlagType.Function) > 0)
-			{
+            else if ((ft & FlagType.Delegate) > 0)
+                return String.Format("{0}delegate {1}", modifiers, member.ToString());
+            else if ((ft & FlagType.Function) > 0)
 				return String.Format("{0}function {1}", modifiers, member.ToString());
-			}
             else if (ft == FlagType.Package)
                 return String.Format("Package {0}", member.Type);
             else if (ft == FlagType.Template)

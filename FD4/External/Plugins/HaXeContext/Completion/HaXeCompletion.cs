@@ -7,9 +7,14 @@ using ASCompletion.Context;
 using PluginCore;
 using ProjectManager.Projects.Haxe;
 using ScintillaNet;
+using ASCompletion.Completion;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace HaXeContext
 {
+    internal delegate void HaXeCompletionResultHandler(HaXeCompletion sender, ArrayList result);
+
     internal class HaXeCompletion
     {
         private static readonly Regex reListEntry = new Regex("<i n=\"([^\"]+)\"><t>([^<]*)</t><d>([^<]*)</d></i>",
@@ -17,24 +22,44 @@ namespace HaXeContext
         private static readonly Regex reArg = new Regex("^(-cp)\\s*([^\"'].*)$", 
                                                         RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        private readonly int position;
+        public readonly ScintillaControl sci;
+        public readonly ASExpr expr;
+        public readonly bool autoHide;
         private readonly IHaxeCompletionHandler handler;
-        private readonly ScintillaControl sci;
         private readonly ArrayList tips;
         private int nbErrors;
 
-        public HaXeCompletion(ScintillaControl sci, int position, IHaxeCompletionHandler handler)
+        public HaXeCompletion(ScintillaControl sci, ASExpr expr, bool autoHide, IHaxeCompletionHandler handler)
         {
             this.sci = sci;
-            this.position = position;
+            this.expr = expr;
+            this.autoHide = autoHide;
             this.handler = handler;
             tips = new ArrayList();
             nbErrors = 0;
         }
 
-        public ArrayList getList()
+        public void getList(HaXeCompletionResultHandler callback)
         {
-            return parseLines(handler.GetCompletion(buildHxmlArgs()));
+            PluginBase.MainForm.CallCommand("SaveAllModified", null);
+
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                ArrayList lines = parseLines(handler.GetCompletion(buildHxmlArgs()));
+                notify(callback, lines);
+            });
+        }
+
+        private void notify(HaXeCompletionResultHandler callback, ArrayList lines)
+        {
+            if (sci.InvokeRequired)
+            {
+                sci.BeginInvoke((MethodInvoker)delegate {
+                    notify(callback, lines);
+                });
+                return;
+            }
+            callback(this, lines);
         }
 
 
@@ -51,15 +76,13 @@ namespace HaXeContext
                 || !(ASContext.Context is Context))
                 return null;
 
-            PluginBase.MainForm.CallCommand("SaveAllModified", null);
-
             var hp = (PluginBase.CurrentProject as HaxeProject);
 
             // Current file
             var file = PluginBase.MainForm.CurrentDocument.FileName;
 
             // Locate carret position
-            var pos = position; // sci.CurrentPos;
+            var pos = expr.Position;
             // locate a . or (
             while (pos > 1 && sci.CharAt(pos - 1) != '.' && sci.CharAt(pos - 1) != '(')
                 pos--;

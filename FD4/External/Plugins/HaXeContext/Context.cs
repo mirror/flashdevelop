@@ -37,6 +37,8 @@ namespace HaXeContext
         private Dictionary<string, string> haxelibsCache;
         private bool hasAIRSupport;
         private bool hasMobileSupport;
+        private bool resolvingDot;
+        private bool resolvingFunction;
 
         public Context(HaXeSettings initSettings)
         {
@@ -385,6 +387,8 @@ namespace HaXeContext
             }
             FinalizeClasspath();
 
+            resolvingDot = false;
+            resolvingFunction = false;
             if (completionModeHandler == null) 
                 OnCompletionModeChange();
         }
@@ -396,6 +400,8 @@ namespace HaXeContext
                 string haxelib = Path.Combine(path.Path, "haxelib.xml");
                 if (File.Exists(haxelib))
                 {
+                    path.ValidatePackage = true;
+                    
                     string src = File.ReadAllText(haxelib);
                     if (src.IndexOf("<project name=\"nme\"") >= 0)
                     {
@@ -428,6 +434,25 @@ namespace HaXeContext
                 TraceManager.AddAsync(message + " " + path.Path);
                 TraceManager.AddAsync(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Confirms that the FileModel should be added to the PathModel
+        /// - typically classes whose context do not patch the classpath should be ignored
+        /// </summary>
+        /// <param name="aFile"></param>
+        /// <param name="pathModel"></param>
+        /// <returns></returns>
+        public override bool IsModelValid(FileModel aFile, PathModel pathModel)
+        {
+            if (!pathModel.ValidatePackage) return true;
+            string path = Path.GetDirectoryName(aFile.FileName);
+            if (path.StartsWith(pathModel.Path, StringComparison.OrdinalIgnoreCase))
+            {
+                string package = path.Substring(pathModel.Path.Length + 1).Replace('/', '.').Replace('\\', '.');
+                return (aFile.Package == package);
+            }
+            else return false;
         }
 
         /// <summary>
@@ -910,7 +935,7 @@ namespace HaXeContext
         /// <returns>Null (not handled) or member list</returns>
         public override MemberList ResolveDotContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide)
         {
-            if (hxsettings.CompletionMode == HaxeCompletionModeEnum.FlashDevelop)
+            if (resolvingDot || hxsettings.CompletionMode == HaxeCompletionModeEnum.FlashDevelop)
                 return null;
 
             if (autoHide && !hxsettings.DisableCompletionOnDemand)
@@ -925,28 +950,36 @@ namespace HaXeContext
             if (expression.Value == "")
                 return null; // not supported yet
 
+            HaXeCompletion hc = new HaXeCompletion(sci, expression, autoHide, completionModeHandler);
+            hc.getList(OnDotCompletionResult);
+
+            resolvingDot = true;
+            return null; // async processing
+        }
+
+        internal void OnDotCompletionResult(HaXeCompletion hc, ArrayList al)
+        {
+            resolvingDot = false;
+            if (al == null || al.Count == 0)
+                return; // haxe.exe not found
+
+            ScintillaNet.ScintillaControl sci = hc.sci;
             MemberList list = new MemberList();
-           
-            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position, completionModeHandler);
-            ArrayList al = hc.getList();
-            if (al == null || al.Count == 0) 
-                return null; // haxe.exe not found
-            
             string outputType = al[0].ToString();
 
-            if( outputType == "error" )
+            if (outputType == "error")
             {
                 string err = al[1].ToString();
                 sci.CallTipShow(sci.CurrentPos, err);
                 sci.CharAdded += new ScintillaNet.CharAddedHandler(removeTip);
-                
+
                 // show default completion tooltip
                 if (!hxsettings.DisableMixedCompletion)
-                    return null;
+                    return;
             }
             else if (outputType == "list")
             {
-                foreach (ArrayList i in al[ 1 ] as ArrayList)
+                foreach (ArrayList i in al[1] as ArrayList)
                 {
                     string var = i[0].ToString();
                     string type = i[1].ToString();
@@ -958,11 +991,11 @@ namespace HaXeContext
                     member.Name = var;
                     member.Access = Visibility.Public;
                     member.Comments = desc;
-                    
+
                     // Package or Class
                     if (type == "")
                     {
-                        string bl = var.Substring( 0, 1 );
+                        string bl = var.Substring(0, 1);
                         if (bl == bl.ToLower())
                             flag = FlagType.Package;
                         else
@@ -997,17 +1030,21 @@ namespace HaXeContext
                             flag = FlagType.Variable;
                             // Variable's type
                             member.Type = type;
-                        }    
-                       
+                        }
+
                     }
-                                        
+
                     member.Flags = flag;
-                    
-                   list.Add(member);
+
+                    list.Add(member);
                 }
             }
-            return list;
+
+            // update completion
+            if (list.Count > 0)
+                ASComplete.DotContextResolved(sci, hc.expr, list, hc.autoHide);
         }
+
 
         public override MemberList GetVisibleExternalElements(bool typesOnly)
         {
@@ -1116,16 +1153,11 @@ namespace HaXeContext
         /// <returns>Null (not handled) or function signature</returns>
         public override MemberModel ResolveFunctionContext(ScintillaNet.ScintillaControl sci, ASExpr expression, bool autoHide)
         {
-            if (hxsettings.CompletionMode == HaxeCompletionModeEnum.FlashDevelop)
+            if (resolvingFunction || hxsettings.CompletionMode == HaxeCompletionModeEnum.FlashDevelop)
                 return null;
 
             if (autoHide && !hxsettings.DisableCompletionOnDemand)
                 return null;
-
-            string[] parts = expression.Value.Split('.');
-            string name = parts[parts.Length - 1];
-            
-            MemberModel member = new MemberModel();
 
             // Do not show error
             string val = expression.Value;
@@ -1138,11 +1170,25 @@ namespace HaXeContext
                 val == "trace")
                 return null;
 
-            HaXeCompletion hc = new HaXeCompletion(sci, expression.Position + 1, completionModeHandler);
-            ArrayList al = hc.getList();
-            if (al == null || al.Count == 0)
-                return null; // haxe.exe not found
+            expression.Position++;
+            HaXeCompletion hc = new HaXeCompletion(sci, expression, autoHide, completionModeHandler);
+            hc.getList(OnFunctionCompletionResult);
 
+            resolvingFunction = true;
+            return null; // running asynchronously
+        }
+
+        internal void OnFunctionCompletionResult(HaXeCompletion hc, ArrayList al)
+        {
+            resolvingFunction = false;
+            if (al == null || al.Count == 0)
+                return; // haxe.exe not found
+
+            ScintillaNet.ScintillaControl sci = hc.sci;
+            string[] parts = hc.expr.Value.Split('.');
+            string name = parts[parts.Length - 1];
+
+            MemberModel member = new MemberModel();
             string outputType = al[0].ToString();
 
             if (outputType == "type" )
@@ -1173,8 +1219,10 @@ namespace HaXeContext
                 sci.CallTipShow(sci.CurrentPos, err);
                 sci.CharAdded += new ScintillaNet.CharAddedHandler(removeTip);
             }
-                        
-            return member;
+            
+            // show call tip
+            hc.expr.Position--;
+            ASComplete.FunctionContextResolved(sci, hc.expr, member, null, true);
         }
 
         void removeTip(ScintillaNet.ScintillaControl sender, int ch)
@@ -1202,8 +1250,12 @@ namespace HaXeContext
         public override void CheckSyntax()
         {
             EventManager.DispatchEvent(this, new NotifyEvent(EventType.ProcessStart));
-            HaXeCompletion hc = new HaXeCompletion(ASContext.CurSciControl, 0, completionModeHandler);
-            ArrayList result = hc.getList();
+            HaXeCompletion hc = new HaXeCompletion(ASContext.CurSciControl, new ASExpr(), false, completionModeHandler);
+            hc.getList(OnCheckSyntaxResult);
+        }
+
+        internal void OnCheckSyntaxResult(HaXeCompletion hc, ArrayList result)
+        {
             if (result.Count == 0 || (string)result[0] != "error")
             {
                 EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(0)"));

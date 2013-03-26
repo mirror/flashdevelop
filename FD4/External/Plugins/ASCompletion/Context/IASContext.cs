@@ -106,6 +106,15 @@ namespace ASCompletion.Context
         ClassModel GetModel(string package, string cname, string inPackage);
 
         /// <summary>
+        /// Confirms that the FileModel should be added to the PathModel
+        /// - typically classes whose context do not patch the classpath should be ignored
+        /// </summary>
+        /// <param name="aFile"></param>
+        /// <param name="pathModel"></param>
+        /// <returns></returns>
+        bool IsModelValid(FileModel aFile, PathModel pathModel);
+
+        /// <summary>
         /// Called if a FileModel needs filtering
         /// </summary>
         /// <param name="src"></param>

@@ -23,6 +23,8 @@ namespace ASCompletion.Completion
         public bool hasInterfaces;
         public bool hasEnums;
         public bool hasTypeDefs;
+        public bool hasStructs;
+        public bool hasDelegates;
         public bool hasGenerics;
         public bool hasEcmaTyping;
         public bool hasVars;

@@ -99,7 +99,7 @@ namespace ProjectManager.Projects.Haxe
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');
         }
 
-        internal override CompileTargetType AllowCompileTarget(string path, bool isDirectory)
+        public override CompileTargetType AllowCompileTarget(string path, bool isDirectory)
         {
             if (isDirectory || Path.GetExtension(path) != ".hx") return CompileTargetType.None;
 

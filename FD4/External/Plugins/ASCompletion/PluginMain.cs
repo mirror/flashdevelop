@@ -394,8 +394,7 @@ namespace ASCompletion
                             {
                                 string[] path = Regex.Split(cmdData, "::");
                                 string fileName = path[0] + Path.DirectorySeparatorChar
-                                    + path[1].Replace('.', Path.DirectorySeparatorChar).Replace("::", Path.DirectorySeparatorChar.ToString())
-                                    + "$.as";
+                                    + path[1].Replace('.', Path.DirectorySeparatorChar).Replace("::", Path.DirectorySeparatorChar.ToString());
                                 FileModel found = ModelsExplorer.Instance.OpenFile(fileName);
                                 if (found != null) e.Handled = true;
                             }

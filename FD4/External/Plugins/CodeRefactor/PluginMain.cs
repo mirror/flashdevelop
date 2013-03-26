@@ -211,7 +211,7 @@ namespace CodeRefactor
             if (document != null && document.IsEditable)
             {
                 String lang = document.SciControl.ConfigurationLanguage;
-                return (lang == "as2" || lang == "as3" || lang == "haxe");
+                return (lang == "as2" || lang == "as3" || lang == "haxe" || lang == "loom"); // TODO look for /Snippets/Generators
             }
             else return false;
         }

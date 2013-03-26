@@ -12,7 +12,6 @@ using AS3Context.Compiler;
 using ASCompletion.Model;
 using ASCompletion.Completion;
 using ASCompletion.Commands;
-using ProjectManager.Projects.Haxe;
 using AS3Context.Controls;
 using WeifenLuo.WinFormsUI.Docking;
 using System.Windows.Forms;
@@ -145,11 +144,12 @@ namespace AS3Context
                     case EventType.Command:
                         DataEvent de = e as DataEvent;
                         string action = de.Action;
-                        if (action == "ProjectManager.OpenVirtualFile")
+                        /*if (action == "ProjectManager.OpenVirtualFile")
                         {
-                            e.Handled = OpenVirtualFileModel(de.Data as String);
+                            if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "AS3")
+                                e.Handled = OpenVirtualFileModel(de.Data as String);
                         }
-                        else if (!(settingObject as AS3Settings).DisableFDB && action == "AS3Context.StartDebugger")
+                        else*/ if (!(settingObject as AS3Settings).DisableFDB && action == "AS3Context.StartDebugger")
                         {
                             string workDir = (PluginBase.CurrentProject != null)
                                 ? Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath)

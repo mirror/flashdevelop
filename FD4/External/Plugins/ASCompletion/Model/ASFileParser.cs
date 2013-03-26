@@ -1759,6 +1759,11 @@ namespace ASCompletion.Model
                     if (context == 0 && prevToken.Text != "use")
                         foundKeyword = FlagType.Namespace;
                 }
+                else if (features.hasDelegates && token == "delegate")
+                {
+                    foundKeyword = FlagType.Function;
+                    modifiers |= FlagType.Delegate;
+                }
 
                 // class declaration
                 else if (tryPackage && token == "package")
@@ -1801,6 +1806,11 @@ namespace ASCompletion.Model
                 {
                     foundKeyword = FlagType.Abstract;
                     modifiers |= FlagType.Abstract;
+                }
+                else if (features.hasStructs && token == "struct")
+                {
+                    foundKeyword = FlagType.Struct;
+                    modifiers |= FlagType.Class | FlagType.Struct;
                 }
                 else if (features.hasEnums && token == "enum")
                 {
@@ -2127,7 +2137,8 @@ namespace ASCompletion.Model
                         }
                         break;
 
-                    case FlagType.Class:
+                    case FlagType.Class: 
+                    case FlagType.Struct:
                         if (curModifiers == FlagType.Extends)
                         {
                             if (curClass != null)
@@ -2155,7 +2166,8 @@ namespace ASCompletion.Model
                                 curClass.Implements.Add(token);
                             }
                         }
-                        else if (prevToken.Text == "class" || prevToken.Text == "interface")
+                        else if ((context == FlagType.Class && (prevToken.Text == "class" || prevToken.Text == "interface"))
+                            || (context == FlagType.Struct && prevToken.Text == "struct"))
                         {
                             if (curClass != null)
                             {

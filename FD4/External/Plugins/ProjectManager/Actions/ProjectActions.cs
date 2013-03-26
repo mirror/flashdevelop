@@ -189,7 +189,7 @@ namespace ProjectManager.Actions
             if (project != null)
             {
                 BuildActions.GetCompilerPath(project); // refresh project's SDK
-                project.UpdateVars();
+                project.UpdateVars(true);
 
                 // platform/version
                 platform = project.MovieOptions.Platform;

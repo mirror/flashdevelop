@@ -21,7 +21,7 @@ namespace ASCompletion.Completion
     {
         #region context detection (ie. entry points)
         const string patternEvent = "Listener\\s*\\((\\s*([a-z_0-9.\\\"']+)\\s*,)?\\s*(?<event>[a-z_0-9.\\\"']+)\\s*,\\s*(this\\.)?{0}";
-        const string patternDelegate = @"\.\s*create\s*\(\s*[a-z_0-9.]+,\s*{0}";
+        const string patternAS2Delegate = @"\.\s*create\s*\(\s*[a-z_0-9.]+,\s*{0}";
         const string patternVarDecl = @"\s*{0}\s*:\s*{1}";
         const string patternMethod = @"{0}\s*\(";
         const string patternMethodDecl = @"function\s+{0}\s*\(";
@@ -71,6 +71,7 @@ namespace ASCompletion.Completion
 
             ASResult resolve = ASComplete.GetExpressionType(Sci, Sci.WordEndPosition(position, true));
             contextResolved = resolve;
+            
             // ignore automatic vars (MovieClip members)
             if (resolve.Member != null &&
                 (((resolve.Member.Flags & FlagType.AutomaticVar) > 0)
@@ -98,7 +99,7 @@ namespace ASCompletion.Completion
                     return;
                 }
             }
-
+            
             if (contextToken != null)
             {
                 if (resolve.Member == null && resolve.Type == null) // import declaration
@@ -152,12 +153,29 @@ namespace ASCompletion.Completion
                             ShowEventList(found);
                             return;
                         }
-                        m = Regex.Match(text, String.Format(patternDelegate, contextToken), RegexOptions.IgnoreCase);
+                        m = Regex.Match(text, String.Format(patternAS2Delegate, contextToken), RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             contextMatch = m;
                             ShowDelegateList(found);
                             return;
+                        }
+                        // suggest delegate
+                        if (ASContext.Context.Features.hasDelegates)
+                        {
+                            m = Regex.Match(text, @"([a-z0-9_.]+)\s*\+=\s*" + contextToken, RegexOptions.IgnoreCase);
+                            if (m.Success)
+                            {
+                                int offset = Sci.PositionFromLine(Sci.LineFromPosition(position))
+                                    + m.Groups[1].Index + m.Groups[1].Length;
+                                char c = (char)Sci.CharAt(offset);
+                                resolve = ASComplete.GetExpressionType(Sci, offset);
+                                if (resolve.Member != null)
+                                    contextMember = ResolveDelegate(resolve.Member.Type, resolve.InFile);
+                                contextMatch = m;
+                                ShowDelegateList(found);
+                                return;
+                            }
                         }
                     }
                     else
@@ -166,7 +184,8 @@ namespace ASCompletion.Completion
                         Match m = Regex.Match(text, String.Format(patternEvent, ""), RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
-                            GenerateDefaultHandlerName(Sci, position, m);
+                            int regexIndex = m.Index + Sci.PositionFromLine(Sci.LineFromPosition(Sci.CurrentPos));
+                            GenerateDefaultHandlerName(Sci, position, regexIndex, m.Groups["event"].Value, true);
                             resolve = ASComplete.GetExpressionType(Sci, Sci.CurrentPos);
                             if (resolve.Member == null || (resolve.Member.Flags & FlagType.AutomaticVar) > 0)
                             {
@@ -175,6 +194,32 @@ namespace ASCompletion.Completion
                                 ShowEventList(found);
                             }
                             return;
+                        }
+
+                        // insert default delegate name, then "generate delegate" suggestion
+                        if (ASContext.Context.Features.hasDelegates)
+                        {
+                            m = Regex.Match(text, @"([a-z0-9_.]+)\s*\+=\s*", RegexOptions.IgnoreCase);
+                            if (m.Success)
+                            {
+                                int offset = Sci.PositionFromLine(Sci.LineFromPosition(position))
+                                        + m.Groups[1].Index + m.Groups[1].Length;
+                                resolve = ASComplete.GetExpressionType(Sci, offset);
+                                if (resolve.Member != null)
+                                {
+                                    contextMember = ResolveDelegate(resolve.Member.Type, resolve.InFile);
+                                    string delegateName = resolve.Member.Name;
+                                    if (delegateName.StartsWith("on")) delegateName = delegateName.Substring(2);
+                                    GenerateDefaultHandlerName(Sci, position, offset, delegateName, false);
+                                    resolve = ASComplete.GetExpressionType(Sci, Sci.CurrentPos);
+                                    if (resolve.Member == null || (resolve.Member.Flags & FlagType.AutomaticVar) > 0)
+                                    {
+                                        contextMatch = m;
+                                        ShowDelegateList(found);
+                                    }
+                                    return;
+                                }
+                            }
                         }
                     }
                 }
@@ -363,11 +408,35 @@ namespace ASCompletion.Completion
             // TODO  Empty line, show generators list?
         }
 
-        private static void GenerateDefaultHandlerName(ScintillaNet.ScintillaControl Sci, int position, Match m)
+        private static MemberModel ResolveDelegate(string type, FileModel inFile)
+        {
+            foreach (MemberModel def in inFile.Members)
+                if (def.Name == type && (def.Flags & FlagType.Delegate) > 0)
+                    return def;
+
+            if (type.IndexOf('.') < 0)
+            {
+                string dotType = '.' + type;
+                MemberList imports = ASContext.Context.ResolveImports(inFile);
+                foreach (MemberModel import in imports)
+                    if (import.Type.EndsWith(dotType))
+                    {
+                        type = import.Type;
+                        break;
+                    }
+            }
+
+            MemberList known = ASContext.Context.GetAllProjectClasses();
+            foreach (MemberModel def in known)
+                if (def.Type == type && (def.Flags & FlagType.Delegate) > 0)
+                    return def;
+            return null;
+        }
+
+        private static void GenerateDefaultHandlerName(ScintillaNet.ScintillaControl Sci, int position, int targetPos, string eventName, bool closeBrace)
         {
             string target = null;
-            int regexIndex = m.Index + Sci.PositionFromLine(Sci.LineFromPosition(Sci.CurrentPos));
-            int contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(regexIndex, true));
+            int contextOwnerPos = GetContextOwnerEndPos(Sci, Sci.WordStartPosition(targetPos, true));
             if (contextOwnerPos != -1)
             {
                 ASResult contextOwnerResult = ASComplete.GetExpressionType(Sci, contextOwnerPos);
@@ -395,7 +464,6 @@ namespace ASCompletion.Completion
                 }
             }
             
-            string eventName = m.Groups["event"].Value;
             eventName = Camelize(eventName.Substring(eventName.LastIndexOf('.') + 1));
             if (target != null) target = target.TrimStart(new char[] { '_' });
 
@@ -426,7 +494,7 @@ namespace ASCompletion.Completion
             position = Sci.WordEndPosition(position + 1, true);
             Sci.SetSel(position, position);
             c = (char)Sci.CharAt(position);
-            if (c <= 32) Sci.ReplaceSel(");");
+            if (c <= 32) if (closeBrace) Sci.ReplaceSel(");"); else Sci.ReplaceSel(";");
 
             Sci.SetSel(position, position);
         }
@@ -3397,11 +3465,23 @@ namespace ASCompletion.Completion
 
         private static void GenerateDelegateMethod(string name, MemberModel afterMethod, int position)
         {
+            ContextFeatures features = ASContext.Context.Features;
+
             string acc = GetPrivateAccessor(afterMethod);
             string template = TemplateUtils.GetTemplate("Delegate");
+            string args = null;
+            string type = features.voidKey;
+
+            if (features.hasDelegates && contextMember != null) // delegate functions types
+            {
+                args = contextMember.ParametersString();
+                type = contextMember.Type;
+            }
+
             string decl = BlankLine + TemplateUtils.ReplaceTemplateVariable(template, "Modifiers", acc);
             decl = TemplateUtils.ReplaceTemplateVariable(decl, "Name", name);
-            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Void", ASContext.Context.Features.voidKey);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Arguments", args);
+            decl = TemplateUtils.ReplaceTemplateVariable(decl, "Type", type);
             InsertCode(position, decl);
         }
 

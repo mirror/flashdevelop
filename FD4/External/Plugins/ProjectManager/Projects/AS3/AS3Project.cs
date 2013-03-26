@@ -35,7 +35,7 @@ namespace ProjectManager.Projects.AS3
 
         public new MxmlcOptions CompilerOptions { get { return (MxmlcOptions)base.CompilerOptions; } }
 
-        internal override ProjectManager.Controls.PropertiesDialog CreatePropertiesDialog()
+        public override ProjectManager.Controls.PropertiesDialog CreatePropertiesDialog()
         {
             return new ProjectManager.Controls.AS3.AS3PropertiesDialog();
         }
@@ -79,7 +79,7 @@ namespace ProjectManager.Projects.AS3
             return ext == ".txt" || ext == ".xml";
         }
 
-        internal override CompileTargetType AllowCompileTarget(string path, bool isDirectory)
+        public override CompileTargetType AllowCompileTarget(string path, bool isDirectory)
         {
             if (isDirectory || (Path.GetExtension(path) != ".as" && Path.GetExtension(path) != ".mxml")) 
                 return CompileTargetType.None;

@@ -451,5 +451,34 @@ namespace LitJson
             }
         }
 
+
+        // ADDED TOOL METHODS
+
+        public void SkipArray()
+        {
+            int count = 1;
+            while (Read())
+            {
+                if (Token == JsonToken.ArrayEnd)
+                {
+                    if (--count == 0) return;
+                }
+                else if (Token == JsonToken.ArrayStart) count++;
+            }
+        }
+
+        public void SkipObject()
+        {
+            int count = 1;
+            while (Read())
+            {
+                if (Token == JsonToken.ObjectEnd)
+                {
+                    if (--count == 0) return;
+                }
+                else if (Token == JsonToken.ObjectStart) count++;
+            }
+        }
+
     }
 }

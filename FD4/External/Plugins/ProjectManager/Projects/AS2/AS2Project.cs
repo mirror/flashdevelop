@@ -23,7 +23,7 @@ namespace ProjectManager.Projects.AS2
 
         public new MtascOptions CompilerOptions { get { return (MtascOptions)base.CompilerOptions; } }
 
-        internal override ProjectManager.Controls.PropertiesDialog CreatePropertiesDialog()
+        public override ProjectManager.Controls.PropertiesDialog CreatePropertiesDialog()
         {
             return new ProjectManager.Controls.AS2.AS2PropertiesDialog();
         }
@@ -49,7 +49,7 @@ namespace ProjectManager.Projects.AS2
                 return ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');
         }
 
-        internal override CompileTargetType AllowCompileTarget(string path, bool isDirectory)
+        public override CompileTargetType AllowCompileTarget(string path, bool isDirectory)
         {
             if (!isDirectory && Path.GetExtension(path) != ".as") return CompileTargetType.None;
 

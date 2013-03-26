@@ -36,6 +36,14 @@ namespace AS3Context
         private MxmlFilterContext mxmlFilterContext; // extract inlined AS3 ranges & MXML tags
         private System.Timers.Timer timerCheck;
         private string fileWithSquiggles;
+        protected bool mxmlEnabled;
+
+        /// <summary>
+        /// Do not call directly
+        /// </summary>
+        public Context()
+        {
+        }
 
         public Context(AS3Settings initSettings)
         {
@@ -470,7 +478,7 @@ namespace AS3Context
                 return new FileModel(fileName);
 
             fileName = PathHelper.GetLongPathName(fileName);
-            if (fileName.EndsWith(".mxml", StringComparison.OrdinalIgnoreCase))
+            if (mxmlEnabled && fileName.EndsWith(".mxml", StringComparison.OrdinalIgnoreCase))
             {
                 FileModel nFile = new FileModel(fileName);
                 nFile.Context = this;
@@ -509,7 +517,7 @@ namespace AS3Context
         /// <param name="updateUI">Update outline view</param>
         public override void UpdateCurrentFile(bool updateUI)
         {
-            if (cFile != null && cFile != FileModel.Ignore
+            if (mxmlEnabled && cFile != null && cFile != FileModel.Ignore
                 && cFile.FileName.EndsWith(".mxml", StringComparison.OrdinalIgnoreCase))
                 cFile.HasFiltering = true;
             base.UpdateCurrentFile(updateUI);
@@ -568,7 +576,7 @@ namespace AS3Context
         public override void TrackTextChange(ScintillaNet.ScintillaControl sender, int position, int length, int linesAdded)
         {
             base.TrackTextChange(sender, position, length, linesAdded);
-            if (!as3settings.DisableLiveChecking && IsFileValid)
+            if (as3settings != null && !as3settings.DisableLiveChecking && IsFileValid)
             {
                 timerCheck.Stop();
                 timerCheck.Start();
@@ -936,25 +944,6 @@ namespace AS3Context
             string filename = "toplevel.as";
             topLevel = new FileModel(filename);
 
-            // search top-level declaration
-            /*foreach (PathModel aPath in classPath)
-                if (File.Exists(Path.Combine(aPath.Path, filename)))
-                {
-                    filename = Path.Combine(aPath.Path, filename);
-                    topLevel = GetCachedFileModel(filename);
-                    break;
-                }
-
-            if (File.Exists(filename))
-            {
-                // ok
-            }
-            // not found
-            else
-            {
-                //ErrorHandler.ShowInfo("Top-level elements class not found. Please check your Program Settings.");
-            }*/
-
             if (topLevel.Members.Search("this", 0, 0) == null)
                 topLevel.Members.Add(new MemberModel("this", "", FlagType.Variable | FlagType.Intrinsic, Visibility.Public));
             if (topLevel.Members.Search("super", 0, 0) == null)
@@ -962,8 +951,6 @@ namespace AS3Context
             if (topLevel.Members.Search(features.voidKey, 0, 0) == null)
                 topLevel.Members.Add(new MemberModel(features.voidKey, "", FlagType.Intrinsic, Visibility.Public));
             topLevel.Members.Sort();
-            /*foreach (MemberModel member in topLevel.Members)
-                member.Flags |= FlagType.Intrinsic;*/
         }
 
         #endregion

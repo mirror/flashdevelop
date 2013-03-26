@@ -912,6 +912,18 @@ namespace ASCompletion.Context
         }
 
         /// <summary>
+        /// Confirms that the FileModel should be added to the PathModel
+        /// - typically classes whose context do not patch the classpath should be ignored
+        /// </summary>
+        /// <param name="aFile"></param>
+        /// <param name="pathModel"></param>
+        /// <returns></returns>
+        public virtual bool IsModelValid(FileModel aFile, PathModel pathModel)
+        {
+            return (aFile != null);
+        }
+
+        /// <summary>
         /// Parse a raw source code
         /// </summary>
         /// <param name="src"></param>

@@ -99,12 +99,12 @@ namespace ProjectManager.Projects
             OnClasspathChanged();
         }
 
-        internal virtual ProjectManager.Controls.PropertiesDialog CreatePropertiesDialog()
+        public virtual ProjectManager.Controls.PropertiesDialog CreatePropertiesDialog()
         {
             return new ProjectManager.Controls.PropertiesDialog();
         }
 
-        internal void OnClasspathChanged()
+        public void OnClasspathChanged()
         {
             absClasspaths = null;
             if (ClasspathChanged != null) ClasspathChanged();
@@ -282,7 +282,7 @@ namespace ProjectManager.Projects
         /// <summary>
         /// Indicate if the path can be flagged as "Always Compile"
         /// </summary>
-        internal virtual CompileTargetType AllowCompileTarget(string path, bool isDirectory)
+        public virtual CompileTargetType AllowCompileTarget(string path, bool isDirectory)
         {
             // to be implemented
             return CompileTargetType.None;
@@ -322,9 +322,9 @@ namespace ProjectManager.Projects
 			return ProjectPaths.GetRelativePath(this.Directory, path);
 		}
 
-        public void UpdateVars()
+        public void UpdateVars(bool silent)
         {
-            if (ProjectUpdating != null) ProjectUpdating();
+            if (!silent && ProjectUpdating != null) ProjectUpdating();
             vars = new BuildEventVars(this).GetVars();
         }
 
@@ -381,7 +381,7 @@ namespace ProjectManager.Projects
         Website
     }
 
-    internal enum CompileTargetType
+    public enum CompileTargetType
     {
         None = 0,
         AlwaysCompile = 1,

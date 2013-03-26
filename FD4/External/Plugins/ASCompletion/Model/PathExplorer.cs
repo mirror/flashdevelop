@@ -287,8 +287,6 @@ namespace ASCompletion.Model
             int n = foundFiles.Count;
             NotifyProgress(String.Format(TextHelper.GetString("Info.Parsing"), n), 0, n);
             FileModel aFile = null;
-            string basePath = "";
-            string packagePath = "";
             int cpt = 0;
             string filename;
             for (int i = 0; i < n; i++)
@@ -310,19 +308,12 @@ namespace ASCompletion.Model
                 }
                 else writeCache = true;
 
-                aFile = GetFileModel(filename); //ASContext.Panel.Invoke(new GetFileModelHandler(GetFileModel), new object[] { filename }) as FileModel;
+                aFile = GetFileModel(filename);
 
                 if (aFile == null || pathModel.HasFile(filename)) continue;
                 // store model
-                basePath = Path.GetDirectoryName(filename);
-                if (aFile.Package != "")
-                {
-                    packagePath = '\\' + aFile.Package.Replace('.', '\\');
-                    if (basePath.EndsWith(packagePath))
-                        basePath = basePath.Substring(0, basePath.Length - packagePath.Length);
-                }
-                basePath += "\\";
-                pathModel.AddFile(aFile);
+                if (aFile.Context.IsModelValid(aFile, pathModel))
+                    pathModel.AddFile(aFile);
                 aFile = null;
                 cpt++;
                 // update status

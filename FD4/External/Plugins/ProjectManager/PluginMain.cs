@@ -532,7 +532,7 @@ namespace ProjectManager
             if (this.project != null) CloseProject(true);
 
             this.project = project;
-            project.UpdateVars();
+            project.UpdateVars(true);
 
             // init
             Environment.CurrentDirectory = project.Directory;
@@ -644,7 +644,7 @@ namespace ProjectManager
         {
             using (PropertiesDialog dialog = project.CreatePropertiesDialog())
             {
-                project.UpdateVars();
+                project.UpdateVars(false);
                 dialog.SetProject(project);
                 dialog.OpenGlobalClasspaths += delegate { OpenGlobalClasspaths(); };
                 dialog.ShowDialog(pluginUI);
@@ -655,7 +655,7 @@ namespace ProjectManager
                 if (dialog.PropertiesChanged)
                 {
                     project.PropertiesChanged();
-                    project.UpdateVars();
+                    project.UpdateVars(true);
                     BroadcastProjectInfo();
                     project.Save();
                     menus.ProjectChanged(project);

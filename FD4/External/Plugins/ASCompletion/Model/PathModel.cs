@@ -87,6 +87,7 @@ namespace ASCompletion.Model
         public IASContext Owner;
         public bool IsValid;
         public bool IsVirtual;
+        public bool ValidatePackage;
         private object lockObject = new object();
         private bool inited;
         private bool inUse;
@@ -445,7 +446,8 @@ namespace ASCompletion.Model
                         FileModel newModel = new FileModel(fileName);
                         newModel.Context = Owner;
                         newModel.OutOfDate = true;
-                        files[fileName.ToUpper()] = newModel;
+                        if (Owner.IsModelValid(newModel, this))
+                            files[fileName.ToUpper()] = newModel;
                     }
             }
         }
