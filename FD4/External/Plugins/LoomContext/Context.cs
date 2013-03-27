@@ -214,7 +214,7 @@ namespace LoomContext
             }
             catch (Exception ex)
             {
-                string message = TextHelper.GetString("Info.ExceptionWhileParsing");
+                string message = TextHelper.GetString("AS3Context.Info.ExceptionWhileParsing");
                 TraceManager.AddAsync(message + " " + path.Path);
                 TraceManager.AddAsync(ex.Message);
                 TraceManager.AddAsync(ex.StackTrace);

@@ -25,7 +25,7 @@ namespace LoomContext
         private String pluginName = "LoomContext";
         private String pluginGuid = "fc62c534-db6e-4c58-b901-cd0b837e61c0";
         private String pluginHelp = "www.flashdevelop.org/community/";
-        private String pluginDesc = "TheEngineCo Loom context for the ASCompletion engine.";
+        private String pluginDesc = "Loom context for the ASCompletion engine.";
         private String pluginAuth = "FlashDevelop Team";
         static private LoomSettings settingObject;
         private Context contextInstance;
@@ -94,6 +94,7 @@ namespace LoomContext
         {
             get { return settingObject as LoomSettings; }
         }
+
         #endregion
 
         #region Required Methods
@@ -218,6 +219,7 @@ namespace LoomContext
             String dataPath = Path.Combine(PathHelper.DataDir, "LoomContext");
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
             this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
+            this.pluginDesc = TextHelper.GetString("Info.Description");
         }
 
         /// <summary>

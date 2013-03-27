@@ -77,13 +77,13 @@ namespace LoomContext
         [Browsable(false)]
         public string CheckSyntaxRunning
         {
-            get { return /*TextHelper.GetString("Info.MxmlcRunning")*/"Running"; }
+            get { return TextHelper.GetString("Info.LoomRunning"); }
         }
 
         [Browsable(false)]
         public string CheckSyntaxDone
         {
-            get { return /*TextHelper.GetString("Info.MxmlcDone")*/"Done"; }
+            get { return TextHelper.GetString("Info.LoomDone"); }
         }
 
         [DisplayName("Check Syntax On Save")]
@@ -107,7 +107,7 @@ namespace LoomContext
         }
 
         [DisplayName("Installed Loom SDKs")]
-        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("AS3Context.Description.FlexSDK")]
+        [LocalizedCategory("ASCompletion.Category.Language"), LocalizedDescription("LoomContext.Description.SDKs")]
         public InstalledSDK[] InstalledSDKs
         {
             get { return installedSDKs; }

@@ -5032,4 +5032,24 @@ UseData:"</value>
     <value>プロファイルに使用するパスワードを設定</value>
     <comment>Added after 4.3</comment>
   </data>
+  <data name="LoomContext.Description.SDKs" xml:space="preserve">
+    <value>Path to the Loom SDK.</value>
+    <comment>Added after 4.3.0</comment>
+  </data>
+  <data name="LoomContext.Info.Description" xml:space="preserve">
+    <value>Loom context for the ASCompletion engine.</value>
+    <comment>Added after 4.3.0</comment>
+  </data>
+  <data name="LoomContext.Info.InvalidClass" xml:space="preserve">
+    <value>This file is not a valid Loom class.</value>
+    <comment>Added after 4.3.0</comment>
+  </data>
+  <data name="LoomContext.Info.LoomDome" xml:space="preserve">
+    <value>Done</value>
+    <comment>Added after 4.3.0</comment>
+  </data>
+  <data name="LoomContext.Info.LoomRunning" xml:space="preserve">
+    <value>Running</value>
+    <comment>Added after 4.3.0</comment>
+  </data>
 </root>
