@@ -1486,6 +1486,8 @@ namespace ASCompletion.Completion
 
         public static void FunctionContextResolved(ScintillaControl Sci, ASExpr expr, MemberModel method, ClassModel inClass, bool showTip)
         {
+            if (method == null || string.IsNullOrEmpty(method.Name)) 
+                return;
             int position = expr.Position;
             calltipPos = position;
             calltipOffset = Math.Min(expr.Value.Length, method.Name.Length);
