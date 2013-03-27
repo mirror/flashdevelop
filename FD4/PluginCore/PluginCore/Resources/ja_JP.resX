@@ -5044,7 +5044,7 @@ UseData:"</value>
     <value>This file is not a valid Loom class.</value>
     <comment>Added after 4.3.0</comment>
   </data>
-  <data name="LoomContext.Info.LoomDome" xml:space="preserve">
+  <data name="LoomContext.Info.LoomDone" xml:space="preserve">
     <value>Done</value>
     <comment>Added after 4.3.0</comment>
   </data>
