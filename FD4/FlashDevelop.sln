@@ -336,7 +336,8 @@ Global
 		{92BBB3B6-E318-4B12-8378-6D46E69AB938}.Debug|x86.Build.0 = Debug|x86
 		{92BBB3B6-E318-4B12-8378-6D46E69AB938}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92BBB3B6-E318-4B12-8378-6D46E69AB938}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92BBB3B6-E318-4B12-8378-6D46E69AB938}.Release|x86.ActiveCfg = Release|Any CPU
+		{92BBB3B6-E318-4B12-8378-6D46E69AB938}.Release|x86.ActiveCfg = Release|x86
+		{92BBB3B6-E318-4B12-8378-6D46E69AB938}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
