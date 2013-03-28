@@ -1042,7 +1042,10 @@ namespace HaXeContext
 
             // update completion
             if (list.Count > 0)
+            {
+                list.Sort();
                 ASComplete.DotContextResolved(sci, hc.expr, list, hc.autoHide);
+            }
         }
 
 
