@@ -4987,11 +4987,11 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomDone" xml:space="preserve">
-    <value>Done</value>
+    <value>Loom Done</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomRunning" xml:space="preserve">
-    <value>Running</value>
+    <value>Loom Running</value>
     <comment>Added after 4.3.0</comment>
   </data>
 </root>
