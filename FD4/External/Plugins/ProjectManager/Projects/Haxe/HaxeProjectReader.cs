@@ -21,6 +21,9 @@ namespace ProjectManager.Projects.Haxe
 
         protected override void PostProcess()
         {
+            if (project.MovieOptions.Platform == HaxeMovieOptions.NME_PLATFORM)
+                project.MovieOptions.TargetBuildTypes = HaxeMovieOptions.NME_TARGETS;
+
             if (version > 1)
             {
                 // old projects fix
