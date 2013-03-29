@@ -47,33 +47,10 @@ namespace LoomContext.Projects
             else error = null;
         }
 
-        /*public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
+        public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
         {
-            if (nodeType == "ProjectManager.Controls.TreeView.ClassExportNode") return export;
-            
-            string pre = "";
-            string post = "";
-            string ext = Path.GetExtension(inFile).ToLower();
-            if (ext == ".as") { pre = "["; post = "]"; }
-
-            string relPath = ProjectPaths.GetRelativePath(Path.GetDirectoryName(inFile), path).Replace('\\', '/');
-            string fileExt = Path.GetExtension(path).ToLower();
-            if (export != null)
-            {
-                if (export.IndexOf('(') > 0)
-                {
-                    string fontName = export.Substring(0, export.IndexOf('(')).Trim();
-                    return String.Format("{0}Embed(source=\"{1}\", fontFamily=\"{2}\"){3}", pre, relPath, fontName, post);
-                }
-                else return String.Format("{0}Embed(source=\"{1}\", symbol=\"{2}\"){3}", pre, relPath, export, post);
-            }
-            else if (FileInspector.IsImage(relPath, fileExt) || IsText(fileExt) 
-                || FileInspector.IsFont(relPath, fileExt) || FileInspector.IsSound(relPath, fileExt))
-            {
-                return String.Format("{0}Embed(source=\"{1}\"){2}", pre, relPath, post);
-            }
-            else return String.Format("{0}Embed(source=\"{1}\", mimeType=\"application/octet-stream\"){2}", pre, relPath, post);
-        }*/
+            return ProjectPaths.GetRelativePath(this.Directory, path).Replace("\\", "/");
+        }
 
         private bool IsText(string ext)
         {
