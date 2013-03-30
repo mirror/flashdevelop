@@ -865,8 +865,10 @@ namespace HaXeContext
                 completionModeHandler = null;
             }
 
+            // fix environment for command line tools
             Environment.SetEnvironmentVariable("HAXEPATH", currentSDK);
 
+            // configure completion provider
             var haxeSettings = (settings as HaXeSettings);
             features.externalCompletion = haxeSettings.CompletionMode != HaxeCompletionModeEnum.FlashDevelop;
 
@@ -972,8 +974,9 @@ namespace HaXeContext
             if (outputType == "error")
             {
                 string err = al[1].ToString();
-                sci.CallTipShow(sci.CurrentPos, err);
-                sci.CharAdded += new ScintillaNet.CharAddedHandler(removeTip);
+                TraceManager.AddAsync(err, -3);
+                //sci.CallTipShow(sci.CurrentPos, err);
+                //sci.CharAdded += new ScintillaNet.CharAddedHandler(removeTip);
 
                 // show default completion tooltip
                 if (!hxsettings.DisableMixedCompletion)
@@ -1221,8 +1224,9 @@ namespace HaXeContext
             else if ( outputType == "error" )
             {
                 string err = al[1].ToString();
-                sci.CallTipShow(sci.CurrentPos, err);
-                sci.CharAdded += new ScintillaNet.CharAddedHandler(removeTip);
+                TraceManager.AddAsync(err, -3);
+                //sci.CallTipShow(sci.CurrentPos, err);
+                //sci.CharAdded += new ScintillaNet.CharAddedHandler(removeTip);
             }
             
             // show call tip
@@ -1230,11 +1234,11 @@ namespace HaXeContext
             ASComplete.FunctionContextResolved(sci, hc.expr, member, null, true);
         }
 
-        void removeTip(ScintillaNet.ScintillaControl sender, int ch)
+        /*void removeTip(ScintillaNet.ScintillaControl sender, int ch)
         {
             sender.CallTipCancel();
             sender.CharAdded -= removeTip;
-        }
+        }*/
         #endregion
 
         #region command line compiler

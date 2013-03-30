@@ -1488,6 +1488,13 @@ namespace ASCompletion.Completion
         {
             if (method == null || string.IsNullOrEmpty(method.Name)) 
                 return;
+            if (calltipMember != null && calltipMember.Name == method.Name)
+            {
+                // use FD-extracted comments
+                if (method.Comments == null && !string.IsNullOrEmpty(calltipMember.Comments))
+                    method.Comments = calltipMember.Comments;
+            }
+
             int position = expr.Position;
             calltipPos = position;
             calltipOffset = Math.Min(expr.Value.Length, method.Name.Length);

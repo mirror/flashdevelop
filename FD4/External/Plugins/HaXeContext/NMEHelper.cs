@@ -233,18 +233,18 @@ namespace HaXeContext
         private static string GetHaxelib(IProject project)
         {
             string haxelib = project.CurrentSDK;
-            if (haxelib == null)
-            {
-                string[] path = Environment.ExpandEnvironmentVariables("%PATH%").Split(';');
-                foreach (string dir in path)
-                {
-                    if (File.Exists(Path.Combine(dir, "haxelib.exe")))
-                        return dir;
-                }
-                haxelib = "haxelib";
-            }
+            if (haxelib == null) return "haxelib";
             else if (Directory.Exists(haxelib)) haxelib = Path.Combine(haxelib, "haxelib.exe");
             else haxelib = haxelib.Replace("haxe.exe", "haxelib.exe");
+
+            // fix environment for command line tools
+            string currentSDK = Path.GetDirectoryName(haxelib);
+            Environment.SetEnvironmentVariable("HAXEPATH", currentSDK);
+            string path = Environment.ExpandEnvironmentVariables("%PATH%");
+            path = path.Replace(currentSDK + ";", "");
+            Environment.SetEnvironmentVariable("PATH", currentSDK + ";" + path);
+            path = Environment.ExpandEnvironmentVariables("%PATH%");
+
             return haxelib;
         }
     }
