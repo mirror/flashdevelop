@@ -145,6 +145,7 @@ namespace HaXeContext
             {
                 hxproj = project as HaxeProject;
                 hxproj.ProjectUpdating += new ProjectUpdatingHandler(hxproj_ProjectUpdating);
+                hxproj_ProjectUpdating();
             }
         }
 
@@ -195,12 +196,18 @@ namespace HaXeContext
         private static void UpdateProject()
         {
             string haxelib = GetHaxelib(hxproj);
+            if (haxelib == "haxelib")
+            {
+                TraceManager.AddAsync("Haxelib not found", -3);
+                return;
+            }
+
             string config = hxproj.TargetBuild;
             if (String.IsNullOrEmpty(config)) config = "flash";
 
             ProcessStartInfo pi = new ProcessStartInfo();
             pi.FileName = haxelib;
-            pi.Arguments = " run nme display \"" + hxproj.GetRelativePath(nmmlPath) + "\" " + config;
+            pi.Arguments = "run nme display \"" + hxproj.GetRelativePath(nmmlPath) + "\" " + config;
             pi.RedirectStandardError = true;
             pi.RedirectStandardOutput = true;
             pi.UseShellExecute = false;
@@ -216,6 +223,7 @@ namespace HaXeContext
 
             if (string.IsNullOrEmpty(hxml))
             {
+                if (string.IsNullOrEmpty(err)) err = "Haxelib error: no response";
                 TraceManager.AddAsync(err, -3);
                 hxproj.RawHXML = null;
             }
@@ -225,7 +233,16 @@ namespace HaXeContext
         private static string GetHaxelib(IProject project)
         {
             string haxelib = project.CurrentSDK;
-            if (haxelib == null) haxelib = "haxelib";
+            if (haxelib == null)
+            {
+                string[] path = Environment.ExpandEnvironmentVariables("%PATH%").Split(';');
+                foreach (string dir in path)
+                {
+                    if (File.Exists(Path.Combine(dir, "haxelib.exe")))
+                        return dir;
+                }
+                haxelib = "haxelib";
+            }
             else if (Directory.Exists(haxelib)) haxelib = Path.Combine(haxelib, "haxelib.exe");
             else haxelib = haxelib.Replace("haxe.exe", "haxelib.exe");
             return haxelib;

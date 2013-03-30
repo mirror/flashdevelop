@@ -546,6 +546,8 @@ namespace ProjectManager
             PluginBase.CurrentSolution = project;
             PluginBase.CurrentProject = project;
             PluginBase.MainForm.RefreshUI();
+
+            BuildActions.GetCompilerPath(project); // detect project's SDK
             BroadcastProjectInfo();
 
             projectActions.UpdateASCompletion(MainForm, project);
