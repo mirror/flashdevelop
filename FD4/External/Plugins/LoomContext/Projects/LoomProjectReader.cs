@@ -22,6 +22,15 @@ namespace LoomContext.Projects
             return base.ReadProject() as LoomProject;
         }
 
+        protected override void PostProcess()
+        {
+            base.PostProcess();
+            if (project.CompileTargets.Count == 0)
+                project.CompileTargets.Add("src/main.ls");
+            if (project.OutputType == OutputType.Unknown)
+                project.OutputType = OutputType.Application;
+        }
+
         // process Loom-specific stuff
         protected override void ProcessNode(string name)
         {

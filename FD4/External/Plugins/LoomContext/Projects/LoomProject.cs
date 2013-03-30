@@ -28,7 +28,7 @@ namespace LoomContext.Projects
         }
 
         public override string Language { get { return "loom"; } }
-        public override bool IsCompilable { get { return false; } }
+        public override bool IsCompilable { get { return true; } }
         public override bool ReadOnly { get { return false; } }
         public override bool HasLibraries { get { return OutputType == OutputType.Application; } }
         public override int MaxTargetsCount { get { return 1; } }

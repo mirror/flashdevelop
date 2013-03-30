@@ -8,7 +8,6 @@ namespace LoomContext.Projects
     public class LoomMovieOptions : MovieOptions
     {
         public const string LOOM_PLATFORM = "Loom";
-        public const string CUSTOM_PLATFORM = "Custom";
 
         public LoomMovieOptions()
         {
@@ -23,25 +22,17 @@ namespace LoomContext.Projects
 
         public override string[] TargetPlatforms
         {
-            get { return new string[] { LOOM_PLATFORM, CUSTOM_PLATFORM }; }
+            get { return new string[] { LOOM_PLATFORM }; }
         }
 
         public override string[] TargetVersions(string platform)
         {
-            switch (platform)
-            {
-                case CUSTOM_PLATFORM: return new string[] { "0.0" };
-                default: return new string[] { "1.0" };
-            }
+            return new string[] { "1.0" };
         }
 
         public override string DefaultVersion(string platform)
         {
-            switch (platform)
-            {
-                case CUSTOM_PLATFORM: return "0.0";
-                default: return "1.0";
-            }
+            return "1.0";
         }
 
         public override OutputType[] OutputTypes
@@ -55,12 +46,17 @@ namespace LoomContext.Projects
 
         public override OutputType DefaultOutput(string platform)
         {
-            return platform == CUSTOM_PLATFORM ? OutputType.CustomBuild : OutputType.Application;
+            return OutputType.Application;
         }
 
         public override bool IsGraphical(string platform)
         {
-            return platform != CUSTOM_PLATFORM;
+            return false;
+        }
+
+        public override bool HasOutput(OutputType output)
+        {
+            return false;
         }
 
     }

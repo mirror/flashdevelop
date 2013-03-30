@@ -1325,7 +1325,7 @@ namespace ProjectManager.Controls
         private void UpdateGeneralPanel()
         {
             OutputType output = GetOutput();
-            generalGroupBox.Enabled = (output == OutputType.Application || output == OutputType.Library);
+            generalGroupBox.Enabled = project.MovieOptions.HasOutput(output);
             testMovieCombo.Enabled = (output != OutputType.Library);
             
             bool isGraphical = project.MovieOptions.IsGraphical(GetPlatform());

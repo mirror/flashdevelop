@@ -119,6 +119,7 @@ namespace AS3Context.Compiler
                     if (!process.HasExited) process.Kill();
                 }
                 catch { }
+                process = null;
             }
             running = false;
         }

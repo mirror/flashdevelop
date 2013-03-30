@@ -17,6 +17,7 @@ using WeifenLuo.WinFormsUI.Docking;
 using System.Windows.Forms;
 using PluginCore;
 using LoomContext.Projects;
+using ProjectManager.Projects;
 
 namespace LoomContext
 {
@@ -135,28 +136,28 @@ namespace LoomContext
                 case EventType.Command:
                     DataEvent de = e as DataEvent;
                     string action = de.Action;
+                    if (PluginBase.CurrentProject == null || !(PluginBase.CurrentProject is LoomProject)) 
+                        return;
+
                     /*if (action == "ProjectManager.OpenVirtualFile")
                     {
                         if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "Loom")
                             e.Handled = OpenVirtualFileModel(de.Data as String);
                     }
-                    else*/ if (action == "ProjectManager.BuildingProject")
+                    else*/ 
+                    if (action == "ProjectManager.BuildingProject"
+                        && (PluginBase.CurrentProject as LoomProject).OutputType == OutputType.Application)
                     {
-                        if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "loom")
-                        {
-                            de.Handled = true;
-                            PluginBase.MainForm.CallCommand("SaveAllModified", null);
-                            LoomHelper.Build(PluginBase.CurrentProject as LoomProject);
-                        }
+                        de.Handled = true;
+                        PluginBase.MainForm.CallCommand("SaveAllModified", null);
+                        LoomHelper.Build(PluginBase.CurrentProject as LoomProject);
                     }
-                    else if (action == "ProjectManager.TestingProject")
+                    else if (action == "ProjectManager.TestingProject" 
+                             && (PluginBase.CurrentProject as LoomProject).OutputType == OutputType.Application)
                     {
-                        if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "loom")
-                        {
-                            de.Handled = true;
-                            PluginBase.MainForm.CallCommand("SaveAllModified", null);
-                            LoomHelper.Run(PluginBase.CurrentProject as LoomProject);
-                        }
+                        de.Handled = true;
+                        PluginBase.MainForm.CallCommand("SaveAllModified", null);
+                        LoomHelper.Run(PluginBase.CurrentProject as LoomProject);
                     }
                     else if (action == "ProjectManager.Project")
                     {

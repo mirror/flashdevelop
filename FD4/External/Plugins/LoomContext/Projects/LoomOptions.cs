@@ -44,10 +44,11 @@ namespace LoomContext.Projects
         }*/
         
         string[] libraryPaths = new string[] { };
-        [DisplayName("Loom Libraries")]
+        /*[DisplayName("Loom Libraries")]
         [LocalizedCategory("ProjectManager.Category.Advanced")]
         [LocalizedDescription("ProjectManager.Description.LibraryPaths")]
-        [DefaultValue(new string[] { })]
+        [DefaultValue(new string[] { })]*/
+        [Browsable(false)]
         public string[] LibraryPaths
         {
             get { return libraryPaths; }

@@ -45,6 +45,11 @@ namespace ProjectManager.Projects
         public abstract OutputType DefaultOutput(string platform);
         public abstract bool IsGraphical(string platform);
 
+        public virtual bool HasOutput(OutputType output)
+        {
+            return (output == OutputType.Application || output == OutputType.Library);
+        }
+
         public virtual string Version 
         { 
             get { return MajorVersion + "." + MinorVersion; }
@@ -57,5 +62,6 @@ namespace ProjectManager.Projects
         }
 
         public abstract bool DebuggerSupported { get; }
+
 	}
 }
