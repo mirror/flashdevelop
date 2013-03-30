@@ -868,6 +868,8 @@ namespace HaXeContext
             Environment.SetEnvironmentVariable("HAXEPATH", currentSDK);
 
             var haxeSettings = (settings as HaXeSettings);
+            features.externalCompletion = haxeSettings.CompletionMode != HaxeCompletionModeEnum.FlashDevelop;
+
             switch (haxeSettings.CompletionMode)
             {
                 case HaxeCompletionModeEnum.Compiler:

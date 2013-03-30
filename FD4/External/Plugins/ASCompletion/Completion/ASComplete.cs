@@ -1896,6 +1896,16 @@ namespace ASCompletion.Completion
                 list.Add(new MemberItem(member));
 			CompletionList.Show(list, autoHide, tail);
 
+            // smart focus token
+            if (!features.externalCompletion)
+                AutoselectDotToken(classScope, tail);
+
+            if (outOfDate) ctx.SetOutOfDate();
+			return true;
+		}
+
+        private static void AutoselectDotToken(ClassModel classScope, string tail)
+        {
             // remember the latest class resolved for completion to store later the inserted member
             currentClassHash = classScope != null ? classScope.QualifiedName : null;
 
@@ -1911,10 +1921,7 @@ namespace ASCompletion.Completion
                     CompletionList.SelectItem(completionHistory[currentClassHash]);
                 }
             }
-
-            if (outOfDate) ctx.SetOutOfDate();
-			return true;
-		}
+        }
 
         static public void DotContextResolved(ScintillaControl Sci, ASExpr expr, MemberList items, bool autoHide)
         {
@@ -2432,6 +2439,9 @@ namespace ASCompletion.Completion
 					result.Member = var;
                     result.InFile = inFile;
 					result.InClass = inClass;
+                    if (var.Type == null && (var.Flags & FlagType.LocalVar) > 0 
+                        && context.Features.hasInference && !context.Features.externalCompletion)
+                        InferVariableType(local, var);
                     result.Type = context.ResolveType(var.Type, inFile);
 					
 					if ((var.Flags & FlagType.Function) > 0)
@@ -2551,6 +2561,36 @@ namespace ASCompletion.Completion
 			}
 			return result;
 		}
+
+        /// <summary>
+        /// Infer very simple cases: var foo = {expression}
+        /// </summary>
+        private static void InferVariableType(ASExpr local, MemberModel var)
+        {
+            ScintillaControl sci = ASContext.CurSciControl;
+            if (sci == null || var.LineFrom >= sci.LineCount) 
+                return;
+            // is it a simple affectation inference?
+            string text = sci.GetLine(var.LineFrom);
+            Regex reVar = new Regex("\\s*var\\s+" + var.Name + "\\s*=([^;]+)");
+            Match m = reVar.Match(text);
+            if (m.Success && m.Groups[1].Length > 1)
+            {
+                int p = text.IndexOf(';');
+                if (p < 0) p = text.Length;
+                // resolve expression
+                ASExpr expr = GetExpression(sci, sci.PositionFromLine(var.LineFrom) + p, true);
+                if (!string.IsNullOrEmpty(expr.Value))
+                {
+                    ASResult result = EvalExpression(expr.Value, expr, ASContext.Context.CurrentModel, ASContext.Context.CurrentClass, true, false);
+                    if (!result.IsNull())
+                    {
+                        if (result.Member != null) var.Type = result.Member.Type;
+                        else if (result.Type != null && !result.Type.IsVoid()) var.Type = result.Type.QualifiedName;
+                    }
+                }
+            }
+        }
 
         private static void FindInPackage(string token, FileModel inFile, string pkg, ASResult result)
         {

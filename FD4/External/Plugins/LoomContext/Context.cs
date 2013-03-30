@@ -41,6 +41,7 @@ namespace LoomContext
             features.hasDelegates = true;
             features.hasGenerics = true;
             features.hasEcmaTyping = true;
+            features.hasInference = true;
             features.hasVars = true;
             features.hasConsts = true;
             features.hasMethods = true;

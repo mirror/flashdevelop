@@ -11,6 +11,9 @@ namespace ASCompletion.Completion
     /// </summary>
     public class ContextFeatures
     {
+        // code completion provided by a 3rd party compiler (ie. Haxe)
+        public bool externalCompletion;
+
         // language constructs
         public bool hasPackages;
         public bool hasNamespaces;
