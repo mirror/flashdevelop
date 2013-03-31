@@ -65,6 +65,14 @@ namespace FlashDevelop.Utilities
             return PathHelper.BaseDir;
         }
 
+        /// <summary>
+        /// Gets the template file directory
+        /// </summary>
+        public static String GetTemplateDir()
+        {
+            return PathHelper.TemplateDir;
+        }
+
 		/// <summary>
 		/// Gets the selected text
 		/// </summary>
@@ -351,6 +359,7 @@ namespace FlashDevelop.Utilities
                     case "STC" : return GetSTC();
                     case "AppDir" : return GetAppDir();
                     case "UserAppDir" : return GetUserAppDir();
+                    case "TemplateDir": return GetTemplateDir();
                     case "BaseDir" : return GetBaseDir();
                     case "SelText" : return GetSelText();
                     case "CurFilename": return GetCurFilename();
