@@ -5033,23 +5033,23 @@ UseData:"</value>
     <comment>Added after 4.3</comment>
   </data>
   <data name="LoomContext.Description.SDKs" xml:space="preserve">
-    <value>Path to the Loom SDK.</value>
+    <value>Loom SDK のパスを設定。</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.Description" xml:space="preserve">
-    <value>Loom context for the ASCompletion engine.</value>
+    <value>ASCompletion エンジンに Loom のコンテキストを追加します。</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.InvalidClass" xml:space="preserve">
-    <value>This file is not a valid Loom class.</value>
+    <value>このファイルは有効なLoomクラスではありません。</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomDone" xml:space="preserve">
-    <value>Loom Done</value>
+    <value>Loom 完了</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomRunning" xml:space="preserve">
-    <value>Loom Running</value>
+    <value>Loom 実行中</value>
     <comment>Added after 4.3.0</comment>
   </data>
 </root>
