@@ -437,6 +437,25 @@ namespace HaXeContext
         }
 
         /// <summary>
+        /// Create a new file model using the default file parser
+        /// </summary>
+        /// <param name="filename">Full path</param>
+        /// <returns>File model</returns>
+        public override FileModel GetFileModel(string fileName)
+        {
+            return base.GetFileModel(fileName);
+        }
+
+        /// <summary>
+        /// Refresh the file model
+        /// </summary>
+        /// <param name="updateUI">Update outline view</param>
+        public override void UpdateCurrentFile(bool updateUI)
+        {
+            base.UpdateCurrentFile(updateUI);
+        }
+
+        /// <summary>
         /// Confirms that the FileModel should be added to the PathModel
         /// - typically classes whose context do not patch the classpath should be ignored
         /// </summary>
