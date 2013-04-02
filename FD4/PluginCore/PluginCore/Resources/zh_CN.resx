@@ -4981,23 +4981,23 @@
     <comment>Added after 4.3</comment>
   </data>
   <data name="LoomContext.Description.SDKs" xml:space="preserve">
-    <value>Path to the Loom SDK.</value>
+    <value>PLoom SDK的路径.</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.Description" xml:space="preserve">
-    <value>Loom context for the ASCompletion engine.</value>
+    <value>支持ASCompletion引擎的Loom环境.</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.InvalidClass" xml:space="preserve">
-    <value>This file is not a valid Loom class.</value>
+    <value>这个文件不是有效的Loom类.</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomDone" xml:space="preserve">
-    <value>Loom Done</value>
+    <value>Loom完成</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomRunning" xml:space="preserve">
-    <value>Loom Running</value>
+    <value>Loom正在运行</value>
     <comment>Added after 4.3.0</comment>
   </data>
 </root>
