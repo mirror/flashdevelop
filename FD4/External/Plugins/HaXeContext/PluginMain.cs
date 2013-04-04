@@ -299,6 +299,11 @@ namespace HaXeContext
                 }
                 else ErrorManager.ShowInfo("Invalid changes.txt file:\n" + descriptor);
             }
+            else if (File.Exists(Path.Combine(path, "haxe.exe"))) 
+            {
+                sdk.Version = "0.0";
+                sdk.Name = "Haxe ?";
+            }
             else ErrorManager.ShowInfo("No change.txt found:\n" + descriptor);
             return false;
         }
