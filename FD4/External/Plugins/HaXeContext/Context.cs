@@ -588,7 +588,9 @@ namespace HaXeContext
 
         public override bool OnCompletionInsert(ScintillaNet.ScintillaControl sci, int position, string text, char trigger)
         {
-            if (text.Length > 0 && Char.IsUpper(text[0]))
+            // Commented out: the consensus is to not detect and add the type index type.
+
+            /*if (text.Length > 0 && Char.IsUpper(text[0]))
             {
                 string insert = null;
                 string line = sci.GetLine(sci.LineFromPosition(position));
@@ -626,7 +628,7 @@ namespace HaXeContext
                 }
                 sci.SetSel(sci.CurrentPos, sci.CurrentPos);
                 return true;
-            }
+            }*/
 
             return false;
         }
