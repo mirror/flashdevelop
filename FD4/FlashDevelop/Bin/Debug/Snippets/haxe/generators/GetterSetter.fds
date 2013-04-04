@@ -1,8 +1,8 @@
-$(BlankLine)private function get_$(Name)():$(Type) $(CSLB){
+$(BlankLine)function get_$(Name)():$(Type) $(CSLB){
 	return $(Member)$(EntryPoint);
 }
 
-private function set_$(Name)(value:$(Type)):$(Type) $(CSLB){
+function set_$(Name)(value:$(Type)):$(Type) $(CSLB){
 	return $(Member) = value;
 }
 

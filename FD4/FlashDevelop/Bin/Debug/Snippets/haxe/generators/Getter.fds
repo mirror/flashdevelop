@@ -1,4 +1,4 @@
-$(BlankLine)private function get_$(Name)():$(Type) $(CSLB){
+$(BlankLine)function get_$(Name)():$(Type) $(CSLB){
 	return $(Member)$(EntryPoint);
 }
 

@@ -1,1 +1,1 @@
-$(Modifiers) inline var $(Name):$(Type)<< = $(Value)>>$(EntryPoint);
+<<$(Modifiers) >>inline var $(Name):$(Type)<< = $(Value)>>$(EntryPoint);

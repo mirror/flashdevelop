@@ -1,5 +1,5 @@
 $(BlankLine)
 @:getter($(Name))
-$(Modifiers) function get_$(Name)():$(Type) $(CSLB){
+<<$(Modifiers) >>function get_$(Name)():$(Type) $(CSLB){
 	return $(Member)$(EntryPoint);
 }

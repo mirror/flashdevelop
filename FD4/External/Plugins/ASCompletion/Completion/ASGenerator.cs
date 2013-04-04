@@ -1297,36 +1297,16 @@ namespace ASCompletion.Completion
                 }
             }
 
-            if (word != null && Char.IsDigit(word[0]))
-            {
-                word = null;
-            }
-            
-            if (type == voidWord)
-            {
-                type = null;
-            }
-            if (varname == null)
-            {
-                varname = GuessVarName(word, type);
-            }
+            if (word != null && Char.IsDigit(word[0])) word = null;
+            if (type == voidWord) type = null;
+
+            if (varname == null) varname = GuessVarName(word, type);
+
             if (varname != null && varname == word)
-            {
-                if (varname.Length == 1)
-                {
-                    varname = varname + "1";
-                }
-                else
-                {
-                    varname = varname[0] + "";
-                }
-            }
+                varname = varname.Length == 1 ? varname + "1" : varname[0] + "";
 
-            if (type != null)
-            {
-                cleanType = FormatType(GetShortType(type));
-            }
-
+            if (type != null) cleanType = FormatType(GetShortType(type));
+            
             string template = TemplateUtils.GetTemplate("AssignVariable");
 
             if (varname != null)
@@ -1385,15 +1365,10 @@ namespace ASCompletion.Completion
                     value = value.Trim(new char[] { '\'' });
                 }
             }
-            else
-            {
-                value = resolve.Member.Type;
-            }
+            else value = resolve.Member.Type;
 
             if (value == "" || value == null)
-            {
                 return;
-            }
 
             Regex re1 = new Regex("'(?:[^'\\\\]|(?:\\\\\\\\)|(?:\\\\\\\\)*\\\\.{1})*'");
             Regex re2 = new Regex("\"(?:[^\"\\\\]|(?:\\\\\\\\)|(?:\\\\\\\\)*\\\\.{1})*\"");
@@ -1403,25 +1378,9 @@ namespace ASCompletion.Completion
             if (m1.Success || m2.Success)
             {
                 Match m = null;
-                if (m1.Success && m2.Success)
-                {
-                    if (m1.Index > m2.Index)
-                    {
-                        m = m2;
-                    }
-                    else
-                    {
-                        m = m1;
-                    }
-                }
-                else if (m1.Success)
-                {
-                    m = m1;
-                }
-                else
-                {
-                    m = m2;
-                }
+                if (m1.Success && m2.Success) m = m1.Index > m2.Index ? m2 : m1;
+                else if (m1.Success) m = m1;
+                else m = m2;
                 value = value.Substring(m.Index + 1, m.Length - 2);
             }
 
@@ -1450,9 +1409,7 @@ namespace ASCompletion.Completion
             DataEvent de = new DataEvent(EventType.Command, "ProjectManager.LineEntryDialog", info);
             EventManager.DispatchEvent(null, de);
             if (!de.Handled)
-            {
                 return;
-            }
             
             suggestion = (string)info["suggestion"];
 
@@ -2658,8 +2615,6 @@ namespace ASCompletion.Completion
                 else
                     Sci.SetSel(position, position);
             }
-
-
             
             List<MemberModel> parameters = new List<MemberModel>();
             for (int i = 0; i < functionParameters.Count; i++)
@@ -2670,8 +2625,7 @@ namespace ASCompletion.Completion
             }
             MemberModel newMember = NewMember(contextToken, isStatic, FlagType.Function, funcVisi);
             newMember.Parameters = parameters;
-            GenerateFunction(newMember,
-                position, detach, inClass);
+            GenerateFunction(newMember, position, detach, inClass);
         }
 
         private static void GenerateClass(ScintillaNet.ScintillaControl Sci, String className, ClassModel inClass)
@@ -2854,8 +2808,7 @@ namespace ASCompletion.Completion
             lookupPosition = Sci.CurrentPos;
             AddLookupPosition();
 
-            MemberModel latest = TemplateUtils.GetTemplateBlockMember(Sci,
-                        TemplateUtils.GetBoundary("PrivateMethods"));
+            MemberModel latest = TemplateUtils.GetTemplateBlockMember(Sci, TemplateUtils.GetBoundary("PrivateMethods"));
 
             if (latest == null)
                 latest = GetLatestMemberForFunction(found.inClass, ASGenerator.GetDefaultVisibility(), found.member);
@@ -3113,20 +3066,13 @@ namespace ASCompletion.Completion
 
         private static string GuessVarName(string name, string type)
         {
-            if (name == null)
-            {
-                name = type;
-            }
-
-            if (name == null)
-            {
+            if (name == null) name = type;
+            if (name == null) 
                 return name;
-            }
+
             // if constant then convert to camelCase
             if (name.ToUpper() == name)
-            {
                 name = Camelize(name);
-            }
 
             // if getter, then remove 'get' prefix
             name = name.TrimStart(new char[] { '_' });
@@ -3136,24 +3082,16 @@ namespace ASCompletion.Completion
             }
 
             if (name.Length > 1)
-            {
                 name = Char.ToLower(name[0]) + name.Substring(1);
-            }
             else
-            {
                 name = Char.ToLower(name[0]) + "";
-            }
 
             if (name == "this" || type == name)
             {
                 if (type != null && type.Length > 0)
-                {
                     name = Char.ToLower(type[0]) + type.Substring(1);
-                }
                 else
-                {
                     name = "p_this";
-                }
             }
             return name;
         }
@@ -3357,9 +3295,8 @@ namespace ASCompletion.Completion
         private static string ReplaceAll(string template, string oldValue, string newValue)
         {
             if (template == null)
-            {
                 return null;
-            }
+
             string result = "";
             string[] a = template.Split(new string[] { oldValue }, StringSplitOptions.None);
             for (int i = 0; i < a.Length; i++)

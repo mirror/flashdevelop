@@ -54,6 +54,8 @@ namespace ASCompletion.Completion
                 methodModifiers = (GetStaticExternOverride(m) + GetModifiers(m)).Trim();
 
             // Insert Modifiers (private, static, etc)
+            if (methodModifiers == "private" && Context.ASContext.Context.Features.methodModifierDefault == Visibility.Private)
+                methodModifiers = null;
             string res = ReplaceTemplateVariable(template, "Modifiers", methodModifiers);
 
             // Insert Declaration
