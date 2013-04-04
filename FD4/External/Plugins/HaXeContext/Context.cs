@@ -468,7 +468,7 @@ namespace HaXeContext
             string path = Path.GetDirectoryName(aFile.FileName);
             if (path.StartsWith(pathModel.Path, StringComparison.OrdinalIgnoreCase))
             {
-                string package = path.Substring(pathModel.Path.Length + 1).Replace('/', '.').Replace('\\', '.');
+                string package = path.Length <= pathModel.Path.Length ? "" : path.Substring(pathModel.Path.Length + 1).Replace('/', '.').Replace('\\', '.');
                 return (aFile.Package == package);
             }
             else return false;
