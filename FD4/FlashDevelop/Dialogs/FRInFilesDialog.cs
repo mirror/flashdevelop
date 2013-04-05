@@ -522,7 +522,7 @@ namespace FlashDevelop.Dialogs
             String path = this.folderComboBox.Text;
             String mask = this.extensionComboBox.Text;
             Boolean recursive = this.subDirectoriesCheckBox.Checked;
-            if (this.findComboBox.Text.Trim() != "")
+            if (!String.IsNullOrEmpty(this.findComboBox.Text) && this.IsValidFileMask(mask))
             {
                 FRConfiguration config = this.GetFRConfig(path, mask, recursive);
                 if (config == null) return;
@@ -547,7 +547,7 @@ namespace FlashDevelop.Dialogs
             String path = this.folderComboBox.Text;
             String mask = this.extensionComboBox.Text;
             Boolean recursive = this.subDirectoriesCheckBox.Checked;
-            if (this.findComboBox.Text.Trim() != "")
+            if (!String.IsNullOrEmpty(this.findComboBox.Text) && this.IsValidFileMask(mask))
             {
                 if (!Globals.Settings.DisableReplaceFilesConfirm)
                 {
@@ -850,6 +850,14 @@ namespace FlashDevelop.Dialogs
         }
 
         /// <summary>
+        /// Checks if the file mask is somewhat valid
+        /// </summary>
+        private Boolean IsValidFileMask(String mask)
+        {
+            return !String.IsNullOrEmpty(mask) && mask.Trim().StartsWith("*.") && !mask.Contains("..") && !mask.Contains("/") && !mask.Contains("\\");
+        }
+
+        /// <summary>
         /// Updates the file extension and the initial directory
         /// </summary>
         private void UpdateDialogArguments()
@@ -873,7 +881,7 @@ namespace FlashDevelop.Dialogs
             this.redirectCheckBox.CheckedChanged -= new EventHandler(this.RedirectCheckBoxCheckChanged);
             this.redirectCheckBox.Checked = Globals.Settings.RedirectFilesResults;
             this.redirectCheckBox.CheckedChanged += new EventHandler(this.RedirectCheckBoxCheckChanged);
-            if (!this.extensionComboBox.Text.StartsWith("*.") || doRefresh)
+            if (!this.IsValidFileMask(this.extensionComboBox.Text) || doRefresh)
             {
                 if (project != null)
                 {
