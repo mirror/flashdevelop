@@ -24,8 +24,9 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static String GetThemeValue(String id)
         {
-            try { return valueMap[id]; }
-            catch { return null; }
+	        String result;
+	        if (valueMap.TryGetValue(id, out result)) return result;
+	        else return null;
         }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static Color GetThemeColor(String id)
         {
-            try { return ColorTranslator.FromHtml(valueMap[id]); }
+            try { return ColorTranslator.FromHtml(GetThemeValue(id)); }
             catch { return Color.Empty; }
         }
 
