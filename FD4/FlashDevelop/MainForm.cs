@@ -48,6 +48,7 @@ namespace FlashDevelop
             PluginBase.Initialize(this);
             this.InitializeErrorLog();
             this.InitializeSettings();
+            this.InitializeLocalization();
             if (this.InitializeFirstRun() != DialogResult.Abort)
             {
                 this.InitializeRendering();
@@ -752,6 +753,25 @@ namespace FlashDevelop
             }
             SettingObject.EnsureValidity(this.appSettings);
             FileStateManager.RemoveOldStateFiles();
+        }
+
+        /// <summary>
+        /// Initializes the localization from .locale file
+        /// </summary>
+        private void InitializeLocalization()
+        {
+            try
+            {
+                String filePath = Path.Combine(PathHelper.AppDir, ".locale");
+                if (File.Exists(filePath))
+                {
+                    String enumData = File.ReadAllText(filePath).Trim();
+                    LocaleVersion localeVersion = (LocaleVersion)Enum.Parse(typeof(LocaleVersion), enumData);
+                    this.appSettings.LocaleVersion = localeVersion;
+                    File.Delete(filePath);
+                }
+            }
+            catch { /* No errors please. */ }
         }
 
         /// <summary>

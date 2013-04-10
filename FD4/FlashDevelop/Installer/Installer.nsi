@@ -1,6 +1,7 @@
 ;--------------------------------
 
 !include "MUI.nsh"
+!include "Sections.nsh"
 !include "FileAssoc.nsh"
 !include "LogicLib.nsh"
 !include "WordFunc.nsh"
@@ -278,62 +279,6 @@ Function ConnectInternet
 	
 FunctionEnd
 
-Function .onInit
-	
-	; Check if the installer is already running
-	System::Call 'kernel32::CreateMutexA(i 0, i 0, t "FlashDevelop ${VERSION}") i .r1 ?e'
-	Pop $0
-	StrCmp $0 0 +3
-	MessageBox MB_OK|MB_ICONSTOP "The FlashDevelop ${VERSION} installer is already running."
-	Abort
-	
-	Call GetDotNETVersion
-	Pop $0
-	${If} $0 == "not_found"
-	MessageBox MB_OK|MB_ICONSTOP "You need to install Microsoft.NET 2.0 runtime before installing FlashDevelop."
-	Abort
-	${EndIf}
-	StrCpy $0 $0 "" 1 # skip "v"
-	${VersionCompare} $0 "2.0.50727" $1
-	${If} $1 == 2
-	MessageBox MB_OK|MB_ICONSTOP "You need to install Microsoft.NET 2.0 runtime before installing FlashDevelop. You have $0."
-	Abort
-	${EndIf}
-	
-	Call GetFDInstDir
-	Pop $0
-	Call GetNeedsReset
-	Pop $2
-	${If} $2 == "do_reset"
-	${If} $0 != "not_found"
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You have a version of FlashDevelop installed that may make FlashDevelop unstable or you may miss new features if updated. You should backup you custom setting files and do a full uninstall before installing this one. After install customize the new setting files."
-	${EndIf}
-	${EndIf}
-	
-	Call GetFlashVersion
-	Pop $0
-	${If} $0 == "not_found"
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Flash Player (ActiveX for IE) before installing FlashDevelop."
-	${Else}
-	${VersionCompare} $0 "9.0" $1
-	${If} $1 == 2
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Flash Player (ActiveX for IE) before installing FlashDevelop. You have $0."
-	${EndIf}
-	${EndIf}
-	
-	Call GetJavaVersion
-	Pop $0
-	${If} $0 == "not_found"
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install 32-bit Java Runtime (1.6 or later) before installing FlashDevelop."
-	${Else}
-	${VersionCompare} $0 "1.6" $1
-	${If} $1 == 2
-	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install 32-bit Java Runtime (1.6 or later) before installing FlashDevelop. You have $0."
-	${EndIf}
-	${EndIf}
-	
-FunctionEnd
-
 ;--------------------------------
 
 ; Install Sections
@@ -533,7 +478,7 @@ Section "Install AIR SDK (ASC2)" InstallAscSDK
 	
 	; Delete AIR+ASC dir on update
 	RMDir /r "${ASCPATH}"
-		
+	
 	; Create SDK dir if not found
 	IfFileExists "${ASCPATH}\*.*" +2 0
 	CreateDirectory "${ASCPATH}"
@@ -658,6 +603,85 @@ Section "Install JS Compiler" InstallClosureCompiler
 
 SectionEnd
 
+SectionGroup "Language" LanguageGroup
+
+Section "English" EnglishLocale
+	
+	SetOverwrite on
+	SetShellVarContext all
+	
+	; Write the locale file
+	ClearErrors
+	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "en_US"
+	FileClose $1
+	Done:
+	
+SectionEnd
+
+Section "Chinese" ChineseLocale
+	
+	SetOverwrite on
+	SetShellVarContext all
+	
+	; Write the locale file
+	ClearErrors
+	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "zh_CN"
+	FileClose $1
+	Done:
+	
+SectionEnd
+
+Section "Japanese" JapaneseLocale
+	
+	SetOverwrite on
+	SetShellVarContext all
+	
+	; Write the locale file
+	ClearErrors
+	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "ja_JP"
+	FileClose $1
+	Done:
+	
+SectionEnd
+
+Section "German" GermanLocale
+	
+	SetOverwrite on
+	SetShellVarContext all
+	
+	; Write the locale file
+	ClearErrors
+	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "de_DE"
+	FileClose $1
+	Done:
+	
+SectionEnd
+
+Section "Basque" BasqueLocale
+	
+	SetOverwrite on
+	SetShellVarContext all
+	
+	; Write the locale file
+	ClearErrors
+	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "eu_ES"
+	FileClose $1
+	Done:
+	
+SectionEnd
+
+SectionGroupEnd
+
 SectionGroup "Shortcuts"
 
 Section "Desktop Shortcut" DesktopShortcut
@@ -704,6 +728,7 @@ Section "Registry Modifications" RegistryMods
 	
 	Delete "$INSTDIR\.multi"
 	Delete "$INSTDIR\.local"
+	Delete "$INSTDIR\.locale"
 	
 	DeleteRegKey /ifempty HKCR "Applications\FlashDevelop.exe"	
 	DeleteRegKey /ifempty HKLM "Software\Classes\Applications\FlashDevelop.exe"
@@ -902,5 +927,80 @@ SectionEnd
 !insertmacro MUI_DESCRIPTION_TEXT ${UninstMain} "Uninstalls the main program, other required files and registry modifications."
 !insertmacro MUI_DESCRIPTION_TEXT ${UninstSettings} "Uninstalls all settings and snippets from the install directory and user's application data directory."
 !insertmacro MUI_UNFUNCTION_DESCRIPTION_END
+
+;--------------------------------
+
+; Event functions
+
+Function .onInit
+	
+	; Check if the installer is already running
+	System::Call 'kernel32::CreateMutexA(i 0, i 0, t "FlashDevelop ${VERSION}") i .r1 ?e'
+	Pop $0
+	StrCmp $0 0 +3
+	MessageBox MB_OK|MB_ICONSTOP "The FlashDevelop ${VERSION} installer is already running."
+	Abort
+	
+	Call GetDotNETVersion
+	Pop $0
+	${If} $0 == "not_found"
+	MessageBox MB_OK|MB_ICONSTOP "You need to install Microsoft.NET 2.0 runtime before installing FlashDevelop."
+	Abort
+	${EndIf}
+	StrCpy $0 $0 "" 1 # skip "v"
+	${VersionCompare} $0 "2.0.50727" $1
+	${If} $1 == 2
+	MessageBox MB_OK|MB_ICONSTOP "You need to install Microsoft.NET 2.0 runtime before installing FlashDevelop. You have $0."
+	Abort
+	${EndIf}
+	
+	Call GetFDInstDir
+	Pop $0
+	Call GetNeedsReset
+	Pop $2
+	${If} $2 == "do_reset"
+	${If} $0 != "not_found"
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You have a version of FlashDevelop installed that may make FlashDevelop unstable or you may miss new features if updated. You should backup you custom setting files and do a full uninstall before installing this one. After install customize the new setting files."
+	${EndIf}
+	${EndIf}
+	
+	Call GetFlashVersion
+	Pop $0
+	${If} $0 == "not_found"
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Flash Player (ActiveX for IE) before installing FlashDevelop."
+	${Else}
+	${VersionCompare} $0 "9.0" $1
+	${If} $1 == 2
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install Flash Player (ActiveX for IE) before installing FlashDevelop. You have $0."
+	${EndIf}
+	${EndIf}
+	
+	Call GetJavaVersion
+	Pop $0
+	${If} $0 == "not_found"
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install 32-bit Java Runtime (1.6 or later) before installing FlashDevelop."
+	${Else}
+	${VersionCompare} $0 "1.6" $1
+	${If} $1 == 2
+	MessageBox MB_OK|MB_ICONEXCLAMATION "You should install 32-bit Java Runtime (1.6 or later) before installing FlashDevelop. You have $0."
+	${EndIf}
+	${EndIf}
+	
+	StrCpy $1 ${EnglishLocale}
+	Call .onSelChange
+	
+FunctionEnd
+
+Function .onSelChange
+
+	!insertmacro StartRadioButtons $1
+    !insertmacro RadioButton ${EnglishLocale}
+    !insertmacro RadioButton ${ChineseLocale}
+	!insertmacro RadioButton ${JapaneseLocale}
+	!insertmacro RadioButton ${GermanLocale}
+    !insertmacro RadioButton ${BasqueLocale}
+	!insertmacro EndRadioButtons
+	
+FunctionEnd
 
 ;--------------------------------
