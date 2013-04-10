@@ -4975,23 +4975,23 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 4.3</comment>
   </data>
   <data name="LoomContext.Description.SDKs" xml:space="preserve">
-    <value>Path to the Loom SDK.</value>
+    <value>Pfad zum Loom SDK.</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.Description" xml:space="preserve">
-    <value>Loom context for the ASCompletion engine.</value>
+    <value>Loom Kontext die ASCompletion Engine.</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.InvalidClass" xml:space="preserve">
-    <value>This file is not a valid Loom class.</value>
+    <value>Diese Datei ist keine gültige Loom-Klasse.</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomDone" xml:space="preserve">
-    <value>Loom Done</value>
+    <value>Loom beendet</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomRunning" xml:space="preserve">
-    <value>Loom Running</value>
+    <value>Loom läuft</value>
     <comment>Added after 4.3.0</comment>
   </data>
 </root>
