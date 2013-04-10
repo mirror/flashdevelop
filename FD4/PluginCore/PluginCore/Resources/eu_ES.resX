@@ -121,7 +121,7 @@
     <value>Proiekturik definitu ez denerako Flash Player-en helburu bertsioa.</value>
   </data>
   <data name="AS2Context.Description.MMClassPath" xml:space="preserve">
-    <value>Adobe Flash Professional-en klase-bidea.</value>
+    <value>Adobe Flash Professional-en bide-izena.</value>
   </data>
   <data name="AS2Context.Description.MtascCheckParameters" xml:space="preserve">
     <value>Sintaxia egiaztatzeko MTASC konpiladore parametroak.</value>
@@ -216,7 +216,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Blokeak ixteko giltzen txertaketa desgaitu.</value>
   </data>
   <data name="ASCompletion.Description.DisableCache" xml:space="preserve">
-    <value>Klase-bidearen analisi azkarragorako, zure FlashDevelop erabiltzaile fitxategietan cache fitxategi bat sortu da arakatutako bide bakoitzeko. Aldatu propietate hau aukera desgaitzeko.</value>
+    <value>Bide-izenaren analisi azkarragorako, zure FlashDevelop erabiltzaile fitxategietan cache fitxategi bat sortu da arakatutako bide bakoitzeko. Aldatu propietate hau aukera desgaitzeko.</value>
   </data>
   <data name="ASCompletion.Description.DisableCodeReformat" xml:space="preserve">
     <value>Idazketa ondorengo kode formateatzea desgaitu &lt;Enter&gt; or &lt;;&gt;.</value>
@@ -333,7 +333,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Uneko fitxategia eraiki</value>
   </data>
   <data name="ASCompletion.Label.RebuildClasspathCache" xml:space="preserve">
-    <value>Klase-bidearen cache-a berreraiki</value>
+    <value>Bide-izenaren cache-a berreraiki</value>
   </data>
   <data name="ASCompletion.Label.TypesExplorer" xml:space="preserve">
     <value>Proiektu mota arakatzailea...</value>
@@ -1567,7 +1567,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Proiektu zuhaitzean klase-bide orokorra sartu behar den edo ez aldatzen da.</value>
   </data>
   <data name="ProjectManager.Description.ShowProjectClasspaths" xml:space="preserve">
-    <value>Proiektu zuhaitzean proiektuaren klase-bidea sartu behar den edo ez aldatzen da.</value>
+    <value>Proiektu zuhaitzean proiektuaren bide-izena sartu behar den edo ez aldatzen da.</value>
   </data>
   <data name="ProjectManager.Description.ShowUnusedTypeSelectorWarnings" xml:space="preserve">
     <value>Aplikazioko konponenteetan estilo orri bateko mota hautatzaile bat edo &lt;mx:Style&gt; blokerik erabiltzen ez denean abisu bat erakusten da.</value>
@@ -1630,7 +1630,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Eraikitze arrakastatsua</value>
   </data>
   <data name="ProjectManager.Info.Classpaths" xml:space="preserve">
-    <value>Klase-bideak</value>
+    <value>Bide-izenak</value>
   </data>
   <data name="ProjectManager.Info.ClasspathsAreSaved" xml:space="preserve">
     <value>Klase-bide orokorrak zure FlashDevelop ezarpenekin batera gordeko dira.</value>
@@ -1708,7 +1708,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Une honetan zure proiektuan txertaturiko liburutegiko baliabideak proiektutik kenduko dira, baina ez dira ezabatuko. Aurrera jarraitu nahi duzu?</value>
   </data>
   <data name="ProjectManager.Info.InvalidPath" xml:space="preserve">
-    <value>Aukeratutako bidea baliogabea da. Proiektuko klase-bideak proiektuarekiko erlatiboak izan behar dute eta unitate berean egon.</value>
+    <value>Aukeratutako bidea baliogabea da. Proiektuko bide-izenak proiektuarekiko erlatiboak izan behar dute eta unitate berean egon.</value>
   </data>
   <data name="ProjectManager.Info.ItemsWillBeMovedToRecycleBin" xml:space="preserve">
     <value>Aukeratutako elementuak zakarrontzira mugituko dira.</value>
@@ -1735,7 +1735,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Irteera</value>
   </data>
   <data name="ProjectManager.Info.PathConflict" xml:space="preserve">
-    <value>Aukeratu duzun bidea existitzen den {0} klase-bidearekin gatazkan dago. Oraindik gehitu nahi duzu?</value>
+    <value>Aukeratu duzun bidea existitzen den {0} bide-izenarekin gatazkan dago. Oraindik gehitu nahi duzu?</value>
   </data>
   <data name="ProjectManager.Info.Platform" xml:space="preserve">
     <value>Plataforma</value>
@@ -1750,7 +1750,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>Eraiki aurreko komando lerroa</value>
   </data>
   <data name="ProjectManager.Info.ProjectClasspaths" xml:space="preserve">
-    <value>Proiektuaren klase-bideak proiektuaren kokapenari erlatiboak dira.</value>
+    <value>Proiektuaren bide-izenak proiektuaren kokapenari erlatiboak dira.</value>
   </data>
   <data name="ProjectManager.Info.ProjectDirectory" xml:space="preserve">
     <value>&lt;Proiektuaren direktorioa&gt;</value>
@@ -1984,7 +1984,7 @@ Alternatiba gisa, Adobe Flash Professional ere sintaxi egiaztapenerako erabil da
     <value>&amp;Proiektua</value>
   </data>
   <data name="ProjectManager.Label.ProjectClasspaths" xml:space="preserve">
-    <value>&amp;Proiektuaren klase-bideak...</value>
+    <value>&amp;Proiektuaren bide-izenak...</value>
   </data>
   <data name="ProjectManager.Label.Properties" xml:space="preserve">
     <value>&amp;Propietateak...</value>
@@ -2819,7 +2819,7 @@ Kontutan izan injekzioa gaituz gero, ezin izanen diren proiektuaren hainbat auke
     <value>Aukeratutako elementua ezin izan da aurkitu. Zereginen zerrenda freskatuko da.</value>
   </data>
   <data name="ProjectManager.Description.FilteredDirectoryNames" xml:space="preserve">
-    <value>Klase-bidearen izena ebazten ari den bitartean filtratuko diren direktorio izenak.</value>
+    <value>Bide-izenaren izena ebazten ari den bitartean filtratuko diren direktorio izenak.</value>
   </data>
   <data name="AS2Context.Info.PackageDidntMatchFilePath" xml:space="preserve">
     <value>'{0}' paketea ez dator fitxategiaren bidearekin bat. Pakete berria sortu da: did not match the file path. New package is generated:</value>
@@ -4287,7 +4287,7 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 3.3.1</comment>
   </data>
   <data name="AS3Context.Description.AS3FileTypes" xml:space="preserve">
-    <value>Klase-bidean esploratutako fitxategi luzapenak. Lehenetsiak *.as, *.mxml (sartu fitxategi mota bat lerroko).</value>
+    <value>Bide-izenan esploratutako fitxategi luzapenak. Lehenetsiak *.as, *.mxml (sartu fitxategi mota bat lerroko).</value>
     <comment>Added after 3.3.2</comment>
   </data>
   <data name="CodeFormatter.Info.CouldNotFormat" xml:space="preserve">
@@ -4968,23 +4968,23 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 4.3</comment>
   </data>
   <data name="LoomContext.Description.SDKs" xml:space="preserve">
-    <value>Path to the Loom SDK.</value>
+    <value>Loom SDK-rako bide-izena</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.Description" xml:space="preserve">
-    <value>Loom context for the ASCompletion engine.</value>
+    <value>ASCompletion motorearentzako Loom ingurunea.</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.InvalidClass" xml:space="preserve">
-    <value>This file is not a valid Loom class.</value>
+    <value>Fitxategi hau ez da balizko Loom klase bat.</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomDone" xml:space="preserve">
-    <value>Loom Done</value>
+    <value>Loom Egina</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="LoomContext.Info.LoomRunning" xml:space="preserve">
-    <value>Loom Running</value>
+    <value>Loom Martxan</value>
     <comment>Added after 4.3.0</comment>
   </data>
 </root>
