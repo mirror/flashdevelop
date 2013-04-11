@@ -690,8 +690,8 @@ namespace FlashDevelop
         {
             try
             {
-                String reconfig = Path.Combine(PathHelper.UserAppDir, ".reconfig");
-                if (!this.StandaloneMode && File.Exists(reconfig))
+                String reconfig = Path.Combine(PathHelper.BaseDir, ".reconfig");
+                if (File.Exists(reconfig))
                 {
                     File.Delete(reconfig);
                     this.refreshConfig = true;
@@ -762,7 +762,7 @@ namespace FlashDevelop
         {
             try
             {
-                String filePath = Path.Combine(PathHelper.AppDir, ".locale");
+                String filePath = Path.Combine(PathHelper.BaseDir, ".locale");
                 if (File.Exists(filePath))
                 {
                     String enumData = File.ReadAllText(filePath).Trim();
@@ -771,7 +771,7 @@ namespace FlashDevelop
                     File.Delete(filePath);
                 }
             }
-            catch { /* No errors please. */ }
+            catch {} // No errors...
         }
 
         /// <summary>

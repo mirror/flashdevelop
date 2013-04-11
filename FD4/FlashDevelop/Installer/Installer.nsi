@@ -123,11 +123,15 @@ InstType "un.Full"
 Function RefreshConfig
 	
 	SetOverwrite on
-	IfFileExists "$INSTDIR\.local" Skip 0
-	IfFileExists "$LOCALAPPDATA\FlashDevelop\*.*" 0 Skip
+	IfFileExists "$INSTDIR\.local" Local 0
+	IfFileExists "$LOCALAPPDATA\FlashDevelop\*.*" User Done
+	Local:
+	SetOutPath "$INSTDIR"
+	File "/oname=.reconfig" "..\Bin\Debug\.local"
+	User:
 	SetOutPath "$LOCALAPPDATA\FlashDevelop"
 	File "/oname=.reconfig" "..\Bin\Debug\.local"
-	Skip:
+	Done:
 	
 FunctionEnd
 
@@ -382,9 +386,6 @@ Section "Install Flex SDK" InstallFlexSDK
 	FileClose $1
 	Done:
 	
-	; Save version to registry
-	WriteRegStr HKLM "Software\FlashDevelop" "FlexSDKVersion" "${FLEX}"
-	
 	; Delete temporary Flex SDK zip file
 	Delete "$TEMP\flex_sdk_${FLEX}.zip"
 
@@ -433,9 +434,6 @@ Section "Install AIR SDK" InstallAirSDK
 	StrCmp $R0 "success" +3
 	MessageBox MB_OK "Archive extraction failed. The installer will now continue normally."
 	Goto Finish
-	
-	; Save version to registry
-	WriteRegStr HKLM "Software\FlashDevelop" "AirSDKVersion" "${AIR}"
 	
 	; Delete temporary AIR SDK zip file
 	Delete "$TEMP\air_sdk_${AIR}.zip"
@@ -507,9 +505,6 @@ Section "Install AIR SDK (ASC2)" InstallAscSDK
 	FileClose $1
 	Done:
 	
-	; Save version to registry
-	WriteRegStr HKLM "Software\FlashDevelop" "AscSDKVersion" "${ASC}"
-	
 	; Delete temporary AIR+ASC SDK zip file
 	Delete "$TEMP\asc_sdk_${ASC}.zip"
 
@@ -553,9 +548,6 @@ Section "Install Flash Player" InstallFlashPlayer
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
 	
-	; Save version to registry
-	WriteRegStr HKLM "Software\FlashDevelop" "FlashDebugVersion" "${FLASH}"
-
 	; Notify FD about the update
 	Call RefreshConfig
 	
@@ -608,11 +600,17 @@ SectionGroup "Language" LanguageGroup
 Section "English" EnglishLocale
 	
 	SetOverwrite on
-	SetShellVarContext all
-	
-	; Write the locale file
+	IfFileExists "$INSTDIR\.local" Local 0
+	IfFileExists "$LOCALAPPDATA\FlashDevelop\*.*" User Done
+	Local:
 	ClearErrors
 	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "en_US"
+	FileClose $1
+	User:
+	ClearErrors
+	FileOpen $1 "$LOCALAPPDATA\FlashDevelop\.locale" w
 	IfErrors Done
 	FileWrite $1 "en_US"
 	FileClose $1
@@ -623,11 +621,17 @@ SectionEnd
 Section "Chinese" ChineseLocale
 	
 	SetOverwrite on
-	SetShellVarContext all
-	
-	; Write the locale file
+	IfFileExists "$INSTDIR\.local" Local 0
+	IfFileExists "$LOCALAPPDATA\FlashDevelop\*.*" User Done
+	Local:
 	ClearErrors
 	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "zh_CN"
+	FileClose $1
+	User:
+	ClearErrors
+	FileOpen $1 "$LOCALAPPDATA\FlashDevelop\.locale" w
 	IfErrors Done
 	FileWrite $1 "zh_CN"
 	FileClose $1
@@ -638,11 +642,17 @@ SectionEnd
 Section "Japanese" JapaneseLocale
 	
 	SetOverwrite on
-	SetShellVarContext all
-	
-	; Write the locale file
+	IfFileExists "$INSTDIR\.local" Local 0
+	IfFileExists "$LOCALAPPDATA\FlashDevelop\*.*" User Done
+	Local:
 	ClearErrors
 	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "ja_JP"
+	FileClose $1
+	User:
+	ClearErrors
+	FileOpen $1 "$LOCALAPPDATA\FlashDevelop\.locale" w
 	IfErrors Done
 	FileWrite $1 "ja_JP"
 	FileClose $1
@@ -653,11 +663,17 @@ SectionEnd
 Section "German" GermanLocale
 	
 	SetOverwrite on
-	SetShellVarContext all
-	
-	; Write the locale file
+	IfFileExists "$INSTDIR\.local" Local 0
+	IfFileExists "$LOCALAPPDATA\FlashDevelop\*.*" User Done
+	Local:
 	ClearErrors
 	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "de_DE"
+	FileClose $1
+	User:
+	ClearErrors
+	FileOpen $1 "$LOCALAPPDATA\FlashDevelop\.locale" w
 	IfErrors Done
 	FileWrite $1 "de_DE"
 	FileClose $1
@@ -668,11 +684,17 @@ SectionEnd
 Section "Basque" BasqueLocale
 	
 	SetOverwrite on
-	SetShellVarContext all
-	
-	; Write the locale file
+	IfFileExists "$INSTDIR\.local" Local 0
+	IfFileExists "$LOCALAPPDATA\FlashDevelop\*.*" User Done
+	Local:
 	ClearErrors
 	FileOpen $1 "$INSTDIR\.locale" w
+	IfErrors Done
+	FileWrite $1 "eu_ES"
+	FileClose $1
+	User:
+	ClearErrors
+	FileOpen $1 "$LOCALAPPDATA\FlashDevelop\.locale" w
 	IfErrors Done
 	FileWrite $1 "eu_ES"
 	FileClose $1
@@ -728,7 +750,6 @@ Section "Registry Modifications" RegistryMods
 	
 	Delete "$INSTDIR\.multi"
 	Delete "$INSTDIR\.local"
-	Delete "$INSTDIR\.locale"
 	
 	DeleteRegKey /ifempty HKCR "Applications\FlashDevelop.exe"	
 	DeleteRegKey /ifempty HKLM "Software\Classes\Applications\FlashDevelop.exe"
@@ -786,6 +807,20 @@ Section "Registry Modifications" RegistryMods
 	WriteRegStr HKLM "Software\FlashDevelop" "" $INSTDIR
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
 	
+	; Write component version numbers
+	${If} ${SectionIsSelected} ${InstallFlexSDK}
+	WriteRegStr HKLM "Software\FlashDevelop" "FlexSDKVersion" "${FLEX}"
+	${EndIf}
+	${If} ${SectionIsSelected} ${InstallAirSDK}
+	WriteRegStr HKLM "Software\FlashDevelop" "AirSDKVersion" "${AIR}"
+	${EndIf}
+	${If} ${SectionIsSelected} ${InstallAscSDK}
+	WriteRegStr HKLM "Software\FlashDevelop" "AscSDKVersion" "${ASC}"	
+	${EndIf}
+	${If} ${SectionIsSelected} ${InstallFlashPlayer}
+	WriteRegStr HKLM "Software\FlashDevelop" "FlashDebugVersion" "${FLASH}"
+	${EndIf}
+	
 	!insertmacro UPDATEFILEASSOC
 	
 SectionEnd
@@ -825,6 +860,11 @@ SectionGroupEnd
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallFlexSDK} "Downloads and installs, if needed, the Adobe Flex SDK with FlashDevelop."
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallFlashPlayer} "Downloads and installs, if needed, the standalone Flash debug player with FlashDevelop."
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallClosureCompiler} "Downloads and installs the Google Closure Compiler with FlashDevelop."
+!insertmacro MUI_DESCRIPTION_TEXT ${EnglishLocale} "Changes FlashDevelop's display language to English on next restart."
+!insertmacro MUI_DESCRIPTION_TEXT ${ChineseLocale} "Changes FlashDevelop's display language to Chinese on next restart."
+!insertmacro MUI_DESCRIPTION_TEXT ${JapaneseLocale} "Changes FlashDevelop's display language to Japanese on next restart."
+!insertmacro MUI_DESCRIPTION_TEXT ${GermanLocale} "Changes FlashDevelop's display language to German on next restart."
+!insertmacro MUI_DESCRIPTION_TEXT ${BasqueLocale} "Changes FlashDevelop's display language to Basque on next restart."
 !insertmacro MUI_DESCRIPTION_TEXT ${StartMenuGroup} "Creates a start menu group and adds default FlashDevelop links to the group."
 !insertmacro MUI_DESCRIPTION_TEXT ${QuickShortcut} "Installs a FlashDevelop shortcut to the Quick Launch bar."
 !insertmacro MUI_DESCRIPTION_TEXT ${DesktopShortcut} "Installs a FlashDevelop shortcut to the desktop."
@@ -909,6 +949,7 @@ Section /o "un.Settings" UninstSettings
 	
 	Delete "$INSTDIR\.multi"
 	Delete "$INSTDIR\.local"
+	Delete "$INSTDIR\.locale"
 	
 	RMDir /r "$INSTDIR\Data"
 	RMDir /r "$INSTDIR\Settings"
@@ -986,20 +1027,22 @@ Function .onInit
 	${EndIf}
 	${EndIf}
 	
-	StrCpy $1 ${EnglishLocale}
-	Call .onSelChange
-	
 FunctionEnd
 
 Function .onSelChange
 
-	!insertmacro StartRadioButtons $1
-    !insertmacro RadioButton ${EnglishLocale}
-    !insertmacro RadioButton ${ChineseLocale}
+	${If} ${SectionIsSelected} ${LanguageGroup}
+	!insertmacro UnSelectSection ${LanguageGroup}
+	!insertmacro SelectSection $9
+	${Else}
+	!insertmacro StartRadioButtons $9
+	!insertmacro RadioButton ${EnglishLocale}
+	!insertmacro RadioButton ${ChineseLocale}
 	!insertmacro RadioButton ${JapaneseLocale}
 	!insertmacro RadioButton ${GermanLocale}
-    !insertmacro RadioButton ${BasqueLocale}
+	!insertmacro RadioButton ${BasqueLocale}
 	!insertmacro EndRadioButtons
+	${EndIf}
 	
 FunctionEnd
 
