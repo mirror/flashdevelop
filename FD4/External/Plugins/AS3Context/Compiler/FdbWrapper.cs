@@ -161,7 +161,7 @@ namespace AS3Context.Compiler
                     }
                 }
             }
-            if (!process.HasExited)
+            if (process != null && !process.HasExited)
             {
                 if (OnOutput != null) OnOutput("[Shutting down FDB]");
                 try
@@ -184,7 +184,8 @@ namespace AS3Context.Compiler
         void WriteToPrompt(string line)
         {
             interactive = false;
-            process.StandardInput.WriteLine(line);
+            if (process != null) 
+                process.StandardInput.WriteLine(line);
             if (OnOutput != null) OnOutput("(fdb) "+line);
         }
 

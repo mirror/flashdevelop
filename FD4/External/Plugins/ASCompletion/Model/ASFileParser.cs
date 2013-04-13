@@ -1022,11 +1022,11 @@ namespace ASCompletion.Model
                     else if (c1 == '/')
                     {
                         int i0 = i;
-                        if (LookupRegex(ref ba, ref i))
+                        if (LookupRegex(ref ba, ref i) && valueLength < VALUE_BUFFER - 3)
                         {
                             valueBuffer[valueLength++] = '/';
                             for (; i0 < i; i0++)
-                                if (valueLength < VALUE_BUFFER - 1) valueBuffer[valueLength++] = ba[i0];
+                                if (valueLength < VALUE_BUFFER - 2) valueBuffer[valueLength++] = ba[i0];
                             valueBuffer[valueLength++] = '/';
                             continue;
                         }
