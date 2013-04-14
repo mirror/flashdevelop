@@ -36,7 +36,7 @@ namespace LoomContext
             features.hasExtends = true;
             features.hasImplements = true;
             features.hasInterfaces = true;
-            features.hasEnums = false;
+            features.hasEnums = true;
             features.hasStructs = true;
             features.hasDelegates = true;
             features.hasGenerics = true;

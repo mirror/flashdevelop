@@ -2,7 +2,7 @@
 <Scintilla xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<keyword-classes>
 		<keyword-class name="loom-primary-keywords">
-			class extends implements import interface new case do while else if for in switch throw 
+			class extends implements import interface enum new case do while else if for in switch throw 
 			get set function var try catch finally while with default break continue delete return
 			each const delegate struct package include use is as instanceof typeof
 		</keyword-class>
