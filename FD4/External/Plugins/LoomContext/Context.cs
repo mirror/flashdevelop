@@ -59,11 +59,13 @@ namespace LoomContext
             features.varModifiers = all;
             features.constModifiers = all;
             features.methodModifiers = all;
+            features.enumModifiers = all;
 
             // default declarations access modifiers
             features.classModifierDefault = Visibility.Internal;
             features.varModifierDefault = Visibility.Internal;
             features.methodModifierDefault = Visibility.Internal;
+            features.enumModifierDefault = Visibility.Internal;
 
             // keywords
             features.dot = ".";
@@ -77,7 +79,7 @@ namespace LoomContext
             features.codeKeywords = new string[] { 
                 "class", "interface", "var", "function", "const", "new", "delete", "typeof", "is", "as", "return", 
                 "break", "continue", "if", "else", "for", "each", "in", "while", "do", "switch", "case", "default", "with",
-                "null", "true", "false", "try", "catch", "finally", "throw", "use", "delegate", "struct"
+                "null", "true", "false", "try", "catch", "finally", "throw", "use", "delegate", "struct", "enum"
             };
             features.varKey = "var";
             features.constKey = "const";
