@@ -2128,7 +2128,7 @@ namespace ASCompletion.Completion
                 List<String> imports = new List<string>();
                 if (returnType.Member != null)
                 {
-                    if (returnType.Member.Type == ASContext.Context.Features.voidKey)
+                    if (returnType.Member.Type != ASContext.Context.Features.voidKey)
                     {
                         returnTypeStr = FormatType(GetShortType(returnType.Member.Type));
                         imports.Add(getQualifiedType(returnType.Member.Type, inClassForImport));
