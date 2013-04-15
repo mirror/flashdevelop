@@ -4,13 +4,13 @@
 		<keyword-class name="loom-primary-keywords">
 			class extends implements import interface enum new case do while else if for in switch throw 
 			get set function var try catch finally while with default break continue delete return
-			each const delegate struct package include use is as instanceof typeof
+			each const delegate struct package include is as instanceof typeof
 		</keyword-class>
 		<keyword-class name="loom-secondary-keywords">
 			null Infinity NaN undefined true false 
 		</keyword-class>
 		<keyword-class name="loom-additional-keywords">
-			void Null ArgumentError arguments Array Boolean Class Date DefinitionError Error EvalError Function int Math Namespace
+			void Null ArgumentError arguments Array Boolean Class Date DefinitionError Error EvalError Function int Math
 			Number Object QName RangeError ReferenceError RegExp SecurityError String SyntaxError TypeError uint URIError
 			VerifyError XML XMLList
 		</keyword-class>

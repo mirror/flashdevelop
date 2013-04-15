@@ -79,7 +79,7 @@ namespace LoomContext
             features.codeKeywords = new string[] { 
                 "class", "interface", "var", "function", "const", "new", "delete", "typeof", "is", "as", "return", 
                 "break", "continue", "if", "else", "for", "each", "in", "while", "do", "switch", "case", "default", "with",
-                "null", "true", "false", "try", "catch", "finally", "throw", "use", "delegate", "struct", "enum"
+                "null", "true", "false", "try", "catch", "finally", "throw", "delegate", "struct", "enum"
             };
             features.varKey = "var";
             features.constKey = "const";
