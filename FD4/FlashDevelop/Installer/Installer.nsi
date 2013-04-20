@@ -597,6 +597,12 @@ SectionEnd
 
 SectionGroup "Language" LanguageGroup
 
+Section "No changes" NoChangesLocale
+	
+	; Don't change the locale
+	
+SectionEnd
+
 Section "English" EnglishLocale
 	
 	SetOverwrite on
@@ -860,6 +866,7 @@ SectionGroupEnd
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallFlexSDK} "Downloads and installs, if needed, the Adobe Flex SDK with FlashDevelop."
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallFlashPlayer} "Downloads and installs, if needed, the standalone Flash debug player with FlashDevelop."
 !insertmacro MUI_DESCRIPTION_TEXT ${InstallClosureCompiler} "Downloads and installs the Google Closure Compiler with FlashDevelop."
+!insertmacro MUI_DESCRIPTION_TEXT ${NoChangesLocale} "Keeps the current language on update and defaults to English on clean install."
 !insertmacro MUI_DESCRIPTION_TEXT ${EnglishLocale} "Changes FlashDevelop's display language to English on next restart."
 !insertmacro MUI_DESCRIPTION_TEXT ${ChineseLocale} "Changes FlashDevelop's display language to Chinese on next restart."
 !insertmacro MUI_DESCRIPTION_TEXT ${JapaneseLocale} "Changes FlashDevelop's display language to Japanese on next restart."
@@ -1028,7 +1035,7 @@ Function .onInit
 	${EndIf}
 	
 	; Default to English
-	StrCpy $1 ${EnglishLocale}
+	StrCpy $1 ${NoChangesLocale}
 	call .onSelChange
 	
 FunctionEnd
@@ -1040,6 +1047,7 @@ Function .onSelChange
 	!insertmacro SelectSection $1
 	${Else}
 	!insertmacro StartRadioButtons $1
+	!insertmacro RadioButton ${NoChangesLocale}
 	!insertmacro RadioButton ${EnglishLocale}
 	!insertmacro RadioButton ${ChineseLocale}
 	!insertmacro RadioButton ${JapaneseLocale}
