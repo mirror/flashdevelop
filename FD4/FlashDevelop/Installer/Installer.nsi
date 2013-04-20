@@ -9,7 +9,7 @@
 ;--------------------------------
 
 ; Define version info
-!define VERSION "4.4.0"
+!define VERSION "4.4.1"
 !define BUILD "RTM"
 
 ; Define AIR SDK version
@@ -1027,15 +1027,19 @@ Function .onInit
 	${EndIf}
 	${EndIf}
 	
+	; Default to English
+	StrCpy $1 ${EnglishLocale}
+	call .onSelChange
+	
 FunctionEnd
 
 Function .onSelChange
 
 	${If} ${SectionIsSelected} ${LanguageGroup}
 	!insertmacro UnSelectSection ${LanguageGroup}
-	!insertmacro SelectSection $9
+	!insertmacro SelectSection $1
 	${Else}
-	!insertmacro StartRadioButtons $9
+	!insertmacro StartRadioButtons $1
 	!insertmacro RadioButton ${EnglishLocale}
 	!insertmacro RadioButton ${ChineseLocale}
 	!insertmacro RadioButton ${JapaneseLocale}
