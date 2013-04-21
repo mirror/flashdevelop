@@ -56,6 +56,8 @@ namespace AS3Context
 
             /* DESCRIBE LANGUAGE FEATURES */
 
+            mxmlEnabled = true;
+
             // language constructs
             features.hasPackages = true;
             features.hasNamespaces = true;
