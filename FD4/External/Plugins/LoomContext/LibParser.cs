@@ -31,6 +31,7 @@ namespace LoomContext
             using (StreamReader sr = new StreamReader(path.Path))
             {
                 string raw = sr.ReadToEnd();
+                sr.Close();
                 JsonReader reader = new JsonReader(raw);
                 try
                 {
