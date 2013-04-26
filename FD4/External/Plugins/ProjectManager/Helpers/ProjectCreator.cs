@@ -36,6 +36,7 @@ namespace ProjectManager.Helpers
         Argument[] arguments;
 
         private static Hashtable projectTypes = new Hashtable();
+        private static List<String> projectExt = new List<string>();
         private static bool projectTypesSet = false;
 
         private static bool isRunning;
@@ -224,6 +225,11 @@ namespace ProjectManager.Helpers
             projectTypes["project.hxproj"] = typeof(HaxeProject);
             //projectTypes["project.hxml"] = typeof(HaxeProject);
             //projectTypes["project.nmml"] = typeof(HaxeProject);
+            projectExt.Add("*.as2proj");
+            projectExt.Add("*.as3proj");
+            projectExt.Add("*.hxproj");
+            projectExt.Add("*.fdproj");
+            projectExt.Add("*.fdp");
             projectTypesSet = true;
         }
 
@@ -232,6 +238,7 @@ namespace ProjectManager.Helpers
             if (!projectTypesSet) SetInitialProjectHash();
             if (projectTypes.ContainsKey(templateName.ToLower())) return;
             projectTypes[templateName] = projectType;
+            projectExt.Add(templateName.Replace("project", "*"));
         }
 
         public static bool IsKnownProject(string ext)
@@ -254,26 +261,10 @@ namespace ProjectManager.Helpers
 
         public static string GetProjectFilters()
         {
-            string filters = "FlashDevelop Projects (*.as2proj,*.as3proj,*.hxproj,*.fdproj,*.fdp)|*.as2proj;*.as3proj;*.hxproj;*.fdproj;*.fdp|Adobe Flex Builder Project (.actionScriptProperties)|.actionScriptProperties";
-            string desc = "|Custom Projects ";
-            string ext;
-            string parens = "(";
-            string exts = "";
-            foreach (string key in projectTypes.Keys)
-            {
-                ext = key.Replace("project", "*");
-                if (filters.IndexOf(ext) > -1) continue;
-                parens += ext + ",";
-                exts += ext + ";";
-            }
-            if (parens.Length > 1)
-            {
-                parens = parens.Substring(0, parens.Length - 1) + ")|";
-                exts = exts.Substring(0, exts.Length - 1);
-                desc += parens + exts;
-            }
-            else desc = "";
-            return filters + desc;
+            string[] exts = projectExt.ToArray();
+            string filters = "FlashDevelop Projects|" + String.Join(";", exts) 
+                + "|Adobe Flex Builder Project|.actionScriptProperties";
+            return filters;
         }
 
         #region ArgsProcessor duplicated code
