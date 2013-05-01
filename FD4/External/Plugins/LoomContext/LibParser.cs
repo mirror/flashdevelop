@@ -150,6 +150,7 @@ namespace LoomContext
                                 case "DELEGATE": cDelegate.Name = cClass.Name; break;
                             }
                             break;
+                        case "docstring": cClass.Comments = ExtractDoc(val); break;
                     }
                 }
                 else if (reader.Token == JsonToken.ArrayStart)
@@ -222,6 +223,15 @@ namespace LoomContext
                 cClass.InFile = cFile;
                 cFile.Classes.Add(cClass);
             }
+        }
+
+        private string ExtractDoc(string comment)
+        {
+            if (string.IsNullOrEmpty(comment)) return "";
+            if (comment.StartsWith("/**")) return comment.Substring(3, comment.Length - 5).Trim();
+            if (comment.StartsWith("/*")) return comment.Substring(2, comment.Length - 4).Trim();
+            if (comment.StartsWith("//")) return comment.Substring(2).Trim();
+            return comment;
         }
 
         private void ReadInterfaces(JsonReader reader, ClassModel cClass)
@@ -297,6 +307,7 @@ namespace LoomContext
                     {
                         case "name": member.Name = val; cClass.Members.Add(member); break;
                         case "type": if (member.Type == null) member.Type = CleanType(val); break;
+                        case "docstring": member.Comments = ExtractDoc(val); break;
                     }
                 }
                 else if (reader.Token == JsonToken.ArrayStart)
@@ -345,6 +356,7 @@ namespace LoomContext
                             }
                             break;
                         case "returntype": if (member.Type == null) member.Type = CleanType(val); break;
+                        case "docstring": member.Comments = ExtractDoc(val); break;
                     }
                 }
                 else if (reader.Token == JsonToken.ArrayStart)
@@ -381,6 +393,7 @@ namespace LoomContext
             MemberModel setter = null;
             string prop = null;
             string name = null;
+            string doc = null;
             while (reader.Read())
             {
                 if (reader.Token == JsonToken.ObjectEnd) break;
@@ -391,6 +404,7 @@ namespace LoomContext
                     switch (prop)
                     {
                         case "name": name = val; break;
+                        case "docstring": doc = ExtractDoc(val); break;
                     }
                 }
                 else if (reader.Token == JsonToken.ArrayStart)
@@ -421,11 +435,13 @@ namespace LoomContext
             if (getter != null)
             {
                 getter.Name = name;
+                getter.Comments = doc;
                 getter.Flags &= ~FlagType.Function;
             }
             if (setter != null)
             {
                 setter.Name = name;
+                setter.Comments = doc;
                 setter.Flags &= ~FlagType.Function;
             }
         }
