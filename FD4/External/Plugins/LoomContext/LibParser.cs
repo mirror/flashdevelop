@@ -441,7 +441,7 @@ namespace LoomContext
             if (setter != null)
             {
                 setter.Name = name;
-                setter.Comments = doc;
+                if (getter == null) setter.Comments = doc;
                 setter.Flags &= ~FlagType.Function;
             }
         }
