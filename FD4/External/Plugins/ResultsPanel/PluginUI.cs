@@ -555,6 +555,8 @@ namespace ResultsPanel
             Int32 newResult = -1;
             TraceItem entry; Match match; String description;
             String fileTest; Boolean inExec; Int32 icon; Int32 state;
+            IProject project = PluginBase.CurrentProject;
+            String projectDir = project != null ? Path.GetDirectoryName(project.ProjectPath) : "";
             for (Int32 i = this.logCount; i < count; i++)
             {
                 entry = TraceManager.TraceLog[i];
@@ -567,17 +569,23 @@ namespace ResultsPanel
                         inExec = true;
                         fileTest = fileTest.Substring(fileTest.IndexOf(']') + 1).TrimStart();
                     }
-                    if (fileTest.StartsWith("~/")) // relative to project root
-                    {
-                        IProject project = PluginBase.CurrentProject;
-                        if (project != null) fileTest = Path.GetDirectoryName(project.ProjectPath) + fileTest.Substring(1);
-                    }
+                    if (fileTest.StartsWith("~/")) // relative to project root (Haxe)
+                        fileTest = fileTest.Substring(2);
+
                     match = fileEntry.Match(fileTest);
                     if (!match.Success) match = fileEntry2.Match(fileTest);
                     if (match.Success && !this.ignoredEntries.ContainsKey(match.Value))
                     {
                         string filename = match.Groups["filename"].Value;
-                        if (!File.Exists(filename)) continue;
+
+                        if (filename.Length < 3) continue;
+                        if (project != null && filename[0] != '/' && filename[1] != ':') // relative to project root
+                        {
+                            filename = PathHelper.ResolvePath(filename, projectDir);
+                            if (filename == null) continue;
+                        }
+                        else if (!File.Exists(filename)) continue;
+
                         FileInfo fileInfo = new FileInfo(filename);
                         if (fileInfo != null)
                         {
@@ -598,6 +606,7 @@ namespace ResultsPanel
                             if (state > 2) icon = 1;
                             else if (state == 2) icon = 2;
                             else if (state == -3) icon = (description.IndexOf("Warning") >= 0) ? 2 : 1;
+                            else if (description.StartsWith("error", StringComparison.OrdinalIgnoreCase)) icon = 1;
                             else icon = 0;
                             ListViewItem item = new ListViewItem("", icon);
                             item.Tag = match; // Save for later...
@@ -844,7 +853,7 @@ namespace ResultsPanel
         * Match TypeScript style errors
         * i.e. C:\path\to\src\Class.as(9,20): description
         */
-        private Regex fileEntry2 = new Regex(@"^(?<filename>[^(]*)\((?<line>[0-9,]+)\):(?<description>.*)$", RegexOptions.Compiled);
+        private Regex fileEntry2 = new Regex(@"^(?<filename>[^(]*)\((?<line>[0-9,]+)\).?:(?<description>.*)$", RegexOptions.Compiled);
         
         /**
         * Match find in files style ranges
