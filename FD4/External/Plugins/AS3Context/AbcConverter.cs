@@ -25,6 +25,7 @@ namespace AS3Context
 
         private static Dictionary<string, FileModel> genericTypes;
         private static Dictionary<string, string> imports;
+        private static Dictionary<string, string> conflicts;
         private static bool inSWF;
         private static Dictionary<string, ASDocItem> thisDocs;
         private static string docPath;
@@ -96,6 +97,7 @@ namespace AS3Context
             privateClasses.Package = "private";
             genericTypes = new Dictionary<string, FileModel>();
             imports = new Dictionary<string, string>();
+            conflicts = new Dictionary<string, string>();
 
             foreach (Abc abc in parser.Abcs)
             {
@@ -106,6 +108,7 @@ namespace AS3Context
                     if (instance == null)
                         continue;
                     imports.Clear();
+                    conflicts.Clear();
 
                     FileModel model = new FileModel("");
                     model.Context = context;
@@ -124,6 +127,7 @@ namespace AS3Context
                     type.Type = instance.name.ToTypeString();
                     type.Name = instance.name.localName;
                     type.Flags = FlagType.Class;
+                    conflicts.Add(type.Name, type.QualifiedName);
 
                     if (instance.flags == TraitMember.Function)
                         type.Flags |= FlagType.Interface;
@@ -574,6 +578,9 @@ namespace AS3Context
             if (p < 0) return qname;
             if (imports.ContainsKey(qname)) return imports[qname];
             string cname = qname.Substring(p + 1);
+            if (!conflicts.ContainsKey(cname)) conflicts.Add(cname, qname);
+            else if (conflicts[cname] != qname) 
+                cname = qname; // ambiguity
             imports[qname] = cname;
             return cname;
         }
