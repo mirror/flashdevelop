@@ -412,9 +412,24 @@ namespace AS3Context
         public override string[] GetExplorerMask()
         {
             string[] mask = as3settings.AS3FileTypes;
-            if (mask == null || mask.Length == 0 || (mask.Length == 1 && mask[1] == "")) 
+            if (mask == null || mask.Length == 0 || (mask.Length == 1 && mask[1] == ""))
+            {
                 as3settings.AS3FileTypes = mask = new string[] { "*.as", "*.mxml" };
-            return mask;
+                return mask;
+            }
+            else
+            {
+                List<string> patterns = new List<string>();
+                for (int i = 0; i < mask.Length; i++)
+                {
+                    string m = mask[i];
+                    if (string.IsNullOrEmpty(m)) continue;
+                    if (m[1] != '.' && m[0] != '.') m = '.' + m;
+                    if (m[0] != '*') m = '*' + m;
+                    patterns.Add(m);
+                }
+                return patterns.ToArray();
+            }
         }
 
         /// <summary>

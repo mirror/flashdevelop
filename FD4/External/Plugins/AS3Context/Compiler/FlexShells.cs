@@ -130,7 +130,7 @@ namespace AS3Context.Compiler
                 basePath = Path.GetDirectoryName(PluginBase.CurrentProject.ProjectPath);
             flexPath = PathHelper.ResolvePath(flexPath, basePath);
             // asc.jar in FlexSDK
-            if (flexPath != null && Directory.Exists(flexPath))
+            if (flexPath != null && Directory.Exists(Path.Combine(flexPath, "lib")))
                 ascPath = Path.Combine(flexPath, "lib\\asc.jar");
             // included asc.jar
             if (ascPath == null) 
