@@ -62,6 +62,7 @@ namespace PluginCore.Helpers
         public static void WriteFile(String file, String text, Encoding encoding, Boolean saveBOM)
         {
             Boolean useSkipBomWriter = (encoding == Encoding.UTF8 && !saveBOM);
+            if (encoding == Encoding.UTF7) encoding = new UTF7EncodingFixed();
             using (StreamWriter sw = useSkipBomWriter ? new StreamWriter(file, false) : new StreamWriter(file, false, encoding))
             {
                 sw.Write(text);
@@ -218,7 +219,13 @@ namespace PluginCore.Helpers
                         info.ContainsBOM = true;
                         info.CodePage = Encoding.UTF32.CodePage;
                     }
-                    else if (bytes.Length > 3 && ((bytes[0] == 0x2b && bytes[1] == 0x2f && bytes[2] == 0x76) || bytes[3] == 0x38 || bytes[3] == 0x39 || bytes[3] == 0x2b || bytes[3] == 2f))
+                    else if (bytes.Length > 4 && ((bytes[0] == 0x2b && bytes[1] == 0x2f && bytes[2] == 0x76) && (bytes[3] == 0x38 || bytes[3] == 0x39 || bytes[3] == 0x2b || bytes[3] == 0x2f) && bytes[4] == 0x2D))
+                    {
+                        startIndex = 5;
+                        info.ContainsBOM = true;
+                        info.CodePage = Encoding.UTF7.CodePage;
+                    }
+                    else if (bytes.Length > 3 && ((bytes[0] == 0x2b && bytes[1] == 0x2f && bytes[2] == 0x76) && (bytes[3] == 0x38 || bytes[3] == 0x39 || bytes[3] == 0x2b || bytes[3] == 0x2f)))
                     {
                         startIndex = 4;
                         info.ContainsBOM = true;
@@ -256,6 +263,17 @@ namespace PluginCore.Helpers
             return info;
         }
 
+    }
+
+    /// <summary>
+    /// UTF-7 encoding with correct BOM
+    /// </summary>
+    class UTF7EncodingFixed : UTF7Encoding
+    {
+        public override byte[] GetPreamble()
+        {
+            return new byte[] { 0x2B, 0x2F, 0x76, 0x38, 0x2D };
+        }
     }
 
     /// <summary>
