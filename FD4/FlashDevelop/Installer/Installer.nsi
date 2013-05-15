@@ -9,20 +9,20 @@
 ;--------------------------------
 
 ; Define version info
-!define VERSION "4.4.1"
+!define VERSION "4.4.2"
 !define BUILD "RTM"
 
 ; Define AIR SDK version
-!define AIR "3.7.0.153"
+!define AIR "3.7.0.1860"
 
 ; Define AIR+ASC SDK version
-!define ASC "3.7.0.153"
+!define ASC "3.7.0.1860"
 
 ; Define Flex SDK version
 !define FLEX "4.6.0.23201B"
 
 ; Define Flash player version
-!define FLASH "11.7.700.169"
+!define FLASH "11.7.700.202"
 
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
