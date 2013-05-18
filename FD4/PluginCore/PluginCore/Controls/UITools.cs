@@ -58,6 +58,7 @@ namespace PluginCore.Controls
 		#region Initialization
 
         public event MouseHoverHandler OnMouseHover;
+        public event MouseHoverHandler OnMouseHoverEnd;
 		public event CharAddedHandler OnCharAdded;
         public event TextChangedHandler OnTextChanged;
         public event LineEventHandler OnMarkerChanged;
@@ -229,6 +230,7 @@ namespace PluginCore.Controls
         private void HandleDwellEnd(ScintillaControl sci, int position)
         {
             simpleTip.Hide();
+            if (OnMouseHoverEnd != null) OnMouseHoverEnd(sci, position);
         }
 
 		#endregion
