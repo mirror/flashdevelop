@@ -4995,7 +4995,7 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="FlashDevelop.Info.InvalidToolPath" xml:space="preserve">
-    <value>Incorrect path to {0} in {1} settings</value>
+    <value>Inkorrekter Pfad zu {0} in den Einstellungen von {1}</value>
     <comment>Added after 4.4.1</comment>
   </data>
 </root>
