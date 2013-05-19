@@ -27,15 +27,15 @@ namespace PluginCore
 
 namespace ProjectManager.Controls
 {
-    class PropertiesDialog { }
+    public class PropertiesDialog { }
 }
 namespace ProjectManager.Controls.AS2
 {
-    class AS2PropertiesDialog : ProjectManager.Controls.PropertiesDialog { }
+    public class AS2PropertiesDialog : ProjectManager.Controls.PropertiesDialog { }
 }
 namespace ProjectManager.Controls.AS3
 {
-    class AS3PropertiesDialog : ProjectManager.Controls.PropertiesDialog { }
+    public class AS3PropertiesDialog : ProjectManager.Controls.PropertiesDialog { }
 }
 
 namespace ProjectManager.Helpers

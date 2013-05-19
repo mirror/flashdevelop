@@ -344,6 +344,24 @@ namespace SourceControl
                 String torProcPath = Path.Combine(programFiles, @"TortoiseSVN\bin\TortoiseProc.exe");
                 if (File.Exists(torProcPath)) settingObject.TortoiseSVNProcPath = torProcPath;
             }
+            CheckPathExists(settingObject.SVNPath, "TortoiseSVN (svn)");
+            CheckPathExists(settingObject.TortoiseSVNProcPath, "TortoiseSVN (Proc)");
+            CheckPathExists(settingObject.GITPath, "TortoiseGit (git)");
+            CheckPathExists(settingObject.TortoiseGITProcPath, "TortoiseGIT (Proc)");
+            CheckPathExists(settingObject.HGPath, "TortoiseHG (hg)");
+            CheckPathExists(settingObject.TortoiseHGProcPath, "TortoiseHG (Proc)");
+        }
+
+        private void CheckPathExists(string path, string name)
+        {
+            if (string.IsNullOrEmpty(path)) return;
+            if (!Path.IsPathRooted(path)) return;
+            if (!File.Exists(path))
+            {
+                string msg = String.Format(TextHelper.GetString("FlashDevelop.Info.InvalidToolPath"), name, "SourceControl") 
+                    + ":\n" + path;
+                TraceManager.AddAsync(msg, -3);
+            }
         }
 
         /// <summary>

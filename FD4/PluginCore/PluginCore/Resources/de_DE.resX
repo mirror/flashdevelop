@@ -4994,4 +4994,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Loom läuft</value>
     <comment>Added after 4.3.0</comment>
   </data>
+  <data name="FlashDevelop.Info.InvalidToolPath" xml:space="preserve">
+    <value>Incorrect path to {0} in {1} settings</value>
+    <comment>Added after 4.4.1</comment>
+  </data>
 </root>

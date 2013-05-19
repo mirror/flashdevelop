@@ -5000,4 +5000,8 @@ Custom locales must be an extension of a default locale, e.g. en-US.</value>
     <value>Loom Running</value>
     <comment>Added after 4.3.0</comment>
   </data>
+  <data name="FlashDevelop.Info.InvalidToolPath" xml:space="preserve">
+    <value>Incorrect path to {0} in {1} settings</value>
+    <comment>Added after 4.4.1</comment>
+  </data>
 </root>

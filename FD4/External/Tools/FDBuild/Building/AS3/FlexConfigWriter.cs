@@ -23,7 +23,7 @@ namespace FDBuild.Building.AS3
         public void WriteConfig(AS3Project project, double sdkVersion, string[] extraClasspaths, bool debugMode)
         {
             this.project = project;
-            project.UpdateVars();
+            project.UpdateVars(true);
 
             flex4 = sdkVersion >= 4;
             asc2 = sdkVersion < 3;

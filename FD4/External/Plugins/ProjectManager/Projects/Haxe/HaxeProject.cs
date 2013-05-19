@@ -85,6 +85,14 @@ namespace ProjectManager.Projects.Haxe
         {
             get { return movieOptions.Platform == HaxeMovieOptions.NME_PLATFORM; }
         }
+        public bool IsCSharpOutput
+        {
+            get { return movieOptions.Platform == HaxeMovieOptions.CSHARP_PLATFORM; }
+        }
+        public bool IsJavaOutput
+        {
+            get { return movieOptions.Platform == HaxeMovieOptions.JAVA_PLATFORM; }
+        }
 
         public override string GetInsertFileText(string inFile, string path, string export, string nodeType)
         {
@@ -214,10 +222,15 @@ namespace ProjectManager.Projects.Haxe
                 else if (IsNekoOutput) mode = "neko";
                 else if (IsPhpOutput) mode = "php";
                 else if (IsCppOutput) mode = "cpp";
+                else if (IsCSharpOutput) mode = "cs";
+                else if (IsJavaOutput) mode = "java";
                 //else throw new SystemException("Unknown mode");
 
-                outfile = String.Join("/", outfile.Split('\\'));
-                pr.Add("-" + mode + " " + Quote(outfile));
+                if (mode != null)
+                {
+                    outfile = String.Join("/", outfile.Split('\\'));
+                    pr.Add("-" + mode + " " + Quote(outfile));
+                }
 
                 // nme options
                 if (IsNmeOutput)
