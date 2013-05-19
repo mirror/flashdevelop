@@ -27,7 +27,7 @@ namespace AS3Context
             new Regex("(?<filename>.*)\\$raw\\$:(?<line>[0-9]+): col: (?<col>[0-9]+):(?<desc>.*)", RegexOptions.Compiled);
         
         static readonly protected Regex re_customAPI =
-            new Regex("[/\\\\](player|air)global\\.swc", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            new Regex("[/\\\\](playerglobal|airglobal|builtin)\\.swc", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         #region initialization
         private AS3Settings as3settings;

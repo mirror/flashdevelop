@@ -577,14 +577,14 @@ namespace ResultsPanel
                     if (match.Success && !this.ignoredEntries.ContainsKey(match.Value))
                     {
                         string filename = match.Groups["filename"].Value;
+                        if (filename.Length < 3 || badCharacters.IsMatch(filename)) continue;
 
-                        if (filename.Length < 3) continue;
                         if (project != null && filename[0] != '/' && filename[1] != ':') // relative to project root
                         {
                             filename = PathHelper.ResolvePath(filename, projectDir);
                             if (filename == null) continue;
                         }
-                        else if (!File.Exists(filename)) continue;
+                        else if (File.Exists(filename)) continue;
 
                         FileInfo fileInfo = new FileInfo(filename);
                         if (fileInfo != null)
@@ -840,6 +840,11 @@ namespace ResultsPanel
 		#endregion
 
         #region Regular Expressions
+
+        /**
+        * Finds if a string contains invalid characters for a path
+        */ 
+        private Regex badCharacters = new Regex("[" + Regex.Escape(new String(System.IO.Path.GetInvalidPathChars())) + "]", RegexOptions.Compiled);
 
         /**
 		* Match standard file entry -- filename:line:description
