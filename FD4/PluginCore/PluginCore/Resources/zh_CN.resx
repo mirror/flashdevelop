@@ -5001,7 +5001,7 @@
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="FlashDevelop.Info.InvalidToolPath" xml:space="preserve">
-    <value>Incorrect path to {0} in {1} settings</value>
+    <value>错误的路径 {0}在{1}设置里</value>
     <comment>Added after 4.4.1</comment>
   </data>
 </root>
