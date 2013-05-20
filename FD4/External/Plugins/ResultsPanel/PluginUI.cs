@@ -584,7 +584,7 @@ namespace ResultsPanel
                             filename = PathHelper.ResolvePath(filename, projectDir);
                             if (filename == null) continue;
                         }
-                        else if (File.Exists(filename)) continue;
+                        else if (!File.Exists(filename)) continue;
 
                         FileInfo fileInfo = new FileInfo(filename);
                         if (fileInfo != null)
