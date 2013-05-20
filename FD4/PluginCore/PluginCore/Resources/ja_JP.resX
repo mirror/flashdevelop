@@ -5053,7 +5053,7 @@ UseData:"</value>
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="FlashDevelop.Info.InvalidToolPath" xml:space="preserve">
-    <value>Incorrect path to {0} in {1} settings</value>
+    <value>間違ったパス {0} を {1} に設定</value>
     <comment>Added after 4.4.1</comment>
   </data>
 </root>
