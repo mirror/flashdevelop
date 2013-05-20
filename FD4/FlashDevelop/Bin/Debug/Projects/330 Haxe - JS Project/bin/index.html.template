@@ -7,7 +7,6 @@
 </head>
 <body>
 	
-	<div id="haxe:trace"></div>
 	<script src="$(ProjectID).js"></script>
 </body>
 </html>
