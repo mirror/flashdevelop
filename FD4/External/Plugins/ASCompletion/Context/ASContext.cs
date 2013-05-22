@@ -611,6 +611,7 @@ namespace ASCompletion.Context
             PathExplorer explorer = new PathExplorer(this, path);
             if (hideDirectories != null) explorer.HideDirectories(hideDirectories);
             explorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
+            explorer.OnExplorationProgress += new PathExplorer.ExplorationProgressHandler(ExplorationProgress);
             explorer.Run();
         }
 
@@ -643,12 +644,7 @@ namespace ASCompletion.Context
 
         void ExplorationProgress(string state, int value, int max)
         {
-            if (plugin.Panel == null) return;
-            if (plugin.Panel.InvokeRequired)
-            {
-                plugin.Panel.BeginInvoke((MethodInvoker)delegate { ExplorationProgress(state, value, max); });
-                return;
-            }
+            // SetStatus is thread safe
             plugin.Panel.SetStatus(state, value, max);
         }
 
