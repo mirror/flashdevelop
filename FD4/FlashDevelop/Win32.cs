@@ -20,9 +20,6 @@ namespace FlashDevelop
         public static extern Boolean ShowWindow(IntPtr hWnd, Int32 nCmdShow);
 
         [DllImport("user32.dll")]
-        public static extern Boolean SystemParametersInfo(UInt32 uiAction, UInt32 uiParam, UInt32 pvParam, UInt32 fWinIni);
-
-        [DllImport("user32.dll")]
         public static extern void SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, Int32 x, Int32 y, Int32 width, Int32 height, UInt32 flags);
 
         [DllImport("user32.dll")]
@@ -49,10 +46,8 @@ namespace FlashDevelop
         /// </summary>
         public static void ActivateWindow(IntPtr handle)
         {
-            Win32.SystemParametersInfo((UInt32)0x2001, 0, 0, 0x0002 | 0x0001);
             if (Win32.IsIconic(handle)) Win32.ShowWindow(handle, Win32.SW_RESTORE);
             else Win32.SetForegroundWindow(handle); // Bring window to front...
-            Win32.SystemParametersInfo((UInt32)0x2001, 200000, 200000, 0x0002 | 0x0001);
         }
 
     }
