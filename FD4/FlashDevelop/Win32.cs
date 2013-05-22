@@ -14,9 +14,6 @@ namespace FlashDevelop
         public static extern Boolean IsIconic(IntPtr hWnd);
 
         [DllImport("user32.dll")]
-        public static extern UInt32 SetForegroundWindow(IntPtr hwnd);
-
-        [DllImport("user32.dll")]
         public static extern Boolean ShowWindow(IntPtr hWnd, Int32 nCmdShow);
 
         [DllImport("user32.dll")]
@@ -42,12 +39,11 @@ namespace FlashDevelop
         }
 
         /// <summary>
-        /// Activates the window with Win32
+        /// Restores the window with Win32
         /// </summary>
-        public static void ActivateWindow(IntPtr handle)
+        public static void RestoreWindow(IntPtr handle)
         {
             if (Win32.IsIconic(handle)) Win32.ShowWindow(handle, Win32.SW_RESTORE);
-            else Win32.SetForegroundWindow(handle); // Bring window to front...
         }
 
     }

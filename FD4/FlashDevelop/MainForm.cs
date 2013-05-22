@@ -1737,7 +1737,7 @@ namespace FlashDevelop
                     OpenDocumentFromParameters(args[i]);
                 }
             }
-            Win32.ActivateWindow(this.Handle);
+            Win32.RestoreWindow(this.Handle);
             /**
             * Notify plugins about start arguments
             */

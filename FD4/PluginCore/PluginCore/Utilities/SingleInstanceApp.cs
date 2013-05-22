@@ -21,8 +21,12 @@ namespace PluginCore.Utilities
         {
             [DllImport("user32.dll")]
             public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
             [DllImport("user32.dll")]
             public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+            [DllImport("user32.dll")]
+            public static extern UInt32 SetForegroundWindow(IntPtr hwnd);
 
             public const short WM_COPYDATA = 74;
 
@@ -168,6 +172,7 @@ namespace PluginCore.Utilities
                     try
                     {
                         NativeMethods.SendMessage(handle, NativeMethods.WM_COPYDATA, IntPtr.Zero, dataHandle.AddrOfPinnedObject());
+                        NativeMethods.SetForegroundWindow(handle); // Give focus to first instance
                         return true;
                     }
                     finally
@@ -177,8 +182,7 @@ namespace PluginCore.Utilities
                 }
                 finally
                 {
-                    if (bufferHandle.IsAllocated)
-                        bufferHandle.Free();
+                    if (bufferHandle.IsAllocated) bufferHandle.Free();
                 }
             }
             return false;
