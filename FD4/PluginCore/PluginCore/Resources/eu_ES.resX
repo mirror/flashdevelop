@@ -4988,7 +4988,7 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 4.3.0</comment>
   </data>
   <data name="FlashDevelop.Info.InvalidToolPath" xml:space="preserve">
-    <value>Incorrect path to {0} in {1} settings</value>
+    <value>{0} bidea ez da zuzena {1} konfigurazioan</value>
     <comment>Added after 4.4.1</comment>
   </data>
 </root>
