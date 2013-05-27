@@ -51,7 +51,12 @@ namespace ASCompletion.Model
 
         public string QualifiedName
         {
-            get { return (InFile.Package == "") ? Name : InFile.Package + "." + Name; }
+            get
+            {
+                if (InFile.Package == "") return Name;
+                if (InFile.Module == "" || InFile.Module == Name) return InFile.Package + "." + Name;
+                return InFile.Package + "." + InFile.Module + "." + Name;
+            }
         }
         public string ExtendsType
         {

@@ -543,6 +543,9 @@ namespace ASCompletion.Model
             model = fileModel;
             model.OutOfDate = false;
             model.CachedModel = false;
+            if (model.Context != null) features = model.Context.Features;
+            if (features != null && features.hasModules)
+                model.Module = Path.GetFileNameWithoutExtension(model.FileName);
 
             // pre-filtering
             if (allowBaReExtract && model.HasFiltering && model.Context != null)
@@ -552,7 +555,6 @@ namespace ASCompletion.Model
             model.InlinedRanges = null;
 
             // language features
-            if (model.Context != null) features = model.Context.Features;
             model.Imports.Clear();
             model.Classes.Clear();
             model.Members.Clear();
@@ -811,6 +813,8 @@ namespace ASCompletion.Model
                                     FileModel newModel = new FileModel(realFile, cacheLastWriteTime);
                                     newModel.CachedModel = true;
                                     newModel.Context = model.Context;
+                                    if (features != null && features.hasModules) 
+                                        newModel.Module = Path.GetFileNameWithoutExtension(realFile);
                                     haXe = newModel.haXe;
                                     if (!cachedPath.HasFile(realFile) && File.Exists(realFile))
                                     {
@@ -1708,6 +1712,8 @@ namespace ASCompletion.Model
         {
             model.Version = version;
             model.HasPackage = hasPackageSection || haXe;
+            model.FullPackage = model.Module == "" ? model.Package
+                : (model.Package == "" ? model.Module : model.Package + '.' + model.Module);
             if (model.FileName.Length == 0 || model.FileName.EndsWith("_cache")) return;
             if (model.PrivateSectionIndex == 0) model.PrivateSectionIndex = line;
             if (version == 2)
@@ -2195,7 +2201,7 @@ namespace ASCompletion.Model
                             model.Classes.Add(curClass);
                             curClass.InFile = model;
                             curClass.Comments = curComment;
-                            curClass.Type = (model.Package.Length > 0) ? model.Package + "." + token : token;
+                            curClass.Type = QualifiedName(model, token);
                             curClass.Name = token;
                             curClass.Constructor = (haXe) ? "new" : token;
                             curClass.Flags = curModifiers;
@@ -2235,7 +2241,7 @@ namespace ASCompletion.Model
                             model.Classes.Add(curClass);
                             curClass.InFile = model;
                             curClass.Comments = curComment;
-                            curClass.Type = (model.Package.Length > 0) ? model.Package + "." + token : token;
+                            curClass.Type = QualifiedName(model, token);
                             curClass.Name = token;
                             curClass.Flags = curModifiers;
                             curClass.Access = (curAccess == 0) ? features.enumModifierDefault : curAccess;
@@ -2269,7 +2275,7 @@ namespace ASCompletion.Model
                             model.Classes.Add(curClass);
                             curClass.InFile = model;
                             curClass.Comments = curComment;
-                            curClass.Type = (model.Package.Length > 0) ? model.Package + "." + token : token;
+                            curClass.Type = QualifiedName(model, token);
                             curClass.Name = token;
                             curClass.Flags = FlagType.Class | FlagType.TypeDef;
                             curClass.Access = (curAccess == 0) ? features.typedefModifierDefault : curAccess;
@@ -2308,7 +2314,7 @@ namespace ASCompletion.Model
                             model.Classes.Add(curClass);
                             curClass.InFile = model;
                             curClass.Comments = curComment;
-                            curClass.Type = (model.Package.Length > 0) ? model.Package + "." + token : token;
+                            curClass.Type = QualifiedName(model, token);
                             curClass.Name = token;
                             curClass.Flags = FlagType.Class | FlagType.Abstract;
                             curClass.Access = (curAccess == 0) ? features.typedefModifierDefault : curAccess;
@@ -2431,6 +2437,14 @@ namespace ASCompletion.Model
         #endregion
 
         #region tool methods
+
+        public string QualifiedName(FileModel InFile, string Name) 
+        {
+            if (InFile.Package == "") return Name;
+            if (InFile.Module == "" || InFile.Module == Name) return InFile.Package + "." + Name;
+            return InFile.Package + "." + InFile.Module + "." + Name;
+        }
+
         private String LastStringToken(string token, string separator)
         {
             int p = token.LastIndexOf(separator);

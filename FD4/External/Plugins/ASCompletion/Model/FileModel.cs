@@ -93,6 +93,8 @@ namespace ASCompletion.Model
         public string Comments;
         public string FileName;
         public string Package;
+        public string FullPackage;
+        public string Module;
         public bool TryAsPackage;
         public bool HasPackage;
         public int PrivateSectionIndex;
@@ -132,6 +134,7 @@ namespace ASCompletion.Model
         private void init(string fileName)
         {
             Package = "";
+            Module = "";
             FileName = fileName;
             haXe = (fileName.Length > 3) ? fileName.EndsWith(".hx") : false;
             //

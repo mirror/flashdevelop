@@ -1562,12 +1562,19 @@ namespace ASCompletion.Context
     #region Completion cache
     public class CompletionCache
     {
+        private bool isDirty;
+
         public string Package;
         public string Classname;
-        public bool IsDirty;
         public MemberList Elements;
         public MemberList AllTypes;
         public string Keywords;
+        public MemberList Imports;
+        public bool IsDirty
+        {
+            get { return isDirty; }
+            set { isDirty = value; Imports = null; }
+        }
 
         public CompletionCache(ASContext context, MemberList elements)
         {

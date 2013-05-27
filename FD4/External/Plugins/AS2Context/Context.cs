@@ -391,6 +391,9 @@ namespace AS2Context
         /// <param name="inFile">Current file</param>
         public override MemberList ResolveImports(FileModel inFile)
         {
+            if (completionCache.Imports != null)
+                return completionCache.Imports;
+
             bool filterImports = (inFile == cFile) && inFile.Classes.Count > 1;
             int lineMin = (filterImports && inPrivateSection) ? inFile.PrivateSectionIndex : 0;
             int lineMax = (filterImports && inPrivateSection) ? int.MaxValue : inFile.PrivateSectionIndex;
@@ -433,6 +436,7 @@ namespace AS2Context
                     }
                 }
             }
+            completionCache.Imports = imports;
             return imports;
         }
 
@@ -472,7 +476,7 @@ namespace AS2Context
         public override ClassModel ResolveType(string cname, FileModel inFile)
 		{
             // unknown type
-            if (cname == null || cname.Length == 0 || cname == features.voidKey || classPath == null) 
+            if (string.IsNullOrEmpty(cname) || cname == features.voidKey || classPath == null) 
                 return ClassModel.VoidClass;
 
             // typed array
@@ -491,12 +495,8 @@ namespace AS2Context
             if (inFile != null && inFile.Classes.Count > 0)
             {
                 foreach (ClassModel aClass in inFile.Classes)
-                {
                     if (aClass.Name == cname && (package == "" || package == inFile.Package))
-                    {
                         return aClass;
-                    }
-                }
             }
 
             // package reference for resolution
@@ -648,6 +648,7 @@ namespace AS2Context
 			if (!settings.LazyClasspathExploration)
             {
                 bool testSamePackage = package.Length == 0 && features.hasPackages;
+                bool testModule = package.Length > 0 && features.hasModules;
                 foreach (PathModel aPath in classPath) if (aPath.IsValid && !aPath.Updating)
                 {
                     ClassModel found = null;
@@ -655,6 +656,15 @@ namespace AS2Context
                     {
                         // qualified path
                         if (aFile.Package == package && aFile.Classes.Count > 0)
+                        {
+                            foreach (ClassModel aClass in aFile.Classes)
+                                if (aClass.Name == cname)
+                                {
+                                    found = aClass;
+                                    return false;
+                                }
+                        }
+                        else if (testModule && aFile.FullPackage == package && aFile.Classes.Count > 0)
                         {
                             foreach (ClassModel aClass in aFile.Classes)
                                 if (aClass.Name == cname)

@@ -2367,6 +2367,18 @@ namespace ASCompletion.Completion
                         FindMember(token, resultClass, step, mask, acc);
                     }
 
+                    // Haxe modules
+                    if (step.Type == null && features.hasModules)
+                    {
+                        foreach(ClassModel oClass in resultClass.InFile.Classes)
+                            if (oClass.Name == token)
+                            {
+                                step.Type = oClass;
+                                step.InFile = resultClass.InFile;
+                                break;
+                            }
+                    }
+
                     // handle E4X expressions
                     if (step.Type == null)
                     {
@@ -2504,7 +2516,12 @@ namespace ASCompletion.Completion
             foreach (MemberModel item in imports)
                 if (item.Name == token)
                 {
-                    if ((item.Flags & FlagType.Class) > 0)
+                    if (item is ClassModel)
+                    {
+                        result.Type = item as ClassModel;
+                        result.IsStatic = (p < 0);
+                    }
+                    else if ((item.Flags & FlagType.Class) > 0)
                     {
                         result.Type = context.ResolveType(item.Type, null);
                         result.IsStatic = (p < 0);
@@ -2584,7 +2601,9 @@ namespace ASCompletion.Completion
             if (m.Success && m.Groups[1].Length > 1)
             {
                 int p = text.IndexOf(';');
+                text = text.TrimEnd();
                 if (p < 0) p = text.Length;
+                if (text.EndsWith("(")) p--;
                 // resolve expression
                 ASExpr expr = GetExpression(sci, sci.PositionFromLine(var.LineFrom) + p, true);
                 if (!string.IsNullOrEmpty(expr.Value))

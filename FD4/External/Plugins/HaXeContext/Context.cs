@@ -54,6 +54,7 @@ namespace HaXeContext
 
             // language constructs
             features.hasPackages = true;
+            features.hasModules = true;
             features.hasImports = true;
             features.hasImportsWildcard = false;
             features.hasClasses = true;
@@ -530,8 +531,7 @@ namespace HaXeContext
             {
                 aPath.ForeachFile((aFile) =>
                 {
-                    string module = Path.GetFileNameWithoutExtension(aFile.FileName);
-                    string qmodule = aFile.Package.Length > 0 ? aFile.Package + "." + module : module;
+                    string module = aFile.Module;
                     bool needModule = true;
 
                     if (aFile.Classes.Count > 0 && !aFile.Classes[0].IsVoid())
@@ -542,21 +542,17 @@ namespace HaXeContext
                                 && (aClass.Access == Visibility.Public
                                     || (aClass.Access == Visibility.Internal && tpackage == package)))
                             {
-                                if (aClass.Name == module)
-                                {
-                                    needModule = false;
-                                    item = aClass.ToMemberModel();
-                                    if (tpackage != package) item.Name = item.Type;
-                                    fullList.Add(item);
-                                }
-                                else if (tpackage == "") fullList.Add(aClass.ToMemberModel());
-                                else if (tpackage == package) fullList.Add(aClass.ToMemberModel());
+                                if (aClass.Name == module) needModule = false;
+                                item = aClass.ToMemberModel();
+                                if (tpackage != package) item.Name = item.Type;
+                                fullList.Add(item);
                             }
                         }
                     // HX files correspond to a "module" which should appear in code completion
                     // (you don't import classes defined in modules but the module itself)
                     if (needModule)
                     {
+                        string qmodule = aFile.FullPackage;
                         item = new MemberModel(qmodule, qmodule, FlagType.Class | FlagType.Module, Visibility.Public);
                         fullList.Add(item);
                     }
@@ -640,13 +636,12 @@ namespace HaXeContext
         /// <param name="inFile">Current file</param>
         public override MemberList ResolveImports(FileModel inFile)
         {
-            bool filterImports = (inFile == cFile);
-            int lineMin = (filterImports && inPrivateSection) ? inFile.PrivateSectionIndex : 0;
-            int lineMax = (filterImports && inPrivateSection) ? int.MaxValue : inFile.PrivateSectionIndex;
+            if (completionCache.Imports != null) 
+                return completionCache.Imports;
+
             MemberList imports = new MemberList();
             foreach (MemberModel item in inFile.Imports)
             {
-                if (filterImports && (item.LineFrom < lineMin || item.LineFrom > lineMax)) continue;
                 if (settings.LazyClasspathExploration)
                 {
                     imports.Add(item);
@@ -692,13 +687,16 @@ namespace HaXeContext
                                 aPath.AddFile(file);
                         }
                         if (file != null)
+                        {
                             foreach (ClassModel c in file.Classes)
-                                if (c.IndexType == null)
-                                    imports.Add(c);
+                                if (c.IndexType == null) imports.Add(c);
+                        }
+                        else imports.Add(new MemberModel(item.Name, item.Type, FlagType.Class, Visibility.Public));
                     }
             }
             // haxe3: type resolution from bottom to top
             imports.Items.Reverse();
+            completionCache.Imports = imports;
             return imports;
         }
 
@@ -721,16 +719,16 @@ namespace HaXeContext
             FileModel cFile = ASContext.Context.CurrentModel;
             string fullName = member.Type;
             string name = member.Name;
-            int lineMin = (ASContext.Context.InPrivateSection) ? cFile.PrivateSectionIndex : 0;
-            int lineMax = atLine;
             foreach (MemberModel import in cFile.Imports)
             {
-                if (import.LineFrom >= lineMin && import.LineFrom <= lineMax && import.Name == name)
+                if (import.Name == name)
                 {
                     if (import.Type != fullName) throw new Exception(TextHelper.GetString("Info.AmbiguousType"));
                     return true;
                 }
                 else if (import.Name == "*" && import.Type.Replace("*", name) == fullName)
+                    return true;
+                else if (fullName.StartsWith(import.Type + "."))
                     return true;
             }
             return false;
@@ -744,15 +742,61 @@ namespace HaXeContext
 		/// <returns>A parsed class or an empty ClassModel if the class is not found</returns>
         public override ClassModel ResolveType(string cname, FileModel inFile)
         {
+            // unknown type
+            if (string.IsNullOrEmpty(cname) || cname == features.voidKey || classPath == null)
+                return ClassModel.VoidClass;
+
             // handle generic types
-            if (cname != null && cname.IndexOf('<') > 0)
+            if (cname.IndexOf('<') > 0)
             {
                 Match genType = re_genericType.Match(cname);
                 if (genType.Success)
                     return ResolveGenericType(genType.Groups["gen"].Value + "<T>", genType.Groups["type"].Value, inFile);
                 else return ClassModel.VoidClass;
             }
-            return base.ResolveType(cname, inFile);
+
+            // typed array
+            if (cname.IndexOf('@') > 0)
+                return ResolveTypeIndex(cname, inFile);
+
+            string package = "";
+
+            int p = cname.LastIndexOf('.');
+            if (p > 0)
+            {
+                package = cname.Substring(0, p);
+                cname = cname.Substring(p + 1);
+            }
+            
+            // search in imported classes
+            string inPackage = (features.hasPackages && inFile != null) ? inFile.Package : "";
+            MemberList imports = ResolveImports(inFile);
+            foreach (MemberModel import in imports)
+            {
+                if (import.Name == cname)
+                {
+                    if (import.Type.Length > import.Name.Length)
+                        package = import.Type.Substring(0, import.Type.Length - cname.Length - 1);
+                    break;
+                }
+            }
+
+            return GetModel(package, cname, inPackage);
+            //return base.ResolveType(cname, inFile);
+        }
+
+        ClassModel ResolveTypeByPackage(string package, string cname, FileModel inFile, string inPackage)
+        {
+            // quick check in current file
+            if (inFile != null && inFile.Classes.Count > 0)
+            {
+                foreach (ClassModel aClass in inFile.Classes)
+                    if (aClass.Name == cname && (package == "" || package == inFile.Package))
+                        return aClass;
+            }
+
+            // search in classpath
+            return GetModel(package, cname, inPackage);
         }
 
         /// <summary>
