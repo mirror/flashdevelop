@@ -22,7 +22,6 @@
 	<assets path="assets/img" rename="img" />
 	
 	<!-- optimize output -->
-	<haxeflag name="--dead-code-elimination" unless="haxe3" />
-	<haxeflag name="-dce" if="haxe3" />
+	<haxeflag name="--dead-code-elimination" />
 	
 </project>
