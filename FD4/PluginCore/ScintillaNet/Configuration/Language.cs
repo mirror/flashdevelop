@@ -77,7 +77,8 @@ namespace ScintillaNet.Configuration
                 usestyles[i].init(utility, _parent);
             }
             if (lexer != null) lexer.init(utility, _parent);
-			if (characterclass != null) characterclass.init(utility, _parent);
+            if (characterclass == null) characterclass = new CharacterClass();
+            characterclass.init(utility, _parent);
 			if (editorstyle != null) editorstyle.init(utility, _parent);
         }
         

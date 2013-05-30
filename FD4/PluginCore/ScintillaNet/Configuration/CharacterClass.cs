@@ -14,7 +14,7 @@ namespace ScintillaNet.Configuration
 		public string inherit;
 
 		[XmlTextAttribute()]
-		public string val;
+        public string val = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789_";
 
 		public string Characters
 		{
