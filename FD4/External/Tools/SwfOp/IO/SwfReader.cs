@@ -602,25 +602,58 @@ namespace SwfOp.IO {
 		/// <summary>
 		/// Inflate compressed swf
 		/// </summary>
-		protected void inflate() {
-			
+		protected void inflate()
+		{
+
 			// read size
 			br.BaseStream.Position = 4; // skip signature
 			int size = Convert.ToInt32(br.ReadUInt32());
-			
+
 			// read swf head
-			byte[] uncompressed = new byte[size];			
+			byte[] uncompressed = new byte[size];
 			br.BaseStream.Position = 0;
-			br.Read(uncompressed,0,8); // header data is not compre											
-			
+			br.Read(uncompressed, 0, 8); // header data is not compre											
+
 			// un-zip
-			byte[] compressed = br.ReadBytes(size);	
-			Inflater zipInflator = 	new Inflater();
+			byte[] compressed = br.ReadBytes(size);
+			Inflater zipInflator = new Inflater();
 			zipInflator.SetInput(compressed);
-			zipInflator.Inflate(uncompressed,8,size-8);						
-			
+			zipInflator.Inflate(uncompressed, 8, size - 8);
+
 			// new memory stream for uncompressed swf
 			MemoryStream m = new MemoryStream(uncompressed);
+			br = new BinaryReader(m);
+			br.BaseStream.Position = 0;
+		}
+
+		/// <summary>
+		/// Uncompress LZMA compressed swf
+		/// </summary>
+		protected void inflateLZMA()
+		{
+
+			// read size
+			br.BaseStream.Position = 4; // skip signature
+			int size = Convert.ToInt32(br.ReadUInt32()); // uncompressed size
+			int compressedSize = Convert.ToInt32(br.ReadUInt32()); // compressed size
+
+			// read swf head
+			byte[] uncompressed = new byte[size];
+			br.BaseStream.Position = 0;
+			br.Read(uncompressed, 0, 8); // header data (signature and uncompressed size) is not compressed									
+			br.BaseStream.Position = 12; // skip compressed size
+
+			byte[] properties = br.ReadBytes(5);
+			byte[] compressed = br.ReadBytes(compressedSize);
+
+			SevenZip.Compression.LZMA.Decoder decoder = new SevenZip.Compression.LZMA.Decoder();
+			decoder.SetDecoderProperties(properties);
+			// new memory stream for uncompressed swf
+			MemoryStream m = new MemoryStream(uncompressed);
+
+			m.Position = 8;
+			decoder.Code(new MemoryStream(compressed), m, compressedSize, size-8, null);
+
 			br = new BinaryReader(m);
 			br.BaseStream.Position = 0;
 		}
@@ -633,6 +666,9 @@ namespace SwfOp.IO {
 			// compressed swf?
 			if (br.PeekChar()=='C') {
 				inflate();
+			}
+			else if (br.PeekChar() == 'Z') {
+				inflateLZMA();
 			}
 			
 			SwfHeader header = ReadHeader();
