@@ -39,4 +39,8 @@
     <option testMovie="Custom" />
     <option testMovieCommand="" />
   </options>
+  <!-- Plugin Storage -->
+  <storage>
+    <entry key="package"><![CDATA[$(PackageDot)$(ProjectID)]]></entry>
+  </storage>
 </project>

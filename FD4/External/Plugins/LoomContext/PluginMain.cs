@@ -136,15 +136,19 @@ namespace LoomContext
                 case EventType.Command:
                     DataEvent de = e as DataEvent;
                     string action = de.Action;
-                    if (PluginBase.CurrentProject == null || !(PluginBase.CurrentProject is LoomProject)) 
-                        return;
 
-                    /*if (action == "ProjectManager.OpenVirtualFile")
+                    if (PluginBase.CurrentProject == null || !(PluginBase.CurrentProject is LoomProject))
+                    {
+                        if (action == "ProjectManager.Project") LoomHelper.Monitor(null);
+                        return;
+                    }
+
+                    if (action == "ProjectManager.OpenVirtualFile")
                     {
                         if (PluginBase.CurrentProject != null && PluginBase.CurrentProject.Language == "Loom")
                             e.Handled = OpenVirtualFileModel(de.Data as String);
                     }
-                    else*/ 
+                    else
                     if (action == "ProjectManager.BuildingProject"
                         && (PluginBase.CurrentProject as LoomProject).OutputType == OutputType.Application)
                     {
@@ -198,13 +202,6 @@ namespace LoomContext
                 ASComplete.OpenVirtualFile(model);
                 return true;
             }
-            /*fileName = fileName.Substring(0, split) + "toplevel.ls";
-            if (path.HasFile(fileName))
-            {
-                FileModel model = path.GetFile(fileName);
-                ASComplete.OpenVirtualFile(model);
-                return true;
-            }*/
             return false;
         }
 

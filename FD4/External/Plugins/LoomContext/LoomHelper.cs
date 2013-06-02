@@ -9,6 +9,7 @@ using LoomContext.Projects;
 using PluginCore.Bridge;
 using ProjectManager.Projects;
 using LitJson;
+using System.Windows.Forms;
 
 namespace LoomContext
 {
@@ -19,6 +20,7 @@ namespace LoomContext
         static WatcherEx watcher;
         static LoomProject proj;
         static System.Timers.Timer updater;
+        static string lastProject;
 
         public static void Build(LoomProject project)
         {
@@ -68,7 +70,7 @@ namespace LoomContext
         /// <param name="project"></param>
         static public void Monitor(IProject project)
         {
-            if (updater == null)
+            if (updater == null && project != null)
             {
                 updater = new System.Timers.Timer();
                 updater.Interval = 200;
@@ -84,7 +86,45 @@ namespace LoomContext
                 proj = project as LoomProject;
                 proj.ProjectUpdating += new ProjectUpdatingHandler(proj_ProjectUpdating);
                 proj_ProjectUpdating();
+                if (lastProject != proj.ProjectPath)
+                {
+                    lastProject = proj.ProjectPath;
+                    AutoInit(proj);
+                }
             }
+            else lastProject = null;
+        }
+
+        /// <summary>
+        /// Scaffold Loom project
+        /// </summary>
+        /// <param name="project"></param>
+        private static void AutoInit(LoomProject project)
+        {
+            string[] files = Directory.GetFiles(project.Directory);
+            if (!(files.Length == 1 && Path.GetExtension(files[0]) == ".lsproj"
+                && Directory.GetDirectories(project.Directory).Length == 0)) return;
+
+            if (!project.Storage.ContainsKey("package"))
+                return;
+
+            string pkg = project.Storage["package"] as String;
+            project.Storage.Remove("package");
+            project.Save();
+            
+            string loomPath = ResolveLoom();
+            string loom = Path.Combine(loomPath, "loom.bat");
+            string oldWD = PluginBase.MainForm.WorkingDirectory;
+            string cmd = loom + ";new --force";
+            if (!string.IsNullOrEmpty(pkg)) cmd += " --app-id " + pkg;
+            cmd += " " + Path.GetFileName(project.Directory);
+
+            PluginBase.MainForm.WorkingDirectory = Path.GetDirectoryName(project.Directory);
+            PluginBase.MainForm.CallCommand("RunProcessCaptured", cmd);
+            PluginBase.MainForm.WorkingDirectory = oldWD;
+
+            // force re-exploring the project
+            updater.Enabled = true;
         }
 
         internal static void StopWatcher()
@@ -119,6 +159,7 @@ namespace LoomContext
         {
             UpdateProject();
             proj.PropertiesChanged();
+            proj.OnClasspathChanged();
         }
 
         static void watcher_Changed(object sender, FileSystemEventArgs e)
