@@ -47,6 +47,8 @@ namespace ProjectManager.Building.AS3
                 if (!string.IsNullOrEmpty(options.AdvancedTelemetryPassword))
                     AddEq("-advanced-telemetry-password", options.AdvancedTelemetryPassword);
             }
+            if (asc2 && options.InlineFunctions)
+                AddEq("-inline", true);
             if (options.LinkReport.Length > 0) Add("-link-report", options.LinkReport);
             if (options.LoadExterns.Length > 0) Add("-load-externs", options.LoadExterns);
 

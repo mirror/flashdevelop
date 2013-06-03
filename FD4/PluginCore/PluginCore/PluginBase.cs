@@ -66,6 +66,16 @@ namespace PluginCore
             set { sdk = value; }
         }
 
+        /// <summary>
+        /// Run action on UI thread
+        /// </summary>
+        /// <param name="action"></param>
+        public static void RunAsync(MethodInvoker action)
+        {
+            Form ui = MainForm as Form;
+            if (ui != null && ui.InvokeRequired) ui.BeginInvoke(action);
+            else action.Invoke();
+        }
     }
 
 }

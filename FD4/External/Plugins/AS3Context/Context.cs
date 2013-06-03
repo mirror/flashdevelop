@@ -128,6 +128,7 @@ namespace AS3Context
 
             // live syntax checking
             timerCheck = new Timer(500);
+            timerCheck.SynchronizingObject = PluginBase.MainForm as System.Windows.Forms.Form;
             timerCheck.AutoReset = false;
             timerCheck.Elapsed += new ElapsedEventHandler(timerCheck_Elapsed);
             FlexShells.SyntaxError += new SyntaxErrorHandler(FlexShell_SyntaxError);
@@ -610,12 +611,6 @@ namespace AS3Context
         /// </summary>
         private void BackgroundSyntaxCheck()
         {
-            if (Panel == null) return;
-            if (Panel.InvokeRequired)
-            {
-                Panel.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate { BackgroundSyntaxCheck(); });
-                return;
-            }
             if (!IsFileValid) return;
 
             ScintillaNet.ScintillaControl sci = CurSciControl;

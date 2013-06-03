@@ -4998,4 +4998,8 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Inkorrekter Pfad zu {0} in den Einstellungen von {1}</value>
     <comment>Added after 4.4.1</comment>
   </data>
+  <data name="ProjectManager.Description.InlineFunctions" xml:space="preserve">
+    <value>Inline functions with the [Inline] meta tag (ASC 2.0+).</value>
+    <comment>Added after 4.3</comment>
+  </data>
 </root>

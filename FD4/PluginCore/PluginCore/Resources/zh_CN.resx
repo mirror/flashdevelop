@@ -5004,4 +5004,8 @@
     <value>错误的路径 {0}在{1}设置里</value>
     <comment>Added after 4.4.1</comment>
   </data>
+  <data name="ProjectManager.Description.InlineFunctions" xml:space="preserve">
+    <value>Inline functions with the [Inline] meta tag (ASC 2.0+).</value>
+    <comment>Added after 4.3</comment>
+  </data>
 </root>

@@ -5056,4 +5056,8 @@ UseData:"</value>
     <value>間違ったパス {0} を {1} に設定</value>
     <comment>Added after 4.4.1</comment>
   </data>
+  <data name="ProjectManager.Description.InlineFunctions" xml:space="preserve">
+    <value>Inline functions with the [Inline] meta tag (ASC 2.0+).</value>
+    <comment>Added after 4.3</comment>
+  </data>
 </root>

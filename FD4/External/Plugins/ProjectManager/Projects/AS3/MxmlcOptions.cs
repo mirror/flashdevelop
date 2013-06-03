@@ -156,7 +156,14 @@ namespace ProjectManager.Projects.AS3
         [LocalizedDescription("ProjectManager.Description.AdvancedTelemetryPassword")]
         [DefaultValue("")]
         public string AdvancedTelemetryPassword { get { return advancedTelemetryPassword; } set { advancedTelemetryPassword = value; } }
-        
+
+        bool inlineFunctions = false;
+        [LocalizedCategory("ProjectManager.Category.Advanced")]
+        [DisplayName("Inline Functions")]
+        [LocalizedDescription("ProjectManager.Description.InlineFunctions")]
+        [DefaultValue(false)]
+        public bool InlineFunctions { get { return inlineFunctions; } set { inlineFunctions = value; } }
+
         string[] compilerConstants = new string[] { };
         [LocalizedCategory("ProjectManager.Category.Advanced")]
         [DisplayName("Compiler Constants")]

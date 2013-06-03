@@ -133,7 +133,7 @@ namespace AS3Context.Compiler
             if (flexPath != null && Directory.Exists(Path.Combine(flexPath, "lib")))
                 ascPath = Path.Combine(flexPath, "lib\\asc.jar");
             // included asc.jar
-            if (ascPath == null) 
+            if (ascPath == null || !File.Exists(ascPath)) 
                 ascPath = PathHelper.ResolvePath(Path.Combine(PathHelper.ToolDir, "flexlibs/lib/asc.jar"));
 
             if (ascPath == null)
@@ -493,26 +493,29 @@ namespace AS3Context.Compiler
         
         private void ascRunner_OutputError(object sender, string line)
         {
-        	Control ctrl = ASContext.Panel as Control;
-        	if (ctrl != null && ctrl.InvokeRequired)
-                ctrl.BeginInvoke((MethodInvoker)delegate { ascRunner_OutputError(sender, line); });
-        	else 
-        	{
-                if (silentChecking) 
+            if (line == null) return;
+            PluginBase.RunAsync((MethodInvoker)delegate
+            {
+                if (line.StartsWith("Exception "))
+                {
+                    TraceManager.AddAsync(line, -3);
+                    return;
+                }
+                if (silentChecking)
                 {
                     if (SyntaxError != null) SyntaxError(line);
                     return;
                 }
                 TraceManager.Add(line, -3);
-	        	if (!notificationSent) 
-	        	{
-	        		notificationSent = true;
+                if (!notificationSent)
+                {
+                    notificationSent = true;
                     TraceManager.Add("Done(1)", -2);
                     EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, "Done(1)"));
                     ASContext.SetStatusText(TextHelper.GetString("Info.AscDone"));
                     EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "ResultsPanel.ShowResults", null));
-	        	}
-        	}
+                }
+            });
         }
 
         private void ascRunner_Output(object sender, string line)
@@ -530,62 +533,39 @@ namespace AS3Context.Compiler
                 }
                 return;
             }
-            Control ctrl = ASContext.Panel as Control;
-            if (ctrl != null && ctrl.InvokeRequired)
-                ctrl.BeginInvoke((MethodInvoker)delegate { ascRunner_Output(sender, line); });
-            else
-            {
-                if (!silentChecking) TraceManager.Add(line, 0);
-            }
+
+            if (!silentChecking) TraceManager.AddAsync(line, 0);
         }
 
         private void ascRunner_End()
         {
-            Control ctrl = ASContext.Panel as Control;
-            if (ctrl != null && ctrl.InvokeRequired)
-                ctrl.BeginInvoke((MethodInvoker)delegate
-                {
-                    ascRunner_End();
-                });
-            else
-            {
-                TraceManager.Add("Done(0)", -2);
-            }
+            TraceManager.AddAsync("Done(0)", -2);
         }
         
         private void mxmlcRunner_Error(object sender, string line)
         {
-            Control ctrl = ASContext.Panel as Control;
-        	if (ctrl != null && ctrl.InvokeRequired)
-                ctrl.BeginInvoke((MethodInvoker)delegate { mxmlcRunner_Error(sender, line); });
-        	else 
-        	{
-                TraceManager.Add(line, -3);
-        	}
+            TraceManager.AddAsync(line, -3);
         }
 
         private void mxmlcRunner_Output(object sender, string line)
         {
-            Control ctrl = ASContext.Panel as Control;
-        	if (ctrl != null && ctrl.InvokeRequired) 
-                ctrl.BeginInvoke((MethodInvoker)delegate { mxmlcRunner_Output(sender, line); });
-        	else 
-        	{
-        		if (!notificationSent && line.StartsWith("Done("))
-        		{
+            PluginBase.RunAsync((MethodInvoker)delegate
+            {
+                if (!notificationSent && line.StartsWith("Done("))
+                {
                     running = false;
                     TraceManager.Add(line, -2);
-        			notificationSent = true;
-	        		ASContext.SetStatusText(TextHelper.GetString("Info.MxmlcDone"));
+                    notificationSent = true;
+                    ASContext.SetStatusText(TextHelper.GetString("Info.MxmlcDone"));
                     EventManager.DispatchEvent(this, new TextEvent(EventType.ProcessEnd, line));
-	        		if (Regex.IsMatch(line, "Done\\([1-9]"))
-	        		{
+                    if (Regex.IsMatch(line, "Done\\([1-9]"))
+                    {
                         EventManager.DispatchEvent(this, new DataEvent(EventType.Command, "ResultsPanel.ShowResults", null));
-	        		}
-	        		else RunAfterBuild();
-        		}
+                    }
+                    else RunAfterBuild();
+                }
                 else TraceManager.Add(line, 0);
-        	}
+            });
         }
         
         private void RunAfterBuild()

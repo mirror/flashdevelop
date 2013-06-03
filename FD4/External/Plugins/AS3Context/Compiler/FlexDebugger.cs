@@ -58,16 +58,14 @@ namespace AS3Context.Compiler
         {
             if (startMessage == null) 
                 return;
-            if ((PluginBase.MainForm as Form).InvokeRequired)
+            PluginBase.RunAsync((MethodInvoker)delegate
             {
-                (PluginBase.MainForm as Form).BeginInvoke(new LineEvent(debugger_OnStarted), new object[] { line });
-                return;
-            }
-            // send message again
-            ignoreMessage = true;
-            EventManager.DispatchEvent(null, startMessage);
-            startMessage = null;
-            ignoreMessage = false;
+                // send message again
+                ignoreMessage = true;
+                EventManager.DispatchEvent(null, startMessage);
+                startMessage = null;
+                ignoreMessage = false;
+            });
         }
 
         static void debugger_OnError(string line)
