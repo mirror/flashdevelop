@@ -23,6 +23,6 @@
 	
 	<!-- optimize output -->
 	<haxeflag name="--dead-code-elimination" if="haxe2" />
-	<haxeflag name="-dce=standart" if="haxe3" />
+	<haxeflag name="-dce=std" if="haxe3" />
 	
 </project>
