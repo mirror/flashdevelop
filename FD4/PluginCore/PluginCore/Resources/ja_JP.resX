@@ -5057,7 +5057,7 @@ UseData:"</value>
     <comment>Added after 4.4.1</comment>
   </data>
   <data name="ProjectManager.Description.InlineFunctions" xml:space="preserve">
-    <value>Inline functions with the [Inline] meta tag (ASC 2.0+).</value>
+    <value>[Inline]メタタグのついたメソッドをインライン展開する(ASC 2.0以上).</value>
     <comment>Added after 4.4.2</comment>
   </data>
 </root>
