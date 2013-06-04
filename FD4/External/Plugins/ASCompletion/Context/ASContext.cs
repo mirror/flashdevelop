@@ -612,6 +612,7 @@ namespace ASCompletion.Context
             if (hideDirectories != null) explorer.HideDirectories(hideDirectories);
             explorer.OnExplorationDone += new PathExplorer.ExplorationDoneHandler(RefreshContextCache);
             explorer.OnExplorationProgress += new PathExplorer.ExplorationProgressHandler(ExplorationProgress);
+            explorer.UseCache = !ASContext.CommonSettings.DisableCache;
             explorer.Run();
         }
 

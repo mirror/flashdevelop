@@ -233,10 +233,10 @@ namespace ProjectManager.Projects.Haxe
                 }
 
                 // nme options
-                if (IsNmeOutput)
+                /*if (IsNmeOutput)
                 {
                     pr.Add("--remap flash:nme");
-                }
+                }*/
 
                 // flash options
                 if (IsFlashOutput)
@@ -322,6 +322,22 @@ namespace ProjectManager.Projects.Haxe
                 }
             }
             return pr.ToArray();
+        }
+
+        /// <summary>
+        /// Determines if we're using NME or OpenFL
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        static public string GetBuilder(HaxeProject project)
+        {
+            return GetBuilder(project.OutputPathAbsolute);
+        }
+        static public string GetBuilder(string projectFile)
+        {
+            if (string.IsNullOrEmpty(projectFile) || !File.Exists(projectFile))
+                return null;
+            return Path.GetExtension(projectFile).ToLower() == ".nmml" ? "nme" : "openfl";
         }
 
         private string GetClassName(string absTarget, string cp)

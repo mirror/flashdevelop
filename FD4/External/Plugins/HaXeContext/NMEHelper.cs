@@ -34,6 +34,9 @@ namespace HaXeContext
             if (project == null || project.OutputType != OutputType.Application)
                 return false;
 
+            string builder = HaxeProject.GetBuilder(project);
+            if (builder == null) return true;
+
             string config = project.TargetBuild;
             if (String.IsNullOrEmpty(config)) config = "flash";
             else if (config.IndexOf("android") >= 0) CheckADB();
@@ -45,7 +48,7 @@ namespace HaXeContext
             if (config.StartsWith("flash") && config.IndexOf("-DSWF_PLAYER") < 0)
                 config += GetSwfPlayer();
 
-            string args = "run nme run \"" + project.OutputPathAbsolute + "\" " + config;
+            string args = "run " + builder + " run \"" + project.OutputPathAbsolute + "\" " + config;
             string haxelib = GetHaxelib(project);
 
             if (config.StartsWith("flash") || config.StartsWith("html5")) // no capture
@@ -104,17 +107,17 @@ namespace HaXeContext
             HaxeProject hxproj = project as HaxeProject;
             if (hxproj.MovieOptions.Platform != HaxeMovieOptions.NME_PLATFORM)
                 return;
-            string nmmlProj = hxproj.OutputPathAbsolute;
-            if (!File.Exists(nmmlProj))
-                return;
-
+            
+            string builder = HaxeProject.GetBuilder(hxproj);
+            if (builder == null) return;
+            
             string haxelib = GetHaxelib(hxproj);
             string config = hxproj.TargetBuild;
             if (String.IsNullOrEmpty(config)) config = "flash";
 
             ProcessStartInfo pi = new ProcessStartInfo();
             pi.FileName = haxelib;
-            pi.Arguments = " run nme clean \"" + hxproj.GetRelativePath(nmmlProj) + "\" " + config;
+            pi.Arguments = " run " + builder + " clean \"" + hxproj.OutputPathAbsolute + "\" " + config;
             pi.UseShellExecute = false;
             pi.CreateNoWindow = true;
             pi.WorkingDirectory = Path.GetDirectoryName(hxproj.ProjectPath);
@@ -202,12 +205,19 @@ namespace HaXeContext
                 return;
             }
 
+            string builder = HaxeProject.GetBuilder(hxproj);
+            if (builder == null)
+            {
+                TraceManager.AddAsync("Project config not found:\n" + hxproj.OutputPathAbsolute, -3);
+                return;
+            }
+
             string config = hxproj.TargetBuild;
             if (String.IsNullOrEmpty(config)) config = "flash";
 
             ProcessStartInfo pi = new ProcessStartInfo();
             pi.FileName = haxelib;
-            pi.Arguments = "run nme display \"" + hxproj.GetRelativePath(nmmlPath) + "\" " + config;
+            pi.Arguments = "run " + builder + " display \"" + hxproj.GetRelativePath(nmmlPath) + "\" " + config;
             pi.RedirectStandardError = true;
             pi.RedirectStandardOutput = true;
             pi.UseShellExecute = false;

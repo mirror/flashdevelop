@@ -81,11 +81,13 @@ namespace ASCompletion.Model
         private PathModel pathModel;
 		private List<string> foundFiles;
         private List<string> explored;
+        private string hashName;
 
         public PathExplorer(IASContext context, PathModel pathModel)
         {
             this.context = context;
             this.pathModel = pathModel;
+            hashName = pathModel.Path;
             foundFiles = new List<string>();
             explored = new List<string>();
         }
@@ -96,6 +98,7 @@ namespace ASCompletion.Model
             {
                 if (Path.IsPathRooted(dir)) explored.Add(dir);
                 else explored.Add(Path.Combine(pathModel.Path, dir));
+                hashName += ";" + dir;
             }
         }
 
@@ -193,7 +196,7 @@ namespace ASCompletion.Model
                     string cacheFileName = null;
                     if (UseCache)
                     {
-                        cacheFileName = GetCacheFileName(pathModel.Path);
+                        cacheFileName = GetCacheFileName(hashName);
                         if (File.Exists(cacheFileName))
                         {
                             NotifyProgress(TextHelper.GetString("Info.ParsingCache"), 0, 1);

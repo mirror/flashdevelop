@@ -76,7 +76,10 @@ namespace ProjectManager.Building.Haxe
         {
             List<String> pr = new List<String>();
 
-            pr.Add("run nme build");
+            string builder = HaxeProject.GetBuilder(output);
+            if (builder == null) builder = "openfl";
+
+            pr.Add("run " + builder + " build");
             pr.Add(Quote(output));
             pr.Add(target);
             if (!noTrace)

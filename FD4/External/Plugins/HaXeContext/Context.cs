@@ -760,6 +760,7 @@ namespace HaXeContext
                 return ResolveTypeIndex(cname, inFile);
 
             string package = "";
+            string inPackage = (features.hasPackages && inFile != null) ? inFile.Package : "";
 
             int p = cname.LastIndexOf('.');
             if (p > 0)
@@ -767,17 +768,18 @@ namespace HaXeContext
                 package = cname.Substring(0, p);
                 cname = cname.Substring(p + 1);
             }
-            
-            // search in imported classes
-            string inPackage = (features.hasPackages && inFile != null) ? inFile.Package : "";
-            MemberList imports = ResolveImports(inFile);
-            foreach (MemberModel import in imports)
+            else 
             {
-                if (import.Name == cname)
+                // search in imported classes
+                MemberList imports = ResolveImports(inFile);
+                foreach (MemberModel import in imports)
                 {
-                    if (import.Type.Length > import.Name.Length)
-                        package = import.Type.Substring(0, import.Type.Length - cname.Length - 1);
-                    break;
+                    if (import.Name == cname)
+                    {
+                        if (import.Type.Length > import.Name.Length)
+                            package = import.Type.Substring(0, import.Type.Length - cname.Length - 1);
+                        break;
+                    }
                 }
             }
 
