@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="application.nmml" />
+    <movie path="application.xml" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
@@ -12,7 +12,7 @@
     <movie minorVersion="0" />
     <movie platform="NME" />
     <movie background="#FFFFFF" />
-    <movie preferredSDK=";2;" />
+    <movie preferredSDK=";3;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
