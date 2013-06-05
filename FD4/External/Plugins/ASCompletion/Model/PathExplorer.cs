@@ -311,7 +311,6 @@ namespace ASCompletion.Model
                 }
                 else writeCache = true;
 
-                PluginCore.Managers.TraceManager.AddAsync(filename);
                 aFile = GetFileModel(filename);
 
                 if (aFile == null || pathModel.HasFile(filename)) continue;

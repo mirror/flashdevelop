@@ -1,8 +1,8 @@
 package $(PackageName);
 
-import nme.display.Sprite;
-import nme.events.Event;
-import nme.Lib;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.Lib;
 
 /**
 $(CBI)* ...
@@ -51,8 +51,8 @@ class Main extends Sprite $(CSLB){
 	
 	public static function main() $(CSLB){
 		// static entry point
-		Lib.current.stage.align = nme.display.StageAlign.TOP_LEFT;
-		Lib.current.stage.scaleMode = nme.display.StageScaleMode.NO_SCALE;
+		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
+		Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
 		Lib.current.addChild(new Main());
 	}
 }
