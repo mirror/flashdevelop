@@ -203,18 +203,18 @@ namespace ASCompletion.Model
                             ASFileParser.ParseCacheFile(pathModel, cacheFileName, context);
                         }
                         else writeCache = true;
-                        if (stopExploration) return;
+                        if (stopExploration || !pathModel.InUse) return;
                     }
 
                     // explore filesystem (populates foundFiles)
                     ExploreFolder(pathModel.Path, context.GetExplorerMask());
-                    if (stopExploration) return;
+                    if (stopExploration || !pathModel.InUse) return;
 
                     // create models
                     writeCache |= ParseFoundFiles();
 
                     // write cache file
-                    if (UseCache && writeCache && !stopExploration)
+                    if (UseCache && writeCache && !stopExploration && pathModel.InUse)
                     try
                     {
                         string cacheDir = Path.GetDirectoryName(cacheFileName);
@@ -311,6 +311,7 @@ namespace ASCompletion.Model
                 }
                 else writeCache = true;
 
+                PluginCore.Managers.TraceManager.AddAsync(filename);
                 aFile = GetFileModel(filename);
 
                 if (aFile == null || pathModel.HasFile(filename)) continue;
