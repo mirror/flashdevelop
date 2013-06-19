@@ -23,11 +23,11 @@ namespace ASCompletion.Helpers
         private System.Timers.Timer updater;
 
         private Regex reError = new Regex(
-            @"^\*\*Error\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:\s]+(?<desc>[^\n\r]*)",
+            @"^\*\*Error\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:,\s]+(?<desc>[^\n\r]*)",
             RegexOptions.Compiled | RegexOptions.Multiline);
 
         private Regex warnError = new Regex(
-            @"^\*\*Warning\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:\s]+(?<desc>[^\n\r]*)",
+            @"^\*\*Warning\*\*\s(?<file>.*\.as)[^0-9]+(?<line>[0-9]+)[:,\s]+(?<desc>[^\n\r]*)",
             RegexOptions.Compiled | RegexOptions.Multiline);
 
         private Regex reFlashFile = new Regex(
@@ -86,14 +86,26 @@ namespace ASCompletion.Helpers
                 string file = m.Groups["file"].Value;
                 string line = m.Groups["line"].Value;
                 string desc = m.Groups["desc"].Value.Trim();
-                TraceManager.Add(String.Format("{0}:{1}: {2}", file, line, desc), -3);
+                Match mCol = Regex.Match(desc, @"\s*[a-z]+\s([0-9]+)\s");
+                if (mCol.Success)
+                {
+                    line += "," + mCol.Groups[1].Value;
+                    desc = desc.Substring(mCol.Length);
+                }
+                TraceManager.Add(String.Format("{0}({1}): {2}", file, line, desc), -3);
             }
             foreach (Match m in warningMatches)
             {
                 string file = m.Groups["file"].Value;
                 string line = m.Groups["line"].Value;
                 string desc = m.Groups["desc"].Value.Trim();
-                TraceManager.Add(String.Format("{0}:{1}: {2}", file, line, desc), -3);
+                Match mCol = Regex.Match(desc, @"\s*[a-z]+\s([0-9]+)\s");
+                if (mCol.Success)
+                {
+                    line += "," + mCol.Groups[1].Value;
+                    desc = desc.Substring(mCol.Length);
+                }
+                TraceManager.Add(String.Format("{0}({1}): {2}", file, line, desc), -3);
             }
             te = new TextEvent(EventType.ProcessEnd, "Done(" + errorMatches.Count + ")");
             EventManager.DispatchEvent(this, te);
