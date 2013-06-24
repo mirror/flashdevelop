@@ -133,6 +133,7 @@ namespace ASCompletion.Model
                     foreach(ClassModel model in extensionList)
                     if (model.QualifiedName == extends.QualifiedName)
                     {
+                        if (extends.Name == InFile.Context.Features.objectKey) break;
                         string info = String.Format(TextHelper.GetString("ASCompletion.Info.InheritanceLoop"), Type, extensionList[0].Type);
                         PluginCore.Controls.MessageBar.ShowWarning(info);
                         resolvedExtend = null;

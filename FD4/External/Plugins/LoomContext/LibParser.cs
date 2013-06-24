@@ -201,10 +201,11 @@ namespace LoomContext
             if (files.ContainsKey(key)) cFile = files[key];
             else files.Add(key, cFile);
 
-            if (cFile.Package == "System") // System classes tweaks
+            if (cFile.Package.ToLower() == "system") // System classes tweaks
             {
                 cFile.Package = "";
                 if (cClass.Name == "Vector") cClass.Name = "Vector.<T>";
+                if (cClass.Name == "Object") cClass.ExtendsType = "void";
             }
             if (cClass.Access == Visibility.Private) cClass.Access = Visibility.Public;
 

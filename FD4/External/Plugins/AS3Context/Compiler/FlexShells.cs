@@ -42,7 +42,7 @@ namespace AS3Context.Compiler
 			"-compiler.services","-services",
 			"-compiler.theme","-theme",
 			"-dump-config","-file-specs","resource-bundle-list",
-			"-link-report","-load-config","-load-externs",
+			"-link-report","-load-config","-load-externs","-size-report",
 			"-output","-o","-runtime-shared-libraries","-rsl",
             "-namespace","-compiler.namespaces.namespace"};
 		
