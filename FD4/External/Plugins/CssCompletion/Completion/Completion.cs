@@ -140,6 +140,12 @@ namespace CssCompletion
                     mode = CompleteMode.Value;
             }
             else if (context.Separator == ':') mode = CompleteMode.Pseudo;
+            else if (context.Word.Length > 0 && context.Word[0] == features.Trigger)
+            {
+                context.Word = context.Word.Substring(1);
+                context.Position++;
+                mode = CompleteMode.Variable;
+            }
 
             HandleCompletion(mode, context, false, false);
         }
@@ -510,7 +516,7 @@ namespace CssCompletion
             while (i < len)
             {
                 char c = src[i++];
-                if (c == 13 || c == 10 || c == ';') break;
+                if (c == 13 || c == 10 || c == ';' || c == ')' || c == '(') break;
                 value += c;
             }
 
