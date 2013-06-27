@@ -117,7 +117,7 @@ namespace LoomContext
             string oldWD = PluginBase.MainForm.WorkingDirectory;
             string cmd = loom + ";new --force";
             if (!string.IsNullOrEmpty(pkg)) cmd += " --app-id " + pkg;
-            cmd += " " + Path.GetFileName(project.Directory);
+            cmd += " \"" + Path.GetFileName(project.Directory) + "\"";
 
             PluginBase.MainForm.WorkingDirectory = Path.GetDirectoryName(project.Directory);
             PluginBase.MainForm.CallCommand("RunProcessCaptured", cmd);
