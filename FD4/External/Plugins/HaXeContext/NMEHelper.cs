@@ -53,6 +53,14 @@ namespace HaXeContext
 
             if (config.StartsWith("flash") || config.StartsWith("html5")) // no capture
             {
+                if (config.StartsWith("flash") && project.TraceEnabled) // debugger
+                {
+                    DataEvent de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
+                    EventManager.DispatchEvent(project, de);
+                    de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
+                    EventManager.DispatchEvent(project, de);
+                }
+
                 var infos = new ProcessStartInfo(haxelib, args);
                 infos.WorkingDirectory = project.Directory;
                 infos.WindowStyle = ProcessWindowStyle.Hidden;
