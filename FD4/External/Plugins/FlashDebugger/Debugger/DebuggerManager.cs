@@ -385,6 +385,8 @@ namespace FlashDebugger
         /// </summary>
         private void flashInterface_ScriptLoadedEvent(object sender)
 		{
+            // force all breakpoints update after new as code loaded into debug movie 
+            PluginMain.breakPointManager.ForceBreakPointUpdates();
 			m_FlashInterface.UpdateBreakpoints(PluginMain.breakPointManager.GetBreakPointUpdates());
 			m_FlashInterface.Continue();
 		}

@@ -234,6 +234,14 @@ namespace FlashDebugger
             m_bAccessable = true;
         }
 
+        public void ForceBreakPointUpdates()
+        {
+            foreach (BreakPointInfo bp in m_BreakPointList)
+            {
+                bp.Location = null;
+            }
+        }
+
 		public List<BreakPointInfo> GetBreakPointUpdates()
 		{
 			List<BreakPointInfo> bpList = new List<BreakPointInfo>();

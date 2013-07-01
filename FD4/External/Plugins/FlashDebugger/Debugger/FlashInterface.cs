@@ -834,8 +834,11 @@ namespace FlashDebugger
 			int nFiles = files.Count;
 			if (nFiles > 0)
 			{
-				foreach (SwfInfo swf in m_Session.getSwfs())
+                // reverse loop to take latest loded swf first, and ignore old swf.
+                SwfInfo[] swfInfo = m_Session.getSwfs();
+                for (int swfC = swfInfo.Length - 1; swfC >= 0; swfC--) 
 				{
+                    SwfInfo swf = swfInfo[swfC];
 					if (swf == null) continue;
 					try
 					{
