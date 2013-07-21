@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Collections;
 using System.Diagnostics;
 using ProjectManager.Projects;
+using System.Text.RegularExpressions;
 
 namespace ProjectManager.Controls.TreeView
 {
@@ -44,6 +45,8 @@ namespace ProjectManager.Controls.TreeView
             char sep = Path.DirectorySeparatorChar;
             string[] parts = text.Split(sep);
             string label = "";
+            Regex reVersion = new Regex("^[0-9]+[.,-][0-9]+");
+            string version = null;
 
             if (parts.Length > 0)
             {
@@ -52,8 +55,12 @@ namespace ProjectManager.Controls.TreeView
                     String part = parts[i] as String;
                     if (part != "" && part != "." && part != ".." && Array.IndexOf(excludes, part.ToLower()) == -1)
                     {
-                        label = part;
-                        break;
+                        if (Char.IsDigit(part[0]) && reVersion.IsMatch(part)) version = part;
+                        else
+                        {
+                            label = part;
+                            break;
+                        }
                     }
                 }
                 if (label == "")
@@ -61,7 +68,7 @@ namespace ProjectManager.Controls.TreeView
                     label = parts[parts.Length - 1];
                 }
             }
-
+            if (version != null) label += " (" + version + ")";
             Text = label;
             ToolTipText = classpath;
 		}

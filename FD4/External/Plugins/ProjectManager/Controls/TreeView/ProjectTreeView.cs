@@ -282,7 +282,10 @@ namespace ProjectManager.Controls.TreeView
                 ArrayList globalClasspaths = new ArrayList();
 
                 if (PluginMain.Settings.ShowProjectClasspaths)
+                {
                     projectClasspaths.AddRange(project.Classpaths);
+                    if (project.AdditionalPaths != null) projectClasspaths.AddRange(project.AdditionalPaths);
+                }
 
                 if (PluginMain.Settings.ShowGlobalClasspaths)
                     globalClasspaths.AddRange(PluginMain.Settings.GlobalClasspaths);

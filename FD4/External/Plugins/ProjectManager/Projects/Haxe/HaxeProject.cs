@@ -448,7 +448,7 @@ namespace ProjectManager.Projects.Haxe
                     switch (op)
                     {
                         case "D": defs.Add(value); break;
-                        case "cp": cps.Add(value); break;
+                        case "cp": cps.Add(CleanPath(value)); break;
                         case "lib": libs.Add(value); break;
                         case "main": CompilerOptions.MainClass = value; break;
                         case "swf":
@@ -490,6 +490,11 @@ namespace ProjectManager.Projects.Haxe
                 OutputType = OutputType.Application;
                 MovieOptions.Platform = target;
             }
+        }
+
+        private string CleanPath(string path)
+        {
+            return path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar).TrimEnd(Path.DirectorySeparatorChar);
         }
         #endregion
     }

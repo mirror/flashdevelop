@@ -118,11 +118,12 @@ namespace ProjectManager.Projects
         public bool TraceEnabled { set { traceEnabled = value; } get { return traceEnabled; } }
         public string TargetBuild { set { targetBuild = value; } get { return targetBuild; } }
         public virtual bool EnableInteractiveDebugger { get { return movieOptions.DebuggerSupported; } }
+        public string[] AdditionalPaths; // temporary storage of resolved classpaths
 		
 		// we only provide getters for these to preserve the original pointer
         public MovieOptions MovieOptions { get { return movieOptions; } }
         public PathCollection Classpaths { get { return classpaths; } }
-		public PathCollection CompileTargets { get { return compileTargets; } }
+        public PathCollection CompileTargets { get { return compileTargets; } }
 		public HiddenPathCollection HiddenPaths { get { return hiddenPaths; } }
         public AssetCollection LibraryAssets { get { return libraryAssets; } }
         public virtual String LibrarySWFPath { get { return OutputPath; } }

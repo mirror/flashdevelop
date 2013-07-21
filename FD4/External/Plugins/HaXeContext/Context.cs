@@ -195,6 +195,7 @@ namespace HaXeContext
 
                 if (path != null && path.Length > 0 && Directory.Exists(path))
                 {
+                    path = NormalizePath(path).TrimEnd(Path.DirectorySeparatorChar);
                     haxelibsCache.Add(lib, path);
                     return path;
                 }
@@ -355,7 +356,10 @@ namespace HaXeContext
             {
                 foreach (string param in proj.BuildHXML(new string[0], "", false))
                     if (!string.IsNullOrEmpty(param) && param.IndexOf("-lib ") == 0)
-                        AddPath(LookupLibrary(param.Substring(5)));
+                    {
+                        PathModel libPath = AddPath(LookupLibrary(param.Substring(5)));
+                        if (libPath != null) AppendPath(contextSetup, libPath.Path);
+                    }
             }
 
             // add external pathes
@@ -392,6 +396,15 @@ namespace HaXeContext
             resolvingFunction = false;
             if (completionModeHandler == null) 
                 OnCompletionModeChange();
+        }
+
+        private void AppendPath(ContextSetupInfos contextSetup, string path)
+        {
+            foreach(string cp in contextSetup.Classpath) 
+                if (path.Equals(cp, StringComparison.OrdinalIgnoreCase))
+                    return;
+            if (contextSetup.AdditionalPaths == null) contextSetup.AdditionalPaths = new List<string>();
+            contextSetup.AdditionalPaths.Add(path);
         }
 
         override protected bool ExplorePath(PathModel path)

@@ -264,6 +264,8 @@ namespace ASCompletion
                                     setup.Classpath = (string[])info["classpath"];
                                     setup.HiddenPaths = (string[])info["hidden"];
                                     ASContext.SetLanguageClassPath(setup);
+                                    if (setup.AdditionalPaths != null) // report custom classpath
+                                        info["additional"] = setup.AdditionalPaths.ToArray();
                                 }
                                 e.Handled = true;
                             }

@@ -291,6 +291,8 @@ namespace ProjectManager.Actions
 
                 de = new DataEvent(EventType.Command, "ASCompletion.ClassPath", info);
                 EventManager.DispatchEvent(this, de);
+
+                project.AdditionalPaths = info.ContainsKey("additional") ? info["additional"] as string[] : null;
             }
             else currentLang = null;
 		}

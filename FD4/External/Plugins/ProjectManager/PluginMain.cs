@@ -539,9 +539,6 @@ namespace ProjectManager
             Settings.LastProject = project.ProjectPath;
             Settings.Language = project.Language;
 
-            // ui
-            pluginUI.SetProject(project);
-
             // notify
             PluginBase.CurrentSolution = project;
             PluginBase.CurrentProject = project;
@@ -551,6 +548,9 @@ namespace ProjectManager
             BroadcastProjectInfo();
 
             projectActions.UpdateASCompletion(MainForm, project);
+
+            // ui
+            pluginUI.SetProject(project);
             pluginUI.NotifyIssues();
             menus.SetProject(project);
             project.ClasspathChanged += new ChangedHandler(ProjectClasspathsChanged);

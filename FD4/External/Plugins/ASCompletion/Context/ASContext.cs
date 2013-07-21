@@ -1509,7 +1509,7 @@ namespace ASCompletion.Context
                 path = path.Replace(dirAltSeparator, dirSeparator);
             if (!path.EndsWith(dirSeparator))
                 path += dirSeparator;
-				path = path.Replace(dirSeparator+dirSeparator, dirSeparator);
+            path = path.Replace(dirSeparator + dirSeparator, dirSeparator);
             return PathHelper.GetLongPathName(path);
         }
         static public string GetLastStringToken(string str, string sep)
@@ -1556,6 +1556,7 @@ namespace ASCompletion.Context
         public string TargetBuild;
         public string[] Classpath;
         public string[] HiddenPaths;
+        public List<String> AdditionalPaths;
     }
 
     #endregion
