@@ -47,7 +47,9 @@ namespace ProjectManager.Actions
                 {
                     FlashDevelopActions.CheckAuthorName();
                     ProjectCreator creator = new ProjectCreator();
-                    return creator.CreateProject(dialog.TemplateDirectory, dialog.ProjectLocation, dialog.ProjectName, dialog.PackageName);
+                    Project created = creator.CreateProject(dialog.TemplateDirectory, dialog.ProjectLocation, dialog.ProjectName, dialog.PackageName);
+                    PatchProject(created);
+                    return created;
                 }
                 catch (Exception exception)
                 {
@@ -76,7 +78,9 @@ namespace ProjectManager.Actions
             try 
             {
                 String physical = PathHelper.GetPhysicalPathName(path);
-                return ProjectLoader.Load(physical); 
+                Project loaded = ProjectLoader.Load(physical);
+                PatchProject(loaded);
+                return loaded;
             }
             catch (Exception exception)
             {
@@ -108,6 +112,7 @@ namespace ProjectManager.Actions
                         string path = Path.GetDirectoryName(imported.ProjectPath);
                         string name = Path.GetFileName(path);
                         string newPath = Path.Combine(path, name + ".as3proj");
+                        PatchProject(imported);
                         imported.SaveAs(newPath);
                         return newPath;
                     }
@@ -121,6 +126,13 @@ namespace ProjectManager.Actions
                 }
             }
             return null;
+        }
+
+        private void PatchProject(Project project)
+        {
+            if (project == null) return;
+            if (!project.HiddenPaths.IsHidden("obj"))
+                project.HiddenPaths.Add("obj");
         }
 
         private string ExtractPackagedProject(string packagePath)

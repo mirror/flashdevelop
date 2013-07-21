@@ -113,10 +113,23 @@ namespace ProjectManager
             {
                 Object obj = ObjectSerializer.Deserialize(SettingsPath, Settings);
                 Settings = (ProjectManagerSettings)obj;
+                PatchSettings();
             }
             // set manually to avoid dependency in FDBuild
             FileInspector.ExecutableFileTypes = Settings.ExecutableFileTypes;
             Settings.Changed += SettingChanged;
+        }
+
+        private void PatchSettings()
+        {
+            // remove 'obj' from the excluded directory names - now /obj a hidden directory
+            if (Settings.ExcludedDirectories.Length > 0 && Settings.ExcludedDirectories[0] == "obj")
+            {
+                List<String> ex = new List<string>(Settings.ExcludedDirectories);
+                ex.RemoveAt(0);
+                Settings.ExcludedDirectories = ex.ToArray();
+                this.SaveSettings();
+            }
         }
 
         public void SaveSettings()
