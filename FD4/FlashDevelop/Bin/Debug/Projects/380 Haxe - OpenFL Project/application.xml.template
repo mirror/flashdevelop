@@ -22,6 +22,6 @@
 	<assets path="assets/img" rename="img" />
 	
 	<!-- optimize output -->
-	<haxeflag name="-dce std" if="haxe3" />
+	<haxeflag name="-dce full" />
 	
 </project>
