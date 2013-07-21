@@ -391,13 +391,14 @@ namespace AS2Context
         /// <param name="inFile">Current file</param>
         public override MemberList ResolveImports(FileModel inFile)
         {
-            if (completionCache.Imports != null)
+            if (inFile == cFile && completionCache.Imports != null)
                 return completionCache.Imports;
 
+            MemberList imports = new MemberList();
+            if (inFile == null) return imports;
             bool filterImports = (inFile == cFile) && inFile.Classes.Count > 1;
             int lineMin = (filterImports && inPrivateSection) ? inFile.PrivateSectionIndex : 0;
             int lineMax = (filterImports && inPrivateSection) ? int.MaxValue : inFile.PrivateSectionIndex;
-            MemberList imports = new MemberList();
             foreach (MemberModel item in inFile.Imports)
             {
                 if (filterImports && (item.LineFrom < lineMin || item.LineFrom > lineMax)) continue;
@@ -436,7 +437,7 @@ namespace AS2Context
                     }
                 }
             }
-            completionCache.Imports = imports;
+            if (inFile == cFile) completionCache.Imports = imports;
             return imports;
         }
 

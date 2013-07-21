@@ -649,10 +649,11 @@ namespace HaXeContext
         /// <param name="inFile">Current file</param>
         public override MemberList ResolveImports(FileModel inFile)
         {
-            if (completionCache.Imports != null) 
+            if (inFile == cFile && completionCache.Imports != null) 
                 return completionCache.Imports;
 
             MemberList imports = new MemberList();
+            if (inFile == null) return imports;
             foreach (MemberModel item in inFile.Imports)
             {
                 if (settings.LazyClasspathExploration)
@@ -671,6 +672,7 @@ namespace HaXeContext
                         fileName = FLASH_OLD + fileName.Substring(5);
                 }
 
+                bool matched = false;
                 foreach (PathModel aPath in classPath)
                     if (aPath.IsValid && !aPath.Updating)
                     {
@@ -701,15 +703,19 @@ namespace HaXeContext
                         }
                         if (file != null)
                         {
+                            // add all classes (Haxe module)
                             foreach (ClassModel c in file.Classes)
                                 if (c.IndexType == null) imports.Add(c);
+                            matched = true;
                         }
-                        else imports.Add(new MemberModel(item.Name, item.Type, FlagType.Class, Visibility.Public));
                     }
+
+                if (!matched) // add anyway
+                    imports.Add(new MemberModel(item.Name, item.Type, FlagType.Class, Visibility.Public));
             }
             // haxe3: type resolution from bottom to top
             imports.Items.Reverse();
-            completionCache.Imports = imports;
+            if (inFile == cFile) completionCache.Imports = imports;
             return imports;
         }
 
