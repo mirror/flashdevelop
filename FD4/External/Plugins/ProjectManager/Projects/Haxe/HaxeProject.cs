@@ -494,7 +494,12 @@ namespace ProjectManager.Projects.Haxe
 
         private string CleanPath(string path)
         {
-            return path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar).TrimEnd(Path.DirectorySeparatorChar);
+            path = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar).TrimEnd(Path.DirectorySeparatorChar);
+            // handle if NME/OpenFL config file is not at the root of the project directory
+            var relDir = Path.GetDirectoryName(OutputPathAbsolute);
+            if (Path.IsPathRooted(path)) return path;
+            path = Path.GetFullPath(Path.Combine(relDir, path));
+            return GetRelativePath(path);
         }
         #endregion
     }
