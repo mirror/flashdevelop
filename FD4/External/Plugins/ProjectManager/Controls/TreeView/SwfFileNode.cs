@@ -269,14 +269,18 @@ namespace ProjectManager.Controls.TreeView
                 parser.Fonts.Sort(fontsComp);
 
                 SwfHeaderNode hnode = new SwfHeaderNode(BackingPath);
+                string ext = Path.GetExtension(BackingPath).ToLower();
                 hnode.Nodes.Add(new HeaderInfoNode("File Size", FormatBytes(new FileInfo(BackingPath).Length)));
                 hnode.Nodes.Add(new HeaderInfoNode("SWF Version", parser.Header.Version));
                 hnode.Nodes.Add(new HeaderInfoNode("AVM", parser.FileAttributes.Actionscript3 ? 2 : 1));
                 if (parser.FileAttributes.UseNetwork) hnode.Nodes.Add(new HeaderInfoNode("Use Network"));
                 if (parser.FileAttributes.UseDirectBlit) hnode.Nodes.Add(new HeaderInfoNode("Use DirectBlit"));
                 if (parser.FileAttributes.UseGPU) hnode.Nodes.Add(new HeaderInfoNode("Use GPU"));
-                hnode.Nodes.Add(new HeaderInfoNode("Dimensions", FormatDimensions(GetSwfRect(parser.Header.Rect))));
-                hnode.Nodes.Add(new HeaderInfoNode("Background", parser.FileAttributes.Background));
+                if (ext == ".swf")
+                {
+                    hnode.Nodes.Add(new HeaderInfoNode("Dimensions", FormatDimensions(GetSwfRect(parser.Header.Rect))));
+                    hnode.Nodes.Add(new HeaderInfoNode("Background", parser.FileAttributes.Background));
+                }
                 hnode.Nodes.Add(new HeaderInfoNode("Framerate", parser.Header.Fps / 256));
                 hnode.Nodes.Add(new HeaderInfoNode("Frames", parser.Header.Frames));
                 Nodes.Add(hnode);
