@@ -21,7 +21,7 @@
 	<icon path="assets/openfl.svg" />
 	<assets path="assets/img" rename="img" />
 	
-	<!-- optimize output -->
-	<haxeflag name="-dce full" />
+	<!-- optimize output
+	<haxeflag name="-dce full" /> -->
 	
 </project>
