@@ -13,16 +13,16 @@
 !define BUILD "RTM"
 
 ; Define AIR SDK version
-!define AIR "3.7.0.2090"
+!define AIR "3.8.0.870"
 
 ; Define AIR+ASC SDK version
-!define ASC "3.7.0.2090"
+!define ASC "3.8.0.870"
 
 ; Define Flex SDK version
 !define FLEX "4.6.0.23201B"
 
 ; Define Flash player version
-!define FLASH "11.7.700.224"
+!define FLASH "11.8.800.94"
 
 ; Installer details
 VIAddVersionKey "CompanyName" "FlashDevelop.org"
@@ -418,7 +418,7 @@ Section "Install AIR SDK" InstallAirSDK
 	
 	; Download AIR SDK zip file. If the extract failed previously, use the old file.
 	IfFileExists "$TEMP\air_sdk_${AIR}.zip" +7 0
-	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.7/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
+	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.8/AdobeAIRSDK.zip "$TEMP\air_sdk_${AIR}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
 	DetailPrint "AIR SDK download cancel details: $R0"
@@ -467,7 +467,7 @@ Section "Install AIR SDK (ASC2)" InstallAscSDK
 	
 	; Download AIR+ASC SDK zip file. If the extract failed previously, use the old file.
 	IfFileExists "$TEMP\asc_sdk_${ASC}.zip" +7 0
-	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.7/AIRSDK_Compiler.zip "$TEMP\asc_sdk_${ASC}.zip"
+	NSISdl::download /TIMEOUT=30000 http://airdownload.adobe.com/air/win/download/3.8/AIRSDK_Compiler.zip "$TEMP\asc_sdk_${ASC}.zip"
 	Pop $R0
 	StrCmp $R0 "success" +4
 	DetailPrint "AIR SDK (ASC2) download cancel details: $R0"
@@ -532,16 +532,16 @@ Section "Install Flash Player" InstallFlashPlayer
 	Call ConnectInternet
 	
 	; Create player dir if not found
-	IfFileExists "$INSTDIR\Tools\flexlibs\runtimes\player\11.7\win\*.*" +2 0
-	CreateDirectory "$INSTDIR\Tools\flexlibs\runtimes\player\11.7\win\"
+	IfFileExists "$INSTDIR\Tools\flexlibs\runtimes\player\11.8\win\*.*" +2 0
+	CreateDirectory "$INSTDIR\Tools\flexlibs\runtimes\player\11.8\win\"
 	
 	; If the debug player exists in the installer directory then use that for bulk silent deployments.
 	IfFileExists "$EXEDIR\flashplayer_11_sa_debug.exe" 0 +3
-	CopyFiles "$EXEDIR\flashplayer_11_sa_debug.exe" "$INSTDIR\Tools\flexlibs\runtimes\player\11.7\win\FlashPlayerDebugger.exe"
+	CopyFiles "$EXEDIR\flashplayer_11_sa_debug.exe" "$INSTDIR\Tools\flexlibs\runtimes\player\11.8\win\FlashPlayerDebugger.exe"
 	Goto +9
 
 	; Download Flash debug player
-	NSISdl::download /TIMEOUT=30000 http://download.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug.exe "$INSTDIR\Tools\flexlibs\runtimes\player\11.7\win\FlashPlayerDebugger.exe"
+	NSISdl::download /TIMEOUT=30000 http://download.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug.exe "$INSTDIR\Tools\flexlibs\runtimes\player\11.8\win\FlashPlayerDebugger.exe"
 	Pop $R0
 	StrCmp $R0 "success" +4
 	DetailPrint "Flash debug player download cancel details: $R0"
