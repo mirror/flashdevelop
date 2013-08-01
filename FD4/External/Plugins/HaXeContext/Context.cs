@@ -34,7 +34,7 @@ namespace HaXeContext
 
         private HaXeSettings hxsettings;
         private string currentSDK;
-        private Dictionary<string, string> haxelibsCache;
+        private Dictionary<string, List<string>> haxelibsCache;
         private bool hasAIRSupport;
         private bool hasMobileSupport;
         private bool resolvingDot;
@@ -124,7 +124,7 @@ namespace HaXeContext
             initSettings.CompletionModeChanged += OnCompletionModeChange;
             //OnCompletionModeChange(); // defered to first use
 
-            haxelibsCache = new Dictionary<string,string>();
+            haxelibsCache = new Dictionary<string, List<string>>();
             //BuildClassPath(); // defered to first use
         }
         #endregion
@@ -165,7 +165,7 @@ namespace HaXeContext
         }
 
 
-        private string LookupLibrary(string lib)
+        private List<string> LookupLibrary(string lib)
         {
             if (haxelibsCache.ContainsKey(lib))
                 return haxelibsCache[lib];
@@ -187,17 +187,24 @@ namespace HaXeContext
                 pi.WindowStyle = ProcessWindowStyle.Hidden;
                 Process p = Process.Start(pi);
                 p.WaitForExit();
-                
+
+                List<string> paths = new List<string>();
                 string path = "";
-                do { path = p.StandardOutput.ReadLine(); }
-                while (path.StartsWith("-") && !p.StandardOutput.EndOfStream);
+                do { 
+                    path = p.StandardOutput.ReadLine();
+                    if (path != null && path.Length > 0 && !path.StartsWith("-") && Directory.Exists(path))
+                    {
+                        path = NormalizePath(path).TrimEnd(Path.DirectorySeparatorChar);
+                        paths.Add(path);
+                    }
+                }
+                while (!p.StandardOutput.EndOfStream);
                 p.Close();
 
-                if (path != null && path.Length > 0 && Directory.Exists(path))
+                if (paths.Count > 0)
                 {
-                    path = NormalizePath(path).TrimEnd(Path.DirectorySeparatorChar);
-                    haxelibsCache.Add(lib, path);
-                    return path;
+                    haxelibsCache.Add(lib, paths);
+                    return paths;
                 }
                 else return null;
             }
@@ -290,7 +297,7 @@ namespace HaXeContext
                 if (currentSDK != hxPath)
                 {
                     currentSDK = hxPath;
-                    haxelibsCache = new Dictionary<string, string>();
+                    haxelibsCache = new Dictionary<string, List<string>>();
                     OnCompletionModeChange();
                 }
 
@@ -357,8 +364,15 @@ namespace HaXeContext
                 foreach (string param in proj.BuildHXML(new string[0], "", false))
                     if (!string.IsNullOrEmpty(param) && param.IndexOf("-lib ") == 0)
                     {
-                        PathModel libPath = AddPath(LookupLibrary(param.Substring(5)));
-                        if (libPath != null) AppendPath(contextSetup, libPath.Path);
+                        List<string> libPaths = LookupLibrary(param.Substring(5));
+                        if (libPaths != null)
+                        {
+                            foreach (string path in libPaths)
+                            {
+                                PathModel libPath = AddPath(path);
+                                if (libPath != null) AppendPath(contextSetup, libPath.Path);
+                            }
+                        }
                     }
             }
 
