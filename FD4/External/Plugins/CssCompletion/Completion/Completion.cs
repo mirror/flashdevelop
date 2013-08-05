@@ -127,7 +127,13 @@ namespace CssCompletion
             var context = GetContext(sci, position);
             var mode = CompleteMode.Selector;
 
-            if (context.InBlock) mode = CompleteMode.Attribute;
+            if (context.Word.Length > 0 && context.Word[0] == features.Trigger)
+            {
+                context.Word = context.Word.Substring(1);
+                context.Position++;
+                mode = CompleteMode.Variable;
+            } 
+            else if (context.InBlock) mode = CompleteMode.Attribute;
             else if (context.InValue)
             {
                 if (context.Word.Length > 0 && context.Word[0] == features.Trigger)
@@ -140,12 +146,6 @@ namespace CssCompletion
                     mode = CompleteMode.Value;
             }
             else if (context.Separator == ':') mode = CompleteMode.Pseudo;
-            else if (context.Word.Length > 0 && context.Word[0] == features.Trigger)
-            {
-                context.Word = context.Word.Substring(1);
-                context.Position++;
-                mode = CompleteMode.Variable;
-            }
 
             HandleCompletion(mode, context, false, false);
         }
