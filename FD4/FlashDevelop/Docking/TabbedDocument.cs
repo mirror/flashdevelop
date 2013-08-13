@@ -25,6 +25,7 @@ namespace FlashDevelop.Docking
         private String previousText;
         private ScintillaControl editor;
         private ScintillaControl editor2;
+        private ScintillaControl lastEditor;
         private SplitContainer splitContainer;
         private Boolean useCustomIcon;
         private Boolean isModified;
@@ -120,6 +121,10 @@ namespace FlashDevelop.Docking
         {
             get
             {
+                if (this.lastEditor != null && this.lastEditor.Visible)
+                {
+                    return this.lastEditor;
+                }
                 foreach (Control ctrl in this.Controls)
                 {
                     if (ctrl is ScintillaControl && !this.Disposing) return ctrl as ScintillaControl;
@@ -286,6 +291,7 @@ namespace FlashDevelop.Docking
         {
             if (sender.IsFocus)
             {
+                this.lastEditor = sender;
                 this.editor.DisableAllSciEvents = (sender == editor2);
                 this.editor2.DisableAllSciEvents = (sender == editor);
             }
