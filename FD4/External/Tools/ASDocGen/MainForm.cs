@@ -760,9 +760,15 @@ namespace ASDocGen
             {
                 String parentDir = Directory.GetParent(this.AppDir).FullName;
                 String asdocPath = Path.Combine(parentDir, @"flexsdk\bin\asdoc.exe");
+                String asdocPath2 = Path.Combine(parentDir, @"flexsdk\bin\asdoc.bat");
                 if (File.Exists(asdocPath))
                 {
                     this.appSettings.asdocLocation = Path.GetDirectoryName(asdocPath);
+                    ObjectSerializer.Serialize(settingFile, this.appSettings);
+                }
+                if (File.Exists(asdocPath2))
+                {
+                    this.appSettings.asdocLocation = Path.GetDirectoryName(asdocPath2);
                     ObjectSerializer.Serialize(settingFile, this.appSettings);
                 }
             }
@@ -1079,7 +1085,10 @@ namespace ASDocGen
                 }
                 else if (this.activeProject.activeCompiler == 1) // asdoc
                 {
-                    contents += "\"" + Path.Combine(this.appSettings.asdocLocation, "asdoc.exe") + "\"";
+                    String asdocPath = Path.Combine(this.appSettings.asdocLocation, "asdoc.exe");
+                    String asdocPath2 = Path.Combine(this.appSettings.asdocLocation, "asdoc.bat");
+                    if (File.Exists(asdocPath)) contents += "\"" + asdocPath + "\"";
+                    if (File.Exists(asdocPath2)) contents += "\"" + asdocPath2 + "\"";
                     if (this.activeProject.classPaths.Trim() != String.Empty)
                     {
                         String[] classPaths = this.activeProject.classPaths.Split(';');
@@ -1105,7 +1114,7 @@ namespace ASDocGen
                     {
                         contents += " " + this.activeProject.extraOptions;
                     }
-                    if (contents.EndsWith("asdoc.exe\""))
+                    if (contents.EndsWith("asdoc.exe\"") || contents.EndsWith("asdoc.bat\""))
                     {
                         contents += " -help advanced";
                     }
