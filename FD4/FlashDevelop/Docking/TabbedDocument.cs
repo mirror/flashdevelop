@@ -121,10 +121,6 @@ namespace FlashDevelop.Docking
         {
             get
             {
-                if (this.lastEditor != null && this.lastEditor.Visible)
-                {
-                    return this.lastEditor;
-                }
                 foreach (Control ctrl in this.Controls)
                 {
                     if (ctrl is ScintillaControl && !this.Disposing) return ctrl as ScintillaControl;
@@ -134,6 +130,11 @@ namespace FlashDevelop.Docking
                         ScintillaControl sci1 = casted.Panel1.Controls[0] as ScintillaControl;
                         ScintillaControl sci2 = casted.Panel2.Controls[0] as ScintillaControl;
                         if (sci2.IsFocus) return sci2;
+                        else if (sci1.IsFocus) return sci1;
+                        else if (this.lastEditor != null && this.lastEditor.Visible)
+                        {
+                            return this.lastEditor;
+                        }
                         else return sci1;
                     }
                 }
