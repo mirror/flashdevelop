@@ -10,6 +10,7 @@
     <movie height="600" />
     <movie version="11" />
     <movie minorVersion="1" />
+    <movie platform="Flash" />
     <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
