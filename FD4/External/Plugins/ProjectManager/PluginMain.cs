@@ -130,6 +130,15 @@ namespace ProjectManager
                 Settings.ExcludedDirectories = ex.ToArray();
                 this.SaveSettings();
             }
+            // add new filtered types if user has old settings
+            if (Array.IndexOf<string>(Settings.FilteredDirectoryNames, "git") < 0)
+            {
+                List<String> fdn = new List<string>(Settings.FilteredDirectoryNames);
+                fdn.Add("git");
+                fdn.Add("hg");
+                Settings.FilteredDirectoryNames = fdn.ToArray();
+                this.SaveSettings();
+            }
         }
 
         public void SaveSettings()
