@@ -1454,7 +1454,7 @@ namespace ASCompletion.Completion
 
             // inherit doc
             while ((method.Flags & FlagType.Override) > 0 && result.InClass != null
-                && (method.Comments == null || method.Comments.Trim() == ""))
+                && (method.Comments == null || method.Comments.Trim() == "" || method.Comments.Contains("@inheritDoc")))
             {
                 FindMember(method.Name, result.InClass.Extends, result, 0, 0);
                 method = result.Member;
