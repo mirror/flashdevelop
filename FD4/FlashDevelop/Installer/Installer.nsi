@@ -538,7 +538,7 @@ Section "Install Flash Player" InstallFlashPlayer
 	; If the debug player exists in the installer directory then use that for bulk silent deployments.
 	IfFileExists "$EXEDIR\flashplayer_11_sa_debug.exe" 0 +3
 	CopyFiles "$EXEDIR\flashplayer_11_sa_debug.exe" "$INSTDIR\Tools\flexlibs\runtimes\player\11.8\win\FlashPlayerDebugger.exe"
-	Goto +9
+	Goto Skip
 
 	; Download Flash debug player
 	NSISdl::download /TIMEOUT=30000 http://download.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug.exe "$INSTDIR\Tools\flexlibs\runtimes\player\11.8\win\FlashPlayerDebugger.exe"
@@ -547,6 +547,8 @@ Section "Install Flash Player" InstallFlashPlayer
 	DetailPrint "Flash debug player download cancel details: $R0"
 	MessageBox MB_OK "Download cancelled. The installer will now continue normally."
 	Goto Finish
+	
+	Skip:
 	
 	; Notify FD about the update
 	Call RefreshConfig
