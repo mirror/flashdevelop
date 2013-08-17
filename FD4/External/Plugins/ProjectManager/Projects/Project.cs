@@ -15,6 +15,7 @@ namespace ProjectManager.Projects
         NewWindow,
         ExternalPlayer,
         OpenDocument,
+        Webserver,
         Custom,
         Unknown
     }

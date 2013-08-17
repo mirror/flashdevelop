@@ -139,10 +139,7 @@ namespace ProjectManager
             if (project != null)
             {
                 TreeBar.ShowHidden.Checked = project.ShowHiddenPaths;
-                var prefs = PluginMain.Settings.GetPrefs(project);
-                IsTraceDisabled = !prefs.DebugMode;
-                project.TraceEnabled = !IsTraceDisabled;
-                project.TargetBuild = prefs.TargetBuild;
+                IsTraceDisabled = project.TraceEnabled;
             }
         }
 

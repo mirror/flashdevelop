@@ -5008,4 +5008,12 @@
     <value>内联函数用[Inline]元标记说明 (ASC 2.0+).</value>
     <comment>Added after 4.4.2</comment>
   </data>
+  <data name="ProjectManager.Description.WebserverPort" xml:space="preserve">
+    <value>Local Web Server port for running projects using an HTTP server.</value>
+    <comment>Added after 4.4.2</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieWebserver" xml:space="preserve">
+    <value>Webserver...</value>
+    <comment>Added after 4.4.2</comment>
+  </data>
 </root>

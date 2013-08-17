@@ -1028,7 +1028,9 @@ namespace ProjectManager.Controls
         private void UpdateEditCommandButton()
         {
             TestMovieBehavior state = GetTestMovie();
-            editCommandButton.Visible = state == TestMovieBehavior.Custom || state == TestMovieBehavior.OpenDocument;
+            editCommandButton.Visible = state == TestMovieBehavior.Custom 
+                || state == TestMovieBehavior.OpenDocument
+                || state == TestMovieBehavior.Webserver;
         }
 
         private void InitTestMovieOptions()
@@ -1045,6 +1047,7 @@ namespace ProjectManager.Controls
                 options.Add(TestMovieBehavior.ExternalPlayer);
             }
             options.Add(TestMovieBehavior.OpenDocument);
+            options.Add(TestMovieBehavior.Webserver);
             options.Add(TestMovieBehavior.Custom);
             List<string> items = options.ConvertAll<string>((item) => item.ToString());
 

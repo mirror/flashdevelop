@@ -121,7 +121,9 @@ namespace HaXeContext
                     if (de.Action == "ProjectManager.RunCustomCommand")
                     {
                         if (contextInstance.IsNmeTarget)
+                        {
                             e.Handled = NMEHelper.Run(de.Data as string);
+                        }
                     }
                     else if (de.Action == "ProjectManager.BuildingProject" || de.Action == "ProjectManager.TestingProject")
                     {

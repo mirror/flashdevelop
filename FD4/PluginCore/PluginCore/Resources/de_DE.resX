@@ -5002,4 +5002,12 @@ Eigene Sprachumgebungen müssen eine Erweiterung der Standard-Sprachumgebung sei
     <value>Inline Funktionen mit dem [Inline] Meta-Tag (ASC 2.0+).</value>
     <comment>Added after 4.4.2</comment>
   </data>
+  <data name="ProjectManager.Description.WebserverPort" xml:space="preserve">
+    <value>Local Web Server port for running projects using an HTTP server.</value>
+    <comment>Added after 4.4.2</comment>
+  </data>
+  <data name="ProjectManager.Label.TestMovieWebserver" xml:space="preserve">
+    <value>Webserver...</value>
+    <comment>Added after 4.4.2</comment>
+  </data>
 </root>

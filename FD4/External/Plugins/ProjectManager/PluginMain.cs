@@ -122,6 +122,10 @@ namespace ProjectManager
 
         private void PatchSettings()
         {
+            if (Settings.WebserverPort == 0)
+            {
+                Settings.WebserverPort = 2000;
+            }
             // remove 'obj' from the excluded directory names - now /obj a hidden directory
             if (Settings.ExcludedDirectories.Length > 0 && Settings.ExcludedDirectories[0] == "obj")
             {
@@ -554,6 +558,9 @@ namespace ProjectManager
             if (this.project != null) CloseProject(true);
 
             this.project = project;
+            var prefs = PluginMain.Settings.GetPrefs(project);
+            project.TraceEnabled = !prefs.DebugMode;
+            project.TargetBuild = prefs.TargetBuild;
             project.UpdateVars(true);
 
             // init
@@ -618,6 +625,7 @@ namespace ProjectManager
                 projectResources = null;
             }
             FlexCompilerShell.Cleanup(); // clear compile cache for this project
+            Webserver.KillServer();
 
             if (!internalClosing)
             {
@@ -729,6 +737,7 @@ namespace ProjectManager
         void OpenSwf(string path)
         {
             DataEvent de;
+            Webserver.Port = Settings.WebserverPort;
 
             if (path == null)
             {
@@ -785,6 +794,29 @@ namespace ProjectManager
                     psi.WorkingDirectory = project.Directory;
                     ProcessHelper.StartAsync(psi);
                 }
+            }
+            else if (project.TestMovieBehavior == TestMovieBehavior.Webserver)
+            {
+                if (project.TraceEnabled && project.EnableInteractiveDebugger)
+                {
+                    de = new DataEvent(EventType.Command, "AS3Context.StartProfiler", null);
+                    EventManager.DispatchEvent(this, de);
+                    de = new DataEvent(EventType.Command, "AS3Context.StartDebugger", null);
+                    EventManager.DispatchEvent(this, de);
+                }
+                string doc = project.TestMovieCommand;
+                try
+                {
+                    if (string.IsNullOrEmpty(project.TestMovieCommand))
+                    {
+                        doc = project.OutputPathAbsolute;
+                        if (File.Exists(doc)) doc = Path.GetDirectoryName(doc);
+                    }
+                    doc = project.GetAbsolutePath(doc);
+                    doc = project.FixDebugReleasePath(doc);
+                    Webserver.StartServer(doc);
+                }
+                catch { }
             }
             else if (project.TestMovieBehavior == TestMovieBehavior.Custom)
             {

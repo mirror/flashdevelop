@@ -89,6 +89,7 @@
     <Compile Include="Actions\FileActions.cs" />
     <Compile Include="Actions\FlashDevelopActions.cs" />
     <Compile Include="Actions\ProjectActions.cs" />
+    <Compile Include="Actions\Webserver.cs" />
     <Compile Include="Controls\OpenResourceForm.cs">
       <SubType>Form</SubType>
     </Compile>

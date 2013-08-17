@@ -51,6 +51,20 @@ namespace HaXeContext
             string args = "run " + builder + " run \"" + project.OutputPathAbsolute + "\" " + config;
             string haxelib = GetHaxelib(project);
 
+            if (config.StartsWith("html5") && ProjectManager.Actions.Webserver.Enabled) // webserver
+            {
+                foreach (string line in project.RawHXML)
+                {
+                    if (line.StartsWith("-js "))
+                    {
+                        string path = line.Substring(4);
+                        path = path.Substring(0, path.LastIndexOf("/"));
+                        ProjectManager.Actions.Webserver.StartServer(project.GetAbsolutePath(path));
+                        return true;
+                    }
+                }
+            }
+
             if (config.StartsWith("flash") || config.StartsWith("html5")) // no capture
             {
                 if (config.StartsWith("flash") && project.TraceEnabled) // debugger
@@ -152,6 +166,7 @@ namespace HaXeContext
 
             hxproj = null;
             StopWatcher();
+
             if (project is HaxeProject)
             {
                 hxproj = project as HaxeProject;
