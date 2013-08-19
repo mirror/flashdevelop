@@ -5061,11 +5061,11 @@ UseData:"</value>
     <comment>Added after 4.4.2</comment>
   </data>
   <data name="ProjectManager.Description.WebserverPort" xml:space="preserve">
-    <value>Local Web Server port for running projects using an HTTP server.</value>
+    <value>実行するプロジェクトで使用するローカルウェブサーバーのポート</value>
     <comment>Added after 4.4.2</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieWebserver" xml:space="preserve">
-    <value>Webserver...</value>
+    <value>ウェブサーバー...</value>
     <comment>Added after 4.4.2</comment>
   </data>
 </root>
