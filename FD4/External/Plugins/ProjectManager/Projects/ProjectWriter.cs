@@ -115,9 +115,7 @@ namespace ProjectManager.Projects
 			WriteStartElement("options");
 			WriteOption("showHiddenPaths",project.ShowHiddenPaths);
 			WriteOption("testMovie",project.TestMovieBehavior);
-            if (project.TestMovieBehavior == TestMovieBehavior.Custom
-                || project.TestMovieBehavior == TestMovieBehavior.OpenDocument)
-                WriteOption("testMovieCommand", project.TestMovieCommand ?? "");
+            WriteOption("testMovieCommand", project.TestMovieCommand ?? "");
 			WriteEndElement();
         }
 

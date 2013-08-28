@@ -1047,18 +1047,20 @@ namespace HaXeContext
 
             // auto-started completion, can be ignored for performance (show default completion tooltip)
             if (expression.Value.IndexOf(".") < 0 || (autoHide && !expression.Value.EndsWith(".")))
-                if (hxsettings.DisableMixedCompletion) return new MemberList();
+                if (hxsettings.DisableMixedCompletion && expression.Value.Length > 0 && autoHide) return new MemberList();
                 else return null;
 
             // empty expression
-            if (expression.Value == "")
-                return null; // not supported yet
+            if (expression.Value != "")
+            {
+                // async processing
+                HaXeCompletion hc = new HaXeCompletion(sci, expression, autoHide, completionModeHandler);
+                hc.getList(OnDotCompletionResult);
+                resolvingDot = true;
+            }
 
-            HaXeCompletion hc = new HaXeCompletion(sci, expression, autoHide, completionModeHandler);
-            hc.getList(OnDotCompletionResult);
-
-            resolvingDot = true;
-            return null; // async processing
+            if (hxsettings.DisableMixedCompletion) return new MemberList();
+            return null; 
         }
 
         internal void OnDotCompletionResult(HaXeCompletion hc, ArrayList al)
