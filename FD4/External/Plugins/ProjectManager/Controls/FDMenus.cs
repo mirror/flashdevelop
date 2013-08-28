@@ -7,6 +7,7 @@ using PluginCore.Localization;
 using PluginCore;
 using PluginCore.Utilities;
 using System.Collections.Generic;
+using ProjectManager.Projects;
 
 namespace ProjectManager.Controls
 {
@@ -119,6 +120,14 @@ namespace ProjectManager.Controls
                 string target = project.TargetBuild ?? project.MovieOptions.TargetBuildTypes[0];
                 if (!TargetBuildSelector.Items.Contains(target))
                     TargetBuildSelector.Items.Insert(0, target);
+                TargetBuildSelector.Text = target;
+                TargetBuildSelector.Visible = true;
+                TargetBuildSelector.Enabled = true;
+            }
+            else if (project.OutputType == OutputType.CustomBuild)
+            {
+                string target = project.TargetBuild ?? "";
+                if (target != "") TargetBuildSelector.Items.Insert(0, target);
                 TargetBuildSelector.Text = target;
                 TargetBuildSelector.Visible = true;
                 TargetBuildSelector.Enabled = true;
