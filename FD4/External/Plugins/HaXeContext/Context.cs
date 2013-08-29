@@ -418,6 +418,9 @@ namespace HaXeContext
                 if (path.Equals(cp, StringComparison.OrdinalIgnoreCase))
                     return;
             if (contextSetup.AdditionalPaths == null) contextSetup.AdditionalPaths = new List<string>();
+            foreach (string cp in contextSetup.AdditionalPaths)
+                if (path.Equals(cp, StringComparison.OrdinalIgnoreCase))
+                    return;
             contextSetup.AdditionalPaths.Add(path);
         }
 
