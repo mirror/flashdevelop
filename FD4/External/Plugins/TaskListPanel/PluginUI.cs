@@ -133,6 +133,7 @@ namespace TaskListPanel
             this.listView.View = System.Windows.Forms.View.Details;
             this.listView.DoubleClick += new System.EventHandler(this.ListViewDoubleClick);
             this.listView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.ListViewColumnClick);
+            this.listView.KeyPress += new KeyPressEventHandler(this.ListViewKeyPress);
             // 
             // columnIcon
             // 
@@ -804,6 +805,17 @@ namespace TaskListPanel
                 this.columnSorter.Order = SortOrder.Ascending;
             }
             this.listView.Sort();
+        }
+
+        /// <summary>
+        /// On enter, go to the selected item
+        /// </summary>
+        private void ListViewKeyPress(Object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (Char)Keys.Enter)
+            {
+                this.ListViewDoubleClick(null, null);
+            }
         }
 
         #endregion
