@@ -165,7 +165,7 @@ namespace HaXeContext
                             var content = new ArrayList();
                             var xml = "";
                             while (++i < lines.Length)
-                                xml += lines[i];
+                                xml += lines[i] + "\n";
                             foreach (Match m in reListEntry.Matches(xml))
                             {
                                 var seq = new ArrayList

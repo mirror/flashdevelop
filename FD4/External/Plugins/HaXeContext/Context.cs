@@ -225,6 +225,7 @@ namespace HaXeContext
             if (contextSetup == null)
             {
                 contextSetup = new ContextSetupInfos();
+                contextSetup.Classpath = new string[] { Environment.CurrentDirectory };
                 contextSetup.Lang = settings.LanguageId;
                 contextSetup.Platform = "Flash Player";
                 contextSetup.Version = "10.0";
