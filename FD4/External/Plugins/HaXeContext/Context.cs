@@ -970,6 +970,9 @@ namespace HaXeContext
 
             // fix environment for command line tools
             Environment.SetEnvironmentVariable("HAXEPATH", currentSDK);
+            var path = Environment.GetEnvironmentVariable("PATH");
+            path = currentSDK + ";" + Regex.Replace(path.Replace(currentSDK + ";", ""), "^[^;]+haxe;", "");
+            Environment.SetEnvironmentVariable("PATH", path);
 
             // configure completion provider
             var haxeSettings = (settings as HaXeSettings);

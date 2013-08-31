@@ -384,20 +384,22 @@ namespace BasicCompletion
             String language = sci.ConfigurationLanguage.ToLower();
             if (this.IsSupported(language))
             {
+                Language config = ScintillaControl.Configuration.GetLanguage(sci.ConfigurationLanguage);
+                String characters = config.characterclass.Characters;
+                // do not autocomplete in word
+                Char c = (char)sci.CharAt(sci.CurrentPos);
+                if (characters.IndexOf(c) >= 0) return;
+                // autocomplete after typing word chars only
+                if (characters.IndexOf((char)value) < 0) return;
+                String curWord = sci.GetWordLeft(sci.CurrentPos - 1, false);
+                if (curWord == null || curWord.Length < 3) return;
+
                 List<ICompletionListItem> items = this.GetCompletionListItems(language, sci.FileName);
                 if (items != null && items.Count > 0)
                 {
                     items.Sort();
-                    String curWord = sci.GetWordLeft(sci.CurrentPos - 1, false);
-                    if (curWord != null && curWord.Length > 2)
-                    {
-                        Language config = ScintillaControl.Configuration.GetLanguage(sci.ConfigurationLanguage);
-                        if (config.characterclass.Characters.Contains(Char.ToString((char)value)))
-                        {
-                            CompletionList.Show(items, true, curWord);
-                            CompletionList.DisableAutoInsertion();
-                        }
-                    }
+                    CompletionList.Show(items, true, curWord);
+                    CompletionList.DisableAutoInsertion();
                 }
             }
         }

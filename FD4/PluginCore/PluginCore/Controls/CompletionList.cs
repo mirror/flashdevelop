@@ -206,7 +206,7 @@ namespace PluginCore.Controls
             isActive = true;
             tempoTip.Enabled = false;
             showTime = DateTime.Now.Ticks;
-            disableSmartMatch = PluginBase.MainForm.Settings.DisableSmartMatch;
+            disableSmartMatch = noAutoInsert || PluginBase.MainForm.Settings.DisableSmartMatch;
             UITools.Manager.LockControl(sci);
             faded = false;
 		}
@@ -900,7 +900,7 @@ namespace PluginCore.Controls
 					return true;
 					
 				case Keys.Enter:
-                    if (!ReplaceText(sci, '\n'))
+                    if (noAutoInsert || !ReplaceText(sci, '\n'))
                     {
                         CompletionList.Hide();
                         return false;
@@ -916,6 +916,7 @@ namespace PluginCore.Controls
 					return true;
 					
 				case Keys.Space:
+                    if (noAutoInsert) CompletionList.Hide();
 					return false;
 					
 				case Keys.Up:
