@@ -1261,7 +1261,7 @@ namespace ProjectManager.Controls
 		private void outputBrowseButton_Click(object sender, EventArgs e)
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = TextHelper.GetString("Info.FlashMovieFilter");
+            dialog.Filter = "*.*|*.*"; // TextHelper.GetString("Info.FlashMovieFilter");
 			dialog.OverwritePrompt = false;
 			dialog.InitialDirectory = project.Directory;
 			// try pre-setting the current output path
