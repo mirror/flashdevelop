@@ -33,11 +33,15 @@ namespace ProjectManager.Building.Haxe
             string outputDir = Path.GetDirectoryName(project.OutputPathAbsolute);
             if (!Directory.Exists(outputDir)) Directory.CreateDirectory(outputDir);
 
+            string serverPort = Environment.ExpandEnvironmentVariables("%HAXE_SERVER_PORT%");
+            string connect = (!serverPort.StartsWith("%") && serverPort != "0")
+                ? "--connect " + serverPort : "";
+
             if (project.IsNmeOutput && !string.IsNullOrEmpty(project.TargetBuild))
             {
                 haxePath = haxePath.Replace("haxe.exe", "haxelib.exe");
                 string config = project.TargetBuild;
-                string haxeNmeArgs = String.Join(" ", BuildNmeCommand(extraClasspaths, output, config, noTrace, null));
+                string haxeNmeArgs = String.Join(" ", BuildNmeCommand(extraClasspaths, output, config, noTrace, null)) + " " + connect;
                 Console.WriteLine("haxelib " + haxeNmeArgs);
                 if (!ProcessRunner.Run(haxePath, haxeNmeArgs, false, false))
                     throw new BuildException("Build halted with errors (haxelib.exe).");
@@ -60,11 +64,7 @@ namespace ProjectManager.Building.Haxe
                 libraryBuilder.BuildLibrarySwf(project, false);
             }
 
-            string haxeArgs = String.Join(" ", project.BuildHXML(extraClasspaths, output, noTrace));
-            
-            string serverPort = Environment.ExpandEnvironmentVariables("%HAXE_SERVER_PORT%");
-            if (!serverPort.StartsWith("%") && serverPort != "0")
-                haxeArgs = "--connect " + serverPort + " " + haxeArgs;
+            string haxeArgs = connect + " " + String.Join(" ", project.BuildHXML(extraClasspaths, output, noTrace));
             
             Console.WriteLine("haxe " + haxeArgs);
 
