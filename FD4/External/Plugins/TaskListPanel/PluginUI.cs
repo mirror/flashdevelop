@@ -28,7 +28,7 @@ namespace TaskListPanel
         private Int32 processedFiles;
         private PluginMain pluginMain;
         private String currentFileName;
-        private String[] extensions;
+        private List<String> extensions;
         private Regex todoParser = null;
         private Boolean isEnabled = false;
         private Boolean refreshEnabled = false;
@@ -394,7 +394,7 @@ namespace TaskListPanel
                 context.HiddenPaths = project.GetHiddenPaths();
                 for (int i = 0; i < context.HiddenPaths.Length; i++)
                     context.HiddenPaths[i] = project.GetAbsolutePath(context.HiddenPaths[i]);
-                this.extensions = ASCompletion.Context.ASContext.Context.GetExplorerMask();
+                GetExtensions();
                 // run background
                 bgWork = new BackgroundWorker();
                 context.Worker = bgWork;
@@ -405,6 +405,15 @@ namespace TaskListPanel
                 String message = TextHelper.GetString("Info.Refreshing");
                 this.toolStripLabel.Text = message;
             }
+        }
+
+        private void GetExtensions()
+        {
+            Settings settings = (Settings)pluginMain.Settings;
+            extensions = new List<String>();
+            extensions.AddRange(settings.FileExtensions);
+            String[] addExt = ASCompletion.Context.ASContext.Context.GetExplorerMask();
+            if (addExt != null && addExt.Length > 0) extensions.AddRange(addExt);
         }
 
         /// <summary>
@@ -492,7 +501,7 @@ namespace TaskListPanel
             this.toolStripLabel.Text = "";
             if (this.firstExecutionCompleted == false)
             {
-                EventManager.AddEventHandler(this, EventType.FileSwitch | EventType.FileOpen);
+                EventManager.AddEventHandler(this, EventType.FileSwitch | EventType.FileSave);
             }
             this.firstExecutionCompleted = true;
         }
@@ -697,9 +706,9 @@ namespace TaskListPanel
         }
 
         /// <summary>
-        /// When user stop mouse movement parse again this file
+        /// Parse again the current file occasionally
         /// </summary>
-        private void SciControlDwellStart(ScintillaControl sci, int position)
+        private void RefreshCurrentFile(ScintillaControl sci)
         {
             if (!this.isEnabled) return;
             try
@@ -710,9 +719,9 @@ namespace TaskListPanel
                 }
                 this.ParseFile(sci.Text, sci.FileName);
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
-                ErrorManager.ShowError(ex);
+                //ErrorManager.ShowError(ex);
             }
         }
 
@@ -758,11 +767,11 @@ namespace TaskListPanel
         public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
         {
             if (!this.isEnabled) return;
+            ITabbedDocument document;
             switch (e.Type)
             {
-                case EventType.FileOpen:
                 case EventType.FileSwitch:
-                    ITabbedDocument document = PluginBase.MainForm.CurrentDocument;
+                    document = PluginBase.MainForm.CurrentDocument;
                     if (document.IsEditable)
                     {
                         if (this.currentFileName != null && this.currentPos > -1)
@@ -772,9 +781,14 @@ namespace TaskListPanel
                                 this.MoveToPosition(document.SciControl, currentPos);
                             }
                         }
+                        else RefreshCurrentFile(document.SciControl);
                     }
                     this.currentFileName = null;
                     this.currentPos = -1;
+                    break;
+                case EventType.FileSave:
+                    document = PluginBase.MainForm.CurrentDocument;
+                    if (document.IsEditable) RefreshCurrentFile(document.SciControl);
                     break;
             }
         }

@@ -737,7 +737,7 @@ namespace ASCompletion.Context
         /// </summary>
         public virtual string[] GetExplorerMask()
         {
-            return new string[] { "*" + Settings.DefaultExtension };
+            if (Settings != null) return new string[] { "*" + Settings.DefaultExtension }; else return null;
         }
         #endregion
 

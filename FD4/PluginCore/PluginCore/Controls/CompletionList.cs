@@ -918,8 +918,9 @@ namespace PluginCore.Controls
 				case Keys.Space:
                     if (noAutoInsert) CompletionList.Hide();
 					return false;
-					
-				case Keys.Up:
+
+                case Keys.Up:
+                    noAutoInsert = false;
 					// the list was hidden and it should not appear
 					if (!completionList.Visible)
 					{
@@ -943,8 +944,9 @@ namespace PluginCore.Controls
 						completionList.SelectedIndex = index;
 					}
 					break;
-					
-				case Keys.Down:
+
+                case Keys.Down:
+                    noAutoInsert = false;
 					// the list was hidden and it should not appear
 					if (!completionList.Visible)
 					{
@@ -968,8 +970,9 @@ namespace PluginCore.Controls
 						completionList.SelectedIndex = index;
 					}
 					break;
-					
-				case Keys.PageUp:
+
+                case Keys.PageUp:
+                    noAutoInsert = false;
 					// the list was hidden and it should not appear
 					if (!completionList.Visible)
 					{
@@ -986,8 +989,9 @@ namespace PluginCore.Controls
 						completionList.SelectedIndex = index;
 					}
 					break;
-					
-				case Keys.PageDown:
+
+                case Keys.PageDown:
+                    noAutoInsert = false;
 					// the list was hidden and it should not appear
 					if (!completionList.Visible)
 					{
