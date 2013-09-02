@@ -11,7 +11,6 @@ namespace TaskListPanel
     public class Settings
     {
         private Int32[] images = new Int32[] { 229, 197, 197 };
-        private String[] extensions = new String[] { ".as", ".mxml", ".txt" };
         private String[] groups = new String[] { "TODO", "FIXME", "BUG" };
         private String[] excluded = new String[0] {};
 
@@ -25,18 +24,6 @@ namespace TaskListPanel
         {
             get { return this.excluded; }
             set { this.excluded = value; }
-        }
-
-        /// <summary> 
-        /// File extensions to listen for changes
-        /// </summary>
-        [DisplayName("File Extensions")]
-        [LocalizedDescription("TaskListPanel.Description.FileExtensions")]
-        [DefaultValue(new String[] { ".as", ".mxml", ".txt" })]
-        public String[] FileExtensions
-        {
-            get { return this.extensions; }
-            set { this.extensions = value; }
         }
 
         /// <summary> 

@@ -28,7 +28,7 @@ namespace TaskListPanel
         private Int32 processedFiles;
         private PluginMain pluginMain;
         private String currentFileName;
-        private List<String> extensions;
+        private String[] extensions;
         private Regex todoParser = null;
         private Boolean isEnabled = false;
         private Boolean refreshEnabled = false;
@@ -65,8 +65,6 @@ namespace TaskListPanel
             this.filesCache = new Dictionary<String, DateTime>();
             try
             {
-                this.extensions = new List<String>();
-                this.extensions.AddRange(settings.FileExtensions);
                 if (settings.GroupValues.Length > 0)
                 {
                     this.groups.AddRange(settings.GroupValues);
@@ -243,8 +241,6 @@ namespace TaskListPanel
             this.isEnabled = false;
             try
             {
-                this.extensions = new List<String>();
-                this.extensions.AddRange(settings.FileExtensions);
                 if (settings.GroupValues.Length > 0)
                 {
                     this.groups.AddRange(settings.GroupValues);
@@ -330,10 +326,9 @@ namespace TaskListPanel
                 Thread.Sleep(5);
                 try
                 {
-                    String projDir = PluginBase.CurrentProject.GetAbsolutePath(path);
-                    if (this.ShouldBeScanned(projDir, context.ExcludedPaths))
+                    if (this.ShouldBeScanned(path, context.ExcludedPaths))
                     {
-                        files.AddRange(this.GetFiles(projDir, context));
+                        files.AddRange(this.GetFiles(path, context));
                     }
                 }
                 catch {}
@@ -389,15 +384,17 @@ namespace TaskListPanel
                 this.parseTimer.Tag = null;
                 if (bgWork != null && bgWork.IsBusy) bgWork.CancelAsync();
                 // context
+                IProject project = PluginBase.CurrentProject;
                 ExplorationContext context = new ExplorationContext();
                 Settings settings = (Settings)this.pluginMain.Settings;
                 context.ExcludedPaths = (string[])settings.ExcludedPaths.Clone();
-                context.Directories = (string[])PluginBase.CurrentProject.SourcePaths.Clone();
-                context.HiddenPaths = PluginBase.CurrentProject.GetHiddenPaths();
+                context.Directories = (string[])project.SourcePaths.Clone();
+                for (int i = 0; i < context.Directories.Length; i++)
+                    context.Directories[i] = project.GetAbsolutePath(context.Directories[i]);
+                context.HiddenPaths = project.GetHiddenPaths();
                 for (int i = 0; i < context.HiddenPaths.Length; i++)
-                {
-                    context.HiddenPaths[i] = PluginBase.CurrentProject.GetAbsolutePath(context.HiddenPaths[i]);
-                }
+                    context.HiddenPaths[i] = project.GetAbsolutePath(context.HiddenPaths[i]);
+                this.extensions = ASCompletion.Context.ASContext.Context.GetExplorerMask();
                 // run background
                 bgWork = new BackgroundWorker();
                 context.Worker = bgWork;
@@ -495,7 +492,6 @@ namespace TaskListPanel
             this.toolStripLabel.Text = "";
             if (this.firstExecutionCompleted == false)
             {
-                UITools.Manager.OnMouseHover += new UITools.MouseHoverHandler(SciControlDwellStart); // one event for all controls
                 EventManager.AddEventHandler(this, EventType.FileSwitch | EventType.FileOpen);
             }
             this.firstExecutionCompleted = true;
@@ -690,7 +686,6 @@ namespace TaskListPanel
         {
             if (!this.isEnabled)
             {
-
                 String message = TextHelper.GetString("Info.SettingError");
                 this.toolStripLabel.Text = message;
             }
