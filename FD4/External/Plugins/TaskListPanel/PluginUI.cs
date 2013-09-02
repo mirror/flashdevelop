@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Drawing;
+using System.Threading;
 using System.Diagnostics;
 using System.Collections;
 using System.Windows.Forms;
@@ -11,12 +12,12 @@ using System.Text.RegularExpressions;
 using PluginCore.Localization;
 using System.ComponentModel;
 using WeifenLuo.WinFormsUI;
+using ASCompletion.Context;
 using PluginCore.Helpers;
 using PluginCore.Managers;
 using PluginCore.Controls;
 using ScintillaNet;
 using PluginCore;
-using System.Threading;
 
 namespace TaskListPanel
 {
@@ -301,10 +302,9 @@ namespace TaskListPanel
                     }
                 }
             }
-            // in depth
             foreach (String dir in Directory.GetDirectories(path))
             {
-                if (context.Worker.CancellationPending) return new List<string>();
+                if (context.Worker.CancellationPending) return new List<String>();
                 Thread.Sleep(5);
                 if (this.ShouldBeScanned(dir, context.ExcludedPaths))
                 {
@@ -322,7 +322,7 @@ namespace TaskListPanel
             List<String> files = new List<String>();
             foreach (String path in context.Directories)
             {
-                if (context.Worker.CancellationPending) return new List<string>();
+                if (context.Worker.CancellationPending) return new List<String>();
                 Thread.Sleep(5);
                 try
                 {
@@ -379,23 +379,25 @@ namespace TaskListPanel
             if (this.isEnabled && PluginBase.CurrentProject != null)
             {
                 this.RefreshEnabled = false;
-                // stop current exploration
+                // Stop current exploration
                 if (this.parseTimer.Enabled) this.parseTimer.Stop();
                 this.parseTimer.Tag = null;
                 if (bgWork != null && bgWork.IsBusy) bgWork.CancelAsync();
-                // context
                 IProject project = PluginBase.CurrentProject;
                 ExplorationContext context = new ExplorationContext();
                 Settings settings = (Settings)this.pluginMain.Settings;
-                context.ExcludedPaths = (string[])settings.ExcludedPaths.Clone();
-                context.Directories = (string[])project.SourcePaths.Clone();
-                for (int i = 0; i < context.Directories.Length; i++)
+                context.ExcludedPaths = (String[])settings.ExcludedPaths.Clone();
+                context.Directories = (String[])project.SourcePaths.Clone();
+                for (Int32 i = 0; i < context.Directories.Length; i++)
+                {
                     context.Directories[i] = project.GetAbsolutePath(context.Directories[i]);
+                }
                 context.HiddenPaths = project.GetHiddenPaths();
-                for (int i = 0; i < context.HiddenPaths.Length; i++)
+                for (Int32 i = 0; i < context.HiddenPaths.Length; i++)
+                {
                     context.HiddenPaths[i] = project.GetAbsolutePath(context.HiddenPaths[i]);
+                }
                 GetExtensions();
-                // run background
                 bgWork = new BackgroundWorker();
                 context.Worker = bgWork;
                 bgWork.WorkerSupportsCancellation = true;
@@ -410,14 +412,16 @@ namespace TaskListPanel
         private void GetExtensions()
         {
             Settings settings = (Settings)pluginMain.Settings;
-            extensions = new List<String>();
-            foreach (string ext in settings.FileExtensions)
+            this.extensions = new List<String>();
+            foreach (String ext in settings.FileExtensions)
+            {
                 if (!String.IsNullOrEmpty(ext))
                 {
-                    if (!ext.StartsWith("*")) extensions.Add("*" + ext);
-                    else extensions.Add(ext);
+                    if (!ext.StartsWith("*")) this.extensions.Add("*" + ext);
+                    else this.extensions.Add(ext);
                 }
-            String[] addExt = ASCompletion.Context.ASContext.Context.GetExplorerMask();
+            }
+            String[] addExt = ASContext.Context.GetExplorerMask();
             if (addExt != null && addExt.Length > 0) extensions.AddRange(addExt);
         }
 
@@ -550,7 +554,7 @@ namespace TaskListPanel
         }
 
         /// <summary>
-        /// 
+        /// Clean match from dirt
         /// </summary>
         private string CleanMatch(string value)
         {
@@ -724,9 +728,9 @@ namespace TaskListPanel
                 }
                 this.ParseFile(sci.Text, sci.FileName);
             }
-            catch //(Exception ex)
+            catch (Exception ex)
             {
-                //ErrorManager.ShowError(ex);
+                ErrorManager.ShowError(ex);
             }
         }
 
