@@ -411,7 +411,12 @@ namespace TaskListPanel
         {
             Settings settings = (Settings)pluginMain.Settings;
             extensions = new List<String>();
-            extensions.AddRange(settings.FileExtensions);
+            foreach (string ext in settings.FileExtensions)
+                if (!String.IsNullOrEmpty(ext))
+                {
+                    if (!ext.StartsWith("*")) extensions.Add("*" + ext);
+                    else extensions.Add(ext);
+                }
             String[] addExt = ASCompletion.Context.ASContext.Context.GetExplorerMask();
             if (addExt != null && addExt.Length > 0) extensions.AddRange(addExt);
         }
