@@ -4996,11 +4996,11 @@ Lokalizazio pertsonalizatuek lehenetsiaren luzapen bat izan behar dute, adb. en-
     <comment>Added after 4.4.2</comment>
   </data>
   <data name="ProjectManager.Description.WebserverPort" xml:space="preserve">
-    <value>Local Web Server port for running projects using an HTTP server.</value>
+    <value>HTTP zerbitzaria erabiltzen duten proiektuentzat Web Zerbitzari Lokala.</value>
     <comment>Added after 4.4.2</comment>
   </data>
   <data name="ProjectManager.Label.TestMovieWebserver" xml:space="preserve">
-    <value>Webserver...</value>
+    <value>Web zerbitzaria...</value>
     <comment>Added after 4.4.2</comment>
   </data>
 </root>
