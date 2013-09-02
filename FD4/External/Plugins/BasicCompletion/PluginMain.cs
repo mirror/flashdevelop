@@ -386,14 +386,13 @@ namespace BasicCompletion
             {
                 Language config = ScintillaControl.Configuration.GetLanguage(sci.ConfigurationLanguage);
                 String characters = config.characterclass.Characters;
-                // do not autocomplete in word
+                // Do not autocomplete in word
                 Char c = (char)sci.CharAt(sci.CurrentPos);
                 if (characters.IndexOf(c) >= 0) return;
-                // autocomplete after typing word chars only
+                // Autocomplete after typing word chars only
                 if (characters.IndexOf((char)value) < 0) return;
                 String curWord = sci.GetWordLeft(sci.CurrentPos - 1, false);
                 if (curWord == null || curWord.Length < 3) return;
-
                 List<ICompletionListItem> items = this.GetCompletionListItems(language, sci.FileName);
                 if (items != null && items.Count > 0)
                 {
