@@ -250,6 +250,8 @@ namespace FlashDevelop.Managers
                         sci.AddIgnoredKeys(keys);
                     }
                 }
+                String lang = sci.ConfigurationLanguage;
+                sci.ConfigurationLanguage = lang;
                 sci.Colourise(0, -1);
                 sci.Refresh();
             }
