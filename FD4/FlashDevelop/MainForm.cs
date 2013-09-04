@@ -595,7 +595,6 @@ namespace FlashDevelop
                     String currentTheme = Path.Combine(PathHelper.ThemesDir, "CURRENT");
                     if (File.Exists(currentTheme)) ThemeManager.LoadTheme(currentTheme);
                     this.RefreshSciConfig();
-                    this.ApplyAllSettings();
                     this.Refresh();
                 }
                 return null;
@@ -1824,8 +1823,8 @@ namespace FlashDevelop
                 ITabbedDocument document = this.Documents[i];
                 if (document.IsEditable)
                 {
-                    ScintillaManager.ApplySciSettings(document.SplitSci1);
-                    ScintillaManager.ApplySciSettings(document.SplitSci2);
+                    ScintillaManager.ApplySciSettings(document.SplitSci1, true);
+                    ScintillaManager.ApplySciSettings(document.SplitSci2, true);
                 }
             }
             this.frInFilesDialog.UpdateSettings();
@@ -2819,7 +2818,7 @@ namespace FlashDevelop
         }
 
         /// <summary>
-        /// Toggles the text wrapping in ScintillaControl
+        /// Toggles a boolean setting
         /// </summary>
         public void ToggleBooleanSetting(Object sender, System.EventArgs e)
         {
@@ -3399,7 +3398,6 @@ namespace FlashDevelop
                     String currentTheme = Path.Combine(PathHelper.ThemesDir, "CURRENT");
                     if (File.Exists(currentTheme)) ThemeManager.LoadTheme(currentTheme);
                     this.RefreshSciConfig();
-                    this.ApplyAllSettings();
                     this.Refresh();
                 }
             }

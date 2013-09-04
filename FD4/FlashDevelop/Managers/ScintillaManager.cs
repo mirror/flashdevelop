@@ -187,6 +187,10 @@ namespace FlashDevelop.Managers
         /// </summary>
         public static void ApplySciSettings(ScintillaControl sci)
         {
+            ApplySciSettings(sci, false);
+        }
+        public static void ApplySciSettings(ScintillaControl sci, Boolean hardUpdate)
+        {
             try
             {
                 sci.CaretPeriod = Globals.Settings.CaretPeriod;
@@ -250,8 +254,11 @@ namespace FlashDevelop.Managers
                         sci.AddIgnoredKeys(keys);
                     }
                 }
-                String lang = sci.ConfigurationLanguage;
-                sci.ConfigurationLanguage = lang;
+                if (hardUpdate)
+                {
+                    String lang = sci.ConfigurationLanguage;
+                    sci.ConfigurationLanguage = lang;
+                }
                 sci.Colourise(0, -1);
                 sci.Refresh();
             }
