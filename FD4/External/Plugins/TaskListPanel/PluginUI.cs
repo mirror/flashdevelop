@@ -360,8 +360,8 @@ namespace TaskListPanel
             if (!this.isEnabled) return;
             this.listView.Items.Clear();
             this.filesCache.Clear();
-            if (PluginBase.CurrentProject != null) this.RefreshProject();
-            else
+            /*if (PluginBase.CurrentProject != null) this.RefreshProject();
+            else*/
             {
                 this.parseTimer.Enabled = false;
                 this.parseTimer.Stop();
