@@ -68,12 +68,6 @@ namespace ProjectManager.Controls.TreeView
             NoProjectOutput.Enabled = false;
         }
 
-        public Project Project
-        {
-            get { return project; }
-            set { project = value; }
-        }
-
         public ProjectTreeView ProjectTree
         {
             get { return projectTree; }
@@ -193,9 +187,11 @@ namespace ProjectManager.Controls.TreeView
         /// Configure ourself to be a menu relevant to the given Project with the
         /// given selected treeview nodes.
         /// </summary>
-        public void Configure(ArrayList nodes)
+        public void Configure(ArrayList nodes, Project inProject)
         {
             base.Items.Clear();
+            project = inProject;
+
             MergableMenu menu = new MergableMenu();
             foreach (GenericNode node in nodes)
             {

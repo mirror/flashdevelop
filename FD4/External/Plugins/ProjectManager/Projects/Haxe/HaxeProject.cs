@@ -195,6 +195,14 @@ namespace ProjectManager.Projects.Haxe
             }
             else
             {
+                // libraries
+                foreach (string lib in CompilerOptions.Libraries)
+                    if (lib.Length > 0)
+                    {
+                        if (lib.Trim().StartsWith("-lib")) pr.Add(lib);
+                        else pr.Add("-lib " + lib);
+                    }
+
                 // class paths
                 List<String> classPaths = new List<String>();
                 foreach (string cp in paths)
@@ -206,14 +214,6 @@ namespace ProjectManager.Projects.Haxe
                     String ccp = String.Join("/", cp.Split('\\'));
                     pr.Add("-cp " + Quote(ccp));
                 }
-
-                // libraries
-                foreach (string lib in CompilerOptions.Libraries)
-                    if (lib.Length > 0)
-                    {
-                        if (lib.Trim().StartsWith("-lib")) pr.Add(lib);
-                        else pr.Add("-lib " + lib);
-                    }
 
                 // compilation mode
                 string mode = null;

@@ -101,17 +101,17 @@ namespace ProjectManager.Controls
             }
         }
 
-        public void SetProject(ProjectManager.Projects.Project project)
+        public void SetProject(Project project)
         {
             RecentProjects.AddOpenedProject(project.ProjectPath);
             ConfigurationSelector.Enabled = true;
             ProjectMenu.ProjectItemsEnabled = true;
             TestMovie.Enabled = true;
             BuildProject.Enabled = true;
-            ProjectChanged(project);
+            ProjectChanged(project); 
         }
 
-        public void ProjectChanged(ProjectManager.Projects.Project project)
+        public void ProjectChanged(Project project)
         {
             TargetBuildSelector.Items.Clear();
             if (project.MovieOptions.TargetBuildTypes != null)

@@ -171,7 +171,7 @@ namespace HaXeContext
             {
                 hxproj = project as HaxeProject;
                 hxproj.ProjectUpdating += new ProjectUpdatingHandler(hxproj_ProjectUpdating);
-                hxproj_ProjectUpdating();
+                hxproj_ProjectUpdating(hxproj);
             }
         }
 
@@ -185,7 +185,7 @@ namespace HaXeContext
             }
         }
 
-        static void hxproj_ProjectUpdating()
+        static void hxproj_ProjectUpdating(Project project)
         {
             if (hxproj.MovieOptions.Platform == HaxeMovieOptions.NME_PLATFORM)
             {
@@ -254,7 +254,7 @@ namespace HaXeContext
             string err = p.StandardError.ReadToEnd();
             p.Close();
 
-            if (string.IsNullOrEmpty(hxml))
+            if (string.IsNullOrEmpty(hxml) || (!string.IsNullOrEmpty(err) && err.Trim().Length > 0))
             {
                 if (string.IsNullOrEmpty(err)) err = "Haxelib error: no response";
                 TraceManager.AddAsync(err, -3);

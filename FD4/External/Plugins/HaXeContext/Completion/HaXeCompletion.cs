@@ -41,7 +41,7 @@ namespace HaXeContext
 
         public void getList(HaXeCompletionResultHandler callback)
         {
-            PluginBase.MainForm.CallCommand("SaveAllModified", null);
+            PluginBase.MainForm.CallCommand("Save", null);
 
             ThreadPool.QueueUserWorkItem(_ =>
             {

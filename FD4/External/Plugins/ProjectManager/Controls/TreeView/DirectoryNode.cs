@@ -55,19 +55,20 @@ namespace ProjectManager.Controls.TreeView
 			if (IsInvalid) return;
 
 			base.Refresh(recursive);
+            Project project = MyProject;
 
             // item icon
             if (Parent is DirectoryNode) 
                 insideClasspath = (Parent as DirectoryNode).insideClasspath;
 
-            if (Project.IsPathHidden(BackingPath))
+            if (project.IsPathHidden(BackingPath))
                 ImageIndex = Icons.HiddenFolder.Index;
-            else if (insideClasspath == null && Project.IsClassPath(BackingPath))
+            else if (insideClasspath == null && project.IsClassPath(BackingPath))
             {
                 insideClasspath = this;
                 ImageIndex = Icons.ClasspathFolder.Index;
             }
-            else if (insideClasspath != null && Project.IsCompileTarget(BackingPath))
+            else if (insideClasspath != null && project.IsCompileTarget(BackingPath))
                 ImageIndex = Icons.FolderCompile.Index;
             else
                 ImageIndex = Icons.Folder.Index;
@@ -89,7 +90,7 @@ namespace ProjectManager.Controls.TreeView
 
 				// we're already expanded, so refresh our children
 				if (IsExpanded || Path.GetDirectoryName(Tree.PathToSelect) == BackingPath)
-					PopulateChildNodes(recursive);
+					PopulateChildNodes(recursive, project);
 				else
 					dirty = true; // refresh on demand
 			}
@@ -97,7 +98,7 @@ namespace ProjectManager.Controls.TreeView
 			{
 				// we just became empty!
 				if (Nodes.Count > 0)
-					PopulateChildNodes(recursive);
+					PopulateChildNodes(recursive, project);
 			}
 
             NotifyRefresh();
@@ -114,10 +115,10 @@ namespace ProjectManager.Controls.TreeView
 		/// </summary>
 		public override void BeforeExpand()
 		{
-			if (dirty) PopulateChildNodes(false);
+			if (dirty) PopulateChildNodes(false, MyProject);
 		}
 
-		private void PopulateChildNodes(bool recursive)
+		private void PopulateChildNodes(bool recursive, Project project)
 		{
 			dirty = false;
 
@@ -132,7 +133,7 @@ namespace ProjectManager.Controls.TreeView
 			// disappears during a build
             foreach (GenericNode node in Nodes)
             {
-                if (node is ProjectOutputNode && !Project.IsPathHidden((node as ProjectOutputNode).BackingPath))
+                if (node is ProjectOutputNode && !project.IsPathHidden((node as ProjectOutputNode).BackingPath))
                     (node as ProjectOutputNode).Refresh(recursive);
                 else
                     nodesToDie.Add(node);
@@ -144,8 +145,8 @@ namespace ProjectManager.Controls.TreeView
 
             if (Directory.Exists(BackingPath))
             {
-                PopulateDirectories(nodesToDie, recursive);
-                PopulateFiles(nodesToDie, recursive);
+                PopulateDirectories(nodesToDie, recursive, project);
+                PopulateFiles(nodesToDie, recursive, project);
             }
 
 			foreach (GenericNode node in nodesToDie)
@@ -155,11 +156,11 @@ namespace ProjectManager.Controls.TreeView
 			}
 		}
 
-        private void PopulateDirectories(GenericNodeList nodesToDie, bool recursive)
+        private void PopulateDirectories(GenericNodeList nodesToDie, bool recursive, Project project)
 		{
 			foreach (string directory in Directory.GetDirectories(BackingPath))
 			{
-				if (IsDirectoryExcluded(directory))
+				if (IsDirectoryExcluded(directory, project))
 					continue;
 
                 DirectoryNode node;
@@ -186,13 +187,13 @@ namespace ProjectManager.Controls.TreeView
 			}
 		}
 
-        private void PopulateFiles(GenericNodeList nodesToDie, bool recursive)
+        private void PopulateFiles(GenericNodeList nodesToDie, bool recursive, Project project)
 		{
             string[] files = Directory.GetFiles(BackingPath);
 
 			foreach (string file in files)
 			{
-				if (IsFileExcluded(file))
+				if (IsFileExcluded(file, project))
 					continue;
 
 				if (Tree.NodeMap.ContainsKey(file))
@@ -214,7 +215,7 @@ namespace ProjectManager.Controls.TreeView
 
             foreach (string file in files)
             {
-                if (IsFileExcluded(file))
+                if (IsFileExcluded(file, project))
                     continue;
 
                 GenericNode node = Tree.NodeMap[file];
@@ -288,21 +289,21 @@ namespace ProjectManager.Controls.TreeView
 			}
 		}
 
-		bool IsDirectoryExcluded(string path)
+		bool IsDirectoryExcluded(string path, Project project)
 		{
 			string dirName = Path.GetFileName(path);
 			foreach (string excludedDir in PluginMain.Settings.ExcludedDirectories)
 				if (dirName.Equals(excludedDir, StringComparison.OrdinalIgnoreCase))
 					return true;
 
-			return Project.IsPathHidden(path) && !Project.ShowHiddenPaths;
+            return !project.ShowHiddenPaths && project.IsPathHidden(path);
 		}
 
-		bool IsFileExcluded(string path)
+		bool IsFileExcluded(string path, Project project)
 		{
-			if (path == Project.ProjectPath) return true;
+			if (path == project.ProjectPath) return true;
 
-			return (Project.IsPathHidden(path) || path.IndexOf("\\.") >= 0 || ProjectTreeView.IsFileTypeHidden(path)) && !Project.ShowHiddenPaths;
+            return !project.ShowHiddenPaths && (project.IsPathHidden(path) || path.IndexOf("\\.") >= 0 || ProjectTreeView.IsFileTypeHidden(path));
 		}
 	}
 }

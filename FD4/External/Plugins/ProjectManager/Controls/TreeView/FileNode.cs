@@ -34,11 +34,14 @@ namespace ProjectManager.Controls.TreeView
 		/// </summary>
 		public static FileNode Create(string filePath)
 		{
+            Project project = Tree.ProjectOf(filePath);
+            if (project == null) return new FileNode(filePath);
+
             string ext = Path.GetExtension(filePath).ToLower();
 
-            if (Project.IsOutput(filePath))
+            if (project.IsOutput(filePath))
                 return new ProjectOutputNode(filePath);
-            else if (Project.IsInput(filePath))
+            else if (project.IsInput(filePath))
                 return new InputSwfNode(filePath);
             else if (FileInspector.IsSwf(filePath, ext) || FileInspector.IsSwc(filePath, ext))
                 return new SwfFileNode(filePath);
@@ -52,16 +55,17 @@ namespace ProjectManager.Controls.TreeView
 		{
 			base.Refresh(recursive);
 
+            Project project = MyProject;
 			string path = BackingPath;
             string ext = Path.GetExtension(path).ToLower();
 
-            if (Project.IsPathHidden(path))
+            if (project.IsPathHidden(path))
                 ImageIndex = Icons.HiddenFile.Index;
-            else if ((FileInspector.IsActionScript(path, ext) || FileInspector.IsHaxeFile(path, ext)) && Project.IsCompileTarget(path))
+            else if ((FileInspector.IsActionScript(path, ext) || FileInspector.IsHaxeFile(path, ext)) && project.IsCompileTarget(path))
                 ImageIndex = Icons.ActionScriptCompile.Index;
-            else if (FileInspector.IsMxml(path, ext) && Project.IsCompileTarget(path))
+            else if (FileInspector.IsMxml(path, ext) && project.IsCompileTarget(path))
                 ImageIndex = Icons.MxmlFileCompile.Index;
-            else if (FileInspector.IsCss(path, ext) && Project.IsCompileTarget(path))
+            else if (FileInspector.IsCss(path, ext) && project.IsCompileTarget(path))
                 ImageIndex = Icons.ActionScriptCompile.Index;
             else if (FileInspector.IsSwc(path) && Parent == null) // external SWC library
                 ImageIndex = Icons.Classpath.Index;
@@ -72,10 +76,10 @@ namespace ProjectManager.Controls.TreeView
 
 			Text = Path.GetFileName(path);
 
-            if (Project.IsLibraryAsset(path))
+            if (project.IsLibraryAsset(path))
             {
                 ForeColorRequest = Color.Blue;
-                LibraryAsset asset = Project.GetAsset(path);
+                LibraryAsset asset = project.GetAsset(path);
 
                 if (asset != null && asset.HasManualID)
                     Text += " (" + asset.ManualID + ")";

@@ -34,6 +34,7 @@ namespace HaXeContext
 
         private HaXeSettings hxsettings;
         private string currentSDK;
+        private string currentEnv;
         private Dictionary<string, List<string>> haxelibsCache;
         private bool hasAIRSupport;
         private bool hasMobileSupport;
@@ -164,7 +165,6 @@ namespace HaXeContext
             get { return platform == HaxeMovieOptions.NME_PLATFORM; }
         }
 
-
         private List<string> LookupLibrary(string lib)
         {
             if (haxelibsCache.ContainsKey(lib))
@@ -176,7 +176,10 @@ namespace HaXeContext
 
                 string hxPath = currentSDK;
                 if (hxPath != null && Path.IsPathRooted(hxPath))
+                {
+                    SetHaxeEnvironment(hxPath);
                     haxelib = Path.Combine(hxPath, haxelib);
+                }
                 
                 ProcessStartInfo pi = new ProcessStartInfo();
                 pi.FileName = haxelib;
@@ -212,6 +215,28 @@ namespace HaXeContext
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Properly switch between different Haxe SDKs
+        /// </summary>
+        private void SetHaxeEnvironment(string sdkPath)
+        {
+            if (currentEnv == sdkPath) return;
+            currentEnv = sdkPath;
+            Environment.SetEnvironmentVariable("HAXEPATH", sdkPath);
+
+            var neko = Path.GetFullPath(Path.Combine(sdkPath, "..\\neko"));
+            if (Directory.Exists(neko))
+                Environment.SetEnvironmentVariable("NEKO_INSTPATH", neko);
+            else neko = null;
+
+            var path = Environment.GetEnvironmentVariable("PATH");
+            path = Regex.Replace(path.Replace(currentSDK + ";", ""), "^[^;]+neko;", "", RegexOptions.IgnoreCase);
+            path = Regex.Replace(path.Replace(currentSDK + ";", ""), "^[^;]+haxe;", "", RegexOptions.IgnoreCase);
+            path = currentSDK.TrimEnd(new char[] { '/', '\\' }) + ";" + path;
+            if (neko != null) path = neko.TrimEnd(new char[] { '/', '\\' }) + ";" + path;
+            Environment.SetEnvironmentVariable("PATH", path);
         }
 
         /// <summary>
@@ -788,7 +813,7 @@ namespace HaXeContext
             {
                 Match genType = re_genericType.Match(cname);
                 if (genType.Success)
-                    return ResolveGenericType(genType.Groups["gen"].Value + "<T>", genType.Groups["type"].Value, inFile);
+                    return ResolveGenericType(genType.Groups["gen"].Value, genType.Groups["type"].Value, inFile);
                 else return ClassModel.VoidClass;
             }
 
@@ -846,7 +871,7 @@ namespace HaXeContext
             ClassModel aClass = base.ResolveType(baseType, inFile);
             if (aClass.IsVoid()) return aClass;
 
-            if (aClass.QualifiedName == "Dynamic<T>")
+            if (aClass.QualifiedName == "Dynamic")
             {
                 ClassModel indexClass = ResolveType(indexType, inFile);
                 //if (!indexClass.IsVoid()) return indexClass;
@@ -861,7 +886,7 @@ namespace HaXeContext
             // clone the type
             aClass = aClass.Clone() as ClassModel;
 
-            aClass.Name = baseType.Substring(baseType.LastIndexOf('.') + 1) + "@" + indexType;
+            aClass.Name = baseType.Substring(baseType.LastIndexOf('.') + 1) + "<" + indexType + ">";
             aClass.IndexType = indexType;
 
             string typed = "<" + indexType + ">";
@@ -970,10 +995,7 @@ namespace HaXeContext
             }
 
             // fix environment for command line tools
-            Environment.SetEnvironmentVariable("HAXEPATH", currentSDK);
-            var path = Environment.GetEnvironmentVariable("PATH");
-            path = currentSDK + ";" + Regex.Replace(path.Replace(currentSDK + ";", ""), "^[^;]+haxe;", "");
-            Environment.SetEnvironmentVariable("PATH", path);
+            SetHaxeEnvironment(currentSDK);
 
             // configure completion provider
             var haxeSettings = (settings as HaXeSettings);
@@ -1105,6 +1127,8 @@ namespace HaXeContext
                     member.Name = var;
                     member.Access = Visibility.Public;
                     member.Comments = desc;
+                    var p1 = desc.IndexOf('\r');
+                    var p2 = desc.IndexOf('\n');
 
                     // Package or Class
                     if (type == "")

@@ -874,7 +874,7 @@ namespace AS3Context
             {
                 Match genType = re_genericType.Match(cname);
                 if (genType.Success)
-                    return ResolveGenericType(genType.Groups["gen"].Value + ".<T>", genType.Groups["type"].Value, inFile);
+                    return ResolveGenericType(genType.Groups["gen"].Value, genType.Groups["type"].Value, inFile);
                 else return ClassModel.VoidClass;
             }
             return base.ResolveType(cname, inFile);
@@ -900,7 +900,7 @@ namespace AS3Context
             // clone the type
             ClassModel aClass = originalClass.Clone() as ClassModel;
 
-            aClass.Name = baseType + "@" + indexType;
+            aClass.Name = baseType + "<" + indexType + ">";
             aClass.IndexType = indexType;
 
             string typed = "<" + indexType + ">";

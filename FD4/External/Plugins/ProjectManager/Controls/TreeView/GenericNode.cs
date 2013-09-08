@@ -72,9 +72,9 @@ namespace ProjectManager.Controls.TreeView
 			get { return ProjectTreeView.Instance; }
 		}
 
-		protected static Project Project
+		protected Project MyProject
 		{
-			get { return Tree.Project; }
+			get { return Tree.ProjectOf(this); }
 		}
 
 		public override bool Equals(object obj)

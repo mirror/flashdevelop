@@ -85,7 +85,7 @@ namespace LoomContext
             {
                 proj = project as LoomProject;
                 proj.ProjectUpdating += new ProjectUpdatingHandler(proj_ProjectUpdating);
-                proj_ProjectUpdating();
+                proj_ProjectUpdating(proj);
                 if (lastProject != proj.ProjectPath)
                 {
                     lastProject = proj.ProjectPath;
@@ -137,7 +137,7 @@ namespace LoomContext
             }
         }
 
-        static void proj_ProjectUpdating()
+        static void proj_ProjectUpdating(Project project)
         {
             string newConfig = Path.Combine(proj.Directory, "loom.config");
             if (configPath != newConfig)

@@ -20,9 +20,9 @@ namespace ProjectManager.Projects
         Unknown
     }
 
-    public delegate void ChangedHandler();
-    public delegate void ProjectUpdatingHandler();
-    public delegate bool BeforeSaveHandler(string fileName);
+    public delegate void ChangedHandler(Project project);
+    public delegate void ProjectUpdatingHandler(Project project);
+    public delegate bool BeforeSaveHandler(Project project, string fileName);
 
     public abstract class Project : PluginCore.IProject
 	{
@@ -91,7 +91,7 @@ namespace ProjectManager.Projects
         protected bool AllowedSaving(string fileName)
         {
             if (ReadOnly && fileName == ProjectPath) return false;
-            if (BeforeSave != null) return BeforeSave(fileName);
+            if (BeforeSave != null) return BeforeSave(this, fileName);
             else return true;
         }
 
@@ -108,7 +108,7 @@ namespace ProjectManager.Projects
         public void OnClasspathChanged()
         {
             absClasspaths = null;
-            if (ClasspathChanged != null) ClasspathChanged();
+            if (ClasspathChanged != null) ClasspathChanged(this);
         }
 
 		#region Simple Properties
@@ -326,7 +326,7 @@ namespace ProjectManager.Projects
 
         public void UpdateVars(bool silent)
         {
-            if (!silent && ProjectUpdating != null) ProjectUpdating();
+            if (!silent && ProjectUpdating != null) ProjectUpdating(this);
             vars = new BuildEventVars(this).GetVars();
         }
 
