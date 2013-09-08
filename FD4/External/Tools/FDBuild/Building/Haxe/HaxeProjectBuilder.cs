@@ -41,7 +41,7 @@ namespace ProjectManager.Building.Haxe
             {
                 haxePath = haxePath.Replace("haxe.exe", "haxelib.exe");
                 string config = project.TargetBuild;
-                string haxeNmeArgs = String.Join(" ", BuildNmeCommand(extraClasspaths, output, config, noTrace, null)) + " " + connect;
+                string haxeNmeArgs = String.Join(" ", BuildNmeCommand(extraClasspaths, output, config, noTrace, null));// +" " + connect;
                 Console.WriteLine("haxelib " + haxeNmeArgs);
                 if (!ProcessRunner.Run(haxePath, haxeNmeArgs, false, false))
                     throw new BuildException("Build halted with errors (haxelib.exe).");
