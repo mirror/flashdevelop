@@ -33,6 +33,7 @@ namespace ASCompletion.Model
 		public string Name;
         public List<MemberModel> Parameters;
 		public string Type;
+        public string Template;
 		public string Comments;
         public string Value;
 		public int LineFrom;
@@ -50,13 +51,24 @@ namespace ASCompletion.Model
             Access = access;
         }
 
-		/// <summary>
+        virtual public string FullName
+        {
+            get
+            {
+                if (Template == null) return Name;
+                else if (InFile != null && InFile.haXe) return Name + Template;
+                else return Name + "." + Template;
+            }
+        }
+
+        /// <summary>
 		/// Clone member
 		/// </summary>
 		public Object Clone()
 		{
 			MemberModel copy = new MemberModel();
-			copy.Name = Name;
+            copy.Name = Name;
+            copy.Template = Template;
 			copy.Flags = Flags;
             copy.Access = Access;
 			copy.Namespace = Namespace;
@@ -71,6 +83,8 @@ namespace ASCompletion.Model
 			copy.Type = Type;
 			copy.Comments = Comments;
             copy.Value = Value;
+            copy.LineFrom = LineFrom;
+            copy.LineTo = LineTo;
 			return copy;
 		}
 		

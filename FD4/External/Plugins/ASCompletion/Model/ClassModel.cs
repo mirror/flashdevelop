@@ -44,8 +44,8 @@ namespace ASCompletion.Model
         public string Constructor;
         public MemberList Members;
 
-        private string extendsType;
-        private string indexType;
+        public string ExtendsType;
+        public string IndexType;
         public List<string> Implements;
         private WeakReference resolvedExtend;
 
@@ -58,15 +58,20 @@ namespace ASCompletion.Model
                 return InFile.Package + "." + InFile.Module + "." + Name;
             }
         }
-        public string ExtendsType
+
+        override public string FullName
         {
-            get { return extendsType; }
-            set { extendsType = value; }
-        }
-        public string IndexType
-        {
-            get { return indexType; }
-            set { indexType = value; }
+            get
+            {
+                if (Template == null || Name.IndexOf('<') > 0) return Name;
+                if (IndexType != null)
+                {
+                    if (InFile != null && InFile.haXe) return Name + IndexType;
+                    return Name + "." + IndexType;
+                }
+                else if (InFile != null && InFile.haXe) return Name + Template;
+                else return Name + "." + Template;
+            }
         }
 
         /// <summary>
@@ -109,22 +114,22 @@ namespace ASCompletion.Model
                 resolvedExtend = null;
                 return VoidClass;
             }
-            if (extendsType == null || extendsType.Length == 0)
+            if (ExtendsType == null || ExtendsType.Length == 0)
             {
                 if (this == VoidClass || (Flags & FlagType.Interface) > 0)
                 {
                     resolvedExtend = null;
                     return VoidClass;
                 }
-                extendsType = InFile.Context.DefaultInheritance(InFile.Package, Name);
-                if (extendsType == QualifiedName)
+                ExtendsType = InFile.Context.DefaultInheritance(InFile.Package, Name);
+                if (ExtendsType == QualifiedName)
                 {
-                    extendsType = InFile.Context.Features.voidKey;
+                    ExtendsType = InFile.Context.Features.voidKey;
                     resolvedExtend = null;
                     return VoidClass;
                 }
             }
-            ClassModel extends = InFile.Context.ResolveType(extendsType, InFile);
+            ClassModel extends = InFile.Context.ResolveType(ExtendsType, InFile);
             if (!extends.IsVoid())
             {
                 // check loops in inheritance
@@ -166,6 +171,7 @@ namespace ASCompletion.Model
         {
             ClassModel copy = new ClassModel();
             copy.Name = Name;
+            copy.Template = Template;
             copy.Flags = Flags;
             copy.Access = Access;
             copy.Namespace = Namespace;
@@ -184,11 +190,13 @@ namespace ASCompletion.Model
                 copy.Implements = new List<string>();
                 foreach (string cname in Implements) copy.Implements.Add(cname);
             }
-            copy.extendsType = extendsType;
-            copy.indexType = indexType;
+            copy.ExtendsType = ExtendsType;
+            copy.IndexType = IndexType;
             copy.Members = new MemberList();
             foreach (MemberModel item in Members)
                 copy.Members.Add(item.Clone() as MemberModel);
+            copy.LineFrom = LineFrom;
+            copy.LineTo = LineTo;
 
             return copy;
         }
@@ -278,8 +286,8 @@ namespace ASCompletion.Model
 
             if (ExtendsType != null)
             {
-                if ((this.Flags & FlagType.Abstract) > 0) sb.Append(" from ").Append(extendsType);
-                else sb.Append(" extends ").Append(extendsType);
+                if ((this.Flags & FlagType.Abstract) > 0) sb.Append(" from ").Append(ExtendsType);
+                else sb.Append(" extends ").Append(ExtendsType);
             }
             if (Implements != null)
             {
@@ -425,7 +433,7 @@ namespace ASCompletion.Model
                 if (qualified)
                     return String.Format("{0}{1} {2}", modifiers, classType, ofClass.QualifiedName);
                 else
-                    return String.Format("{0}{1} {2}", modifiers, classType, ofClass.Name);
+                    return String.Format("{0}{1} {2}", modifiers, classType, ofClass.FullName);
             }
         }
 

@@ -576,7 +576,7 @@ namespace ASCompletion.Context
 			}
 			
 			// avoid duplicated pathes
-            string upath = path.ToUpper().TrimEnd(new char[] { '\\', '/' });
+			string upath = path.ToUpper().TrimEnd(new char[] { '\\', '/' });
 			foreach(PathModel apath in classPath)
 			{
 				if (apath.Path.ToUpper() == upath)

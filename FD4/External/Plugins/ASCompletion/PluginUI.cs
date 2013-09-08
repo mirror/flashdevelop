@@ -462,7 +462,7 @@ namespace ASCompletion
                         sb.Append(member.Flags.ToString()).Append(member.ToString()).Append(member.LineFrom);
                     foreach (ClassModel aClass in aFile.Classes)
                     {
-                        sb.Append(aClass.Flags.ToString()).Append(aClass.Name).Append(aClass.LineFrom);
+                        sb.Append(aClass.Flags.ToString()).Append(aClass.FullName).Append(aClass.LineFrom);
                         sb.Append(aClass.ExtendsType);
                         if (aClass.Implements != null)
                             foreach (string implements in aClass.Implements)
@@ -556,7 +556,7 @@ namespace ASCompletion
                     {
                         img = ((aClass.Flags & FlagType.Intrinsic) > 0) ? ICON_INTRINSIC_TYPE :
                             ((aClass.Flags & FlagType.Interface) > 0) ? ICON_INTERFACE : ICON_TYPE;
-                        node = new TreeNode(aClass.Name, img, img);
+                        node = new TreeNode(aClass.FullName, img, img);
                         node.Tag = "class";
                         nodes.Add(node);
                         if (settings.ShowExtends) AddExtend(node.Nodes, aClass);
@@ -591,6 +591,7 @@ namespace ASCompletion
         private void AddExtend(TreeNodeCollection tree, ClassModel aClass)
         {
             TreeNode folder = new TreeNode(TextHelper.GetString("Info.ExtendsNode"), ICON_FOLDER_CLOSED, ICON_FOLDER_OPEN);
+            //aClass.ResolveExtends();
             while (aClass.ExtendsType != null && aClass.ExtendsType.Length > 0 
                 && aClass.ExtendsType != "Object" 
                 && (!aClass.InFile.haXe || aClass.ExtendsType != "Dynamic"))

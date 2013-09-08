@@ -1937,10 +1937,10 @@ namespace ASCompletion.Completion
             int position = Sci.CurrentPos;
             ContextFeatures features = ASContext.Context.Features;
             ASExpr local = GetExpression(Sci, position);
-            if (!local.Value.StartsWith(expr.Value)
+            if (!local.Value.StartsWith(expr.Value) 
                 || expr.Value.LastIndexOf(features.dot) != local.Value.LastIndexOf(features.dot))
                 return;
-            string word = Sci.GetWordLeft(position - 1, false);
+            string word = Sci.GetWordLeft(position-1, false);
 
             // show completion
             List<ICompletionListItem> customList = new List<ICompletionListItem>();

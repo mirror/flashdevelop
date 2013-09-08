@@ -62,7 +62,7 @@ namespace ASCompletion
 
         class TypeTreeNode : TreeNode
         {
-            public TypeTreeNode(ClassModel model) : base(model.Name)
+            public TypeTreeNode(ClassModel model) : base(model.FullName)
             {
                 Tag = model.InFile.FileName + "@" + model.Name;
                 if ((model.Flags & FlagType.Interface) > 0) ImageIndex = SelectedImageIndex = PluginUI.ICON_INTERFACE;

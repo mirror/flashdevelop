@@ -800,6 +800,11 @@ namespace ASCompletion.Model
                                 {
                                     inCode = true;
                                 }
+                                else if (directive.StartsWith("end"))
+                                {
+                                    inCode = true; // directive end
+                                    matching = 0;
+                                }
                                 else inCode = true;
 
                                 // FD cache custom directive
@@ -1234,7 +1239,12 @@ namespace ASCompletion.Model
                                     if (curMember == null)
                                     {
                                         evalToken = 0;
-                                        inGeneric = true;
+                                        if (inGeneric) paramTempCount++;
+                                        else
+                                        {
+                                            paramTempCount = 1;
+                                            inGeneric = true;
+                                        }
                                         addChar = true;
                                     }
                                     else
@@ -1265,8 +1275,12 @@ namespace ASCompletion.Model
                                 if (!inValue)
                                 {
                                     addChar = true;
-                                    if (c1 == '>' && inGeneric && paramTempCount == 0 && paramBraceCount == 0
-                                        && paramSqCount == 0 && paramParCount == 0) inGeneric = false;
+                                    if (c1 == '>' && inGeneric)
+                                    {
+                                        if (paramTempCount > 0) paramTempCount--;
+                                        if (paramTempCount == 0 && paramBraceCount == 0
+                                            && paramSqCount == 0 && paramParCount == 0) inGeneric = false;
+                                    }
                                 }
                             }
                             else
@@ -1833,7 +1847,7 @@ namespace ASCompletion.Model
                 // modifiers
                 else
                 {
-                    if (context == FlagType.Class)
+                    if (context == FlagType.Class || context == FlagType.TypeDef)
                     {
                         if (token == "extends")
                         {
@@ -2049,7 +2063,7 @@ namespace ASCompletion.Model
                     curModifiers = 0;
                     curAccess = Visibility.Public;
                 }
-                else if (!inTypedef && curModifiers == FlagType.TypeDef && curClass != null)
+                else if (!inTypedef && curModifiers == FlagType.TypeDef && curClass != null && token != "extends")
                 {
                     curClass.ExtendsType = token;
                     curModifiers = 0;
@@ -2156,7 +2170,7 @@ namespace ASCompletion.Model
                                     Match m = ASFileParserRegexes.ValidTypeName.Match(lastComment);
                                     if (m.Success)
                                     {
-                                        token += "@" + m.Groups["type"].Value;
+                                        token += "<" + m.Groups["type"].Value + ">";
                                         lastComment = null;
                                     }
                                 }
@@ -2198,17 +2212,19 @@ namespace ASCompletion.Model
                                 curAccess = Visibility.Private;
 
                             curClass = new ClassModel();
-                            model.Classes.Add(curClass);
                             curClass.InFile = model;
                             curClass.Comments = curComment;
-                            curClass.Type = QualifiedName(model, token);
-                            curClass.Name = token;
+                            var qtype = QualifiedName(model, token);
+                            curClass.Type = qtype.Type;
+                            curClass.Template = qtype.Template;
+                            curClass.Name = qtype.Name;
                             curClass.Constructor = (haXe) ? "new" : token;
                             curClass.Flags = curModifiers;
                             curClass.Access = (curAccess == 0) ? features.classModifierDefault : curAccess;
                             curClass.Namespace = curNamespace;
                             curClass.LineFrom = (modifiersLine != 0) ? modifiersLine : curToken.Line;
                             curClass.LineTo = curToken.Line;
+                            AddClass(model, curClass);
                         }
                         else
                         {
@@ -2238,21 +2254,30 @@ namespace ASCompletion.Model
                                 curClass.LineTo = (modifiersLine != 0) ? modifiersLine - 1 : curToken.Line - 1;
                             }
                             curClass = new ClassModel();
-                            model.Classes.Add(curClass);
                             curClass.InFile = model;
                             curClass.Comments = curComment;
-                            curClass.Type = QualifiedName(model, token);
-                            curClass.Name = token;
+                            var qtype = QualifiedName(model, token);
+                            curClass.Type = qtype.Type;
+                            curClass.Template = qtype.Template;
+                            curClass.Name = qtype.Name;
                             curClass.Flags = curModifiers;
                             curClass.Access = (curAccess == 0) ? features.enumModifierDefault : curAccess;
                             curClass.Namespace = curNamespace;
                             curClass.LineFrom = (modifiersLine != 0) ? modifiersLine : curToken.Line;
                             curClass.LineTo = curToken.Line;
+                            AddClass(model, curClass);
                         }
                         break;
 
                     case FlagType.TypeDef:
-                        if (inTypedef && curClass != null && prevToken.Text != "typedef")
+                        if (curModifiers == FlagType.Extends) // cached syntax
+                        {
+                            if (curClass != null)
+                            {
+                                curClass.ExtendsType = token;
+                            }
+                        }
+                        else if (inTypedef && curClass != null && prevToken.Text != "typedef")
                         {
                             member = new MemberModel();
                             member.Comments = curComment;
@@ -2265,23 +2290,28 @@ namespace ASCompletion.Model
                             //
                             curMember = member;
                         }
-                        else
+                        else 
                         {
                             if (curClass != null)
                             {
                                 curClass.LineTo = (modifiersLine != 0) ? modifiersLine - 1 : curToken.Line - 1;
                             }
                             curClass = new ClassModel();
-                            model.Classes.Add(curClass);
                             curClass.InFile = model;
                             curClass.Comments = curComment;
-                            curClass.Type = QualifiedName(model, token);
-                            curClass.Name = token;
+                            var qtype = QualifiedName(model, token);
+                            curClass.Type = qtype.Type;
+                            curClass.Template = qtype.Template;
+                            curClass.Name = qtype.Name;
                             curClass.Flags = FlagType.Class | FlagType.TypeDef;
                             curClass.Access = (curAccess == 0) ? features.typedefModifierDefault : curAccess;
                             curClass.Namespace = curNamespace;
                             curClass.LineFrom = (modifiersLine != 0) ? modifiersLine : curToken.Line;
                             curClass.LineTo = curToken.Line;
+                            AddClass(model, curClass);
+                            if (token == "Container")
+                            {
+                            }
                         }
                         break;
 
@@ -2311,16 +2341,18 @@ namespace ASCompletion.Model
                                 curClass.LineTo = (modifiersLine != 0) ? modifiersLine - 1 : curToken.Line - 1;
                             }
                             curClass = new ClassModel();
-                            model.Classes.Add(curClass);
                             curClass.InFile = model;
                             curClass.Comments = curComment;
-                            curClass.Type = QualifiedName(model, token);
-                            curClass.Name = token;
+                            var qtype = QualifiedName(model, token);
+                            curClass.Type = qtype.Type;
+                            curClass.Template = qtype.Template;
+                            curClass.Name = qtype.Name;
                             curClass.Flags = FlagType.Class | FlagType.Abstract;
                             curClass.Access = (curAccess == 0) ? features.typedefModifierDefault : curAccess;
                             curClass.Namespace = curNamespace;
                             curClass.LineFrom = (modifiersLine != 0) ? modifiersLine : curToken.Line;
                             curClass.LineTo = curToken.Line;
+                            AddClass(model, curClass);
                         }
                         break;
 
@@ -2434,15 +2466,39 @@ namespace ASCompletion.Model
             }
             return false;
         }
+
+        private void AddClass(FileModel model, ClassModel curClass)
+        {
+            // avoid empty duplicates due to Haxe directives
+            foreach(ClassModel aClass in model.Classes) 
+                if (aClass.Name == curClass.Name && aClass.Members.Count == 0)
+                {
+                    model.Classes.Remove(aClass);
+                    break;
+                }
+            model.Classes.Add(curClass);
+        }
         #endregion
 
         #region tool methods
 
-        public string QualifiedName(FileModel InFile, string Name) 
+        public QType QualifiedName(FileModel InFile, string Name) 
         {
-            if (InFile.Package == "") return Name;
-            if (InFile.Module == "" || InFile.Module == Name) return InFile.Package + "." + Name;
-            return InFile.Package + "." + InFile.Module + "." + Name;
+            var qt = new QType();
+            var type = Name;
+            if (InFile.Package == "") type = Name;
+            else if (InFile.Module == "" || InFile.Module == Name) type = InFile.Package + "." + Name;
+            else type = InFile.Package + "." + InFile.Module + "." + Name;
+            qt.Type = type;
+            int p = Name.IndexOf('<');
+            if (p > 0)
+            {
+                qt.Template = Name.Substring(p);
+                if (Name[p - 1] == '.') p--;
+                qt.Name = Name.Substring(0, p);
+            }
+            else qt.Name = Name;
+            return qt;
         }
 
         private String LastStringToken(string token, string separator)
@@ -2452,5 +2508,12 @@ namespace ASCompletion.Model
         }
 
         #endregion
+    }
+
+    public class QType
+    {
+        public string Name;
+        public string Type;
+        public string Template;
     }
 }

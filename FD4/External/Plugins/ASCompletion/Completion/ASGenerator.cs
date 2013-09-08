@@ -1131,7 +1131,7 @@ namespace ASCompletion.Completion
 
                 case GeneratorJobType.AddImport:
                     position = Sci.CurrentPos;
-                    if ((member.Flags & (FlagType.Class|FlagType.Enum|FlagType.Struct|FlagType.TypeDef)) == 0)
+                    if ((member.Flags & (FlagType.Class | FlagType.Enum | FlagType.Struct | FlagType.TypeDef)) == 0)
                     {
                         if (member.InFile == null) break;
                         member.Type = member.Name;
